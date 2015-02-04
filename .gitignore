@@ -1,0 +1,10 @@
+/_build
+/deps
+erl_crash.dump
+*.ez
+
+*.tmlanguage.cache
+*.tmPreferences.cache
+*.stTheme.cache
+*.sublime-workspace
+*.sublime-project
