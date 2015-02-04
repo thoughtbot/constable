@@ -16,6 +16,9 @@ config :constable_api, ConstableApi.Endpoint,
   http: [port: System.get_env("PORT")],
   secret_key_base: "tJ+MdrPlKWMpmz7JyJgSu/11xvwnNZo7Sz8IAacy9MM6di3GqackE9iNjhkHI9p8"
 
+config :constable_api, ConstableApi.Repo,
+  url: System.get_env("DATABASE_URL")
+
 # Do not pring debug messages in production
 config :logger, level: :info
 
