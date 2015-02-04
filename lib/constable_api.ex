@@ -9,6 +9,7 @@ defmodule ConstableApi do
     children = [
       # Start the endpoint when the application starts
       worker(ConstableApi.Endpoint, []),
+      worker(ConstableApi.Repo, [])
 
       # Here you could define other workers and supervisors as children
       # worker(ConstableApi.Worker, [arg1, arg2, arg3]),

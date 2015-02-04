@@ -18,8 +18,7 @@ defmodule ConstableApi.Router do
     get "/", PageController, :index
   end
 
-  # Other scopes may use custom stacks.
-  # scope "/api", ConstableApi do
-  #   pipe_through :api
-  # end
+  socket "/ws", ConstableApi do
+    channel "announcements*", AnnouncementChannel
+  end
 end

@@ -5,6 +5,10 @@ config :constable_api, ConstableApi.Endpoint,
   debug_errors: true,
   cache_static_lookup: false
 
+config :constable_api, ConstableApi.Repo,
+  database: "constable_api_development",
+  hostname: "localhost"
+
 # Enables code reloading for development
 config :phoenix, :code_reloader, true
 
