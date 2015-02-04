@@ -8,7 +8,7 @@ defmodule ConstableApi.AnnouncementChannel do
   end
 
   def handle_in("announcements:index", _params, socket) do
-    announcements = Repo.all(Announcement)
+    announcements = Repo.all(Announcement) |> set_ids_as_keys
     reply socket, "announcements:index", %{announcements: announcements}
     {:ok, socket}
   end
@@ -17,5 +17,11 @@ defmodule ConstableApi.AnnouncementChannel do
     announcement = %Announcement{title: title, body: body} |> Repo.insert
     broadcast socket, "announcements:create", announcement
     {:ok, socket}
+  end
+
+  defp set_ids_as_keys(announcements) do
+    Enum.reduce(announcements, %{}, fn(announcement, announcements) ->
+      Map.put(announcements, to_string(announcement.id), announcement)
+    end)
   end
 end
