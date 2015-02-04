@@ -1,0 +1,13 @@
+#!/usr/bin/env sh
+
+# Exit if any subcommand fails
+set -e
+
+# Set up phoenix
+mix deps.get
+mix deps.compile
+mix compile
+
+# Set up database
+mix ecto.create
+mix ecto.migrate
