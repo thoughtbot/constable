@@ -3,6 +3,7 @@
 erl_crash.dump
 *.ez
 
+.env
 *.tmlanguage.cache
 *.tmPreferences.cache
 *.stTheme.cache

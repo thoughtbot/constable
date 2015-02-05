@@ -5,6 +5,7 @@ defmodule ConstableApi do
   # for more information on OTP Applications
   def start(_type, _args) do
     import Supervisor.Spec, warn: false
+    setup_dependencies
 
     children = [
       # Start the endpoint when the application starts
@@ -19,6 +20,12 @@ defmodule ConstableApi do
     # for other strategies and supported options
     opts = [strategy: :one_for_one, name: ConstableApi.Supervisor]
     Supervisor.start_link(children, opts)
+  end
+
+  defp setup_dependencies do
+    Pact.start
+    Pact.put("token_retriever", OAuth2.Strategy.AuthCode)
+    Pact.put("request_with_access_token", OAuth2.AccessToken)
   end
 
   # Tell Phoenix to update the endpoint configuration

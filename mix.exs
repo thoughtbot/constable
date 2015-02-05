@@ -15,10 +15,12 @@ defmodule ConstableApi.Mixfile do
   # Type `mix help compile.app` for more information
   def application do
     [mod: {ConstableApi, []},
-     applications: app_list]
+     applications: app_list(Mix.env)]
   end
 
-  defp app_list, do: [:phoenix, :cowboy, :logger, :postgrex, :ecto]
+  defp app_list(:dev), do: [:dotenv | app_list]
+  defp app_list(_), do: app_list
+  defp app_list, do: [:phoenix, :cowboy, :logger, :postgrex, :ecto, :httpoison]
 
   # Specifies your project dependencies
   #
@@ -28,7 +30,11 @@ defmodule ConstableApi.Mixfile do
       {:postgrex, ">= 0.0.0"},
       {:ecto, "~> 0.5"},
       {:phoenix, "~> 0.8.0"},
-      {:cowboy, "~> 1.0"}
+      {:cowboy, "~> 1.0"},
+      {:dotenv, "~> 0.0.4"},
+      {:secure_random, "~> 0.1"},
+      {:oauth2, "~> 0.0.3"},
+      {:pact, "~> 0.0.1"}
     ]
   end
 end

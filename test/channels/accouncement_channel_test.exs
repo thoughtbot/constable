@@ -5,6 +5,31 @@ defmodule AnnouncementChannelTest do
   alias ConstableApi.Repo
   alias ConstableApi.Announcement
   alias ConstableApi.AnnouncementChannel
+  alias ConstableApi.User
+
+  test "joins the socket when the auth token matches a user" do
+    user = %User{email: "foo@bar.com"} |> Repo.insert
+    socket = socket_with_topic
+
+    {status, socket} =
+      handle_join(AnnouncementChannel, %{"token" => user.token}, socket)
+
+    assert status == :ok
+    assert socket == socket
+  end
+
+  test "returns error when joining with an incorrect token" do
+    user = %User{email: "foo@bar.com"} |> Repo.insert
+    bad_token = "abc"
+    socket = socket_with_topic
+
+    {status, socket, message} =
+      handle_join(AnnouncementChannel, %{"token" => bad_token}, socket)
+
+    assert status == :error
+    assert socket == socket
+    assert message == :unauthorized
+  end
 
   test "announcements:index returns announcements with ids as the key" do
     announcement = %Announcement{title: "Foo", body: "Bar"} |> Repo.insert
@@ -40,9 +65,16 @@ defmodule AnnouncementChannelTest do
     }
   end
 
+  def handle_join(channel, params, socket) do
+    channel.join("", params, socket)
+  end
+
+  def socket_with_topic(topic \\ "") do
+    Socket.put_current_topic(new_socket(topic), topic)
+  end
+
   def handle_in_topic(channel, topic, params \\ %{}) do
-    socket = Socket.put_current_topic(new_socket(topic), topic)
-    channel.handle_in(topic, params, socket)
+    channel.handle_in(topic, params, socket_with_topic(topic))
   end
 
   def new_socket(topic) do

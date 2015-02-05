@@ -2,9 +2,15 @@ defmodule ConstableApi.AnnouncementChannel do
   use Phoenix.Channel
   alias ConstableApi.Repo
   alias ConstableApi.Announcement
+  alias ConstableApi.User
+  import Ecto.Query
 
-  def join(_topic, _auth_message, socket) do
-    {:ok, socket}
+  def join(_topic, %{"token" => token}, socket) do
+    if get_user_with_token(token) do
+      {:ok, socket}
+    else
+      {:error, socket, :unauthorized}
+    end
   end
 
   def handle_in("announcements:index", _params, socket) do
@@ -23,5 +29,9 @@ defmodule ConstableApi.AnnouncementChannel do
     Enum.reduce(announcements, %{}, fn(announcement, announcements) ->
       Map.put(announcements, to_string(announcement.id), announcement)
     end)
+  end
+
+  defp get_user_with_token(token) do
+    Repo.one(from u in User, where: u.token == ^token)
   end
 end
