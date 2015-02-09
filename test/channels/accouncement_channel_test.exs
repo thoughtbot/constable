@@ -6,6 +6,8 @@ defmodule AnnouncementChannelTest do
   alias ConstableApi.Announcement
   alias ConstableApi.AnnouncementChannel
   alias ConstableApi.User
+  alias ConstableApi.Comment
+  alias ConstableApi.Serializers
 
   test "joins the socket when the auth token matches a user" do
     user = %User{email: "foo@bar.com"} |> Repo.insert
@@ -19,7 +21,7 @@ defmodule AnnouncementChannelTest do
   end
 
   test "returns error when joining with an incorrect token" do
-    user = %User{email: "foo@bar.com"} |> Repo.insert
+    %User{email: "foo@bar.com"} |> Repo.insert
     bad_token = "abc"
     socket = socket_with_topic
 
@@ -32,12 +34,32 @@ defmodule AnnouncementChannelTest do
   end
 
   test "announcements:index returns announcements with ids as the key" do
-    announcement = %Announcement{title: "Foo", body: "Bar"} |> Repo.insert
+    announcement = %Announcement{title: "Foo", body: "Bar"}
+    |> Repo.insert
+    |> Repo.preload(:comments)
     announcement_id = to_string(announcement.id)
 
     handle_in_topic(AnnouncementChannel, "announcements:index")
 
-    announcements = %{} |> Map.put(announcement_id, announcement)
+    announcements = %{
+      announcements:
+      Map.put(%{}, announcement_id, Serializers.to_json(announcement))
+    }
+    assert_socket_replied_with_payload("announcements:index", announcements)
+  end
+
+  test "announcements:index returns announcements with embedded comments" do
+    announcement = %Announcement{title: "Foo", body: "Bar"} |> Repo.insert
+    %Comment{body: "foo", announcement_id: announcement.id} |> Repo.insert
+    announcement = announcement |> Repo.preload(:comments)
+    announcement_id = to_string(announcement.id)
+
+    handle_in_topic(AnnouncementChannel, "announcements:index")
+
+    announcements = %{
+      announcements:
+      Map.put(%{}, announcement_id, Serializers.to_json(announcement))
+    }
     assert_socket_replied_with_payload("announcements:index", announcements)
   end
 
@@ -54,14 +76,14 @@ defmodule AnnouncementChannelTest do
   def assert_socket_broadcasted_with_payload(topic, payload) do
     assert_received {
       :socket_broadcast,
-      %Socket.Message{event: topic, payload: payload, topic: topic}
+      %Socket.Message{event: ^topic, payload: ^payload, topic: ^topic}
     }
   end
 
   def assert_socket_replied_with_payload(topic, payload) do
     assert_received {
       :socket_reply,
-      %Socket.Message{event: topic, payload: payload, topic: topic}
+      %Socket.Message{event: ^topic, payload: ^payload, topic: ^topic}
     }
   end
 

@@ -3,7 +3,6 @@ defmodule ConstableApi.AuthController do
   import Ecto.Query
   require Logger
 
-  alias OAuth2.AccessToken
   alias OAuth2.Strategy.AuthCode
   alias ConstableApi.User
   alias ConstableApi.Repo
@@ -26,8 +25,7 @@ defmodule ConstableApi.AuthController do
   def callback(conn, %{"code" => code}) do
     token = Pact.get("token_retriever").get_token!(strategy(conn), code, token_params)
     user = get_email_address(token) |> find_or_insert_user
-    conn
-    |> redirect(external: redirect_after_success_uri(user.token))
+    conn |> redirect(external: redirect_after_success_uri(user.token))
   end
 
   def callback(conn, %{"error" => error_message}) do
@@ -56,7 +54,7 @@ defmodule ConstableApi.AuthController do
   end
 
   defp auth_params do
-    params = %{redirect_uri: System.get_env("REDIRECT_URI"), scope: "openid email"}
+    %{redirect_uri: System.get_env("REDIRECT_URI"), scope: "openid email"}
   end
 
   defp token_params do

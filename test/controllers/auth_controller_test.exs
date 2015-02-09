@@ -32,7 +32,7 @@ defmodule AuthControllerTest do
     assert_redirected(conn, auth_uri)
   end
 
-  test "callback redirects to success URI with user auth token" do
+  test "callback redirects to success URI with constable user auth token" do
     Pact.override(self, "token_retriever", FakeTokenRetriever)
     Pact.override(self, "request_with_access_token", FakeRequestWithAccessToken)
 

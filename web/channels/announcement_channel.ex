@@ -3,6 +3,7 @@ defmodule ConstableApi.AnnouncementChannel do
   alias ConstableApi.Repo
   alias ConstableApi.Announcement
   alias ConstableApi.User
+  alias ConstableApi.Serializers
   import Ecto.Query
 
   def join(_topic, %{"token" => token}, socket) do
@@ -14,7 +15,9 @@ defmodule ConstableApi.AnnouncementChannel do
   end
 
   def handle_in("announcements:index", _params, socket) do
-    announcements = Repo.all(Announcement) |> set_ids_as_keys
+    announcements = Repo.all(from a in Announcement, preload: :comments)
+    |> Enum.map(&Serializers.to_json/1)
+    |> set_ids_as_keys
     reply socket, "announcements:index", %{announcements: announcements}
     {:ok, socket}
   end
