@@ -39,7 +39,7 @@ defmodule AuthControllerTest do
     conn = call_router(Router, :get, "/auth/callback", %{"code" => "1234"})
 
     user_auth_token = Repo.one(from u in User).token
-    assert_redirected(conn, "/#/token/#{user_auth_token}")
+    assert_redirected(conn, "/#{user_auth_token}")
   end
 
   test "callback redirects to the root path when there is an error" do

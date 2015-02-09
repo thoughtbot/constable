@@ -48,7 +48,7 @@ defmodule ConstableApi.AuthController do
   end
 
   defp redirect_after_success_uri(token) do
-    "#{System.get_env("REDIRECT_AFTER_SUCCESS_HOST")}/#/token/#{token}"
+    "#{System.get_env("REDIRECT_AFTER_SUCCESS_HOST")}/#{token}"
   end
 
   defp authorize_url(conn) do
