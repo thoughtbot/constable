@@ -26,15 +26,12 @@ defmodule RouterHelper do
     end
   end
 
-  def call_router(router, verb, path, params \\ nil, headers \\ []) do
-    conn = conn(verb, path, params, headers)
-    |> Plug.Conn.fetch_params
-    |> with_session
-    |> router.call(router.init([]))
+  def call_router(conn) do
+    conn |> ConstableApi.Router.call(ConstableApi.Router.init([]))
   end
 
-  def phoenix_conn(verb, params \\ nil, headers \\ []) do
-    conn = conn(verb, "/", params, headers)
+  def phoenix_conn(verb, path \\ "/", params \\ nil, headers \\ []) do
+    conn = conn(verb, path, params, headers)
     |> Plug.Conn.fetch_params
     |> with_session
   end

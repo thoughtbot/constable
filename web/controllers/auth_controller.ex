@@ -12,8 +12,10 @@ defmodule ConstableApi.AuthController do
   @doc """
   This action is reached via `/auth` and redirects to the Google Auth API.
   """
-  def index(conn, _params) do
-    redirect conn, external: authorize_url(conn)
+  def index(conn, %{"redirect_uri" => redirect_uri}) do
+    conn
+    |> put_session(:redirect_after_success_uri, redirect_uri)
+    |> redirect external: authorize_url(conn)
   end
 
   @doc """
@@ -25,7 +27,7 @@ defmodule ConstableApi.AuthController do
   def callback(conn, %{"code" => code}) do
     token = Pact.get("token_retriever").get_token!(strategy(conn), code, token_params)
     user = get_email_address(token) |> find_or_insert_user
-    conn |> redirect(external: redirect_after_success_uri(user.token))
+    conn |> redirect(external: redirect_after_success_uri(conn, user.token))
   end
 
   def callback(conn, %{"error" => error_message}) do
@@ -45,8 +47,8 @@ defmodule ConstableApi.AuthController do
     user
   end
 
-  defp redirect_after_success_uri(token) do
-    "#{System.get_env("REDIRECT_AFTER_SUCCESS_HOST")}/#{token}"
+  defp redirect_after_success_uri(conn, token) do
+    "#{get_session(conn, :redirect_after_success_uri)}/#{token}"
   end
 
   defp authorize_url(conn) do
