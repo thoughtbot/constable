@@ -1,7 +1,6 @@
 defmodule AuthControllerTest do
   use ConstableApi.TestWithEcto, async: false
   use RouterHelper
-  alias ConstableApi.Router
   alias ConstableApi.User
   alias ConstableApi.Repo
   import Ecto.Query
