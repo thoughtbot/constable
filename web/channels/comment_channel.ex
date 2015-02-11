@@ -14,6 +14,7 @@ defmodule ConstableApi.CommentChannel do
     comment = %Comment{body: body, announcement_id: announcement_id}
     |> Repo.insert
 
+    reply socket, "comments:create", Serializers.to_json(comment)
     broadcast socket, "comments:create", Serializers.to_json(comment)
   end
 end

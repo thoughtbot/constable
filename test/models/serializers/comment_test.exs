@@ -11,7 +11,8 @@ defmodule CommentTest do
 
     assert comment_as_json == %{
       id: comment.id,
-      body: comment.body
+      body: comment.body,
+      announcement_id: comment.announcement_id
     }
   end
 end
