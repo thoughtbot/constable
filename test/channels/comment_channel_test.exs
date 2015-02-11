@@ -3,13 +3,12 @@ defmodule CommentChannelTest do
 
   import ChannelTestHelper
   alias ConstableApi.Repo
-  alias ConstableApi.Announcement
   alias ConstableApi.Comment
   alias ConstableApi.CommentChannel
   alias ConstableApi.Serializers
 
   test "comments:create broadcasts comments:create with new comment" do
-    announcement = %Announcement{title: "foo", body: "bar"} |> Repo.insert
+    announcement = Forge.saved_announcement(Repo)
     Phoenix.PubSub.subscribe(self, "comments:create")
     comment_params = %{
       "announcement_id" => announcement.id,

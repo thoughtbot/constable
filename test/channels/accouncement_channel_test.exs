@@ -1,16 +1,13 @@
 defmodule AnnouncementChannelTest do
   use ConstableApi.TestWithEcto, async: false
-
   import ChannelTestHelper
   alias ConstableApi.Repo
   alias ConstableApi.Announcement
   alias ConstableApi.AnnouncementChannel
-  alias ConstableApi.Comment
   alias ConstableApi.Serializers
 
   test "announcements:index returns announcements with ids as the key" do
-    announcement = %Announcement{title: "Foo", body: "Bar"}
-    |> Repo.insert
+    announcement = Forge.saved_announcement(Repo)
     |> Repo.preload(:comments)
     announcement_id = to_string(announcement.id)
 
@@ -24,8 +21,8 @@ defmodule AnnouncementChannelTest do
   end
 
   test "announcements:index returns announcements with embedded comments" do
-    announcement = %Announcement{title: "Foo", body: "Bar"} |> Repo.insert
-    %Comment{body: "foo", announcement_id: announcement.id} |> Repo.insert
+    announcement = Forge.saved_announcement(Repo)
+    Forge.saved_comment(Repo, announcement_id: announcement.id)
     announcement = announcement |> Repo.preload(:comments)
     announcement_id = to_string(announcement.id)
 

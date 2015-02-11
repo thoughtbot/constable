@@ -19,6 +19,7 @@ defmodule ConstableApi.Mixfile do
   end
 
   defp app_list(:dev), do: [:dotenv | app_list]
+  defp app_list(:test), do: [:blacksmith | app_list]
   defp app_list(_), do: app_list
   defp app_list, do: [:phoenix, :cowboy, :logger, :postgrex, :ecto, :httpoison]
 
@@ -34,7 +35,8 @@ defmodule ConstableApi.Mixfile do
       {:dotenv, "~> 0.0.4"},
       {:secure_random, "~> 0.1"},
       {:oauth2, "~> 0.0.3"},
-      {:pact, "~> 0.0.1"}
+      {:pact, "~> 0.0.1"},
+      {:blacksmith, "~> 0.1.1"}
     ]
   end
 end

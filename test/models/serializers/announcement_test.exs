@@ -1,14 +1,11 @@
 defmodule AnnouncementTest do
   use ConstableApi.TestWithEcto, async: false
-  alias ConstableApi.Comment
-  alias ConstableApi.Announcement
   alias ConstableApi.Repo
   alias ConstableApi.Serializers
 
   test "returns map with id, title, body and embedded comments" do
-    announcement = %Announcement{body: "foo"} |> Repo.insert
-    comment = %Comment{body: "bar", announcement_id: announcement.id}
-    |> Repo.insert
+    announcement = Forge.saved_announcement(Repo)
+    comment = Forge.saved_comment(Repo, announcement_id: announcement.id)
     announcement = announcement |> Repo.preload(:comments)
 
     announcement_as_json = Serializers.to_json(announcement)
