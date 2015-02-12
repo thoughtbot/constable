@@ -17,6 +17,7 @@ defmodule AnnouncementChannelTest do
       announcements:
       Map.put(%{}, announcement_id, Serializers.to_json(announcement))
     }
+
     assert_socket_replied_with_payload("announcements:index", announcements)
   end
 
