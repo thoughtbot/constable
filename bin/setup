@@ -11,3 +11,7 @@ mix compile
 # Set up database
 mix ecto.create
 mix ecto.migrate
+
+# Set up heroku
+heroku git:remote -r staging -a constable-api-staging
+heroku git:remote -r production -a constable-api-production
