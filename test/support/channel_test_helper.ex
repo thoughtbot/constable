@@ -2,6 +2,14 @@ defmodule ChannelTestHelper do
   import ExUnit.Assertions
   alias Phoenix.Socket
 
+  def handle_join(channel, params, socket) do
+    channel.join("", params, socket)
+  end
+
+  def handle_in_topic(socket, channel, params \\ %{}) do
+    channel.handle_in(socket.topic, params, socket)
+  end
+
   def assert_socket_broadcasted_with_payload(topic, payload) do
     assert_received {
       :socket_broadcast,
@@ -16,19 +24,15 @@ defmodule ChannelTestHelper do
     }
   end
 
-  def handle_join(channel, params, socket) do
-    channel.join("", params, socket)
+  def assign_current_user(socket, user_id) do
+    Socket.assign(socket, :current_user_id, user_id)
   end
 
   def socket_with_topic(topic \\ "") do
     Socket.put_current_topic(new_socket(topic), topic)
   end
 
-  def handle_in_topic(channel, topic, params \\ %{}) do
-    channel.handle_in(topic, params, socket_with_topic(topic))
-  end
-
-  def new_socket(topic) do
+  defp new_socket(topic) do
     %Socket{
       pid: self,
       router: ConstableApi.Router,

@@ -36,7 +36,8 @@ defmodule ConstableApi.Mixfile do
       {:secure_random, "~> 0.1"},
       {:oauth2, "~> 0.0.3"},
       {:pact, "~> 0.0.1"},
-      {:blacksmith, "~> 0.1.1"}
+      {:blacksmith, "~> 0.1.1"},
+      {:exgravatar, "~> 0.2.0"}
     ]
   end
 end

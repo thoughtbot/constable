@@ -3,16 +3,16 @@ defmodule ConstableApi.AnnouncementChannel do
   alias ConstableApi.Repo
   alias ConstableApi.Announcement
   alias ConstableApi.Serializers
-  alias ConstableApi.Channel.Helpers
   alias ConstableApi.Queries
+  import ConstableApi.Channel.Helpers
   import Ecto.Query
 
   def join(_topic, %{"token" => token}, socket) do
-    Helpers.authorize_socket(socket, token)
+    authorize_socket(socket, token)
   end
 
   def handle_in("announcements:index", _params, socket) do
-    announcements = 
+    announcements =
       Repo.all(Queries.Announcement.with_sorted_comments)
       |> Enum.map(&Serializers.to_json/1)
       |> set_ids_as_keys
@@ -20,7 +20,11 @@ defmodule ConstableApi.AnnouncementChannel do
   end
 
   def handle_in("announcements:create", %{"title" => title, "body" => body}, socket) do
-    announcement = %Announcement{title: title, body: body} |> Repo.insert
+    announcement =
+      %Announcement{title: title, body: body, user_id: current_user_id(socket)}
+      |> Repo.insert
+      |> Repo.preload([:user, comments: :user])
+      |> Serializers.to_json
     broadcast socket, "announcements:create", announcement
   end
 

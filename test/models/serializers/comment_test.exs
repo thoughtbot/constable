@@ -1,15 +1,17 @@
 defmodule CommentTest do
-  use ConstableApi.TestWithEcto, async: false
+  use ExUnit.Case, async: true
   alias ConstableApi.Serializers
 
   test "returns map with comment id and body" do
-    comment = Forge.comment(id: 1)
+    user = Forge.user
+    comment = Forge.comment(id: 1, user: user)
 
     comment_as_json = Serializers.to_json(comment)
 
     assert comment_as_json == %{
       id: comment.id,
       body: comment.body,
+      user: Serializers.to_json(comment.user),
       announcement_id: comment.announcement_id
     }
   end

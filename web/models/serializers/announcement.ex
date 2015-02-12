@@ -6,6 +6,7 @@ defimpl ConstableApi.Serializers, for: ConstableApi.Announcement do
       id: announcement.id,
       title: announcement.title,
       body: announcement.body,
+      user: Serializers.to_json(announcement.user),
       comments: Enum.map(announcement.comments, &Serializers.to_json/1)
     }
   end

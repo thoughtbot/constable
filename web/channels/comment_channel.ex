@@ -4,15 +4,20 @@ defmodule ConstableApi.CommentChannel do
   alias ConstableApi.Announcement
   alias ConstableApi.Comment
   alias ConstableApi.Serializers
-  alias ConstableApi.Channel.Helpers
+  import ConstableApi.Channel.Helpers
 
   def join(_topic, %{"token" => token}, socket) do
-    Helpers.authorize_socket(socket, token)
+    authorize_socket(socket, token)
   end
 
   def handle_in("comments:create", %{"body" => body, "announcement_id" => announcement_id}, socket) do
-    comment = %Comment{body: body, announcement_id: announcement_id}
+    comment = %Comment{
+      user_id: current_user_id(socket),
+      body: body,
+      announcement_id: announcement_id
+    }
     |> Repo.insert
+    |> Repo.preload(:user)
 
     broadcast socket, "comments:create", Serializers.to_json(comment)
   end

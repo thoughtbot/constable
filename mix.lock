@@ -4,6 +4,7 @@
   "decimal": {:hex, :decimal, "1.1.0"},
   "dotenv": {:hex, :dotenv, "0.0.4"},
   "ecto": {:hex, :ecto, "0.7.2"},
+  "exgravatar": {:hex, :exgravatar, "0.2.0"},
   "faker": {:hex, :faker, "0.4.1"},
   "hackney": {:hex, :hackney, "0.14.3"},
   "httpoison": {:hex, :httpoison, "0.5.0"},
