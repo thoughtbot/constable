@@ -1,4 +1,4 @@
-defmodule ConstableApi.Mailers.AnnouncementTest do
+defmodule ConstableApi.Mailers.CommentMailerTest do
   use ConstableApi.TestWithEcto, async: false
   alias ConstableApi.Mailers
   alias ConstableApi.Repo
@@ -20,19 +20,24 @@ defmodule ConstableApi.Mailers.AnnouncementTest do
     users = [author, Forge.saved_user(Repo)]
     title = "Foo Announcement"
     subject = "#{title}"
-    body = "Bar is cool"
+    comment_body = "Bar is cool"
     from_name = "#{author.name} (Constable)"
-    announcement = Forge.announcement(title: title, body: body, user: author)
+    announcement = Forge.saved_announcement(Repo, title: title, user_id: author.id)
+    comment = Forge.comment(
+      body: comment_body,
+      user: author,
+      announcement: announcement
+    )
 
-    Mailers.Announcement.created(announcement)
+    Mailers.Comment.created(comment)
 
     users = Mandrill.format_users(users)
     assert_received {:to, ^users}
     assert_received {:subject, ^subject}
-    assert_received {:from_name, ^from_name}
-    assert_received {:text, email_body}
-    assert String.contains?(email_body, title)
-    assert String.contains?(email_body, body)
-    assert String.contains?(email_body, author.name)
+    assert_received {:from_name, from_name}
+    assert_received {:text, body}
+    assert String.contains?(body, title)
+    assert String.contains?(body, comment_body)
+    assert String.contains?(body, author.email)
   end
 end

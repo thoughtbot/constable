@@ -1,0 +1,3 @@
+<%= author.email %> left a comment on <%= comment.announcement.title %>
+
+<%= comment.body %>
