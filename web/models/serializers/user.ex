@@ -6,4 +6,12 @@ defimpl ConstableApi.Serializers, for: ConstableApi.User do
       gravatar_url: Exgravatar.generate(user.email)
     }
   end
+
+  def to_json(user, :mandrill) do
+    %{
+      email: user.email,
+      name: user.email,
+      type: "bcc"
+    }
+  end
 end

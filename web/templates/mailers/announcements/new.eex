@@ -1,0 +1,5 @@
+<%= author.email %> posted: <%= announcement.title %>
+
+<%= announcement.body %>
+
+http://development.constable.divshot.io/announcements/<%= announcement.id %>

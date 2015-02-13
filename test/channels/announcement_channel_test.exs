@@ -56,4 +56,23 @@ defmodule AnnouncementChannelTest do
       |> Serializers.to_json
     assert_socket_broadcasted_with_payload("announcements:create", announcement)
   end
+
+  defmodule FakeAnnouncementMailer do
+    def created(announcement) do
+      send self, {:new_announcement_email_sent, announcement}
+    end
+  end
+
+  test "announcements:create sends a notification email to all users" do
+    user = Forge.saved_user(Repo)
+    params = %{"title" => "Foo", "body" => "Bar"}
+    Pact.override(self, :announcement_mailer, FakeAnnouncementMailer)
+
+    socket_with_topic("announcements:create")
+    |> Socket.assign(:current_user_id, user.id)
+    |> handle_in_topic(AnnouncementChannel, params)
+
+    announcement = Queries.Announcement.with_sorted_comments |> Repo.one
+    assert_received {:new_announcement_email_sent, ^announcement}
+  end
 end

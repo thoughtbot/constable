@@ -13,4 +13,16 @@ defmodule UserTest do
       gravatar_url: Exgravatar.generate(user.email)
     }
   end
+
+  test "returns map with email, name, and type" do
+    user = Forge.user
+
+    user_as_json = Serializers.to_json(user, :mandrill)
+
+    assert user_as_json == %{
+      email: user.email,
+      name: user.email,
+      type: "bcc"
+    }
+  end
 end

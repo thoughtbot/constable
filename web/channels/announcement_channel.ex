@@ -24,8 +24,8 @@ defmodule ConstableApi.AnnouncementChannel do
       %Announcement{title: title, body: body, user_id: current_user_id(socket)}
       |> Repo.insert
       |> Repo.preload([:user, comments: :user])
-      |> Serializers.to_json
-    broadcast socket, "announcements:create", announcement
+    Pact.get(:announcement_mailer).created(announcement)
+    broadcast socket, "announcements:create", Serializers.to_json(announcement)
   end
 
   defp set_ids_as_keys(announcements) do
