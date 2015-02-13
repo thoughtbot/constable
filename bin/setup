@@ -13,5 +13,9 @@ mix ecto.create
 mix ecto.migrate
 
 # Set up heroku
+
+heroku join --app constable-api-staging
 heroku git:remote -r staging -a constable-api-staging
+
+heroku join --app constable-api-production
 heroku git:remote -r production -a constable-api-production
