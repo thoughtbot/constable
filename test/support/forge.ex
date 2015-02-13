@@ -10,11 +10,13 @@ defmodule Forge do
   register :announcement,
     __struct__: Announcement,
     title: "Post Title",
-    body: "Post Body"
+    body: "Post Body",
+    inserted_at: Ecto.DateTime.utc
 
   register :comment,
     __struct__: Comment,
-    body: "Post Body"
+    body: "Post Body",
+    inserted_at: Ecto.DateTime.utc
 
   register :user,
     __struct__: User,

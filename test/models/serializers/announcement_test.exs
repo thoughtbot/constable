@@ -15,7 +15,8 @@ defmodule AnnouncementTest do
       title: announcement.title,
       body: announcement.body,
       user: Serializers.to_json(user),
-      comments: [Serializers.to_json(comment)]
+      comments: [Serializers.to_json(comment)],
+      inserted_at: Ecto.DateTime.to_string(announcement.inserted_at)
     }
   end
 end
