@@ -20,5 +20,6 @@ defmodule Forge do
 
   register :user,
     __struct__: User,
+    name: "Gumbo",
     email: Sequence.next(:email, &"test#{&1}@thoughtbot.com")
 end

@@ -6,6 +6,7 @@ defmodule AuthControllerTest do
   import Ecto.Query
 
   @google_authorize_url "https://accounts.google.com/o/oauth2/auth"
+  @oauth_email_address "fake@example.com"
 
   defmodule FakeTokenRetriever do
     def get_token!(_conn, _code, _token_params) do
@@ -14,8 +15,13 @@ defmodule AuthControllerTest do
   end
 
   defmodule FakeRequestWithAccessToken do
+    @oauth_email_address "fake@example.com"
+
     def get!(_token, _path) do
-      %{"data" => %{"email" => "fake@example.com"}}
+      %{
+        "email" => @oauth_email_address,
+        "name" => "Gumbo McGee"
+      }
     end
   end
 
@@ -27,13 +33,13 @@ defmodule AuthControllerTest do
       client_id: "",
       redirect_uri: "",
       response_type: "code",
-      scope: "openid email"
+      scope: "openid email profile"
     )
     assert_redirected(conn, auth_uri)
     assert get_session(conn, :redirect_after_success_uri) == "foo.com"
   end
 
-  test "callback redirects to success URI with constable user auth token" do
+  test "callback redirects to success URI with newly created user token" do
     Pact.override(self, "token_retriever", FakeTokenRetriever)
     Pact.override(self, "request_with_access_token", FakeRequestWithAccessToken)
 
@@ -41,7 +47,21 @@ defmodule AuthControllerTest do
     |> put_redirect_after_success("foo.com")
     |> call_router
 
-    user_auth_token = Repo.one(from u in User).token
+    user_auth_token = Repo.one(User).token
+    assert Repo.one(User)
+    assert_redirected(conn, "foo.com/#{user_auth_token}")
+  end
+
+  test "callback redirects to success URI with existing user token" do
+    Pact.override(self, "token_retriever", FakeTokenRetriever)
+    Pact.override(self, "request_with_access_token", FakeRequestWithAccessToken)
+    existing_user = Forge.saved_user(Repo, email: @oauth_email_address)
+
+    conn = phoenix_conn(:get, "/auth/callback", %{"code" => "foo"})
+    |> put_redirect_after_success("foo.com")
+    |> call_router
+
+    user_auth_token = Repo.one(User).token
     assert_redirected(conn, "foo.com/#{user_auth_token}")
   end
 

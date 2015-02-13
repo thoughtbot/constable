@@ -26,7 +26,7 @@ defmodule ConstableApi.AuthController do
   """
   def callback(conn, %{"code" => code}) do
     token = Pact.get("token_retriever").get_token!(strategy(conn), code, token_params)
-    user = get_email_address(token) |> find_or_insert_user
+    user = find_or_insert_user(token)
     conn |> redirect(external: redirect_after_success_uri(conn, user.token))
   end
 
@@ -35,14 +35,16 @@ defmodule ConstableApi.AuthController do
     conn |> redirect external: "/"
   end
 
-  defp get_email_address(token) do
-    Pact.get("request_with_access_token").get!(token, "/userinfo/email?alt=json")
-    |> get_in(["data", "email"])
+  defp get_userinfo(token) do
+    Pact.get("request_with_access_token").get!(token, "/oauth2/v1/userinfo?alt=json")
   end
 
-  defp find_or_insert_user(email) do
+  defp find_or_insert_user(token) do
+    userinfo = get_userinfo(token)
+    email = userinfo["email"]
+    name = userinfo["name"]
     unless user = Repo.one(from u in User, where: u.email == ^email) do
-      user = %User{email: email} |> Repo.insert
+      user = %User{email: email, name: name} |> Repo.insert
     end
     user
   end
@@ -56,7 +58,7 @@ defmodule ConstableApi.AuthController do
   end
 
   defp auth_params do
-    %{redirect_uri: System.get_env("REDIRECT_URI"), scope: "openid email"}
+    %{redirect_uri: System.get_env("REDIRECT_URI"), scope: "openid email profile"}
   end
 
   defp token_params do

@@ -6,6 +6,7 @@ defmodule ConstableApi.User do
   schema "users" do
     field :email
     field :token
+    field :name
 
     timestamps
   end
