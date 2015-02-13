@@ -1,4 +1,4 @@
-<%= author.email %> posted: <%= announcement.title %>
+<%= author.name %> posted: <%= announcement.title %>
 
 <%= announcement.body %>
 

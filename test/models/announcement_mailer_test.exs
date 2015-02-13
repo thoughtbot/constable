@@ -21,6 +21,7 @@ defmodule ConstableApi.Mailers.AnnouncementTest do
     title = "Foo Announcement"
     subject = "#{title}"
     body = "Bar is cool"
+    from_name = "#{author.name} (Constable)"
     announcement = Forge.announcement(title: title, body: body, user: author)
 
     Mailers.Announcement.created(announcement)
@@ -28,10 +29,10 @@ defmodule ConstableApi.Mailers.AnnouncementTest do
     users = Mandrill.format_users(users)
     assert_received {:to, ^users}
     assert_received {:subject, ^subject}
-    assert_received {:from_name, "Constable Announcement"}
+    assert_received {:from_name, ^from_name}
     assert_received {:text, body}
     assert String.contains?(body, title)
     assert String.contains?(body, body)
-    assert String.contains?(body, author.email)
+    assert String.contains?(body, author.name)
   end
 end

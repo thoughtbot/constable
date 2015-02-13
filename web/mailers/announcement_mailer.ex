@@ -13,7 +13,7 @@ defmodule ConstableApi.Mailers.Announcement do
       ]),
       subject: "#{announcement.title}",
       from_email: "paul@thoughtbot.com",
-      from_name: "Constable Announcement",
+      from_name: "#{announcement.user.name} (Constable)",
       to: Mandrill.format_users(Repo.all(User)),
       tags: ["new-announcement"]
     }
