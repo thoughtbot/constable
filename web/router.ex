@@ -33,6 +33,7 @@ defmodule ConstableApi.Router do
   socket "/ws", ConstableApi do
     channel "announcements*", AnnouncementChannel
     channel "comments*", CommentChannel
+    channel "users*", UserChannel
   end
 
   defp put_oauth_strategy(conn, _) do
