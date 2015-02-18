@@ -19,6 +19,7 @@ defmodule ConstableApi.CommentChannel do
     |> Repo.insert
     |> Repo.preload(:user)
 
+    Pact.get(:comment_mailer).created(comment)
     broadcast socket, "comments:create", Serializers.to_json(comment)
   end
 end

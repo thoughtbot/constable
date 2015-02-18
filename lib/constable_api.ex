@@ -25,6 +25,7 @@ defmodule ConstableApi do
   defp setup_dependencies do
     Pact.start
     Pact.put("announcement_mailer", ConstableApi.Mailers.Announcement)
+    Pact.put("comment_mailer", ConstableApi.Mailers.Comment)
     Pact.put("mailer", ConstableApi.Mandrill)
     Pact.put("request_with_access_token", OAuth2.AccessToken)
     Pact.put("token_retriever", OAuth2.Strategy.AuthCode)

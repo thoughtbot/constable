@@ -12,7 +12,7 @@ defmodule ConstableApi.Mailers.Comment do
         author: comment.user
       ]),
       subject: "#{comment.announcement.title}",
-      from_email: "paul@thoughtbot.com",
+      from_email: "noreply@constable.io",
       from_name: "#{comment.user.name} (Constable)",
       to: Mandrill.format_users(Repo.all(User)),
       tags: ["new-comment"]
