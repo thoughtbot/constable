@@ -18,6 +18,7 @@ defmodule ConstableApi.CommentChannel do
     }
     |> Repo.insert
     |> Repo.preload(:user)
+    |> Repo.preload(:announcement)
 
     update_announcement_timestamps(announcement_id)
     Pact.get(:comment_mailer).created(comment)
