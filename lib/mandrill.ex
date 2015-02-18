@@ -8,7 +8,10 @@ defmodule ConstableApi.Mandrill do
       key: System.get_env("MANDRILL_KEY"),
       message: message_params
     } |> Poison.encode!
-    HTTPoison.post!(@mandrill_url, params).body
+
+    Task.async(fn ->
+      HTTPoison.post!(@mandrill_url, params).body
+    end)
   end
 
   def format_users(users), do: Enum.map(users, &format_user/1)
