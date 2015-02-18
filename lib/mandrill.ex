@@ -9,7 +9,7 @@ defmodule ConstableApi.Mandrill do
       message: message_params
     } |> Poison.encode!
 
-    Task.async(fn ->
+    spawn(fn ->
       HTTPoison.post!(@mandrill_url, params).body
     end)
   end
