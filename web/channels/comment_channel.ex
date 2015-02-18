@@ -19,7 +19,14 @@ defmodule ConstableApi.CommentChannel do
     |> Repo.insert
     |> Repo.preload(:user)
 
+    update_announcement_timestamps(announcement_id)
     Pact.get(:comment_mailer).created(comment)
+
     broadcast socket, "comments:create", Serializers.to_json(comment)
+  end
+
+  defp update_announcement_timestamps(announcement_id) do
+    announcement = Repo.get(Announcement, announcement_id)
+    Repo.update(%{announcement | updated_at: Ecto.DateTime.utc})
   end
 end

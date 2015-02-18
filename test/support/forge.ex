@@ -11,7 +11,8 @@ defmodule Forge do
     __struct__: Announcement,
     title: "Post Title",
     body: "Post Body",
-    inserted_at: Ecto.DateTime.utc
+    inserted_at: Ecto.DateTime.utc,
+    updated_at: Ecto.DateTime.utc
 
   register :comment,
     __struct__: Comment,

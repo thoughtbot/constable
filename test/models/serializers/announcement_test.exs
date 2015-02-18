@@ -16,7 +16,8 @@ defmodule ConstableApi.Serializers.AnnouncementTest do
       body: announcement.body,
       user: Serializers.to_json(user),
       comments: [Serializers.to_json(comment)],
-      inserted_at: Ecto.DateTime.to_string(announcement.inserted_at)
+      inserted_at: Ecto.DateTime.to_string(announcement.inserted_at),
+      updated_at: Ecto.DateTime.to_string(announcement.updated_at)
     }
   end
 end
