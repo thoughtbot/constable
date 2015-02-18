@@ -2,4 +2,4 @@
 
 <%= announcement.body %>
 
-http://development.constable.divshot.io/announcements/<%= announcement.id %>
+<%= System.get_env("FRONT_END_URI") %>/announcements/<%= announcement.id  %>

@@ -1,3 +1,5 @@
 <%= author.email %> left a comment on <%= comment.announcement.title %>
 
 <%= comment.body %>
+
+<%= System.get_env("FRONT_END_URI") %>/announcements/<%= comment.announcement.id  %>
