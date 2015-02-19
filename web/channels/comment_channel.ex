@@ -21,7 +21,6 @@ defmodule ConstableApi.CommentChannel do
     |> Repo.preload(:announcement)
 
     update_announcement_timestamps(announcement_id)
-    Pact.get(:comment_mailer).created(comment)
 
     broadcast socket, "comments:create", Serializers.to_json(comment)
   end
