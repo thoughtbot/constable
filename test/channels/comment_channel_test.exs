@@ -13,7 +13,7 @@ defmodule CommentChannelTest do
     user = Forge.saved_user(Repo)
     announcement = Forge.saved_announcement(Repo, user_id: user.id)
 
-    Phoenix.PubSub.subscribe(self, "comments:create")
+    Phoenix.PubSub.subscribe(ConstableApi.PubSub, self, "comments:create")
     socket_with_topic("comments:create")
     |> assign_current_user(user.id)
     |> handle_in_topic(CommentChannel, comment_params_for(announcement))
@@ -32,7 +32,7 @@ defmodule CommentChannelTest do
       updated_at: date
     )
 
-    Phoenix.PubSub.subscribe(self, "comments:create")
+    Phoenix.PubSub.subscribe(ConstableApi.PubSub, self, "comments:create")
     socket_with_topic("comments:create")
     |> assign_current_user(user.id)
     |> handle_in_topic(CommentChannel, comment_params_for(announcement))

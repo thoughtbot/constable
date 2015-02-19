@@ -29,7 +29,7 @@ defmodule ChannelTestHelper do
   end
 
   def socket_with_topic(topic \\ "") do
-    Socket.put_current_topic(new_socket(topic), topic)
+    Socket.put_topic(new_socket(topic), topic)
   end
 
   defp new_socket(topic) do
@@ -37,6 +37,7 @@ defmodule ChannelTestHelper do
       pid: self,
       router: ConstableApi.Router,
       topic: topic,
+      pubsub_server: ConstableApi.PubSub,
       assigns: []
     }
   end

@@ -9,7 +9,7 @@ defmodule ConstableApi.Channel.Helpers do
       socket = Socket.assign(socket, :current_user_id, user.id)
       {:ok, socket}
     else
-      {:error, socket, :unauthorized}
+      {:error, :unauthorized, socket}
     end
   end
 

@@ -9,7 +9,7 @@ defmodule UserChannelTest do
 
   test "users:current replies with the current user" do
     user = Forge.saved_user(Repo)
-    Phoenix.PubSub.subscribe(self, "users:current")
+    Phoenix.PubSub.subscribe(ConstableApi.PubSub, self, "users:current")
 
     socket_with_topic("users:current")
     |> assign_current_user(user.id)

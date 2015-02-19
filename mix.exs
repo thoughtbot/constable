@@ -30,11 +30,13 @@ defmodule ConstableApi.Mixfile do
     [
       {:postgrex, ">= 0.0.0"},
       {:ecto, "~> 0.8.1"},
-      {:phoenix, "~> 0.8.0"},
+      {:phoenix, "~> 0.9.0"},
       {:cowboy, "~> 1.0"},
       {:dotenv, "~> 0.0.4"},
       {:secure_random, "~> 0.1"},
       {:oauth2, "~> 0.0.3"},
+      {:poison, "~> 1.3.1", override: true},
+      {:plug, "~> 0.10.0", override: true},
       {:pact, "~> 0.0.1"},
       {:blacksmith, "~> 0.1.1"},
       {:exgravatar, "~> 0.2.0"}

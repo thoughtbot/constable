@@ -44,7 +44,7 @@ defmodule AnnouncementChannelTest do
   test "announcements:create returns an announcement" do
     user = Forge.saved_user(Repo)
     params = %{"title" => "Foo", "body" => "Bar"}
-    Phoenix.PubSub.subscribe(self, "announcements:create")
+    Phoenix.PubSub.subscribe(ConstableApi.PubSub, self, "announcements:create")
 
     socket_with_topic("announcements:create")
     |> Socket.assign(:current_user_id, user.id)

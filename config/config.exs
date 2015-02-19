@@ -9,7 +9,8 @@ use Mix.Config
 config :constable_api, ConstableApi.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "tJ+MdrPlKWMpmz7JyJgSu/11xvwnNZo7Sz8IAacy9MM6di3GqackE9iNjhkHI9p8",
-  debug_errors: false
+  debug_errors: false,
+  pubsub: [adapter: Phoenix.PubSub.PG2]
 
 # Configures Elixir's Logger
 config :logger, :console,

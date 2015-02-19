@@ -28,12 +28,12 @@ defmodule ChannelHelperTest do
     bad_token = "abc"
     socket = socket_with_topic
 
-    {status, socket, message} =
+    {status, message, socket} =
       Channel.Helpers.authorize_socket(socket, bad_token)
 
     assert status == :error
-    assert socket == socket
     assert message == :unauthorized
+    assert socket == socket
   end
 
   test "current_user_id returns the user id stored in the socket" do
