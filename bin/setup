@@ -3,6 +3,9 @@
 # Exit if any subcommand fails
 set -e
 
+# set up environment variables
+cp .sample.env .env
+
 # Set up phoenix
 mix deps.get
 mix deps.compile
