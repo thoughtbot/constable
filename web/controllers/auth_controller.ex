@@ -27,8 +27,14 @@ defmodule Constable.AuthController do
   """
   def callback(conn, %{"code" => code}) do
     token = Pact.get("token_retriever").get_token!(strategy(conn), code, token_params)
+
     user = find_or_insert_user(token)
-    conn |> redirect(external: redirect_after_success_uri(conn, user.token))
+    if from_thoughtbot?(user) do
+      conn |> redirect(external: redirect_after_success_uri(conn, user.token))
+    else
+      Logger.warn("Non-thoughtbot email")
+      conn |> redirect external: "/"
+    end
   end
 
   def callback(conn, %{"error" => error_message}) do
@@ -40,10 +46,13 @@ defmodule Constable.AuthController do
     Pact.get("request_with_access_token").get!(token, "/oauth2/v1/userinfo?alt=json")
   end
 
+  defp from_thoughtbot?(user) do
+    String.ends_with?(user.email, "@thoughtbot.com")
+  end
+
   defp find_or_insert_user(token) do
     userinfo = get_userinfo(token)
-    email = userinfo["email"]
-    name = userinfo["name"]
+    %{"email" => email, "name" => name} = userinfo
     unless user = Repo.one(Queries.User.with_email(email)) do
       user = %User{email: email, name: name} |> Repo.insert
     end

@@ -5,7 +5,7 @@ defmodule AuthControllerTest do
   alias Constable.Repo
 
   @google_authorize_url "https://accounts.google.com/o/oauth2/auth"
-  @oauth_email_address "fake@example.com"
+  @oauth_email_address "fake@thoughtbot.com"
 
   defmodule FakeTokenRetriever do
     def get_token!(_conn, _code, _token_params) do
@@ -14,6 +14,17 @@ defmodule AuthControllerTest do
   end
 
   defmodule FakeRequestWithAccessToken do
+    @oauth_email_address "fake@thoughtbot.com"
+
+    def get!(_token, _path) do
+      %{
+        "email" => @oauth_email_address,
+        "name" => "Gumbo McGee"
+      }
+    end
+  end
+
+  defmodule NonThoughtbotRequestWithAccessToken do
     @oauth_email_address "fake@example.com"
 
     def get!(_token, _path) do
@@ -66,6 +77,15 @@ defmodule AuthControllerTest do
 
   test "callback redirects to the root path when there is an error" do
     conn = phoenix_conn(:get, "/auth/callback", %{"error" => "Foo"})
+    |> call_router
+
+    assert_redirected(conn, "/")
+  end
+
+  test "callback redirects to the root path when the email is non-thoughtbot" do
+    Pact.override(self, "token_retriever", FakeTokenRetriever)
+    Pact.override(self, "request_with_access_token", NonThoughtbotRequestWithAccessToken)
+    conn = phoenix_conn(:get, "/auth/callback", %{"code" => "foo"})
     |> call_router
 
     assert_redirected(conn, "/")
