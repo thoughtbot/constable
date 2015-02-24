@@ -42,7 +42,7 @@ defmodule CommentChannelTest do
   end
 
   def comment_params_for(announcement) do
-    comment_params = %{
+    %{
       "announcement_id" => announcement.id,
       "body" => "Bar"
     }

@@ -75,4 +75,41 @@ defmodule AnnouncementChannelTest do
     announcement = Queries.Announcement.with_sorted_comments |> Repo.one
     assert_received {:new_announcement_email_sent, ^announcement}
   end
+
+  test "announcements:update returns an announcement" do
+    user = Forge.saved_user(Repo)
+    announcement = Forge.saved_announcement(Repo, user_id: user.id)
+    params = %{"id" => announcement.id, "title" => "New!", "body" => "NEW!!!"}
+    Phoenix.PubSub.subscribe(ConstableApi.PubSub, self, "announcements:update")
+
+    socket_with_topic("announcements:update")
+    |> Socket.assign(:current_user_id, user.id)
+    |> handle_in_topic(AnnouncementChannel, params)
+
+    Queries.Announcement.with_sorted_comments
+    |> Repo.one
+    |> Serializers.to_json
+
+    assert_received {:socket_broadcast, %{payload: payload}}
+    assert payload.title == "New!"
+    assert payload.body == "NEW!!!"
+  end
+
+  test "announcements:update doesn't update when user doesn't own it" do
+    user = Forge.saved_user(Repo)
+    other_user = Forge.saved_user(Repo)
+    announcement = Forge.saved_announcement(Repo, user_id: other_user.id)
+    params = %{"id" => announcement.id, "title" => "New!", "body" => "NEW!!!"}
+    Phoenix.PubSub.subscribe(ConstableApi.PubSub, self, "announcements:update")
+
+    socket_with_topic("announcements:update")
+    |> Socket.assign(:current_user_id, user.id)
+    |> handle_in_topic(AnnouncementChannel, params)
+
+    Queries.Announcement.with_sorted_comments
+    |> Repo.one
+    |> Serializers.to_json
+
+    refute_received {:socket_broadcast, _payload }
+  end
 end

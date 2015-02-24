@@ -3,7 +3,6 @@ defmodule AuthControllerTest do
   use RouterHelper
   alias ConstableApi.User
   alias ConstableApi.Repo
-  import Ecto.Query
 
   @google_authorize_url "https://accounts.google.com/o/oauth2/auth"
   @oauth_email_address "fake@example.com"
@@ -55,7 +54,7 @@ defmodule AuthControllerTest do
   test "callback redirects to success URI with existing user token" do
     Pact.override(self, "token_retriever", FakeTokenRetriever)
     Pact.override(self, "request_with_access_token", FakeRequestWithAccessToken)
-    existing_user = Forge.saved_user(Repo, email: @oauth_email_address)
+    Forge.saved_user(Repo, email: @oauth_email_address)
 
     conn = phoenix_conn(:get, "/auth/callback", %{"code" => "foo"})
     |> put_redirect_after_success("foo.com")
