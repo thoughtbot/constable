@@ -2,6 +2,7 @@ defmodule Forge do
   use Blacksmith
   alias ConstableApi.Announcement
   alias ConstableApi.Comment
+  alias ConstableApi.Subscription
   alias ConstableApi.User
 
   @save_one_function &Blacksmith.Config.save/2
@@ -23,4 +24,7 @@ defmodule Forge do
     __struct__: User,
     name: "Gumbo",
     email: Sequence.next(:email, &"test#{&1}@thoughtbot.com")
+
+  register :subscription,
+    __struct__: Subscription
 end

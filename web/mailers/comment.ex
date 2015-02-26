@@ -5,7 +5,7 @@ defmodule ConstableApi.Mailers.Comment do
 
   @template_base "web/templates/mailers/comments"
 
-  def created(comment) do
+  def created(comment, users) do
     message_params = %{
       text: render_template("new", [
         comment: comment,
@@ -14,7 +14,7 @@ defmodule ConstableApi.Mailers.Comment do
       subject: "Re: #{comment.announcement.title}",
       from_email: "noreply@constable.io",
       from_name: "#{comment.user.name} (Constable)",
-      to: Mandrill.format_users(Repo.all(User)),
+      to: Mandrill.format_users(users),
       tags: ["new-comment"]
     }
     |> Pact.get(:mailer).message_send

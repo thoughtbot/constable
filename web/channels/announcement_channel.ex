@@ -1,15 +1,9 @@
 defmodule ConstableApi.AnnouncementChannel do
-  use Phoenix.Channel
+  use ConstableApi.AuthorizedChannel
   alias ConstableApi.Repo
   alias ConstableApi.Announcement
   alias ConstableApi.Serializers
   alias ConstableApi.Queries
-  import ConstableApi.Channel.Helpers
-  import Ecto.Query
-
-  def join(_topic, %{"token" => token}, socket) do
-    authorize_socket(socket, token)
-  end
 
   def handle_in("announcements:index", _params, socket) do
     announcements =

@@ -37,7 +37,7 @@ defmodule ConstableApi.Mixfile do
       {:oauth2, "~> 0.0.3"},
       {:poison, "~> 1.3.1", override: true},
       {:plug, "~> 0.10.0", override: true},
-      {:pact, "~> 0.0.1"},
+      {:pact, "~> 0.1.0"},
       {:blacksmith, "~> 0.1.1"},
       {:exgravatar, "~> 0.2.0"}
     ]

@@ -29,7 +29,7 @@ defmodule ConstableApi.Mailers.CommentMailerTest do
       announcement: announcement
     )
 
-    Mailers.Comment.created(comment)
+    Mailers.Comment.created(comment, users)
 
     # users = Mandrill.format_users(users)
     # assert_received {:to, ^users}

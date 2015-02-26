@@ -1,14 +1,20 @@
-defmodule ChannelHelperTest do
+defmodule ConstableApi.AuthorizedChannelTest do
   use ConstableApi.TestWithEcto, async: false
   import ChannelTestHelper
   alias ConstableApi.Repo
   alias ConstableApi.Channel
 
+  defmodule FakeChannel do
+    use ConstableApi.AuthorizedChannel
+  end
+
+  alias FakeChannel, as: Channel
+
   test "authorize_socket returns authorized socket when token matches a user" do
     user = Forge.saved_user(Repo)
     socket = socket_with_topic
 
-    {status, socket} = Channel.Helpers.authorize_socket(socket, user.token)
+    {status, socket} = Channel.authorize_socket(socket, user.token)
 
     assert status == :ok
     assert socket == socket
@@ -18,7 +24,7 @@ defmodule ChannelHelperTest do
     user = Forge.saved_user(Repo)
     socket = socket_with_topic
 
-    {_status, socket} = Channel.Helpers.authorize_socket(socket, user.token)
+    {_status, socket} = Channel.authorize_socket(socket, user.token)
 
     assert socket.assigns[:current_user_id] == user.id
   end
@@ -29,7 +35,7 @@ defmodule ChannelHelperTest do
     socket = socket_with_topic
 
     {status, message, socket} =
-      Channel.Helpers.authorize_socket(socket, bad_token)
+      Channel.authorize_socket(socket, bad_token)
 
     assert status == :error
     assert message == :unauthorized
@@ -40,7 +46,7 @@ defmodule ChannelHelperTest do
     user_id = 1
     socket = socket_with_topic |> assign_current_user(user_id)
 
-    current_user_id = Channel.Helpers.current_user_id(socket)
+    current_user_id = Channel.current_user_id(socket)
 
     assert current_user_id == user_id
   end
