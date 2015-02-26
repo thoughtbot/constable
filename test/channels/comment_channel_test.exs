@@ -2,7 +2,7 @@ defmodule CommentChannelTest do
   use Constable.TestWithEcto, async: false
   import Ecto.Query
   import ChannelTestHelper
-  import Pact
+  require Pact
   alias Constable.Announcement
   alias Constable.Repo
   alias Constable.Comment

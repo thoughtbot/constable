@@ -4,6 +4,7 @@ defmodule Constable.AnnouncementChannel do
   alias Constable.Announcement
   alias Constable.Serializers
   alias Constable.Queries
+  alias Constable.Services.AnnouncementCreator
 
   def handle_in("announcements:index", _params, socket) do
     announcements =
@@ -13,10 +14,11 @@ defmodule Constable.AnnouncementChannel do
     reply socket, "announcements:index", %{announcements: announcements}
   end
 
-  def handle_in("announcements:create", %{"title" => title, "body" => body}, socket) do
+  def handle_in("announcements:create", announcement_params, socket) do
     announcement =
-      %Announcement{title: title, body: body, user_id: current_user_id(socket)}
-      |> Repo.insert
+      announcement_params
+      |> Map.merge(%{"user_id" => current_user_id(socket)})
+      |> AnnouncementCreator.create(announcement_params["interests"])
       |> preload_associations
     Pact.get(:announcement_mailer).created(announcement)
     broadcast socket, "announcements:create", Serializers.to_json(announcement)
@@ -48,6 +50,6 @@ defmodule Constable.AnnouncementChannel do
   end
 
   defp preload_associations(announcement) do
-    Repo.preload(announcement, [:user, comments: :user])
+    Repo.preload(announcement, [:interests, :user, comments: :user])
   end
 end

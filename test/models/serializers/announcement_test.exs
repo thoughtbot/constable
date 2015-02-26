@@ -4,7 +4,8 @@ defmodule Constable.Serializers.AnnouncementTest do
 
   test "returns map with id, title, body, user and embedded comments" do
     user = Forge.user
-    announcement = Forge.announcement(user: user)
+    interest = Forge.interest
+    announcement = Forge.announcement(user: user, interests: [interest])
     comment = Forge.comment(announcement: announcement, user: user)
     announcement = Map.put(announcement, :comments, [comment])
 
@@ -16,6 +17,7 @@ defmodule Constable.Serializers.AnnouncementTest do
       body: announcement.body,
       user: Serializers.to_json(user),
       comments: [Serializers.to_json(comment)],
+      interests: [Serializers.to_json(interest)],
       inserted_at: Ecto.DateTime.to_string(announcement.inserted_at),
       updated_at: Ecto.DateTime.to_string(announcement.updated_at)
     }

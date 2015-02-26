@@ -10,7 +10,7 @@ defmodule AnnouncementChannelTest do
   test "announcements:index returns announcements with ids as the key" do
     user = Forge.saved_user(Repo)
     announcement = Forge.saved_announcement(Repo, user_id: user.id)
-    |> Repo.preload([:comments, :user])
+    |> preload_associations
     announcement_id = to_string(announcement.id)
 
     socket_with_topic("announcements:index")
@@ -28,7 +28,7 @@ defmodule AnnouncementChannelTest do
     user = Forge.saved_user(Repo)
     announcement = Forge.saved_announcement(Repo, user_id: user.id)
     Forge.saved_comment(Repo, announcement_id: announcement.id, user_id: user.id)
-    announcement = announcement |> Repo.preload([:user, comments: :user])
+    announcement = announcement |> preload_associations
     announcement_id = to_string(announcement.id)
 
     socket_with_topic("announcements:index")
@@ -43,7 +43,7 @@ defmodule AnnouncementChannelTest do
 
   test "announcements:create returns an announcement" do
     user = Forge.saved_user(Repo)
-    params = %{"title" => "Foo", "body" => "Bar"}
+    params = %{"title" => "Foo", "body" => "Bar", "interests" => []}
     Phoenix.PubSub.subscribe(Constable.PubSub, self, "announcements:create")
 
     socket_with_topic("announcements:create")
@@ -63,9 +63,10 @@ defmodule AnnouncementChannelTest do
     end
   end
 
-  test "announcements:create sends a notification email to all users" do
+  test "announcements:create adds interests and sends email" do
     user = Forge.saved_user(Repo)
-    params = %{"title" => "Foo", "body" => "Bar"}
+    params = %{"title" => "Foo", "body" => "Bar", "interests" => ["foo"]}
+    Phoenix.PubSub.subscribe(Constable.PubSub, self, "announcements:create")
     Pact.override(self, :announcement_mailer, FakeAnnouncementMailer)
 
     socket_with_topic("announcements:create")
@@ -73,6 +74,7 @@ defmodule AnnouncementChannelTest do
     |> handle_in_topic(AnnouncementChannel, params)
 
     announcement = Queries.Announcement.with_sorted_comments |> Repo.one
+    assert announcement_has_interest_named?(announcement, "foo")
     assert_received {:new_announcement_email_sent, ^announcement}
   end
 
@@ -111,5 +113,13 @@ defmodule AnnouncementChannelTest do
     |> Serializers.to_json
 
     refute_received {:socket_broadcast, _payload }
+  end
+
+  defp preload_associations(announcement) do
+    Repo.preload(announcement, [:interests, :user, comments: :user])
+  end
+
+  defp announcement_has_interest_named?(announcement, interest_name) do
+    announcement.interests |> List.first |> Map.get(:name) == interest_name
   end
 end

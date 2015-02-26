@@ -8,8 +8,9 @@ defimpl Constable.Serializable, for: Constable.Announcement do
       body: announcement.body,
       user: Serializable.to_json(announcement.user),
       comments: Enum.map(announcement.comments, &Serializable.to_json/1),
+      interests: Enum.map(announcement.interests, &Serializable.to_json/1),
       inserted_at: Ecto.DateTime.to_string(announcement.inserted_at),
-      updated_at: Ecto.DateTime.to_string(announcement.updated_at)
+      updated_at: Ecto.DateTime.to_string(announcement.updated_at),
     }
   end
 end
