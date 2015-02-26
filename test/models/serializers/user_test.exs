@@ -1,6 +1,6 @@
-defmodule ConstableApi.Serializers.UserTest do
+defmodule Constable.Serializers.UserTest do
   use ExUnit.Case, async: true
-  alias ConstableApi.Serializers
+  alias Constable.Serializers
 
   test "returns map with id, email, name, and gravatar_url" do
     user = Forge.user

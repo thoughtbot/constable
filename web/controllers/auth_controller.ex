@@ -1,11 +1,11 @@
-defmodule ConstableApi.AuthController do
+defmodule Constable.AuthController do
   use Phoenix.Controller
   import Ecto.Query
   require Logger
 
   alias OAuth2.Strategy.AuthCode
-  alias ConstableApi.User
-  alias ConstableApi.Repo
+  alias Constable.User
+  alias Constable.Repo
 
   plug :action
 

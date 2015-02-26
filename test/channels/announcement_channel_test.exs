@@ -1,11 +1,11 @@
 defmodule AnnouncementChannelTest do
-  use ConstableApi.TestWithEcto, async: false
+  use Constable.TestWithEcto, async: false
   import ChannelTestHelper
   alias Phoenix.Socket
-  alias ConstableApi.Repo
-  alias ConstableApi.AnnouncementChannel
-  alias ConstableApi.Serializers
-  alias ConstableApi.Queries
+  alias Constable.Repo
+  alias Constable.AnnouncementChannel
+  alias Constable.Serializers
+  alias Constable.Queries
 
   test "announcements:index returns announcements with ids as the key" do
     user = Forge.saved_user(Repo)
@@ -44,7 +44,7 @@ defmodule AnnouncementChannelTest do
   test "announcements:create returns an announcement" do
     user = Forge.saved_user(Repo)
     params = %{"title" => "Foo", "body" => "Bar"}
-    Phoenix.PubSub.subscribe(ConstableApi.PubSub, self, "announcements:create")
+    Phoenix.PubSub.subscribe(Constable.PubSub, self, "announcements:create")
 
     socket_with_topic("announcements:create")
     |> Socket.assign(:current_user_id, user.id)
@@ -80,7 +80,7 @@ defmodule AnnouncementChannelTest do
     user = Forge.saved_user(Repo)
     announcement = Forge.saved_announcement(Repo, user_id: user.id)
     params = %{"id" => announcement.id, "title" => "New!", "body" => "NEW!!!"}
-    Phoenix.PubSub.subscribe(ConstableApi.PubSub, self, "announcements:update")
+    Phoenix.PubSub.subscribe(Constable.PubSub, self, "announcements:update")
 
     socket_with_topic("announcements:update")
     |> Socket.assign(:current_user_id, user.id)
@@ -100,7 +100,7 @@ defmodule AnnouncementChannelTest do
     other_user = Forge.saved_user(Repo)
     announcement = Forge.saved_announcement(Repo, user_id: other_user.id)
     params = %{"id" => announcement.id, "title" => "New!", "body" => "NEW!!!"}
-    Phoenix.PubSub.subscribe(ConstableApi.PubSub, self, "announcements:update")
+    Phoenix.PubSub.subscribe(Constable.PubSub, self, "announcements:update")
 
     socket_with_topic("announcements:update")
     |> Socket.assign(:current_user_id, user.id)

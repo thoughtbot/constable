@@ -21,13 +21,13 @@ defmodule RouterHelper do
     quote do
       use Plug.Test
       import RouterHelper
-      import ConstableApi.Router.Helpers
-      import ConstableApi.ControllerHelpers
+      import Constable.Router.Helpers
+      import Constable.ControllerHelpers
     end
   end
 
   def call_router(conn) do
-    conn |> ConstableApi.Router.call(ConstableApi.Router.init([]))
+    conn |> Constable.Router.call(Constable.Router.init([]))
   end
 
   def phoenix_conn(verb, path \\ "/", params \\ nil, headers \\ []) do

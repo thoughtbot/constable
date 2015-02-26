@@ -1,7 +1,7 @@
-defmodule ConstableApi.Announcement do
+defmodule Constable.Announcement do
   use Ecto.Model
-  alias ConstableApi.Comment
-  alias ConstableApi.User
+  alias Constable.Comment
+  alias Constable.User
 
   schema "announcement" do
     field :title

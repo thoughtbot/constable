@@ -1,8 +1,8 @@
-defmodule ConstableApi.Mailers.CommentMailerTest do
-  use ConstableApi.TestWithEcto, async: false
-  alias ConstableApi.Mailers
-  alias ConstableApi.Repo
-  alias ConstableApi.Mandrill
+defmodule Constable.Mailers.CommentMailerTest do
+  use Constable.TestWithEcto, async: false
+  alias Constable.Mailers
+  alias Constable.Repo
+  alias Constable.Mandrill
 
   defmodule FakeMandrill do
     def message_send(message_params) do

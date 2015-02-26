@@ -1,15 +1,15 @@
 defmodule UserChannelTest do
-  use ConstableApi.TestWithEcto, async: false
+  use Constable.TestWithEcto, async: false
   import Ecto.Query
   import ChannelTestHelper
-  alias ConstableApi.Repo
-  alias ConstableApi.UserChannel
-  alias ConstableApi.User
-  alias ConstableApi.Serializers
+  alias Constable.Repo
+  alias Constable.UserChannel
+  alias Constable.User
+  alias Constable.Serializers
 
   test "users:current replies with the current user" do
     user = Forge.saved_user(Repo)
-    Phoenix.PubSub.subscribe(ConstableApi.PubSub, self, "users:current")
+    Phoenix.PubSub.subscribe(Constable.PubSub, self, "users:current")
 
     socket_with_topic("users:current")
     |> assign_current_user(user.id)

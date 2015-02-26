@@ -1,7 +1,7 @@
-defmodule ConstableApi.Mailers.Announcement do
-  alias ConstableApi.User
-  alias ConstableApi.Repo
-  alias ConstableApi.Mandrill
+defmodule Constable.Mailers.Announcement do
+  alias Constable.User
+  alias Constable.Repo
+  alias Constable.Mandrill
 
   @template_base "web/templates/mailers/announcements"
 

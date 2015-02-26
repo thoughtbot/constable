@@ -1,8 +1,8 @@
-defmodule ConstableApi.Endpoint do
-  use Phoenix.Endpoint, otp_app: :constable_api
+defmodule Constable.Endpoint do
+  use Phoenix.Endpoint, otp_app: :constable
 
   plug Plug.Static,
-    at: "/", from: :constable_api
+    at: "/", from: :constable
 
   plug Plug.Logger
 
@@ -20,9 +20,9 @@ defmodule ConstableApi.Endpoint do
 
   plug Plug.Session,
     store: :cookie,
-    key: "_constable_api_key",
+    key: "_constable_key",
     signing_salt: "/CEisxlR",
     encryption_salt: "W5B5Vc1E"
 
-  plug :router, ConstableApi.Router
+  plug :router, Constable.Router
 end

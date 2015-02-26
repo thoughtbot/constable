@@ -1,9 +1,9 @@
-defmodule ConstableApi.SubscriptionChannel do
-  use ConstableApi.AuthorizedChannel
-  alias ConstableApi.Repo
-  alias ConstableApi.Subscription
-  alias ConstableApi.Serializers
-  alias ConstableApi.Queries
+defmodule Constable.SubscriptionChannel do
+  use Constable.AuthorizedChannel
+  alias Constable.Repo
+  alias Constable.Subscription
+  alias Constable.Serializers
+  alias Constable.Queries
 
   def handle_in("subscriptions:index", _params, socket) do
     user_id = current_user_id(socket)

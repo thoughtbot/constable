@@ -1,4 +1,4 @@
-defmodule ConstableApi.Repo.Migrations.CreateComments do
+defmodule Constable.Repo.Migrations.CreateComments do
   use Ecto.Migration
 
   def change do

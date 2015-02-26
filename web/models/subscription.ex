@@ -1,7 +1,7 @@
-defmodule ConstableApi.Subscription do
+defmodule Constable.Subscription do
   use Ecto.Model
-  alias ConstableApi.Announcement
-  alias ConstableApi.User
+  alias Constable.Announcement
+  alias Constable.User
 
   schema "subscriptions" do
     belongs_to :user, User

@@ -1,4 +1,4 @@
-defmodule ConstableApi.Repo.Migrations.CreateUsers do
+defmodule Constable.Repo.Migrations.CreateUsers do
   use Ecto.Migration
 
   def change do

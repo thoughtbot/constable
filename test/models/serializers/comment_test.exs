@@ -1,6 +1,6 @@
-defmodule ConstableApi.Serializers.CommentTest do
+defmodule Constable.Serializers.CommentTest do
   use ExUnit.Case, async: true
-  alias ConstableApi.Serializers
+  alias Constable.Serializers
 
   test "returns map with comment id and body" do
     user = Forge.user

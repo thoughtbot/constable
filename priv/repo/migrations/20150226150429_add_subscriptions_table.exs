@@ -1,4 +1,4 @@
-defmodule ConstableApi.Repo.Migrations.AddSubscriptionsTable do
+defmodule Constable.Repo.Migrations.AddSubscriptionsTable do
   use Ecto.Migration
 
   def change do

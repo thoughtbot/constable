@@ -1,4 +1,4 @@
-defmodule ConstableApi.ControllerHelpers do
+defmodule Constable.ControllerHelpers do
   import ExUnit.Assertions
   import Plug.Conn
 

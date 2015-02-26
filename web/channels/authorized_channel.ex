@@ -1,4 +1,4 @@
-defmodule ConstableApi.AuthorizedChannel do
+defmodule Constable.AuthorizedChannel do
   defmacro __using__(_options) do
     quote do
       use Phoenix.Channel
@@ -22,7 +22,7 @@ defmodule ConstableApi.AuthorizedChannel do
       end
 
       defp user_with_token(token) do
-        ConstableApi.Repo.one(from u in ConstableApi.User,
+        Constable.Repo.one(from u in Constable.User,
           where: u.token == ^token
         )
       end

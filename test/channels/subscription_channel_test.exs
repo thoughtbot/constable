@@ -1,11 +1,11 @@
-defmodule ConstableApi.Channels.SubscriptionChannelTest do
-  use ConstableApi.TestWithEcto, async: false
+defmodule Constable.Channels.SubscriptionChannelTest do
+  use Constable.TestWithEcto, async: false
   import Ecto.Query
   import ChannelTestHelper
-  alias ConstableApi.Repo
-  alias ConstableApi.SubscriptionChannel
-  alias ConstableApi.Subscription
-  alias ConstableApi.Serializers
+  alias Constable.Repo
+  alias Constable.SubscriptionChannel
+  alias Constable.Subscription
+  alias Constable.Serializers
 
   test "subscriptions:index returns all subscriptions for current user" do
     user = Forge.saved_user(Repo)
@@ -27,7 +27,7 @@ defmodule ConstableApi.Channels.SubscriptionChannelTest do
   test "subscriptions:create replies with the newly created subscription" do
     user = Forge.saved_user(Repo)
     announcement = Forge.saved_announcement(Repo, user_id: user.id)
-    Phoenix.PubSub.subscribe(ConstableApi.PubSub, self, "subscriptions:create")
+    Phoenix.PubSub.subscribe(Constable.PubSub, self, "subscriptions:create")
 
     socket_with_topic("subscriptions:create")
     |> assign_current_user(user.id)
@@ -53,7 +53,7 @@ defmodule ConstableApi.Channels.SubscriptionChannelTest do
       announcement_id: announcement.id
     )
 
-    Phoenix.PubSub.subscribe(ConstableApi.PubSub, self, "subscriptions:destroy")
+    Phoenix.PubSub.subscribe(Constable.PubSub, self, "subscriptions:destroy")
     socket_with_topic("subscriptions:destroy")
     |> assign_current_user(user.id)
     |> handle_in_topic(SubscriptionChannel, %{

@@ -1,9 +1,9 @@
 use Mix.Config
 
-config :constable_api, ConstableApi.Endpoint,
+config :constable, Constable.Endpoint,
   http: [port: System.get_env("PORT") || 4001]
 
-config :constable_api, ConstableApi.Repo,
+config :constable, Constable.Repo,
   database: "constable_api_test",
   hostname: "localhost"
 

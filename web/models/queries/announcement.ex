@@ -1,5 +1,5 @@
-defmodule ConstableApi.Queries.Announcement do
-  alias ConstableApi.Announcement
+defmodule Constable.Queries.Announcement do
+  alias Constable.Announcement
   import Ecto.Query
 
   def with_sorted_comments do

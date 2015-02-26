@@ -1,3 +1,3 @@
-defmodule ConstableApi.PageView do
-  use ConstableApi.View
+defmodule Constable.PageView do
+  use Constable.View
 end

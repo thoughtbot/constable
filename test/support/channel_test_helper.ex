@@ -35,9 +35,9 @@ defmodule ChannelTestHelper do
   defp new_socket(topic) do
     %Socket{
       pid: self,
-      router: ConstableApi.Router,
+      router: Constable.Router,
       topic: topic,
-      pubsub_server: ConstableApi.PubSub,
+      pubsub_server: Constable.PubSub,
       assigns: []
     }
   end

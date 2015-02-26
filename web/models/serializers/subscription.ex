@@ -1,4 +1,4 @@
-defimpl ConstableApi.Serializers, for: ConstableApi.Subscription do
+defimpl Constable.Serializers, for: Constable.Subscription do
   def to_json(subscription) do
     %{
       id: subscription.id,

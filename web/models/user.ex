@@ -1,4 +1,4 @@
-defmodule ConstableApi.User do
+defmodule Constable.User do
   use Ecto.Model
 
   before_insert :generate_token

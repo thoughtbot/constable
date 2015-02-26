@@ -1,5 +1,5 @@
-defmodule ConstableApi.ErrorView do
-  use ConstableApi.View
+defmodule Constable.ErrorView do
+  use Constable.View
 
   def render("404.html", _assigns) do
     "Page not found - 404"

@@ -1,5 +1,5 @@
-defimpl ConstableApi.Serializers, for: ConstableApi.Announcement do
-  alias ConstableApi.Serializers
+defimpl Constable.Serializers, for: Constable.Announcement do
+  alias Constable.Serializers
 
   def to_json(announcement) do
     %{

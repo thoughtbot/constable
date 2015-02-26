@@ -1,7 +1,7 @@
-defmodule ConstableApi.TestWithEcto do
+defmodule Constable.TestWithEcto do
   use ExUnit.CaseTemplate
   alias Ecto.Adapters.SQL
-  alias ConstableApi.Repo
+  alias Constable.Repo
 
   setup do
     SQL.begin_test_transaction(Repo)

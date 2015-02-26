@@ -1,9 +1,9 @@
 defmodule Forge do
   use Blacksmith
-  alias ConstableApi.Announcement
-  alias ConstableApi.Comment
-  alias ConstableApi.Subscription
-  alias ConstableApi.User
+  alias Constable.Announcement
+  alias Constable.Comment
+  alias Constable.Subscription
+  alias Constable.User
 
   @save_one_function &Blacksmith.Config.save/2
   @save_all_function &Blacksmith.Config.save_all/2

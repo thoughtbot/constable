@@ -1,11 +1,11 @@
 use Mix.Config
 
-config :constable_api, ConstableApi.Endpoint,
+config :constable, Constable.Endpoint,
   http: [port: System.get_env("PORT") || 4000],
   debug_errors: true,
   cache_static_lookup: false
 
-config :constable_api, ConstableApi.Repo,
+config :constable, Constable.Repo,
   database: "constable_api_development",
   hostname: "localhost"
 

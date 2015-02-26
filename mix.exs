@@ -1,8 +1,8 @@
-defmodule ConstableApi.Mixfile do
+defmodule Constable.Mixfile do
   use Mix.Project
 
   def project do
-    [app: :constable_api,
+    [app: :constable,
      version: "0.0.1",
      elixir: "~> 1.0",
      elixirc_paths: ["lib", "web", "test/support"],
@@ -14,7 +14,7 @@ defmodule ConstableApi.Mixfile do
   #
   # Type `mix help compile.app` for more information
   def application do
-    [mod: {ConstableApi, []},
+    [mod: {Constable, []},
      applications: app_list(Mix.env)]
   end
 

@@ -1,11 +1,11 @@
-defmodule ConstableApi.AuthorizedChannelTest do
-  use ConstableApi.TestWithEcto, async: false
+defmodule Constable.AuthorizedChannelTest do
+  use Constable.TestWithEcto, async: false
   import ChannelTestHelper
-  alias ConstableApi.Repo
-  alias ConstableApi.Channel
+  alias Constable.Repo
+  alias Constable.Channel
 
   defmodule FakeChannel do
-    use ConstableApi.AuthorizedChannel
+    use Constable.AuthorizedChannel
   end
 
   alias FakeChannel, as: Channel

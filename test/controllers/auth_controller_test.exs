@@ -1,8 +1,8 @@
 defmodule AuthControllerTest do
-  use ConstableApi.TestWithEcto, async: false
+  use Constable.TestWithEcto, async: false
   use RouterHelper
-  alias ConstableApi.User
-  alias ConstableApi.Repo
+  alias Constable.User
+  alias Constable.Repo
 
   @google_authorize_url "https://accounts.google.com/o/oauth2/auth"
   @oauth_email_address "fake@example.com"

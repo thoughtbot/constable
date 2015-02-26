@@ -1,11 +1,11 @@
-defmodule ConstableApi.CommentChannel do
-  use ConstableApi.AuthorizedChannel
-  alias ConstableApi.Repo
-  alias ConstableApi.Announcement
-  alias ConstableApi.Comment
-  alias ConstableApi.Queries
-  alias ConstableApi.Subscription
-  alias ConstableApi.Serializers
+defmodule Constable.CommentChannel do
+  use Constable.AuthorizedChannel
+  alias Constable.Repo
+  alias Constable.Announcement
+  alias Constable.Comment
+  alias Constable.Queries
+  alias Constable.Subscription
+  alias Constable.Serializers
 
   def handle_in("comments:create", %{"body" => body, "announcement_id" => announcement_id}, socket) do
     comment = %Comment{

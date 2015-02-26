@@ -1,4 +1,4 @@
-defmodule ConstableApi.PageController do
+defmodule Constable.PageController do
   use Phoenix.Controller
 
   plug :action

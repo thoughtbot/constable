@@ -1,7 +1,7 @@
-defmodule ConstableApi.Mailers.Comment do
-  alias ConstableApi.User
-  alias ConstableApi.Repo
-  alias ConstableApi.Mandrill
+defmodule Constable.Mailers.Comment do
+  alias Constable.User
+  alias Constable.Repo
+  alias Constable.Mandrill
 
   @template_base "web/templates/mailers/comments"
 

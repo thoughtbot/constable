@@ -1,4 +1,4 @@
-defmodule ConstableApi.Repo.Migrations.CreateAnnouncements do
+defmodule Constable.Repo.Migrations.CreateAnnouncements do
   use Ecto.Migration
 
   def change do

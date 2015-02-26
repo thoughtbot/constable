@@ -1,9 +1,9 @@
-defmodule ConstableApi.AnnouncementChannel do
-  use ConstableApi.AuthorizedChannel
-  alias ConstableApi.Repo
-  alias ConstableApi.Announcement
-  alias ConstableApi.Serializers
-  alias ConstableApi.Queries
+defmodule Constable.AnnouncementChannel do
+  use Constable.AuthorizedChannel
+  alias Constable.Repo
+  alias Constable.Announcement
+  alias Constable.Serializers
+  alias Constable.Queries
 
   def handle_in("announcements:index", _params, socket) do
     announcements =

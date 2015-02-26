@@ -1,19 +1,19 @@
 defmodule CommentChannelTest do
-  use ConstableApi.TestWithEcto, async: false
+  use Constable.TestWithEcto, async: false
   import Ecto.Query
   import ChannelTestHelper
   import Pact
-  alias ConstableApi.Announcement
-  alias ConstableApi.Repo
-  alias ConstableApi.Comment
-  alias ConstableApi.CommentChannel
-  alias ConstableApi.Serializers
+  alias Constable.Announcement
+  alias Constable.Repo
+  alias Constable.Comment
+  alias Constable.CommentChannel
+  alias Constable.Serializers
 
   test "comments:create broadcasts comments:create with new comment" do
     user = Forge.saved_user(Repo)
     announcement = Forge.saved_announcement(Repo, user_id: user.id)
 
-    Phoenix.PubSub.subscribe(ConstableApi.PubSub, self, "comments:create")
+    Phoenix.PubSub.subscribe(Constable.PubSub, self, "comments:create")
     socket_with_topic("comments:create")
     |> assign_current_user(user.id)
     |> handle_in_topic(CommentChannel, comment_params_for(announcement))
@@ -31,7 +31,7 @@ defmodule CommentChannelTest do
       updated_at: date
     )
 
-    Phoenix.PubSub.subscribe(ConstableApi.PubSub, self, "comments:create")
+    Phoenix.PubSub.subscribe(Constable.PubSub, self, "comments:create")
     socket_with_topic("comments:create")
     |> assign_current_user(user.id)
     |> handle_in_topic(CommentChannel, comment_params_for(announcement))

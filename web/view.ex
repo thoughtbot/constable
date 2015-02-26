@@ -1,4 +1,4 @@
-defmodule ConstableApi.View do
+defmodule Constable.View do
   use Phoenix.View, root: "web/templates"
 
   # The quoted expression returned by this block is applied
@@ -6,7 +6,7 @@ defmodule ConstableApi.View do
   using do
     quote do
       # Import common functionality
-      import ConstableApi.Router.Helpers
+      import Constable.Router.Helpers
 
       # Use Phoenix.HTML to import all HTML functions (forms, tags, etc)
       use Phoenix.HTML

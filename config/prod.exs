@@ -11,12 +11,12 @@ use Mix.Config
 # Where those two env variables point to a file on
 # disk for the key and cert.
 
-config :constable_api, ConstableApi.Endpoint,
+config :constable, Constable.Endpoint,
   url: [host: "example.com"],
   http: [port: System.get_env("PORT")],
   secret_key_base: "tJ+MdrPlKWMpmz7JyJgSu/11xvwnNZo7Sz8IAacy9MM6di3GqackE9iNjhkHI9p8"
 
-config :constable_api, ConstableApi.Repo,
+config :constable, Constable.Repo,
   url: System.get_env("DATABASE_URL")
 
 # Do not pring debug messages in production
@@ -32,5 +32,5 @@ config :logger, level: :info
 # Alternatively, you can configure exactly which server to
 # start per endpoint:
 #
-#     config :constable_api, ConstableApi.Endpoint, server: true
+#     config :constable, Constable.Endpoint, server: true
 #

@@ -1,4 +1,4 @@
-defmodule ConstableApi.Router do
+defmodule Constable.Router do
   use Phoenix.Router
   alias OAuth2.Strategy
 
@@ -17,20 +17,20 @@ defmodule ConstableApi.Router do
     plug :accepts, ~w(json)
   end
 
-  scope "/", ConstableApi do
+  scope "/", Constable do
     pipe_through :browser # Use the default browser stack
 
     get "/", PageController, :index
   end
 
-  scope "/auth", alias: ConstableApi do
+  scope "/auth", alias: Constable do
     pipe_through [:browser, :auth]
 
     get "/", AuthController, :index
     get "/callback", AuthController, :callback
   end
 
-  socket "/ws", ConstableApi do
+  socket "/ws", Constable do
     channel "announcements*", AnnouncementChannel
     channel "comments*", CommentChannel
     channel "users*", UserChannel

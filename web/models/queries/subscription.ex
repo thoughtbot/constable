@@ -1,5 +1,5 @@
-defmodule ConstableApi.Queries.Subscription do
-  alias ConstableApi.Subscription
+defmodule Constable.Queries.Subscription do
+  alias Constable.Subscription
   import Ecto.Query
 
   def for_user(user_id) do

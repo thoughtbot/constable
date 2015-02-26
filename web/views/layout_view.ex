@@ -1,3 +1,3 @@
-defmodule ConstableApi.LayoutView do
-  use ConstableApi.View
+defmodule Constable.LayoutView do
+  use Constable.View
 end
