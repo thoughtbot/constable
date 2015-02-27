@@ -1,4 +1,4 @@
-defmodule Constable.Serializers.AnnouncementTest do
+defmodule Constable.Serializable.AnnouncementTest do
   use ExUnit.Case, async: true
   alias Constable.Serializers
 

@@ -1,4 +1,4 @@
-defmodule Constable.Serializers.CommentTest do
+defmodule Constable.Serializable.CommentTest do
   use ExUnit.Case, async: true
   alias Constable.Serializers
 
