@@ -1,4 +1,4 @@
-defimpl Constable.Serializers, for: Constable.User do
+defimpl Constable.Serializable, for: Constable.User do
   def to_json(user) do
     %{
       id: user.id,

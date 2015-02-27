@@ -9,7 +9,7 @@ defmodule Constable.AnnouncementChannel do
     announcements =
       Repo.all(Queries.Announcement.with_sorted_comments)
       |> Enum.map(&Serializers.to_json/1)
-      |> set_ids_as_keys
+      |> Serializers.ids_as_keys
     reply socket, "announcements:index", %{announcements: announcements}
   end
 
@@ -49,11 +49,5 @@ defmodule Constable.AnnouncementChannel do
 
   defp preload_associations(announcement) do
     Repo.preload(announcement, [:user, comments: :user])
-  end
-
-  defp set_ids_as_keys(announcements) do
-    Enum.reduce(announcements, %{}, fn(announcement, announcements) ->
-      Map.put(announcements, to_string(announcement.id), announcement)
-    end)
   end
 end

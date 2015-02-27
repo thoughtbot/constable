@@ -11,6 +11,7 @@ defmodule Constable.SubscriptionChannel do
       Repo.all(Queries.Subscription.for_user(user_id))
       |> Enum.map(&preload_associations/1)
       |> Enum.map(&Serializers.to_json/1)
+      |> Serializers.ids_as_keys
 
     reply socket, "subscriptions:index", %{subscriptions: subscriptions}
   end
@@ -25,11 +26,11 @@ defmodule Constable.SubscriptionChannel do
     reply socket, "subscriptions:create", Serializers.to_json(subscription)
   end
 
-  def handle_in("subscriptions:destroy", subscription ,socket) do
-    Repo.get(Subscription, Map.get(subscription, "id"))
+  def handle_in("subscriptions:destroy", %{"id" => id},socket) do
+    Repo.get(Subscription, id)
     |> Repo.delete
 
-    reply socket, "subscriptions:destroy", %{deleted: true}
+    reply socket, "subscriptions:destroy", %{id: id}
   end
 
   defp preload_associations(subscription) do

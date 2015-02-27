@@ -32,6 +32,7 @@ defmodule Constable.Router do
 
   socket "/ws", Constable do
     channel "announcements*", AnnouncementChannel
+    channel "subscriptions*", SubscriptionChannel
     channel "comments*", CommentChannel
     channel "users*", UserChannel
   end

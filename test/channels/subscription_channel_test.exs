@@ -19,9 +19,12 @@ defmodule Constable.Channels.SubscriptionChannelTest do
     |> assign_current_user(user.id)
     |> handle_in_topic(SubscriptionChannel)
 
-    assert_socket_replied_with_payload("subscriptions:index", %{
-      subscriptions: [Serializers.to_json(subscription)]
-    })
+    subscriptions = %{
+      subscriptions:
+      Map.put(%{}, to_string(subscription.id), Serializers.to_json(subscription))
+    }
+
+    assert_socket_replied_with_payload("subscriptions:index", subscriptions)
   end
 
   test "subscriptions:create replies with the newly created subscription" do
@@ -62,7 +65,7 @@ defmodule Constable.Channels.SubscriptionChannelTest do
 
     assert_socket_replied_with_payload(
       "subscriptions:destroy",
-      %{deleted: true}
+      %{id: subscription.id}
     )
   end
 end
