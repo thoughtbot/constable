@@ -27,8 +27,7 @@ defmodule Constable.SubscriptionChannel do
   end
 
   def handle_in("subscriptions:destroy", %{"id" => id},socket) do
-    Repo.get(Subscription, id)
-    |> Repo.delete
+    Repo.get(Subscription, id) |> Repo.delete
 
     reply socket, "subscriptions:destroy", %{id: id}
   end

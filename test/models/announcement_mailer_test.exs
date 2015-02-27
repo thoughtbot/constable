@@ -14,7 +14,7 @@ defmodule Constable.Mailers.AnnouncementTest do
     end
   end
 
-  test "sends announcement created email" do
+  test "sends announcement created email to people subscribed to the interest" do
     Pact.override(self, :mailer, FakeMandrill)
     author = Forge.saved_user(Repo)
     users = [author, Forge.saved_user(Repo)]

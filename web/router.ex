@@ -35,6 +35,7 @@ defmodule Constable.Router do
     channel "subscriptions*", SubscriptionChannel
     channel "comments*", CommentChannel
     channel "users*", UserChannel
+    channel "user_interests*", UserInterestChannel
   end
 
   defp put_oauth_strategy(conn, _) do

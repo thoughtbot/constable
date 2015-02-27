@@ -28,18 +28,18 @@ defmodule Constable.Mixfile do
   # Type `mix help deps` for examples and options
   defp deps do
     [
-      {:postgrex, ">= 0.0.0"},
-      {:ecto, "~> 0.8.1"},
-      {:phoenix, "~> 0.9.0"},
+      {:blacksmith, "~> 0.1.1"},
       {:cowboy, "~> 1.0"},
       {:dotenv, "~> 0.0.4"},
-      {:secure_random, "~> 0.1"},
+      {:ecto, "~> 0.8.1"},
+      {:exgravatar, "~> 0.2.0"},
       {:oauth2, "~> 0.0.3"},
-      {:poison, "~> 1.3.1", override: true},
-      {:plug, "~> 0.10.0", override: true},
       {:pact, "~> 0.1.0"},
-      {:blacksmith, "~> 0.1.1"},
-      {:exgravatar, "~> 0.2.0"}
+      {:phoenix, "~> 0.9.0"},
+      {:plug, "~> 0.10.0", override: true},
+      {:poison, "~> 1.3.1", override: true},
+      {:postgrex, ">= 0.0.0"},
+      {:secure_random, "~> 0.1"}
     ]
   end
 end

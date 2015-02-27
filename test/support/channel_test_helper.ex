@@ -11,14 +11,14 @@ defmodule ChannelTestHelper do
   end
 
   def assert_socket_broadcasted_with_payload(topic, payload) do
-    assert_received {
+    assert_receive {
       :socket_broadcast,
       %Socket.Message{event: ^topic, payload: ^payload, topic: ^topic}
     }
   end
 
   def assert_socket_replied_with_payload(topic, payload) do
-    assert_received {
+    assert_receive {
       :socket_reply,
       %Socket.Message{event: ^topic, payload: ^payload, topic: ^topic}
     }

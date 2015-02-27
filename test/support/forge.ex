@@ -5,7 +5,8 @@ defmodule Forge do
   alias Constable.Subscription
   alias Constable.User
   alias Constable.AnnouncementInterest
-  alias Constable. Interest
+  alias Constable.Interest
+  alias Constable.UserInterest
 
   @save_one_function &Blacksmith.Config.save/2
   @save_all_function &Blacksmith.Config.save_all/2
@@ -20,9 +21,12 @@ defmodule Forge do
   register :announcement_interest,
     __struct__: AnnouncementInterest
 
+  register :user_interest,
+    __struct__: UserInterest
+
   register :interest,
     __struct__: Interest,
-    name: "general"
+    name: Faker.Lorem.word
 
   register :comment,
     __struct__: Comment,
