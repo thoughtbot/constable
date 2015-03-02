@@ -7,6 +7,7 @@ defmodule Constable.User do
     field :email
     field :token
     field :name
+    field :username
 
     timestamps
   end

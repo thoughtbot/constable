@@ -24,6 +24,20 @@ defmodule AuthControllerTest do
     end
   end
 
+  test "inserts user with correct information" do
+    Pact.override(self, "token_retriever", FakeTokenRetriever)
+    Pact.override(self, "request_with_access_token", FakeRequestWithAccessToken)
+
+    conn = phoenix_conn(:get, "/auth/callback", %{"code" => "foo"})
+    |> put_redirect_after_success("foo.com")
+    |> call_router
+
+    user = Repo.one(User)
+    assert user.email == "fake@example.com"
+    assert user.name == "Gumbo McGee"
+    assert user.username == "fake"
+  end
+
   test "index redirects to google with the correct redirect URI" do
     conn = phoenix_conn(:get, "/auth", %{redirect_uri: "foo.com"})
     |> call_router
