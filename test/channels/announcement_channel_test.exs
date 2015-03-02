@@ -13,8 +13,8 @@ defmodule AnnouncementChannelTest do
     |> preload_associations
     announcement_id = to_string(announcement.id)
 
-    socket_with_topic("announcements:index")
-    |> handle_in_topic(AnnouncementChannel)
+    build_socket("announcements:index")
+    |> handle_in(AnnouncementChannel)
 
     announcements = %{
       announcements:
@@ -31,8 +31,8 @@ defmodule AnnouncementChannelTest do
     announcement = announcement |> preload_associations
     announcement_id = to_string(announcement.id)
 
-    socket_with_topic("announcements:index")
-    |> handle_in_topic(AnnouncementChannel)
+    build_socket("announcements:index")
+    |> handle_in(AnnouncementChannel)
 
     announcements = %{
       announcements:
@@ -44,11 +44,9 @@ defmodule AnnouncementChannelTest do
   test "announcements:create returns an announcement" do
     user = Forge.saved_user(Repo)
     params = %{"title" => "Foo", "body" => "Bar", "interests" => []}
-    Phoenix.PubSub.subscribe(Constable.PubSub, self, "announcements:create")
 
-    socket_with_topic("announcements:create")
-    |> Socket.assign(:current_user_id, user.id)
-    |> handle_in_topic(AnnouncementChannel, params)
+    authenticated_socket(user, "announcements:create")
+    |> handle_in(AnnouncementChannel, params)
 
     announcement =
       Queries.Announcement.with_sorted_comments
@@ -66,12 +64,10 @@ defmodule AnnouncementChannelTest do
   test "announcements:create adds interests and sends email" do
     user = Forge.saved_user(Repo)
     params = %{"title" => "Foo", "body" => "Bar", "interests" => ["foo"]}
-    Phoenix.PubSub.subscribe(Constable.PubSub, self, "announcements:create")
     Pact.override(self, :announcement_mailer, FakeAnnouncementMailer)
 
-    socket_with_topic("announcements:create")
-    |> Socket.assign(:current_user_id, user.id)
-    |> handle_in_topic(AnnouncementChannel, params)
+    authenticated_socket(user, "announcements:create")
+    |> handle_in(AnnouncementChannel, params)
 
     announcement = Queries.Announcement.with_sorted_comments |> Repo.one
     assert announcement_has_interest_named?(announcement, "foo")
@@ -82,11 +78,9 @@ defmodule AnnouncementChannelTest do
     user = Forge.saved_user(Repo)
     announcement = Forge.saved_announcement(Repo, user_id: user.id)
     params = %{"id" => announcement.id, "title" => "New!", "body" => "NEW!!!"}
-    Phoenix.PubSub.subscribe(Constable.PubSub, self, "announcements:update")
 
-    socket_with_topic("announcements:update")
-    |> Socket.assign(:current_user_id, user.id)
-    |> handle_in_topic(AnnouncementChannel, params)
+    authenticated_socket(user, topic: "announcements:update")
+    |> handle_in(AnnouncementChannel, params)
 
     Queries.Announcement.with_sorted_comments
     |> Repo.one
@@ -102,11 +96,9 @@ defmodule AnnouncementChannelTest do
     other_user = Forge.saved_user(Repo)
     announcement = Forge.saved_announcement(Repo, user_id: other_user.id)
     params = %{"id" => announcement.id, "title" => "New!", "body" => "NEW!!!"}
-    Phoenix.PubSub.subscribe(Constable.PubSub, self, "announcements:update")
 
-    socket_with_topic("announcements:update")
-    |> Socket.assign(:current_user_id, user.id)
-    |> handle_in_topic(AnnouncementChannel, params)
+    authenticated_socket(user, topic: "announcements:update")
+    |> handle_in(AnnouncementChannel, params)
 
     Queries.Announcement.with_sorted_comments
     |> Repo.one

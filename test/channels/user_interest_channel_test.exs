@@ -18,10 +18,8 @@ defmodule UserInterestChannelTest do
       ]
     end
 
-    Phoenix.PubSub.subscribe(Constable.PubSub, self, "users_interests:index")
-    socket_with_topic("users_interests:index")
-    |> assign_current_user(user.id)
-    |> handle_in_topic(UserInterestChannel)
+    authenticated_socket(user, "users_interests:index")
+    |> handle_in(UserInterestChannel)
 
     serialized_users_interests =
       users_interests
@@ -37,10 +35,8 @@ defmodule UserInterestChannelTest do
     interest = Forge.saved_interest(Repo)
     user_interest_params = %{user_id: user.id, interest_id: interest.id}
 
-    Phoenix.PubSub.subscribe(Constable.PubSub, self, "users_interests:create")
-    socket_with_topic("users_interests:create")
-    |> assign_current_user(user.id)
-    |> handle_in_topic(UserInterestChannel, user_interest_params)
+    authenticated_socket(user, "users_interests:create")
+    |> handle_in(UserInterestChannel, user_interest_params)
 
     user_interest = Repo.one(UserInterest) |> Serializers.to_json
     assert_socket_replied_with_payload(
@@ -58,10 +54,8 @@ defmodule UserInterestChannelTest do
       interest_id: interest.id
     )
 
-    Phoenix.PubSub.subscribe(Constable.PubSub, self, "users_interests:destroy")
-    socket_with_topic("users_interests:destroy")
-    |> assign_current_user(user.id)
-    |> handle_in_topic(UserInterestChannel, %{"id" => user_interest.id})
+    authenticated_socket(user, "users_interests:destroy")
+    |> handle_in(UserInterestChannel, %{"id" => user_interest.id})
 
     assert_socket_replied_with_payload(
       "users_interests:destroy",

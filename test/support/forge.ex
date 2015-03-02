@@ -40,4 +40,12 @@ defmodule Forge do
 
   register :subscription,
     __struct__: Subscription
+
+  register :socket,
+    __struct__: Phoenix.Socket,
+    pid: self,
+    router: Constable.Router,
+    topic: "foo:bar",
+    pubsub_server: Constable.PubSub,
+    assigns: []
 end

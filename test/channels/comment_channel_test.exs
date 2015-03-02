@@ -13,10 +13,8 @@ defmodule CommentChannelTest do
     user = Forge.saved_user(Repo)
     announcement = Forge.saved_announcement(Repo, user_id: user.id)
 
-    Phoenix.PubSub.subscribe(Constable.PubSub, self, "comments:create")
-    socket_with_topic("comments:create")
-    |> assign_current_user(user.id)
-    |> handle_in_topic(CommentChannel, comment_params_for(announcement))
+    authenticated_socket(user, "comments:create")
+    |> handle_in(CommentChannel, comment_params_for(announcement))
 
     comment = Repo.one(from c in Comment, preload: :user) |> Serializers.to_json
     assert_socket_broadcasted_with_payload("comments:create", comment)
@@ -31,10 +29,8 @@ defmodule CommentChannelTest do
       updated_at: date
     )
 
-    Phoenix.PubSub.subscribe(Constable.PubSub, self, "comments:create")
-    socket_with_topic("comments:create")
-    |> assign_current_user(user.id)
-    |> handle_in_topic(CommentChannel, comment_params_for(announcement))
+    authenticated_socket(user, "comments:create")
+    |> handle_in(CommentChannel, comment_params_for(announcement))
 
     updated_announcement = Repo.get(Announcement, announcement.id)
     assert announcement.updated_at != updated_announcement.updated_at
@@ -56,9 +52,8 @@ defmodule CommentChannelTest do
       end
     end
 
-    socket_with_topic("comments:create")
-    |> assign_current_user(user.id)
-    |> handle_in_topic(CommentChannel, comment_params_for(announcement))
+    authenticated_socket(user, "comments:create")
+    |> handle_in(CommentChannel, comment_params_for(announcement))
 
     comment = Repo.one(from c in Comment, preload: [:user, :announcement])
 

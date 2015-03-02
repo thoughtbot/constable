@@ -15,9 +15,8 @@ defmodule Constable.Channels.SubscriptionChannelTest do
       announcement_id: announcement.id
     )
 
-    socket_with_topic("subscriptions:index")
-    |> assign_current_user(user.id)
-    |> handle_in_topic(SubscriptionChannel)
+    authenticated_socket(user, topic: "subscriptions:index")
+    |> handle_in(SubscriptionChannel)
 
     subscriptions = %{
       subscriptions:
@@ -30,11 +29,9 @@ defmodule Constable.Channels.SubscriptionChannelTest do
   test "subscriptions:create replies with the newly created subscription" do
     user = Forge.saved_user(Repo)
     announcement = Forge.saved_announcement(Repo, user_id: user.id)
-    Phoenix.PubSub.subscribe(Constable.PubSub, self, "subscriptions:create")
 
-    socket_with_topic("subscriptions:create")
-    |> assign_current_user(user.id)
-    |> handle_in_topic(SubscriptionChannel, %{
+    authenticated_socket(user, topic: "subscriptions:create")
+    |> handle_in(SubscriptionChannel, %{
       "announcement_id" => announcement.id
     })
 
@@ -56,10 +53,8 @@ defmodule Constable.Channels.SubscriptionChannelTest do
       announcement_id: announcement.id
     )
 
-    Phoenix.PubSub.subscribe(Constable.PubSub, self, "subscriptions:destroy")
-    socket_with_topic("subscriptions:destroy")
-    |> assign_current_user(user.id)
-    |> handle_in_topic(SubscriptionChannel, %{
+    authenticated_socket(user, topic: "subscriptions:destroy")
+    |> handle_in(SubscriptionChannel, %{
       "id" => subscription.id
     })
 

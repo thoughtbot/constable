@@ -6,7 +6,7 @@ defmodule ChannelTestHelper do
     channel.join("", params, socket)
   end
 
-  def handle_in_topic(socket, channel, params \\ %{}) do
+  def handle_in(socket, channel, params \\ %{}) do
     channel.handle_in(socket.topic, params, socket)
   end
 
@@ -24,21 +24,26 @@ defmodule ChannelTestHelper do
     }
   end
 
-  def assign_current_user(socket, user_id) do
+  def authenticated_socket(user, topic) when is_binary(topic) do
+    authenticated_socket(user, topic: topic)
+  end
+  def authenticated_socket(user, attributes) do
+    build_socket(attributes) |> assign_current_user(user.id)
+  end
+
+  def build_socket(topic) when is_binary(topic) do
+    build_socket(topic: topic)
+  end
+  def build_socket(attributes) do
+    Forge.socket(attributes) |> subscribe
+  end
+
+  defp subscribe(socket) do
+    Phoenix.PubSub.subscribe(Constable.PubSub, self, socket.topic)
+    socket
+  end
+
+  defp assign_current_user(socket, user_id) do
     Socket.assign(socket, :current_user_id, user_id)
-  end
-
-  def socket_with_topic(topic \\ "") do
-    Socket.put_topic(new_socket(topic), topic)
-  end
-
-  defp new_socket(topic) do
-    %Socket{
-      pid: self,
-      router: Constable.Router,
-      topic: topic,
-      pubsub_server: Constable.PubSub,
-      assigns: []
-    }
   end
 end
