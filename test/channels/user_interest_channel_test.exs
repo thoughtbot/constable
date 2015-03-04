@@ -1,9 +1,7 @@
 defmodule UserInterestChannelTest do
   use Constable.TestWithEcto, async: false
   import ChannelTestHelper
-  import Ecto.Query
   require Forge
-  alias Phoenix.Socket
   alias Constable.Repo
   alias Constable.UserInterestChannel
   alias Constable.UserInterest

@@ -1,7 +1,6 @@
 defmodule AnnouncementChannelTest do
   use Constable.TestWithEcto, async: false
   import ChannelTestHelper
-  alias Phoenix.Socket
   alias Constable.Repo
   alias Constable.AnnouncementChannel
   alias Constable.Serializers

@@ -4,20 +4,28 @@ defmodule Constable.Mailers.Announcement do
   alias Constable.Mandrill
 
   @template_base "web/templates/mailers/announcements"
+  @tags ~w(new-announcement)
 
   def created(announcement) do
-    message_params = %{
-      text: render_template("new", [
-        announcement: announcement,
-        author: announcement.user
-      ]),
-      subject: "#{announcement.title}",
+    %{
       from_email: "noreply@constable.io",
       from_name: "#{announcement.user.name} (Constable)",
-      to: Mandrill.format_users(Repo.all(User)),
-      tags: ["new-announcement"]
+      to: interested_users(announcement),
+      subject: announcement.title,
+      tags: @tags,
+      text: render_template("new",
+        announcement: announcement,
+        author: announcement.user
+      )
     }
     |> Pact.get(:mailer).message_send
+  end
+
+  def interested_users(announcement) do
+    announcement
+    |> Repo.preload(:interested_users)
+    |> Map.get(:interested_users)
+    |> Mandrill.format_users
   end
 
   defp render_template(path, bindings) do

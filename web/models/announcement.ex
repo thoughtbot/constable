@@ -13,6 +13,7 @@ defmodule Constable.Announcement do
     has_many :comments, Comment
     has_many :announcements_interests, AnnouncementInterest
     has_many :interests, through: [:announcements_interests, :interest]
+    has_many :interested_users, through: [:interests, :interested_users]
   end
 
   def changeset(announcement, :create, params) do
