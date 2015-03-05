@@ -43,8 +43,9 @@ defmodule Constable.AuthController do
     userinfo = get_userinfo(token)
     email = userinfo["email"]
     name = userinfo["name"]
+    username = String.split(userinfo["email"], "@", parts: 2) |> List.first
     unless user = Repo.one(from u in User, where: u.email == ^email) do
-      user = %User{email: email, name: name} |> Repo.insert
+      user = %User{email: email, name: name, username: username} |> Repo.insert
     end
     user
   end
