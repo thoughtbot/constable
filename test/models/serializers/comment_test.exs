@@ -6,14 +6,14 @@ defmodule Constable.Serializable.CommentTest do
     user = Forge.user
     comment = Forge.comment(id: 1, user: user)
 
-    comment_as_json = Serializers.to_json(comment)
+    comment_as_json = Poison.encode!(comment)
 
-    assert comment_as_json == %{
+    assert comment_as_json == Poison.encode! %{
       id: comment.id,
       body: comment.body,
-      user: Serializers.to_json(comment.user),
+      user: comment.user,
       announcement_id: comment.announcement_id,
-      inserted_at: Ecto.DateTime.to_string(comment.inserted_at)
+      inserted_at: comment.inserted_at
     }
   end
 end

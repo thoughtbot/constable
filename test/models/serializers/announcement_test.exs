@@ -1,4 +1,4 @@
-defmodule Constable.Serializable.AnnouncementTest do
+defmodule Constable.AnnouncementSerializerTest do
   use ExUnit.Case, async: true
   alias Constable.Serializers
 
@@ -9,17 +9,17 @@ defmodule Constable.Serializable.AnnouncementTest do
     comment = Forge.comment(announcement: announcement, user: user)
     announcement = Map.put(announcement, :comments, [comment])
 
-    announcement_as_json = Serializers.to_json(announcement)
+    announcement_as_json = Poison.encode!(announcement)
 
-    assert announcement_as_json == %{
+    assert announcement_as_json == Poison.encode! %{
       id: announcement.id,
       title: announcement.title,
       body: announcement.body,
-      user: Serializers.to_json(user),
-      comments: [Serializers.to_json(comment)],
-      interests: [Serializers.to_json(interest)],
-      inserted_at: Ecto.DateTime.to_string(announcement.inserted_at),
-      updated_at: Ecto.DateTime.to_string(announcement.updated_at)
+      user: announcement.user,
+      comments: announcement.comments,
+      interests: announcement.interests,
+      inserted_at: announcement.inserted_at,
+      updated_at: announcement.updated_at
     }
   end
 end

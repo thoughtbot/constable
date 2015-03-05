@@ -5,9 +5,7 @@ defmodule Constable.UserInterestChannel do
   alias Constable.Serializers
 
   def handle_in("users_interests:index", _, socket) do
-    user_interests = %{
-      users_interests: Repo.all(UserInterest) |> Enum.map(&Serializers.to_json/1)
-    }
+    user_interests = %{users_interests: Repo.all(UserInterest)}
 
     reply socket, "users_interests:index", user_interests
   end
@@ -17,7 +15,6 @@ defmodule Constable.UserInterestChannel do
     user_interest =
       UserInterest.changeset(%UserInterest{}, user_interest_params)
      |> Repo.insert
-     |> Serializers.to_json
 
     reply socket, "users_interests:create", user_interest
   end

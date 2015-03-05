@@ -9,7 +9,6 @@ defmodule Constable.AnnouncementChannel do
   def handle_in("announcements:index", _params, socket) do
     announcements =
       Repo.all(Queries.Announcement.with_sorted_comments)
-      |> Enum.map(&Serializers.to_json/1)
       |> Serializers.ids_as_keys
     reply socket, "announcements:index", %{announcements: announcements}
   end
@@ -21,7 +20,7 @@ defmodule Constable.AnnouncementChannel do
       |> AnnouncementCreator.create(announcement_params["interests"])
       |> preload_associations
     Pact.get(:announcement_mailer).created(announcement)
-    broadcast socket, "announcements:create", Serializers.to_json(announcement)
+    broadcast socket, "announcements:create", announcement
   end
 
   def handle_in("announcements:update", attributes = %{"id" => id}, socket) do
@@ -41,7 +40,7 @@ defmodule Constable.AnnouncementChannel do
   end
 
   defp broadcast_announcement(announcement, socket, topic) do
-    broadcast(socket, "announcements:update", Serializers.to_json(announcement))
+    broadcast(socket, "announcements:update", announcement)
   end
 
   defp update_announcement(announcement, attributes) do

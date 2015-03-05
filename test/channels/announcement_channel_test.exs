@@ -17,10 +17,8 @@ defmodule AnnouncementChannelTest do
     |> handle_in(AnnouncementChannel)
 
     announcements = %{
-      announcements:
-      Map.put(%{}, announcement_id, Serializers.to_json(announcement))
+      announcements: Map.put(%{}, announcement_id, announcement)
     }
-
     assert_socket_replied_with_payload("announcements:index", announcements)
   end
 
@@ -35,8 +33,7 @@ defmodule AnnouncementChannelTest do
     |> handle_in(AnnouncementChannel)
 
     announcements = %{
-      announcements:
-      Map.put(%{}, announcement_id, Serializers.to_json(announcement))
+      announcements: Map.put(%{}, announcement_id, announcement)
     }
     assert_socket_replied_with_payload("announcements:index", announcements)
   end
@@ -48,10 +45,7 @@ defmodule AnnouncementChannelTest do
     authenticated_socket(user, "announcements:create")
     |> handle_in(AnnouncementChannel, params)
 
-    announcement =
-      Queries.Announcement.with_sorted_comments
-      |> Repo.one
-      |> Serializers.to_json
+    announcement = Queries.Announcement.with_sorted_comments |> Repo.one
     assert_socket_broadcasted_with_payload("announcements:create", announcement)
   end
 
@@ -82,13 +76,8 @@ defmodule AnnouncementChannelTest do
     authenticated_socket(user, topic: "announcements:update")
     |> handle_in(AnnouncementChannel, params)
 
-    Queries.Announcement.with_sorted_comments
-    |> Repo.one
-    |> Serializers.to_json
-
-    assert_received {:socket_broadcast, %{payload: payload}}
-    assert payload.title == "New!"
-    assert payload.body == "NEW!!!"
+    announcement = Queries.Announcement.with_sorted_comments |> Repo.one
+    assert_socket_broadcasted_with_payload("announcements:update", announcement)
   end
 
   test "announcements:update doesn't update when user doesn't own it" do
@@ -99,10 +88,6 @@ defmodule AnnouncementChannelTest do
 
     authenticated_socket(user, topic: "announcements:update")
     |> handle_in(AnnouncementChannel, params)
-
-    Queries.Announcement.with_sorted_comments
-    |> Repo.one
-    |> Serializers.to_json
 
     refute_received {:socket_broadcast, _payload }
   end

@@ -7,7 +7,6 @@ defmodule UserInterestChannelTest do
   alias Constable.Repo
   alias Constable.UserInterestChannel
   alias Constable.UserInterest
-  alias Constable.Serializers
 
   test "users_interests:index replies with user's interests" do
     user = Forge.saved_user(Repo)
@@ -21,12 +20,8 @@ defmodule UserInterestChannelTest do
     authenticated_socket(user, "users_interests:index")
     |> handle_in(UserInterestChannel)
 
-    serialized_users_interests =
-      users_interests
-      |> Enum.map(&Serializers.to_json/1)
     assert_socket_replied_with_payload(
-      "users_interests:index",
-      %{users_interests: serialized_users_interests}
+      "users_interests:index", %{users_interests: users_interests}
     )
   end
 
@@ -38,11 +33,8 @@ defmodule UserInterestChannelTest do
     authenticated_socket(user, "users_interests:create")
     |> handle_in(UserInterestChannel, user_interest_params)
 
-    user_interest = Repo.one(UserInterest) |> Serializers.to_json
-    assert_socket_replied_with_payload(
-      "users_interests:create",
-      user_interest
-    )
+    user_interest = Repo.one(UserInterest)
+    assert_socket_replied_with_payload("users_interests:create", user_interest)
   end
 
   test "user_interests:destroy replies with id of deleted interest" do

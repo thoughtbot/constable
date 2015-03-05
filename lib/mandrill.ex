@@ -14,7 +14,5 @@ defmodule Constable.Mandrill do
     end)
   end
 
-  def format_users(users), do: Enum.map(users, &format_user/1)
-  def format_user(user), do: Serializers.to_json(user, :mandrill)
+  def format_users(users), do: Poison.encode!(users, for: :mandrill)
 end
-

@@ -14,13 +14,12 @@ defmodule Constable.CommentChannel do
       announcement_id: announcement_id
     }
     |> Repo.insert
-    |> Repo.preload(:user)
-    |> Repo.preload(:announcement)
+    |> Repo.preload([:user, :announcement])
 
     update_announcement_timestamps(announcement_id)
     email_subscribers(comment)
 
-    broadcast socket, "comments:create", Serializers.to_json(comment)
+    broadcast socket, "comments:create", comment
   end
 
   defp email_subscribers(comment) do

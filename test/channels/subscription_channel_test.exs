@@ -18,11 +18,10 @@ defmodule Constable.Channels.SubscriptionChannelTest do
     authenticated_socket(user, topic: "subscriptions:index")
     |> handle_in(SubscriptionChannel)
 
+    subscription = subscription |> Repo.preload([:user, :announcement])
     subscriptions = %{
-      subscriptions:
-      Map.put(%{}, to_string(subscription.id), Serializers.to_json(subscription))
+      subscriptions: Map.put(%{}, to_string(subscription.id), subscription)
     }
-
     assert_socket_replied_with_payload("subscriptions:index", subscriptions)
   end
 
@@ -35,14 +34,8 @@ defmodule Constable.Channels.SubscriptionChannelTest do
       "announcement_id" => announcement.id
     })
 
-    subscription =
-      Repo.one(from s in Subscription) |>
-      Repo.preload([:announcement, :user])
-
-    assert_socket_replied_with_payload(
-      "subscriptions:create",
-      Serializers.to_json(subscription)
-    )
+    subscription = Repo.one(Subscription)
+    assert_socket_replied_with_payload("subscriptions:create", subscription)
   end
 
   test "subscriptions:destroy destroys a comment subscription" do

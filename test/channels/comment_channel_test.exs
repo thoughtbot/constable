@@ -16,7 +16,7 @@ defmodule CommentChannelTest do
     authenticated_socket(user, "comments:create")
     |> handle_in(CommentChannel, comment_params_for(announcement))
 
-    comment = Repo.one(from c in Comment, preload: :user) |> Serializers.to_json
+    comment = Repo.one(from c in Comment, preload: [:user, :announcement])
     assert_socket_broadcasted_with_payload("comments:create", comment)
   end
 

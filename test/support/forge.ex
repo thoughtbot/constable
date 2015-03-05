@@ -26,7 +26,7 @@ defmodule Forge do
 
   register :interest,
     __struct__: Interest,
-    name: Faker.Lorem.word
+    name: Sequence.next(:interest_name, &"interest-#{&1}")
 
   register :comment,
     __struct__: Comment,

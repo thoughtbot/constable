@@ -1,16 +1,16 @@
-defimpl Constable.Serializable, for: Constable.Announcement do
+defimpl Poison.Encoder, for: Constable.Announcement do
   alias Constable.Serializers
 
-  def to_json(announcement) do
+  def encode(announcement, _options) do
     %{
       id: announcement.id,
       title: announcement.title,
       body: announcement.body,
-      user: Serializers.to_json(announcement.user),
-      comments: Enum.map(announcement.comments, &Serializers.to_json/1),
-      interests: Enum.map(announcement.interests, &Serializers.to_json/1),
-      inserted_at: Ecto.DateTime.to_string(announcement.inserted_at),
-      updated_at: Ecto.DateTime.to_string(announcement.updated_at),
-    }
+      user: announcement.user,
+      comments: announcement.comments,
+      interests: announcement.interests,
+      inserted_at: announcement.inserted_at,
+      updated_at: announcement.updated_at,
+    } |> Poison.encode!
   end
 end
