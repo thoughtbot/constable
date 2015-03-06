@@ -2,7 +2,7 @@ defmodule Constable.AnnouncementSerializerTest do
   use ExUnit.Case, async: true
   alias Constable.Serializers
 
-  test "returns map with id, title, body, user and embedded comments" do
+  test "returns json with id, title, body, user and embedded comments" do
     user = Forge.user
     interest = Forge.interest
     announcement = Forge.announcement(user: user, interests: [interest])

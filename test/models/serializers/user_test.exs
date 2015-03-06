@@ -1,8 +1,8 @@
-defmodule Constable.Serializable.UserTest do
+defmodule Constable.UserSerializerTest do
   use ExUnit.Case, async: true
   alias Constable.Serializers
 
-  test "returns map with id, email, name, and gravatar_url" do
+  test "returns json with id, email, name, and gravatar_url" do
     user = Forge.user
 
     user_as_json = Poison.encode!(user)
@@ -15,7 +15,7 @@ defmodule Constable.Serializable.UserTest do
     }
   end
 
-  test "returns map with email, name, and type" do
+  test "returns json with email, name, and type" do
     user = Forge.user
 
     user_as_json = Poison.encode!(user, for: :mandrill)

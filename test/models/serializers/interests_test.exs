@@ -1,7 +1,7 @@
-defmodule Constable.Serializable.InterestsTest do
+defmodule Constable.InterestsSerializerTest do
   use ExUnit.Case, async: true
 
-  test "returns map with id and name" do
+  test "returns json with id and name" do
     interest = Forge.interest
 
     interest_as_json = Poison.encode!(interest)
