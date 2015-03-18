@@ -1,11 +1,7 @@
 defimpl Poison.Encoder, for: Constable.Comment do
+  @attributes ~W(id body user announcement_id inserted_at)a
+
   def encode(comment, _options) do
-    %{
-      id: comment.id,
-      body: comment.body,
-      user: comment.user,
-      announcement_id: comment.announcement_id,
-      inserted_at: comment.inserted_at
-    } |> Poison.encode!
+    comment |> Map.take(@attributes) |> Poison.encode!
   end
 end
