@@ -17,12 +17,12 @@ defmodule Constable.Announcement do
   end
 
   def changeset(announcement, :create, params) do
-    params
-    |> cast(announcement, ~w(title body user_id))
+    announcement
+    |> cast(params, ~w(title body user_id))
   end
 
   def changeset(announcement, :update, params \\ nil) do
-    params
-    |> cast(announcement, ~w(), ~w(title body))
+    announcement
+    |> cast(params, ~w(), ~w(title body))
   end
 end

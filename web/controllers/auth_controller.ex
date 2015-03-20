@@ -1,5 +1,5 @@
 defmodule Constable.AuthController do
-  use Phoenix.Controller
+  use Constable.Web, :controller
   import Ecto.Query
   require Logger
 

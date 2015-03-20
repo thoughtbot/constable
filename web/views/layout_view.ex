@@ -1,3 +1,3 @@
 defmodule Constable.LayoutView do
-  use Constable.View
+  use Constable.Web, :view
 end

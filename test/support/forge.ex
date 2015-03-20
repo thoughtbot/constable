@@ -48,4 +48,13 @@ defmodule Forge do
     topic: "foo:bar",
     pubsub_server: Constable.PubSub,
     assigns: []
+
+  register :date_time,
+    __struct__: Ecto.DateTime,
+    year: 2010,
+    month: 4,
+    day: 17,
+    hour: 0,
+    min: 0,
+    sec: 0
 end

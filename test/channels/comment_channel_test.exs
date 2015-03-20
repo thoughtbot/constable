@@ -22,7 +22,7 @@ defmodule CommentChannelTest do
 
   test "comments:create updates the announcements timestamp" do
     user = Forge.saved_user(Repo)
-    {:ok, date} = Ecto.DateTime.load({{2000, 12, 25}, {11, 42, 42}})
+    date = Forge.date_time(year: 2000)
     announcement = Forge.saved_announcement(
       Repo,
       user_id: user.id,

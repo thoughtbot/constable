@@ -11,7 +11,7 @@ defmodule Constable.UserInterest do
   end
 
   def changeset(user_interest, params) do
-    params
-    |> cast(user_interest, ~w(user_id interest_id))
+    user_interest
+    |> cast(params, ~w(user_id interest_id))
   end
 end

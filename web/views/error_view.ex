@@ -1,5 +1,5 @@
 defmodule Constable.ErrorView do
-  use Constable.View
+  use Constable.Web, :view
 
   def render("404.html", _assigns) do
     "Page not found - 404"

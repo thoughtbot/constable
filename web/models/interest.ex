@@ -13,8 +13,8 @@ defmodule Constable.Interest do
   end
 
   def changeset(interest, params) do
-    params
-    |> cast(interest, ~w(name))
+    interest
+    |> cast(params, ~w(name))
     |> update_change(:name, &String.downcase/1)
   end
 end
