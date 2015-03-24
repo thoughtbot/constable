@@ -17,10 +17,10 @@ defmodule Constable.SubscriptionChannel do
 
   def handle_in("subscriptions:create", %{"announcement_id" => announcement_id}, socket) do
     user_id = current_user_id(socket)
-    subscription = Repo.insert(%Subscription{
+    subscription = Subscription.changeset(%{
       user_id: user_id,
       announcement_id: announcement_id
-    })
+    }) |> Repo.insert
 
     reply socket, "subscriptions:create", subscription
   end

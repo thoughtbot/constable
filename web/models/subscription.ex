@@ -8,4 +8,9 @@ defmodule Constable.Subscription do
     belongs_to :announcement, Announcement
     timestamps
   end
+
+  def changeset(subscription \\ %__MODULE__{}, params) do
+    subscription
+    |> cast(params, ~w(user_id announcement_id))
+  end
 end
