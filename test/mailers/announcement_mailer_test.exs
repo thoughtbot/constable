@@ -10,7 +10,7 @@ defmodule Constable.Mailers.AnnouncementTest do
       send self, {:subject, message_params.subject}
       send self, {:from_email, message_params.from_email}
       send self, {:from_name, message_params.from_name}
-      send self, {:text, message_params.text}
+      send self, {:html, message_params.html}
     end
   end
 
@@ -26,13 +26,16 @@ defmodule Constable.Mailers.AnnouncementTest do
     users = Mandrill.format_users(interested_users)
     subject = "#{announcement.title}"
     from_name = "#{author.name} (Constable)"
+    from_email = "constable-#{announcement.id}@#{System.get_env("EMAIL_DOMAIN")}"
     assert_received {:to, ^users}
     assert_received {:subject, ^subject}
+    assert_received {:from_email, ^from_email}
     assert_received {:from_name, ^from_name}
-    assert_received {:text, email_body}
+    assert_received {:html, email_body}
     assert String.contains?(email_body, announcement.title)
     assert String.contains?(email_body, announcement.body)
     assert String.contains?(email_body, author.name)
+    assert String.contains?(email_body, Exgravatar.generate(author.email))
   end
 
   def create_announcement_with_interest(interest) do

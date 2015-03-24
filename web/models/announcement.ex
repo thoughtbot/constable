@@ -16,13 +16,14 @@ defmodule Constable.Announcement do
     has_many :interested_users, through: [:interests, :interested_users]
   end
 
+  def changeset(announcement, context, params \\ nil)
+  def changeset(announcement, :update, params) do
+    announcement
+    |> cast(params, ~w(), ~w(title body))
+  end
+
   def changeset(announcement, :create, params) do
     announcement
     |> cast(params, ~w(title body user_id))
-  end
-
-  def changeset(announcement, :update, params \\ nil) do
-    announcement
-    |> cast(params, ~w(), ~w(title body))
   end
 end

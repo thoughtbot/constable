@@ -1,5 +1,6 @@
 defmodule Constable.Interest do
   use Ecto.Model
+  alias Constable.Repo
   alias Constable.UserInterest
   alias Constable.AnnouncementInterest
 
@@ -13,9 +14,10 @@ defmodule Constable.Interest do
     has_many :interested_users, through: [:users_interests, :user]
   end
 
-  def changeset(interest, params) do
+  def changeset(interest \\ %__MODULE__{}, params) do
     interest
     |> cast(params, ~w(name))
     |> update_change(:name, &String.downcase/1)
+    |> validate_unique(:name, on: Repo)
   end
 end

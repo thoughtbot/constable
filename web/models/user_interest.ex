@@ -2,6 +2,7 @@ defmodule Constable.UserInterest do
   use Ecto.Model
   alias Constable.User
   alias Constable.Interest
+  alias Constable.Repo
 
   schema "users_interests" do
     timestamps
@@ -10,8 +11,10 @@ defmodule Constable.UserInterest do
     belongs_to :interest, Interest
   end
 
-  def changeset(user_interest, params) do
+  def changeset(user_interest \\ %__MODULE__{}, params) do
     user_interest
     |> cast(params, ~w(user_id interest_id))
+    |> validate_unique(:user_id, on: Repo)
+    |> validate_unique(:interest_id, on: Repo)
   end
 end
