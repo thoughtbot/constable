@@ -11,6 +11,13 @@ idempotent. Run whenever you like.
 
 Now you can visit `localhost:4000` from your browser.
 
+## Email templates
+
+You can edit the email contents from `web/templates/mailers`. To change the
+styling see the [`constable-email-templates`
+repo](https://github.com/thoughtbot/constable-email-templates). From that repo
+you can change the styling and regenerate the HTML.
+
 ## Testing
 
 1. Run `mix test`
