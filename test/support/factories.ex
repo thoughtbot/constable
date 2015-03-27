@@ -9,10 +9,16 @@ defmodule Constable.Factories do
     }
   end
 
-  factory :email_reply_webhook do
+  factory :email_reply_event do
     %{
       event: "inbound",
       msg: build(:email_reply_message)
+    }
+  end
+
+  factory :email_reply_webhook do
+    %{
+      mandrill_events: [build(:email_reply_event)]
     }
   end
 

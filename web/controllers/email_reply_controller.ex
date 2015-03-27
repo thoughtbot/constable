@@ -3,21 +3,45 @@ defmodule Constable.EmailReplyController do
   alias Constable.Comment
   alias Constable.Queries
 
-  def create(conn, %{"msg" => message}) do
-    Comment.changeset(:create, comment_params(message))
-    |> Repo.insert!
+  def create(conn, %{"mandrill_events" => messages}) do
+    messages
+    |> Poison.decode!
+    |> create_comments
 
-    conn |> put_status(:created)
+    text(conn, nil)
   end
 
-  defp comment_params(message) do
-    %{"text" => email_body, "email" => to, "from_email" => from} =  message
-    announcement_id = announcement_id_from_email_address(to)
-    user = Queries.User.with_email(from) |> Repo.one
-    %{user_id: user.id, announcement_id: announcement_id, body: email_body}
+  defp create_comments(messages) do
+    Enum.each(messages, fn(message) ->
+      Comment.changeset(:create, comment_params(message)) |> Repo.insert!
+    end)
   end
 
-  defp announcement_id_from_email_address("constable-" <> key_and_domain) do
+  defp comment_params(
+    %{"msg" => %{"text" => email_body, "email" => to, "from_email" => from}}) do
+    %{
+      user_id: user_from_email(from).id,
+      announcement_id: announcement_id_from_email(to),
+      body: remove_original_email(email_body)
+    }
+  end
+
+  defp user_from_email(email_address) do
+    Queries.User.with_email(email_address) |> Repo.one
+  end
+
+  defp announcement_id_from_email("constable-" <> key_and_domain) do
     key_and_domain |> String.split("@") |> List.first
+  end
+
+  defp remove_original_email(email_body) do
+    email_body
+    |> String.split("\n")
+    |> Enum.take_while(&is_from_new_email?/1)
+    |> Enum.join("\n")
+  end
+
+  defp is_from_new_email?(line) do
+    !String.contains?(line, "@#{System.get_env("EMAIL_DOMAIN")}")
   end
 end
