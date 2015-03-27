@@ -6,7 +6,6 @@ defmodule Constable.Router do
     plug :accepts, ~w(html)
     plug :fetch_session
     plug :fetch_flash
-    plug :protect_from_forgery
   end
 
   pipeline :auth do
@@ -20,7 +19,6 @@ defmodule Constable.Router do
   scope "/", Constable do
     pipe_through :browser # Use the default browser stack
 
-    get "/", PageController, :index
     resources "/email_replies", EmailReplyController, only: [:create]
   end
 
