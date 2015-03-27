@@ -6,6 +6,7 @@ defmodule Constable.AuthController do
   alias OAuth2.Strategy.AuthCode
   alias Constable.User
   alias Constable.Repo
+  alias Constable.Queries
 
   plug :action
 
@@ -43,7 +44,7 @@ defmodule Constable.AuthController do
     userinfo = get_userinfo(token)
     email = userinfo["email"]
     name = userinfo["name"]
-    unless user = Repo.one(from u in User, where: u.email == ^email) do
+    unless user = Repo.one(Queries.User.with_email(email)) do
       user = %User{email: email, name: name} |> Repo.insert
     end
     user

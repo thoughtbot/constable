@@ -7,7 +7,7 @@ defmodule RouterHelper do
   skew endpoint tests.
   """
 
-  import Plug.Test
+  use Plug.Test
   import ExUnit.CaptureIO
 
   @session Plug.Session.init(
@@ -32,6 +32,7 @@ defmodule RouterHelper do
 
   def phoenix_conn(verb, path \\ "/", params \\ nil, headers \\ []) do
     conn = conn(verb, path, params, headers)
+    |> put_private(:plug_skip_csrf_protection, true)
     |> Plug.Conn.fetch_params
     |> with_session
   end

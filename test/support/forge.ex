@@ -57,4 +57,13 @@ defmodule Forge do
     hour: 0,
     min: 0,
     sec: 0
+
+  register :email_reply_message,
+    text: "My email reply",
+    from_email: Sequence.next(:email, &"test#{&1}@thoughtbot.com"),
+    email: "constable-fakekey@thoughtbot.com"
+
+  register :email_reply_webhook,
+    event: 'inbound',
+    msg: Forge.email_reply_message
 end
