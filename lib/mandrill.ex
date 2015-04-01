@@ -9,10 +9,18 @@ defmodule Constable.Mandrill do
       message: message_params
     } |> Poison.encode!
 
-    Task.async(fn ->
-      HTTPoison.post!(@mandrill_url, params).body
+    Task.start_link(fn ->
+      %{status_code: 200} = HTTPoison.post!(@mandrill_url, params)
     end)
   end
 
-  def format_users(users), do: Poison.encode!(users, for: :mandrill)
+  def format_users(users) do
+    Enum.map(users, fn(user) ->
+      %{
+        email: user.email,
+        name: user.name,
+        type: "bcc"
+      }
+    end)
+  end
 end
