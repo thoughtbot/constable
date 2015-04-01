@@ -9,7 +9,7 @@ defmodule Constable.Mandrill do
       message: message_params
     } |> Poison.encode!
 
-    Task.start_link(fn ->
+    spawn(fn ->
       %{status_code: 200} = HTTPoison.post!(@mandrill_url, params)
     end)
   end
