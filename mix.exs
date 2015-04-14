@@ -5,8 +5,10 @@ defmodule Constable.Mixfile do
     [app: :constable,
      version: "0.0.1",
      elixir: "~> 1.0",
-     elixirc_paths: ["lib", "web", "test/support"],
+     elixirc_paths: elixirc_paths(Mix.env),
      compilers: [:phoenix] ++ Mix.compilers,
+     build_embedded: Mix.env == :prod,
+     start_permanent: Mix.env == :prod,
      deps: deps]
   end
 
@@ -36,11 +38,14 @@ defmodule Constable.Mixfile do
       {:oauth2, "~> 0.0.4"},
       {:pact, "~> 0.1.0"},
       {:phoenix_ecto, "~> 0.1"},
-      {:phoenix, "~> 0.10.0"},
+      {:phoenix, "~> 0.11"},
       {:plug, "~> 0.11.0"},
       {:poison, "~> 1.3.1", override: true},
       {:postgrex, ">= 0.0.0"},
       {:secure_random, "~> 0.1"}
     ]
   end
+
+  defp elixirc_paths(:test), do: ["lib", "web", "test/support"]
+  defp elixirc_paths(_),     do: ["lib", "web"]
 end

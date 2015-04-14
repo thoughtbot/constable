@@ -12,23 +12,23 @@ defmodule Constable.SubscriptionChannel do
       |> Enum.map(&preload_associations/1)
       |> Serializers.ids_as_keys
 
-    reply socket, "subscriptions:index", %{subscriptions: subscriptions}
+      {:reply, %{subscriptions: subscriptions}, socket}
   end
 
-  def handle_in("subscriptions:create", %{"announcement_id" => announcement_id}, socket) do
+  def handle_in("create", %{"subscription" =>  subscription}, socket) do
     user_id = current_user_id(socket)
     subscription = Subscription.changeset(%{
       user_id: user_id,
-      announcement_id: announcement_id
+      announcement_id: Map.get(subscription, "announcement_id")
     }) |> Repo.insert
 
-    reply socket, "subscriptions:create", subscription
+    {:reply, {:ok, %{subscription: subscription}}, socket}
   end
 
-  def handle_in("subscriptions:destroy", %{"id" => id},socket) do
+  def handle_in("delete", %{"id" => id}, socket) do
     Repo.get(Subscription, id) |> Repo.delete
 
-    reply socket, "subscriptions:destroy", %{id: id}
+    {:reply, :ok, socket}
   end
 
   defp preload_associations(subscription) do

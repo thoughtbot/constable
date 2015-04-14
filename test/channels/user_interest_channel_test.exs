@@ -19,7 +19,7 @@ defmodule UserInterestChannelTest do
     |> handle_in(UserInterestChannel)
 
     assert_socket_replied_with_payload(
-      "users_interests:index", %{users_interests: users_interests}
+      "index", %{users_interests: users_interests}
     )
   end
 

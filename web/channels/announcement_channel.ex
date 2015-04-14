@@ -6,24 +6,35 @@ defmodule Constable.AnnouncementChannel do
   alias Constable.Queries
   alias Constable.Services.AnnouncementCreator
 
-  def handle_in("announcements:index", _params, socket) do
+  def handle_in("all", _params, socket) do
     announcements =
       Repo.all(Queries.Announcement.with_sorted_comments)
-      |> Serializers.ids_as_keys
-    reply socket, "announcements:index", %{announcements: announcements}
+
+    {:reply, {:ok, %{announcements: announcements}}, socket}
   end
 
-  def handle_in("announcements:create", announcement_params, socket) do
+  def handle_in("show", %{"id" => id}, socket) do
+    announcement = Repo.get(Announcement, id) |> preload_associations
+
+    {:reply, {:ok, %{announcement: announcement}}, socket}
+  end
+
+  def handle_in("create", %{"announcement" => announcement_params}, socket) do
     announcement =
       announcement_params
       |> Map.merge(%{"user_id" => current_user_id(socket)})
       |> AnnouncementCreator.create(announcement_params["interests"])
       |> preload_associations
+
     Pact.get(:announcement_mailer).created(announcement)
-    broadcast socket, "announcements:create", announcement
+
+    broadcast! socket, "add", announcement
+
+    {:reply, {:ok, %{announcement: announcement}}, socket}
   end
 
-  def handle_in("announcements:update", attributes = %{"id" => id}, socket) do
+  def handle_in("update", attributes = %{"announcement" => announcement}, socket) do
+    id = Map.get(announcement, "id")
     user_id = current_user_id(socket)
     announcement = Repo.one(
       Queries.Announcement.find_by_id_and_user(id, user_id)

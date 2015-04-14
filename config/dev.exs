@@ -3,9 +3,11 @@ use Mix.Config
 config :constable, Constable.Endpoint,
   http: [port: System.get_env("PORT") || 4000],
   debug_errors: true,
-  cache_static_lookup: false
+  cache_static_lookup: false,
+  code_reloader: true
 
 config :constable, Constable.Repo,
+  adapter: Ecto.Adapters.Postgres,
   database: "constable_api_development",
   hostname: "localhost"
 

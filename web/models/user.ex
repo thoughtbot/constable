@@ -1,5 +1,7 @@
 defmodule Constable.User do
   use Ecto.Model
+  alias Constable.UserInterest
+  alias Constable.Subscription
 
   before_insert :generate_token
 
@@ -7,6 +9,9 @@ defmodule Constable.User do
     field :email
     field :token
     field :name
+
+    has_many :user_interests, UserInterest
+    has_many :subscriptions, Subscription
 
     timestamps
   end

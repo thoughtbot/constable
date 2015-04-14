@@ -11,8 +11,8 @@ defmodule Constable.Services.AnnouncementCreator do
   end
 
   defp create_announcement(params) do
-    Announcement.changeset(%Announcement{}, :create, params)
-    |> Repo.insert
+    a = Announcement.changeset(%Announcement{}, :create, params)
+    a |> Repo.insert
   end
 
   defp add_interests(announcement, interest_names) do
@@ -23,7 +23,7 @@ defmodule Constable.Services.AnnouncementCreator do
   end
 
   defp get_or_create_interests(names) do
-    names
+    List.wrap(names)
     |> Enum.uniq
     |> Enum.map(fn(name) ->
       get_interest_by_name(name) || create_interest(%{name: name})

@@ -4,24 +4,24 @@ defmodule Constable.UserInterestChannel do
   alias Constable.Repo
   alias Constable.Serializers
 
-  def handle_in("users_interests:index", _, socket) do
+  def handle_in("all", _, socket) do
     user_interests = %{users_interests: Repo.all(UserInterest)}
 
-    reply socket, "users_interests:index", user_interests
+    {:reply, {:ok, %{user_interests: user_interests}}, socket}
   end
 
 
-  def handle_in("users_interests:create", user_interest_params, socket) do
+  def handle_in("create", user_interest_params, socket) do
     user_interest =
       UserInterest.changeset(%UserInterest{}, user_interest_params)
      |> Repo.insert
 
-    reply socket, "users_interests:create", user_interest
+     {:reply, user_interest, socket}
   end
 
-  def handle_in("users_interests:destroy", %{"id" => id}, socket) do
+  def handle_in("destroy", %{"id" => id}, socket) do
     Repo.get(UserInterest, id) |> Repo.delete
 
-    reply socket, "users_interests:destroy", %{id: id}
+    {:reply, %{id: id}, socket}
   end
 end
