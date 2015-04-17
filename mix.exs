@@ -33,14 +33,12 @@ defmodule Constable.Mixfile do
       {:blacksmith, "~> 0.1.1"},
       {:cowboy, "~> 1.0"},
       {:dotenv, "~> 0.0.4"},
-      {:ecto, "~> 0.9.0"},
       {:exgravatar, "~> 0.2.0"},
       {:oauth2, "~> 0.0.4"},
       {:pact, "~> 0.1.0"},
-      {:phoenix_ecto, "~> 0.1"},
-      {:phoenix, "~> 0.11"},
-      {:plug, "~> 0.11.0"},
-      {:poison, "~> 1.3.1", override: true},
+      {:phoenix_ecto, "~> 0.4"},
+      {:phoenix_html, "~> 1.0"},
+      {:phoenix, "~> 0.14.0-dev", github: "phoenixframework/phoenix"},
       {:postgrex, ">= 0.0.0"},
       {:secure_random, "~> 0.1"}
     ]

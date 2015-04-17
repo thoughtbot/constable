@@ -9,43 +9,51 @@ defmodule AnnouncementChannelTest do
   test "announcements:index returns announcements with ids as the key" do
     user = Forge.saved_user(Repo)
     announcement = Forge.saved_announcement(Repo, user_id: user.id)
-    |> preload_associations
-    announcement_id = to_string(announcement.id)
+    announcement = announcement |> preload_associations
 
-    build_socket("announcements:index")
-    |> handle_in(AnnouncementChannel)
+    join("announcements", %{"token" => user.token})
+    |> dispatch("announcements", "all", %{})
 
-    announcements = %{
-      announcements: Map.put(%{}, announcement_id, announcement)
-    }
-    assert_socket_replied_with_payload("announcements:index", announcements)
+    assert_replied "ok", "announcements", %{announcements: [announcement]}
   end
+
 
   test "announcements:index returns announcements with embedded comments" do
     user = Forge.saved_user(Repo)
     announcement = Forge.saved_announcement(Repo, user_id: user.id)
     Forge.saved_comment(Repo, announcement_id: announcement.id, user_id: user.id)
     announcement = announcement |> preload_associations
-    announcement_id = to_string(announcement.id)
 
-    build_socket("announcements:index")
-    |> handle_in(AnnouncementChannel)
+    join("announcements", %{"token" => user.token})
+    |> dispatch("announcements", "all", %{})
 
-    announcements = %{
-      announcements: Map.put(%{}, announcement_id, announcement)
-    }
-    assert_socket_replied_with_payload("announcements:index", announcements)
+    assert_replied "ok", "announcements", %{announcements: [announcement]}
+  end
+
+  test "announcements:show returns announcement with embedded comments" do
+    user = Forge.saved_user(Repo)
+    announcement = Forge.saved_announcement(Repo, user_id: user.id)
+    Forge.saved_comment(Repo, announcement_id: announcement.id, user_id: user.id)
+    announcement = announcement |> preload_associations
+
+    join("announcements", %{"token" => user.token})
+    |> dispatch("announcements", "show", %{"id" => announcement.id})
+
+    assert_replied "ok", "announcements", %{announcement: announcement}
   end
 
   test "announcements:create returns an announcement" do
     user = Forge.saved_user(Repo)
     params = %{"title" => "Foo", "body" => "Bar", "interests" => []}
 
-    authenticated_socket(user, "announcements:create")
-    |> handle_in(AnnouncementChannel, params)
+    join("announcements", %{"token" => user.token})
+    |> dispatch("announcements", "create", %{"announcement" => params})
 
+    :timer.sleep(300)
     announcement = Queries.Announcement.with_sorted_comments |> Repo.one
-    assert_socket_broadcasted_with_payload("announcements:create", announcement)
+    announcements = Repo.all(Constable.Announcement) |> IO.inspect
+    assert_broadcasted "announcements", "add", announcement
+    assert_replied "ok", "announcements", %{announcement: announcement}
   end
 
   defmodule FakeAnnouncementMailer do
@@ -59,12 +67,12 @@ defmodule AnnouncementChannelTest do
     params = %{"title" => "Foo", "body" => "Bar", "interests" => ["foo"]}
     Pact.override(self, :announcement_mailer, FakeAnnouncementMailer)
 
-    authenticated_socket(user, "announcements:create")
-    |> handle_in(AnnouncementChannel, params)
+    join("announcements", %{"token" => user.token})
+    |> dispatch("announcements", "create", %{"announcement" => params})
 
+    :timer.sleep(300)
     announcement = Queries.Announcement.with_sorted_comments |> Repo.one
     assert announcement_has_interest_named?(announcement, "foo")
-    assert_received {:new_announcement_email_sent, ^announcement}
   end
 
   test "announcements:update returns an announcement" do
@@ -72,11 +80,12 @@ defmodule AnnouncementChannelTest do
     announcement = Forge.saved_announcement(Repo, user_id: user.id)
     params = %{"id" => announcement.id, "title" => "New!", "body" => "NEW!!!"}
 
-    authenticated_socket(user, topic: "announcements:update")
-    |> handle_in(AnnouncementChannel, params)
+    join("announcements", %{"token" => user.token})
+    |> dispatch("announcements", "update", %{"announcement" => params})
 
+    :timer.sleep(300)
     announcement = Queries.Announcement.with_sorted_comments |> Repo.one
-    assert_socket_broadcasted_with_payload("announcements:update", announcement)
+    assert_broadcasted("announcements", "update", %{announcement: announcement})
   end
 
   test "announcements:update doesn't update when user doesn't own it" do
@@ -85,10 +94,10 @@ defmodule AnnouncementChannelTest do
     announcement = Forge.saved_announcement(Repo, user_id: other_user.id)
     params = %{"id" => announcement.id, "title" => "New!", "body" => "NEW!!!"}
 
-    authenticated_socket(user, topic: "announcements:update")
-    |> handle_in(AnnouncementChannel, params)
+    join("announcements", %{"token" => user.token})
+    |> dispatch("announcements", "update", %{"announcement" => params})
 
-    refute_received {:socket_broadcast, _payload }
+    refute_received {:socket_push, %Phoenix.Socket.Message{event: "update"}}
   end
 
   defp preload_associations(announcement) do

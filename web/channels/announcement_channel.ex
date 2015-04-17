@@ -41,17 +41,16 @@ defmodule Constable.AnnouncementChannel do
     )
 
     if announcement do
-      announcement
+      announcement = announcement
         |> update_announcement(attributes)
         |> preload_associations
         |> broadcast_announcement(socket, "announcements:update")
-    else
-      {:ok, socket}
     end
+    {:noreply, socket}
   end
 
   defp broadcast_announcement(announcement, socket, topic) do
-    broadcast(socket, "announcements:update", announcement)
+    broadcast!(socket, "update", %{announcement: announcement})
   end
 
   defp update_announcement(announcement, attributes) do

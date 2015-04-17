@@ -13,7 +13,7 @@ defmodule Constable.AuthorizedChannel do
           socket = Phoenix.Socket.assign(socket, :current_user_id, user.id)
           {:ok, socket}
         else
-          {:error, :unauthorized, socket}
+          {:error, :unauthorized}
         end
       end
 

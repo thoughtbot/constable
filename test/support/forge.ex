@@ -43,11 +43,18 @@ defmodule Forge do
 
   register :socket,
     __struct__: Phoenix.Socket,
-    pid: self,
+    transport_pid: self,
     router: Constable.Router,
     topic: "foo:bar",
     pubsub_server: Constable.PubSub,
     assigns: []
+
+  register :join_message,
+    __struct__: Phoenix.Socket.Message,
+    topic: "topic",
+    event: "phx_join",
+    ref: "12345",
+    payload: %{}
 
   register :date_time,
     __struct__: Ecto.DateTime,
