@@ -28,13 +28,13 @@ defmodule Constable.AnnouncementChannel do
 
     Pact.get(:announcement_mailer).created(announcement)
 
-    broadcast! socket, "add", announcement
+    broadcast! socket, "add", %{announcement: announcement}
 
     {:reply, {:ok, %{announcement: announcement}}, socket}
   end
 
-  def handle_in("update", attributes = %{"announcement" => announcement}, socket) do
-    id = Map.get(announcement, "id")
+  def handle_in("update", %{"announcement" => announcement_params}, socket) do
+    id = announcement_params["id"]
     user_id = current_user_id(socket)
     announcement = Repo.one(
       Queries.Announcement.find_by_id_and_user(id, user_id)
@@ -42,7 +42,7 @@ defmodule Constable.AnnouncementChannel do
 
     if announcement do
       announcement = announcement
-        |> update_announcement(attributes)
+        |> update_announcement(announcement_params)
         |> preload_associations
         |> broadcast_announcement(socket, "announcements:update")
     end
@@ -59,6 +59,7 @@ defmodule Constable.AnnouncementChannel do
   end
 
   defp preload_associations(announcement) do
-    Repo.preload(announcement, [:interests, :user, comments: :user])
+    announcement
+    |> Repo.preload([:user, :interests, :interested_users, comments: :user])
   end
 end

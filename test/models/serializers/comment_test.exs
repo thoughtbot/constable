@@ -11,7 +11,7 @@ defmodule Constable.CommentSerializerTest do
     assert comment_as_json == Poison.encode! %{
       id: comment.id,
       body: comment.body,
-      user: comment.user,
+      user_id: comment.user_id,
       announcement_id: comment.announcement_id,
       inserted_at: comment.inserted_at
     }

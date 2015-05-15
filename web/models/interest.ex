@@ -1,6 +1,7 @@
 defmodule Constable.Interest do
   use Ecto.Model
   alias Constable.UserInterest
+  alias Constable.AnnouncementInterest
 
   schema "interests" do
     field :name

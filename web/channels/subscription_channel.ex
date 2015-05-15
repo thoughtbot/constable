@@ -5,14 +5,13 @@ defmodule Constable.SubscriptionChannel do
   alias Constable.Serializers
   alias Constable.Queries
 
-  def handle_in("subscriptions:index", _params, socket) do
+  def handle_in("all", _params, socket) do
     user_id = current_user_id(socket)
     subscriptions =
       Repo.all(Queries.Subscription.for_user(user_id))
       |> Enum.map(&preload_associations/1)
-      |> Serializers.ids_as_keys
 
-      {:reply, %{subscriptions: subscriptions}, socket}
+      {:reply, {:ok, %{subscriptions: subscriptions}}, socket}
   end
 
   def handle_in("create", %{"subscription" =>  subscription}, socket) do
@@ -25,10 +24,10 @@ defmodule Constable.SubscriptionChannel do
     {:reply, {:ok, %{subscription: subscription}}, socket}
   end
 
-  def handle_in("delete", %{"id" => id}, socket) do
+  def handle_in("delete", %{"subscription" => %{"id" => id}}, socket) do
     Repo.get(Subscription, id) |> Repo.delete
 
-    {:reply, :ok, socket}
+    {:reply, {:ok, %{subscription: %{id: id}}}, socket}
   end
 
   defp preload_associations(subscription) do

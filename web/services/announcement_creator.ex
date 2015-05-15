@@ -11,8 +11,8 @@ defmodule Constable.Services.AnnouncementCreator do
   end
 
   defp create_announcement(params) do
-    a = Announcement.changeset(%Announcement{}, :create, params)
-    a |> Repo.insert
+    Announcement.changeset(%Announcement{}, :create, params)
+    |> Repo.insert
   end
 
   defp add_interests(announcement, interest_names) do
@@ -35,7 +35,7 @@ defmodule Constable.Services.AnnouncementCreator do
   end
 
   defp get_interest_by_name(interest_name) do
-    from(i in Interest, where: i.name == ^interest_name) |> Repo.one
+    Repo.get_by(Interest, name: interest_name)
   end
 
   defp associate_interests_with_announcement(interests, announcement) do

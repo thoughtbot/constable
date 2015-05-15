@@ -15,11 +15,11 @@ defimpl Poison.Encoder, for: Constable.Announcement do
     announcement
     |> Repo.preload([:comments, :user, :interests])
     |> Map.take(@attributes)
-    |> setInterests
+    |> set_interests
     |> Poison.encode!
   end
 
-  def setInterests(announcement) do
+  def set_interests(announcement) do
     interest_names = Enum.map(announcement.interests, fn (interest) -> interest.name end)
     Map.put(announcement, "interests", interest_names)
   end

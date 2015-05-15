@@ -1,7 +1,5 @@
 defmodule Constable.EmailReplyTest do
-  use Constable.TestWithEcto, async: false
-  use RouterHelper
-  alias Constable.Repo
+  use Constable.ConnCase
   alias Constable.Comment
 
   test "adds a comment to announcement from the message key" do
@@ -13,8 +11,7 @@ defmodule Constable.EmailReplyTest do
       email: "constable-#{announcement.id}@thoughtbot.com"
     )
 
-    conn = phoenix_conn(:post, "/email_replies", email_reply_webhook)
-    |> call_router
+    post conn, "/email_replies", email_reply_webhook
 
     comment = Repo.one(Comment)
     assert comment.announcement_id == announcement.id

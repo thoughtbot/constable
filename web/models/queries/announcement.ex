@@ -7,7 +7,7 @@ defmodule Constable.Queries.Announcement do
       left_join: c in assoc(a, :comments),
       left_join: u in assoc(c, :user),
       order_by: [asc: c.inserted_at],
-      preload: [:interests, :user, comments: {c, user: u}]
+      preload: [:interested_users, :interests, :user, comments: {c, user: u}]
   end
 
   def find_by_id_and_user(id, user_id) do

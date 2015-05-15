@@ -10,7 +10,9 @@ defmodule Constable.AuthorizedChannel do
 
       def authorize_socket(socket, token) do
         if user = user_with_token(token) do
-          socket = Phoenix.Socket.assign(socket, :current_user_id, user.id)
+          socket = put_in(socket.assigns[:current_user_id], user.id)
+          # Not sure why this isn't working?
+          # socket = Phoenix.Socket.assign(socket, :current_user_id, user.id)
           {:ok, socket}
         else
           {:error, :unauthorized}

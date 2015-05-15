@@ -7,22 +7,25 @@ defmodule Constable.CommentChannel do
   alias Constable.Subscription
   alias Constable.Serializers
 
-  def handle_in("create", %{"comment" => comment}, socket) do
-    %{"body" => body, "announcement_id" => announcement_id} = comment
-
-    comment = %Comment{
-      user_id: current_user_id(socket),
-      body: body,
-      announcement_id: String.to_integer(announcement_id)
-    }
-    |> Repo.insert
-    |> Repo.preload([:user, :announcement])
-
-    update_announcement_timestamps(announcement_id)
+  def handle_in("create", %{"comment" => comment_params}, socket) do
+    comment = insert_comment(socket, comment_params)
+    update_announcement_timestamps(comment.announcement_id)
     email_subscribers(comment)
 
     broadcast socket, "add", %{comment: comment}
     {:reply, {:ok, %{comment: comment}}, socket}
+  end
+
+  defp insert_comment(socket, comment_params) do
+    %{"body" => body, "announcement_id" => announcement_id} = comment_params
+
+    %Comment{
+      user_id: current_user_id(socket),
+      body: body,
+      announcement_id: announcement_id
+    }
+    |> Repo.insert
+    |> Repo.preload([:user, :announcement])
   end
 
   defp email_subscribers(comment) do

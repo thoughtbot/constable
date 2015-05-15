@@ -1,59 +1,58 @@
 defmodule Constable.Channels.SubscriptionChannelTest do
-  use Constable.TestWithEcto, async: false
+  use Constable.ChannelCase
   import Ecto.Query
-  import ChannelTestHelper
-  alias Constable.Repo
   alias Constable.SubscriptionChannel
   alias Constable.Subscription
-  alias Constable.Serializers
 
-  test "subscriptions:index returns all subscriptions for current user" do
+  @channel SubscriptionChannel
+
+  test "'all' returns all subscriptions for current user" do
     user = Forge.saved_user(Repo)
     announcement = Forge.saved_announcement(Repo, user_id: user.id)
     subscription = Forge.saved_subscription(Repo,
       user_id: user.id,
       announcement_id: announcement.id
     )
+    socket = join!("subscriptions", %{"token" => user.token})
 
-    authenticated_socket(user, topic: "subscriptions:index")
-    |> handle_in(SubscriptionChannel)
+    ref = push socket, "all"
 
+    payload = payload_from_reply(ref, :ok)
     subscription = subscription |> Repo.preload([:user, :announcement])
     subscriptions = %{
-      subscriptions: Map.put(%{}, to_string(subscription.id), subscription)
+      subscriptions: [subscription]
     }
-    assert_socket_replied_with_payload("subscriptions:index", subscriptions)
+    assert payload == subscriptions
   end
 
-  test "subscriptions:create replies with the newly created subscription" do
+  test "'create' replies with the newly created subscription" do
     user = Forge.saved_user(Repo)
     announcement = Forge.saved_announcement(Repo, user_id: user.id)
+    socket = join!("subscriptions", %{"token" => user.token})
 
-    authenticated_socket(user, topic: "subscriptions:create")
-    |> handle_in(SubscriptionChannel, %{
-      "announcement_id" => announcement.id
-    })
+    ref = push socket, "create", %{"subscription" =>
+      %{"announcement_id" => announcement.id}
+    }
 
+    payload = payload_from_reply(ref, :ok)
     subscription = Repo.one(Subscription)
-    assert_socket_replied_with_payload("subscriptions:create", subscription)
+    assert payload == %{subscription: subscription}
   end
 
-  test "subscriptions:destroy destroys a comment subscription" do
+  test "'delete' returns the id of the deleted subscription" do
     user = Forge.saved_user(Repo)
     announcement = Forge.saved_announcement(Repo, user_id: user.id)
     subscription = Forge.saved_subscription(Repo,
       user_id: user.id,
       announcement_id: announcement.id
     )
+    socket = join!("subscriptions", %{"token" => user.token})
 
-    authenticated_socket(user, topic: "subscriptions:destroy")
-    |> handle_in(SubscriptionChannel, %{
+    ref = push socket, "delete", %{"subscription" => %{
       "id" => subscription.id
-    })
+    }}
 
-    assert_socket_replied_with_payload(
-      "subscriptions:destroy",
-      %{id: subscription.id}
-    )
+    payload = payload_from_reply(ref, :ok)
+    assert payload == %{subscription: %{id: subscription.id}}
   end
 end

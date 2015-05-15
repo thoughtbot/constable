@@ -61,7 +61,6 @@ defmodule AuthControllerTest do
   test "callback redirects to success URI with existing user token" do
     Pact.override(self, "token_retriever", FakeTokenRetriever)
     Pact.override(self, "request_with_access_token", FakeRequestWithAccessToken)
-    Repo.delete_all(User)
     Forge.saved_user(Repo, email: @oauth_email_address)
 
     conn =
@@ -78,14 +77,16 @@ defmodule AuthControllerTest do
     assert redirected_to(conn) =~  "/"
   end
 
-  # test "callback redirects to the root path when the email is non-thoughtbot" do
-  #   Pact.override(self, "token_retriever", FakeTokenRetriever)
-  #   Pact.override(self, "request_with_access_token", NonThoughtbotRequestWithAccessToken)
-  #   conn = phoenix_conn(:get, "/auth/callback", %{"code" => "foo"})
-  #   |> call_router
-  #
-  #   assert_redirected(conn, "/")
-  # end
+  test "callback redirects to the root path when the email is non-thoughtbot" do
+    Pact.override(self, "token_retriever", FakeTokenRetriever)
+    Pact.override(self, "request_with_access_token", NonThoughtbotRequestWithAccessToken)
+
+    conn =
+      request_authorization("foo.com")
+      |> get("/auth/callback", code: "foo")
+
+    assert redirected_to(conn) =~  "/"
+  end
 
   defp request_authorization(redirect_uri) do
     get(conn, "/auth", redirect_uri: redirect_uri)

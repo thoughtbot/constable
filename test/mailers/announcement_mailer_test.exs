@@ -35,6 +35,13 @@ defmodule Constable.Mailers.AnnouncementTest do
     assert String.contains?(email_body, author.name)
   end
 
+  def create_announcement_with_interest(interest) do
+    author = Forge.saved_user(Repo)
+    Forge.saved_announcement(Repo, user_id: author.id)
+    |> associate_interest_with_announcement(interest)
+    |> Repo.preload([:user, :interested_users])
+  end
+
   def create_interested_user(interest) do
     user = Forge.saved_user(Repo)
     Forge.saved_user_interest(Repo,
@@ -42,13 +49,6 @@ defmodule Constable.Mailers.AnnouncementTest do
       user_id: user.id
     )
     user
-  end
-
-  def create_announcement_with_interest(interest) do
-    author = Forge.saved_user(Repo)
-    Forge.saved_announcement(Repo, user_id: author.id)
-    |> associate_interest_with_announcement(interest)
-    |> Repo.preload(:user)
   end
 
   def associate_interest_with_announcement(announcement, interest) do

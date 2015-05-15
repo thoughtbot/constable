@@ -1,20 +1,32 @@
 defmodule UserChannelTest do
-  use Constable.TestWithEcto, async: false
-  import Ecto.Query
-  import ChannelTestHelper
-  alias Constable.Repo
+  use Constable.ChannelCase
   alias Constable.UserChannel
   alias Constable.User
-  alias Constable.Serializers
-  alias Constable.Router
 
-  test "users:current replies with the current user" do
+  test "users show with id 'me' replies with the current user" do
     user = Forge.saved_user(Repo)
+    socket = join!(UserChannel, "users", %{"token" => user.token})
 
-    authenticated_socket(user, "users:current")
-    |> handle_in(UserChannel)
+    ref = push socket, "show", %{"id" => "me"}
 
-    user = Repo.get(User, user.id)
-    assert_socket_replied_with_payload("users:current", user)
+    payload = payload_from_reply(ref, :ok)
+    user = Repo.get(User, user.id) |> preload_associations
+    assert payload == %{user: user}
+  end
+
+  test "users show with id replies with the user with that id" do
+    user = Forge.saved_user(Repo)
+    another_user = Forge.saved_user(Repo)
+    socket = join!(UserChannel, "users", %{"token" => user.token})
+
+    ref = push socket, "show", %{"id" => another_user.id}
+
+    payload = payload_from_reply(ref, :ok)
+    user = Repo.get(User, another_user.id) |> preload_associations
+    assert payload == %{user: user}
+  end
+
+  def preload_associations(user) do
+    Repo.preload(user, [:subscriptions, :user_interests])
   end
 end

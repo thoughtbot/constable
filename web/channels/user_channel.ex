@@ -4,16 +4,22 @@ defmodule Constable.UserChannel do
   alias Constable.Repo
   alias Constable.Serializers
 
-  def handle_in("show", %{"id" => id}, socket) do
-    if id == "me" do
-      user_id = current_user_id(socket)
-      user = Repo.get(User, user_id)
-    else
-      user = Repo.get(User, id)
-    end
-
-    user = Repo.preload(user, [:subscriptions, :user_interests])
-
+  def handle_in("show", %{"id" => "me"}, socket) do
+    user = current_user(socket) |> preload_associations
     {:reply, {:ok, %{user: user}}, socket}
+  end
+
+  def handle_in("show", %{"id" => id}, socket) do
+    user = Repo.get(User, id) |> preload_associations
+    {:reply, {:ok, %{user: user}}, socket}
+  end
+
+  defp current_user(socket) do
+    user_id = current_user_id(socket)
+    Repo.get(User, user_id)
+  end
+
+  defp preload_associations(user) do
+    Repo.preload(user, [:subscriptions, :user_interests])
   end
 end

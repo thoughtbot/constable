@@ -3,11 +3,11 @@ defmodule Constable.TestWithEcto do
   alias Ecto.Adapters.SQL
   alias Constable.Repo
 
-  setup do
-    SQL.begin_test_transaction(Repo)
-
-    on_exit fn ->
-      SQL.rollback_test_transaction(Repo)
+  setup tags do
+    unless tags[:async] do
+      Ecto.Adapters.SQL.restart_test_transaction(Constable.Repo, [])
     end
+
+    :ok
   end
 end

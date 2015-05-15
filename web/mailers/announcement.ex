@@ -23,7 +23,6 @@ defmodule Constable.Mailers.Announcement do
 
   def interested_users(announcement) do
     announcement
-    |> Repo.preload(:interested_users)
     |> Map.get(:interested_users)
     |> Mandrill.format_users
   end

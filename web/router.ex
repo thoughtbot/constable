@@ -54,4 +54,3 @@ defmodule Constable.Router do
     ]
   end
 end
-
