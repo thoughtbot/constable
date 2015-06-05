@@ -1,4 +1,5 @@
 defmodule Constable.Mandrill do
+  require Logger
   alias Constable.Serializers
 
   @mandrill_url "https://mandrillapp.com/api/1.0/messages/send.json"
@@ -9,8 +10,10 @@ defmodule Constable.Mandrill do
       message: message_params
     } |> Poison.encode!
 
-    spawn(fn ->
-      %{status_code: 200} = HTTPoison.post!(@mandrill_url, params)
+    Task.async(fn ->
+      Logger.info "Sending email with params:"
+      IO.inspect params
+      HTTPoison.post(@mandrill_url, params) |> IO.inspect
     end)
   end
 
