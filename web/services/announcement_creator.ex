@@ -25,10 +25,15 @@ defmodule Constable.Services.AnnouncementCreator do
   defp get_or_create_interests(names) do
     List.wrap(names)
     |> Enum.uniq
+    |> Enum.reject(&blank_interest?/1)
     |> Enum.map(fn(name) ->
       get_interest_by_name(name) || create_interest(%{name: name})
     end)
   end
+
+  defp blank_interest?(" " <> rest), do: blank_interest?(rest)
+  defp blank_interest?(""), do: true
+  defp blank_interest?(_), do: false
 
   defp create_interest(params) do
     Interest.changeset(%Interest{}, params) |> Repo.insert
