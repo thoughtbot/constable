@@ -1,5 +1,5 @@
 defmodule Constable.Interest do
-  use Ecto.Model
+  use Constable.Web, :model
   alias Constable.Repo
   alias Constable.UserInterest
   alias Constable.AnnouncementInterest
@@ -17,6 +17,7 @@ defmodule Constable.Interest do
   def changeset(interest \\ %__MODULE__{}, params) do
     interest
     |> cast(params, ~w(name))
+    |> validate_presence(:name)
     |> update_change(:name, &String.downcase/1)
     |> validate_unique(:name, on: Repo)
   end

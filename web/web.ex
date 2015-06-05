@@ -32,6 +32,8 @@ defmodule Constable.Web do
 
   def model do
     quote do
+      use Ecto.Model
+      import Constable.PresenceValidator
     end
   end
 

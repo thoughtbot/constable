@@ -27,4 +27,18 @@ defmodule Constable.ModelCase do
 
     :ok
   end
+
+  @doc """
+  Helper for returning list of errors in model when passed certain data.
+  ## Examples
+  Given a User model that has validation for the presence of a value for the
+  `:name` field and validation that `:password` is "safe":
+      iex> errors_on(%User{}, password: "password")
+      [{:password, "is unsafe"}, {:name, "is blank"}]
+  You would then write your assertion like:
+      assert {:password, "is unsafe"} in errors_on(%User{}, password: "password")
+  """
+  def errors_on(model, data) do
+    model.__struct__.changeset(model, data).errors
+  end
 end
