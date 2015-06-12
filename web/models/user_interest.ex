@@ -14,7 +14,7 @@ defmodule Constable.UserInterest do
   def changeset(user_interest \\ %__MODULE__{}, params) do
     user_interest
     |> cast(params, ~w(user_id interest_id))
-    |> validate_unique(:user_id, on: Repo)
-    |> validate_unique(:interest_id, on: Repo)
+    |> validate_unique(:user_id, on: Repo, scope: [:interest_id])
+    |> validate_unique(:interest_id, on: Repo, scope: [:user_id])
   end
 end
