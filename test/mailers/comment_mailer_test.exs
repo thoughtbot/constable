@@ -14,7 +14,7 @@ defmodule Constable.Mailers.CommentMailerTest do
     end
   end
 
-  test "sends comment created email" do
+  test "sends markdown formatted new comment email" do
     Pact.override(self, :mailer, FakeMandrill)
     author = Forge.saved_user(Repo)
     users = [author, Forge.saved_user(Repo)]
@@ -38,8 +38,9 @@ defmodule Constable.Mailers.CommentMailerTest do
     assert_received {:from_name, ^from_name}
     assert_received {:from_email, ^from_email}
     assert_received {:html, body}
+    html_comment_body = Earmark.to_html(comment.body)
     assert String.contains?(body, title)
-    assert String.contains?(body, comment_body)
+    assert String.contains?(body, html_comment_body)
     assert String.contains?(body, author.name)
     assert String.contains?(body, Exgravatar.generate(author.email))
   end

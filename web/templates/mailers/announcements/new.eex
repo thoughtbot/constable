@@ -177,7 +177,7 @@
             <tr>
               <td width='40'></td>
               <td align='left'>
-                <%= announcement.body %>
+                <%= Earmark.to_html(announcement.body) %>
               </td>
               <td width='40'></td>
             </tr>

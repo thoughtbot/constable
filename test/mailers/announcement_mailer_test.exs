@@ -14,7 +14,7 @@ defmodule Constable.Mailers.AnnouncementTest do
     end
   end
 
-  test "sends announcement created email to people subscribed to the interest" do
+  test "sends markdown formatted email to people subscribed to the interest" do
     Pact.override(self, :mailer, FakeMandrill)
     interest = Forge.saved_interest(Repo)
     interested_users = [create_interested_user(interest)]
@@ -32,8 +32,9 @@ defmodule Constable.Mailers.AnnouncementTest do
     assert_received {:from_email, ^from_email}
     assert_received {:from_name, ^from_name}
     assert_received {:html, email_body}
+    html_announcement_body = Earmark.to_html(announcement.body)
     assert String.contains?(email_body, announcement.title)
-    assert String.contains?(email_body, announcement.body)
+    assert String.contains?(email_body, html_announcement_body)
     assert String.contains?(email_body, author.name)
     assert String.contains?(email_body, Exgravatar.generate(author.email))
   end

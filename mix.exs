@@ -33,6 +33,7 @@ defmodule Constable.Mixfile do
       {:blacksmith, "~> 0.1.1"},
       {:cowboy, "~> 1.0"},
       {:dotenv, "~> 0.0.4"},
+      {:earmark, "~> 0.1.17"},
       {:exgravatar, "~> 0.2.0"},
       {:oauth2, "~> 0.0.4"},
       {:pact, "~> 0.1.0"},

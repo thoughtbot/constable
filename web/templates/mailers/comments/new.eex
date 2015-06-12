@@ -158,7 +158,7 @@
             <tr>
               <td width='40'></td>
               <td align='left'>
-                <%= comment.body %>
+                <%= Earmark.to_html(comment.body) %>
               </td>
               <td width='40'></td>
             </tr>
