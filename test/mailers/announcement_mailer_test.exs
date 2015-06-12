@@ -17,8 +17,8 @@ defmodule Constable.Mailers.AnnouncementTest do
   test "sends announcement created email to people subscribed to the interest" do
     Pact.override(self, :mailer, FakeMandrill)
     interest = Forge.saved_interest(Repo)
-    announcement = create_announcement_with_interest(interest)
     interested_users = [create_interested_user(interest)]
+    announcement = create_announcement_with_interest(interest)
 
     Mailers.Announcement.created(announcement)
 

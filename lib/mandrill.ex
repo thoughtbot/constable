@@ -12,8 +12,8 @@ defmodule Constable.Mandrill do
 
     Task.async(fn ->
       Logger.info "Sending email with params:"
-      IO.inspect params
-      HTTPoison.post(@mandrill_url, params) |> IO.inspect
+      Logger.info inspect(params)
+      HTTPoison.post(@mandrill_url, params) |> inspect |> Logger.info
     end)
   end
 
