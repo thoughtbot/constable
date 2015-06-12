@@ -41,7 +41,7 @@ defmodule Constable.Mailers.Announcement do
   end
 
   defp render_template(path, bindings) do
-    binding = Dict.merge(default_bindings, bindings)
+    bindings = Dict.merge(default_bindings, bindings)
     EEx.eval_file("#{@template_base}/#{path}.eex", bindings)
   end
 end
