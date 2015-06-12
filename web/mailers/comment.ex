@@ -26,6 +26,7 @@ defmodule Constable.Mailers.Comment do
   end
 
   defp render_template(path, bindings) do
+    binding = Dict.merge(default_bindings, bindings)
     EEx.eval_file("#{@template_base}/#{path}.eex", bindings)
   end
 end

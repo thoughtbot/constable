@@ -35,12 +35,13 @@ defmodule Constable.Mailers.Announcement do
 
   def interest_names(announcement) do
     announcement
-    |> Repo.preload(:interests) 
-    |> Map.get(:interests) 
+    |> Repo.preload(:interests)
+    |> Map.get(:interests)
     |> Enum.map(&(&1.name))
   end
 
   defp render_template(path, bindings) do
+    binding = Dict.merge(default_bindings, bindings)
     EEx.eval_file("#{@template_base}/#{path}.eex", bindings)
   end
 end

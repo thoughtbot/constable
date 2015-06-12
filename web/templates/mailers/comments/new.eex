@@ -174,9 +174,9 @@
               <td align='center'>
                 <a href='#' style='color: #c32f34;'>
                   <h4 style='#c32f34 font-size: 18px; margin: 0; padding-bottom: 5px;'>View this announcement on #Constable</h4>
-                  <a href='<%= System.get_env("FRONT_END_URI")
+                  <a href='<%= front_end_uri
                     %>/announcements/<%= comment.announcement.id  %>' style='color: #babdd1;'>
-                    <%= System.get_env("FRONT_END_URI") %>/announcements/<%= comment.announcement.id  %>
+                    <%= front_end_uri %>/announcements/<%= comment.announcement.id  %>
                   </a>
                 </a>
               </td>

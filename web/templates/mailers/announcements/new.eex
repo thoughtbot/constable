@@ -193,8 +193,8 @@
               <td align='center'>
                 <a href='#' style='color: #c32f34;'>
                   <h4 style='#c32f34 font-size: 18px; margin: 0; padding-bottom: 5px;'>View this announcement on #Constable</h4>
-                  <a href='<%= System.get_env("FRONT_END_URI") %>/announcements/<%= announcement.id  %>' style='color: #babdd1;'>
-                    <%= System.get_env("FRONT_END_URI") %>/announcements/<%= announcement.id  %>
+                  <a href='<%= front_end_uri %>/announcements/<%= announcement.id  %>' style='color: #babdd1;'>
+                    <%= front_end_uri %>/announcements/<%= announcement.id  %>
                   </a>
                 </a>
               </td>
