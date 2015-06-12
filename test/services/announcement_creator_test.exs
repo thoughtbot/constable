@@ -38,6 +38,23 @@ defmodule Constable.Services.AnnouncementCreatorTest do
     assert announcement.interests == []
   end
 
+  test "creates only downcased interests" do
+    user = Forge.saved_user(Repo)
+    interest_names = ["foo", "FOO", "FoO"]
+    announcement_params = %{
+      title: "Title",
+      body: "Body",
+      user_id: user.id
+    }
+
+    AnnouncementCreator.create(announcement_params, interest_names)
+
+    announcement = Repo.one(Announcement) |> Repo.preload([:interests])
+    assert announcement_has_interest_named?(announcement, "foo")
+    refute announcement_has_interest_named?(announcement, "FOO")
+    refute announcement_has_interest_named?(announcement, "FoO")
+  end
+
   defp announcement_has_interest_named?(announcement, interest_name) do
     announcement.interests |> Enum.any?(&(&1.name == interest_name))
   end

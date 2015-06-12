@@ -24,6 +24,7 @@ defmodule Constable.Services.AnnouncementCreator do
 
   defp get_or_create_interests(names) do
     List.wrap(names)
+    |> Enum.map(&String.downcase/1)
     |> Enum.uniq
     |> Enum.reject(&blank_interest?/1)
     |> Enum.map(fn(name) ->
