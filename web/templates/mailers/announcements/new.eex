@@ -121,7 +121,7 @@
                     <td width='40'></td>
                     <td align='center'>
                       <h4 style='color: #7b819c; font-size: 14px; margin: 0;'>
-                        <%= author.name %> just made an announcement on #Constable:
+                        <%= author.name %> made an announcement
                       </h4>
                     </td>
                   </tr>
@@ -131,19 +131,6 @@
                   </tr>
                 </table>
                 <table align='center' border='0' cellpadding='0' cellspacing='0' class='flex-size' style='color: #ffffff; font-family: Helvetica, Tahoma, sans-serif; font-size: 16px; line-height: 1.5;' width='700'>
-                  <tr>
-                    <td width='40'></td>
-                    <td align='center'>
-                      <h2 style='margin: 0; padding-bottom: 5px;'>
-                        <%= announcement.title %>
-                      </h2>
-                    </td>
-                    <td width='40'></td>
-                  </tr>
-                  <!-- Vertical Spacer -->
-                  <tr>
-                    <td colspan='3' height='10'></td>
-                  </tr>
                   <tr>
                     <td width='12'></td>
                     <td align='center' style='font-size: 12px;'>
@@ -191,11 +178,8 @@
             <tr>
               <td width='40'></td>
               <td align='center'>
-                <a href='#' style='color: #c32f34;'>
+                <a href='<%= front_end_uri %>/announcements/<%= announcement.id  %>' style='color: #c32f34;'>
                   <h4 style='#c32f34 font-size: 18px; margin: 0; padding-bottom: 5px;'>View this announcement on #Constable</h4>
-                  <a href='<%= front_end_uri %>/announcements/<%= announcement.id  %>' style='color: #babdd1;'>
-                    <%= front_end_uri %>/announcements/<%= announcement.id  %>
-                  </a>
                 </a>
               </td>
               <td width='40'></td>
@@ -221,9 +205,11 @@
                   <tr>
                     <td width='40'></td>
                     <td align='center'>
+                      <!--
                       <a href='#' style='color: #babdd1'>
                         Manage your subscription settings
                       </a>
+                      -->
                     </td>
                     <td width='40'></td>
                   </tr>
