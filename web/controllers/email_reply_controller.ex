@@ -3,11 +3,9 @@ defmodule Constable.EmailReplyController do
   alias Constable.Comment
   alias Constable.Queries
 
-  plug :action
-
   def create(conn, %{"msg" => message}) do
     Comment.changeset(:create, comment_params(message))
-    |> Repo.insert
+    |> Repo.insert!
 
     conn |> put_status(:created)
   end

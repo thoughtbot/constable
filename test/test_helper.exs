@@ -1,4 +1,4 @@
-:erlang.system_flag :backtrace_depth, 25
+:erlang.system_flag :backtrace_depth, 50
 ExUnit.configure exclude: [pending: true]
 ExUnit.start
 

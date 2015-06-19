@@ -14,7 +14,7 @@ defmodule Constable.Services.AnnouncementCreator do
 
   defp create_announcement(params) do
     Announcement.changeset(%Announcement{}, :create, params)
-    |> Repo.insert
+    |> Repo.insert!
   end
 
   defp add_interests(announcement, interest_names) do
@@ -29,7 +29,7 @@ defmodule Constable.Services.AnnouncementCreator do
       user_id: announcement.user_id,
       announcement_id: announcement.id
     })
-    |> Repo.insert
+    |> Repo.insert!
     announcement
   end
 
@@ -47,7 +47,7 @@ defmodule Constable.Services.AnnouncementCreator do
   defp blank_interest?(_), do: false
 
   defp create_interest(params) do
-    Interest.changeset(%Interest{}, params) |> Repo.insert
+    Interest.changeset(%Interest{}, params) |> Repo.insert!
   end
 
   defp get_interest_by_name(interest_name) do
@@ -58,7 +58,7 @@ defmodule Constable.Services.AnnouncementCreator do
     Enum.each(interests, fn(interest) ->
       %AnnouncementInterest{interest_id: interest.id}
       |> Map.merge(%{announcement_id: announcement.id})
-      |> Repo.insert
+      |> Repo.insert!
     end)
   end
 end

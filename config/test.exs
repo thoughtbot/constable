@@ -5,7 +5,8 @@ config :constable, Constable.Endpoint,
 
 config :constable, Constable.Repo,
   database: "constable_api_test",
-  hostname: "localhost"
+  hostname: "localhost",
+  pool: Ecto.Adapters.SQL.Sandbox
 
 # Print only warnings and errors during test
 config :logger, level: :warn

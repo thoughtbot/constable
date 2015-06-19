@@ -2,7 +2,6 @@ defmodule Constable.SubscriptionChannel do
   use Constable.AuthorizedChannel
   alias Constable.Repo
   alias Constable.Subscription
-  alias Constable.Serializers
   alias Constable.Queries
 
   def handle_in("all", _params, socket) do
@@ -19,7 +18,7 @@ defmodule Constable.SubscriptionChannel do
     subscription = Subscription.changeset(%{
       user_id: user_id,
       announcement_id: Map.get(subscription, "announcement_id")
-    }) |> Repo.insert
+    }) |> Repo.insert!
 
     {:reply, {:ok, %{subscription: subscription}}, socket}
   end

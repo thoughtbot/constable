@@ -19,6 +19,7 @@ defmodule Constable.ChannelCase do
     quote do
       # Import conveniences for testing with channels
       use Phoenix.ChannelTest
+      use Constable.Web, :view
       # Alias the data repository and import query/model functions
       alias Constable.Repo
       import Ecto.Model

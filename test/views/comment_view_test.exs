@@ -1,14 +1,13 @@
-defmodule Constable.CommentSerializerTest do
-  use ExUnit.Case, async: true
-  alias Constable.Serializers
+defmodule Constable.CommentViewTest do
+  use Constable.ViewCase, async: true
 
   test "returns json with comment id and body" do
     user = Forge.user
     comment = Forge.comment(id: 1, user: user)
 
-    comment_as_json = Poison.encode!(comment)
+    rendered_comment = CommentView.render("show.json", %{comment: comment})
 
-    assert comment_as_json == Poison.encode! %{
+    assert rendered_comment == %{
       id: comment.id,
       body: comment.body,
       user: comment.user,

@@ -1,11 +1,9 @@
 defmodule CommentChannelTest do
   use Constable.ChannelCase
-  import ChannelTestHelper
   require Pact
   alias Constable.Announcement
   alias Constable.Comment
   alias Constable.CommentChannel
-  alias Constable.Serializers
 
   @channel CommentChannel
 
@@ -61,7 +59,7 @@ defmodule CommentChannelTest do
     ref = push socket, "create", comment_params_for(announcement)
 
     wait_for_reply ref, :ok
-    comment = comment_with_associations
+    # comment = comment_with_associations
     # assert_received {:users, [^user]}
     # assert_received {:comment, ^comment}
   end

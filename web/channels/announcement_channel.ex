@@ -2,7 +2,7 @@ defmodule Constable.AnnouncementChannel do
   use Constable.AuthorizedChannel
   alias Constable.Repo
   alias Constable.Announcement
-  alias Constable.Serializers
+  alias Constable.AnnouncementView
   alias Constable.Queries
   alias Constable.Services.AnnouncementCreator
 
@@ -55,7 +55,7 @@ defmodule Constable.AnnouncementChannel do
 
   defp update_announcement(announcement, attributes) do
     Announcement.changeset(announcement, :update, attributes)
-    |> Repo.update
+    |> Repo.update!
   end
 
   defp preload_associations(announcement) do

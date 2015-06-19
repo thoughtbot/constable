@@ -2,7 +2,6 @@ defmodule Constable.UserInterestChannel do
   use Constable.AuthorizedChannel
   alias Constable.UserInterest
   alias Constable.Repo
-  alias Constable.Serializers
 
   def handle_in("all", _, socket) do
     user_interests = Repo.all(UserInterest)
@@ -13,7 +12,7 @@ defmodule Constable.UserInterestChannel do
   def handle_in("create", user_interest_params, socket) do
     user_interest =
       UserInterest.changeset(%UserInterest{}, user_interest_params)
-     |> Repo.insert
+     |> Repo.insert!
 
      {:reply, {:ok, %{user_interest: user_interest}}, socket}
   end

@@ -84,7 +84,7 @@ defmodule AnnouncementChannelTest do
     params = %{"id" => announcement.id, "title" => "New!", "body" => "Body!"}
     socket = join!("announcements", as: user)
 
-    ref = push socket, "update", %{"announcement" => params}
+    push socket, "update", %{"announcement" => params}
 
     assert_broadcast "update", payload
     announcement = Queries.Announcement.with_sorted_comments |> Repo.one
@@ -100,7 +100,7 @@ defmodule AnnouncementChannelTest do
     params = %{"id" => announcement.id, "title" => "New!", "body" => "NEW!!!"}
     socket = join!("announcements", as: user)
 
-    ref = push socket, "update", %{"announcement" => params}
+    push socket, "update", %{"announcement" => params}
 
     refute_broadcast "update", %{announcement: _}
   end

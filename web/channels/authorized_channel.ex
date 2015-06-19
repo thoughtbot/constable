@@ -23,6 +23,11 @@ defmodule Constable.AuthorizedChannel do
         socket.assigns[:current_user_id]
       end
 
+      def reply(socket, view, template, payload) do
+        rendered_payload = view.render(template, payload)
+        {:reply, {:ok, payload}, socket}
+      end
+
       defp user_with_token(token) do
         Constable.Repo.one(from u in Constable.User,
           where: u.token == ^token

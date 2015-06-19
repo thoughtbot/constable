@@ -5,7 +5,6 @@ defmodule Constable.CommentChannel do
   alias Constable.Comment
   alias Constable.Queries
   alias Constable.Subscription
-  alias Constable.Serializers
 
   def handle_in("create", %{"comment" => comment_params}, socket) do
     comment = insert_comment(socket, comment_params)
@@ -24,7 +23,7 @@ defmodule Constable.CommentChannel do
       body: body,
       announcement_id: announcement_id
     }
-    |> Repo.insert
+    |> Repo.insert!
     |> Repo.preload([:user, :announcement])
   end
 

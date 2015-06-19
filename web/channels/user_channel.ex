@@ -2,7 +2,6 @@ defmodule Constable.UserChannel do
   use Constable.AuthorizedChannel
   alias Constable.User
   alias Constable.Repo
-  alias Constable.Serializers
 
   def handle_in("show", %{"id" => "me"}, socket) do
     user = current_user(socket) |> preload_associations

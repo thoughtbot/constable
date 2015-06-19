@@ -1,6 +1,5 @@
 defmodule Constable.Channels.SubscriptionChannelTest do
   use Constable.ChannelCase
-  import Ecto.Query
   alias Constable.SubscriptionChannel
   alias Constable.Subscription
 

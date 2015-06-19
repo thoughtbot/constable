@@ -10,8 +10,6 @@ defmodule Constable.AuthController do
   alias Constable.Repo
   alias Constable.Queries
 
-  plug :action
-
   @doc """
   This action is reached via `/auth` and redirects to the Google Auth API.
   """
@@ -57,8 +55,8 @@ defmodule Constable.AuthController do
     %{"email" => email, "name" => name} = userinfo
     unless user = Repo.one(Queries.User.with_email(email)) do
       user =
-        %User{email: email, name: name} 
-        |> Repo.insert
+        %User{email: email, name: name}
+        |> Repo.insert!
         |> add_everyone_interest
     end
     user
@@ -67,7 +65,7 @@ defmodule Constable.AuthController do
   defp add_everyone_interest(user) do
     user_interest_params = %{user_id: user.id, interest_id: everyone_interest.id}
     UserInterest.changeset(%UserInterest{}, user_interest_params)
-    |> Repo.insert
+    |> Repo.insert!
     user
   end
 

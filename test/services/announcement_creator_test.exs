@@ -41,7 +41,6 @@ defmodule Constable.Services.AnnouncementCreatorTest do
 
   test "does not create blank interests" do
     user = Forge.saved_user(Repo)
-    new_interest_name = "foo"
     interest_names = [""]
     announcement_params = %{
       title: "Title",

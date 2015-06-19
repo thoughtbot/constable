@@ -1,6 +1,5 @@
 defmodule Constable.Mandrill do
   require Logger
-  alias Constable.Serializers
 
   @mandrill_url "https://mandrillapp.com/api/1.0/messages/send.json"
 
