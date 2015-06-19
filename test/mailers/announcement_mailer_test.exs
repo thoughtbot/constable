@@ -33,10 +33,9 @@ defmodule Constable.Mailers.AnnouncementTest do
     assert_received {:from_name, ^from_name}
     assert_received {:html, email_body}
     html_announcement_body = Earmark.to_html(announcement.body)
-    assert String.contains?(email_body, announcement.title)
-    assert String.contains?(email_body, html_announcement_body)
-    assert String.contains?(email_body, author.name)
-    assert String.contains?(email_body, Exgravatar.generate(author.email))
+    assert email_body =~ html_announcement_body
+    assert email_body =~ author.name
+    assert email_body =~ Exgravatar.generate(author.email)
   end
 
   def create_announcement_with_interest(interest) do

@@ -1,6 +1,7 @@
 defmodule AuthControllerTest do
   use Constable.ConnCase
   alias Constable.User
+  alias Constable.UserInterest
 
   @google_authorize_url "https://accounts.google.com/o/oauth2/auth"
   @oauth_email_address "fake@thoughtbot.com"
@@ -47,6 +48,7 @@ defmodule AuthControllerTest do
   end
 
   test "callback redirects to success URI with newly created user token" do
+    everyone_interest = create_everyone_interest
     Pact.override(self, "token_retriever", FakeTokenRetriever)
     Pact.override(self, "request_with_access_token", FakeRequestWithAccessToken)
 
@@ -56,6 +58,7 @@ defmodule AuthControllerTest do
 
     user_auth_token = Repo.one(User).token
     assert redirected_to(conn) =~ "foo.com/#{user_auth_token}"
+    assert user_has_interest(everyone_interest)
   end
 
   test "callback redirects to success URI with existing user token" do
@@ -78,6 +81,7 @@ defmodule AuthControllerTest do
   end
 
   test "callback redirects to the root path when the email is non-thoughtbot" do
+    create_everyone_interest
     Pact.override(self, "token_retriever", FakeTokenRetriever)
     Pact.override(self, "request_with_access_token", NonThoughtbotRequestWithAccessToken)
 
@@ -88,6 +92,10 @@ defmodule AuthControllerTest do
     assert redirected_to(conn) =~  "/"
   end
 
+  defp create_everyone_interest do
+    Forge.saved_interest(Repo, name: "everyone")
+  end
+
   defp request_authorization(redirect_uri) do
     get(conn, "/auth", redirect_uri: redirect_uri)
   end
@@ -95,5 +103,13 @@ defmodule AuthControllerTest do
   defp google_auth_uri(params) do
     query_params = URI.encode_query(params)
     "#{@google_authorize_url}?#{query_params}"
+  end
+
+  defp user_has_interest(interest) do
+    user = Repo.one(User)
+    Repo.get_by!(UserInterest, 
+      user_id: user.id,
+      interest_id: interest.id
+    )
   end
 end

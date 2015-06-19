@@ -4,7 +4,9 @@ defmodule Constable.AuthController do
   require Logger
 
   alias OAuth2.Strategy.AuthCode
+  alias Constable.Interest
   alias Constable.User
+  alias Constable.UserInterest
   alias Constable.Repo
   alias Constable.Queries
 
@@ -54,9 +56,23 @@ defmodule Constable.AuthController do
     userinfo = get_userinfo(token)
     %{"email" => email, "name" => name} = userinfo
     unless user = Repo.one(Queries.User.with_email(email)) do
-      user = %User{email: email, name: name} |> Repo.insert
+      user =
+        %User{email: email, name: name} 
+        |> Repo.insert
+        |> add_everyone_interest
     end
     user
+  end
+
+  defp add_everyone_interest(user) do
+    user_interest_params = %{user_id: user.id, interest_id: everyone_interest.id}
+    UserInterest.changeset(%UserInterest{}, user_interest_params)
+    |> Repo.insert
+    user
+  end
+
+  defp everyone_interest do
+    Repo.get_by!(Interest, name: "everyone")
   end
 
   defp redirect_after_success_uri(conn, token) do
