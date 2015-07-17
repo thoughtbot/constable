@@ -1,0 +1,6 @@
+<%= author.name %> commented on <%= comment.announcement.title %>
+
+<%= front_end_uri %>/announcements/<%= comment.announcement.id %>
+
+<%= comment.body %>
+

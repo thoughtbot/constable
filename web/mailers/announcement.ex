@@ -13,13 +13,22 @@ defmodule Constable.Mailers.Announcement do
       to: interested_users(announcement),
       subject: announcement.title,
       tags: @tags,
-      html: email_html(announcement)
+      html: email_html(announcement),
+      text: email_text(announcement)
     })
     |> Pact.get(:mailer).message_send
   end
 
+  defp email_text(announcement) do
+    render_template("new.text",
+      announcement: announcement,
+      interests: interest_names(announcement),
+      author: announcement.user,
+    )
+  end
+
   defp email_html(announcement) do
-    render_template("new",
+    render_template("new.html",
       announcement: announcement,
       interests: interest_names(announcement),
       author: announcement.user,

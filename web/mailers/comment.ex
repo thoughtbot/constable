@@ -10,6 +10,7 @@ defmodule Constable.Mailers.Comment do
     default_attributes(announcement: comment.announcement, author: comment.user)
     |> Map.merge(%{
       html: email_html(comment),
+      text: email_text(comment),
       subject: "Re: #{comment.announcement.title}",
       to: Mandrill.format_users(users),
       tags: ["new-comment"]
@@ -17,8 +18,15 @@ defmodule Constable.Mailers.Comment do
     |> Pact.get(:mailer).message_send
   end
 
+  defp email_text(comment) do
+    render_template("new.text",
+      comment: comment,
+      author: comment.user,
+    )
+  end
+
   defp email_html(comment) do
-    render_template("new",
+    render_template("new.html",
       comment: comment,
       author: comment.user,
       author_avatar_url: Exgravatar.generate(comment.user.email)

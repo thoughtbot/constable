@@ -11,6 +11,7 @@ defmodule Constable.Mailers.CommentMailerTest do
       send self, {:from_email, message_params.from_email}
       send self, {:from_name, message_params.from_name}
       send self, {:html, message_params.html}
+      send self, {:text, message_params.text}
     end
   end
 
@@ -37,11 +38,16 @@ defmodule Constable.Mailers.CommentMailerTest do
     assert_received {:subject, ^subject}
     assert_received {:from_name, ^from_name}
     assert_received {:from_email, ^from_email}
-    assert_received {:html, body}
+    assert_received {:html, email_html_body}
+    assert_received {:text, email_text_body}
     html_comment_body = Earmark.to_html(comment.body)
-    assert String.contains?(body, title)
-    assert String.contains?(body, html_comment_body)
-    assert String.contains?(body, author.name)
-    assert String.contains?(body, Exgravatar.generate(author.email))
+
+    assert email_html_body =~ title
+    assert email_html_body =~ html_comment_body
+    assert email_html_body =~ author.name
+    assert email_html_body =~ Exgravatar.generate(author.email)
+
+    assert email_text_body =~ "#{author.name} commented on #{announcement.title}"
+    assert email_text_body =~ comment.body
   end
 end
