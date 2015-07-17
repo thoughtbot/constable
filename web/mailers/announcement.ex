@@ -37,7 +37,8 @@ defmodule Constable.Mailers.Announcement do
     announcement
     |> Repo.preload(:interests)
     |> Map.get(:interests)
-    |> Enum.map(&(&1.name))
+    |> Enum.map(&("##{&1.name}"))
+    |> Enum.join(", ")
   end
 
   defp render_template(path, bindings) do

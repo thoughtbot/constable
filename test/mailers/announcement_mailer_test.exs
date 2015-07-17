@@ -17,8 +17,9 @@ defmodule Constable.Mailers.AnnouncementTest do
   test "sends markdown formatted email to people subscribed to the interest" do
     Pact.override(self, :mailer, FakeMandrill)
     interest = Forge.saved_interest(Repo)
+    interest_2 = Forge.saved_interest(Repo)
     interested_users = [create_interested_user(interest)]
-    announcement = create_announcement_with_interest(interest)
+    announcement = create_announcement_with_interests([interest, interest_2])
 
     Mailers.Announcement.created(announcement)
 
@@ -35,13 +36,14 @@ defmodule Constable.Mailers.AnnouncementTest do
     html_announcement_body = Earmark.to_html(announcement.body)
     assert email_body =~ html_announcement_body
     assert email_body =~ author.name
+    assert email_body =~ "##{interest.name}, ##{interest_2.name}"
     assert email_body =~ Exgravatar.generate(author.email)
   end
 
-  def create_announcement_with_interest(interest) do
+  def create_announcement_with_interests(interests) do
     author = Forge.saved_user(Repo)
     Forge.saved_announcement(Repo, user_id: author.id)
-    |> associate_interest_with_announcement(interest)
+    |> associate_interests_with_announcement(interests)
     |> Repo.preload([:user, :interested_users])
   end
 
@@ -54,10 +56,12 @@ defmodule Constable.Mailers.AnnouncementTest do
     user
   end
 
-  def associate_interest_with_announcement(announcement, interest) do
-    Forge.saved_announcement_interest(
-      Repo, announcement_id: announcement.id, interest_id: interest.id
-    )
+  def associate_interests_with_announcement(announcement, interests) do
+    Enum.each(interests, fn(interest) ->
+      Forge.saved_announcement_interest(
+        Repo, announcement_id: announcement.id, interest_id: interest.id
+      )
+    end)
     announcement
   end
 end
