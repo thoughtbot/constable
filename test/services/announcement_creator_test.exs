@@ -2,6 +2,7 @@ defmodule Constable.Services.AnnouncementCreatorTest do
   use Constable.TestWithEcto, async: false
   alias Constable.Repo
   alias Constable.Announcement
+  alias Constable.Subscription
   alias Constable.Services.AnnouncementCreator
 
   test "creates an announcement with new and existing interests" do
@@ -20,6 +21,22 @@ defmodule Constable.Services.AnnouncementCreatorTest do
     announcement = Repo.one(Announcement) |> Repo.preload([:interests])
     assert announcement_has_interest_named?(announcement, new_interest_name)
     assert announcement_has_interest_named?(announcement, existing_interest.name)
+  end
+
+  test "subscribes the author to the newly created announcement" do
+    user = Forge.saved_user(Repo)
+    announcement_params = %{
+      title: "Title",
+      body: "Body",
+      user_id: user.id
+    }
+
+    AnnouncementCreator.create(announcement_params, [])
+
+    announcement = Repo.one(Announcement)
+    subscription = Repo.one(Subscription)
+    assert subscription.user_id == user.id
+    assert subscription.announcement_id == announcement.id
   end
 
   test "does not create blank interests" do
