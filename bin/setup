@@ -7,6 +7,7 @@ set -e
 cp .sample.env .env
 
 # Set up phoenix
+mix local.hex --force
 mix deps.get
 mix deps.compile
 mix compile
@@ -15,10 +16,12 @@ mix compile
 mix ecto.create
 mix ecto.migrate
 
-# Set up heroku
+# Only if this isn't CI
+if [ -z "$CI" ]; then
+  # Set up Heroku
+  heroku join --app constable-api-staging
+  heroku git:remote -r staging -a constable-api-staging
 
-heroku join --app constable-api-staging
-heroku git:remote -r staging -a constable-api-staging
-
-heroku join --app constable-api-production
-heroku git:remote -r production -a constable-api-production
+  heroku join --app constable-api-production
+  heroku git:remote -r production -a constable-api-production
+fi
