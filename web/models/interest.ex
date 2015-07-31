@@ -18,6 +18,7 @@ defmodule Constable.Interest do
     interest
     |> cast(params, ~w(name))
     |> validate_presence(:name)
+    |> update_change(:name, &String.replace(&1, "#", ""))
     |> update_change(:name, &String.downcase/1)
     |> validate_unique(:name, on: Repo)
   end
