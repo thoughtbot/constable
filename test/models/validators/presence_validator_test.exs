@@ -19,7 +19,7 @@ defmodule Constable.PresenceValidatorTest do
     assert changeset.errors == []
   end
 
-  test "is invalid when the only contains spaces" do
+  test "is invalid when the string only contains spaces" do
     params = %{name: "  "}
 
     changeset = cast(%User{}, params, ~w(name)) |> validate_presence(:name)
