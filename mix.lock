@@ -12,7 +12,7 @@
   "idna": {:hex, :idna, "1.0.2"},
   "oauth2": {:hex, :oauth2, "0.2.0"},
   "pact": {:hex, :pact, "0.1.0"},
-  "phoenix": {:hex, :phoenix, "0.15.0"},
+  "phoenix": {:hex, :phoenix, "0.16.1"},
   "phoenix_ecto": {:hex, :phoenix_ecto, "0.8.1"},
   "phoenix_html": {:hex, :phoenix_html, "1.4.0"},
   "plug": {:hex, :plug, "0.14.0"},

@@ -39,7 +39,7 @@ defmodule Constable.Mixfile do
       {:pact, "~> 0.1.0"},
       {:phoenix_ecto, "~> 0.8"},
       {:phoenix_html, "~> 1.4"},
-      {:phoenix, "~> 0.15.0"},
+      {:phoenix, "~> 0.16.1"},
       {:postgrex, ">= 0.0.0"},
       {:secure_random, "~> 0.1"}
     ]
