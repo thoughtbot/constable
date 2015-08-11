@@ -1,6 +1,8 @@
 defmodule Constable.Endpoint do
   use Phoenix.Endpoint, otp_app: :constable
 
+  socket "/ws", Constable.UserSocket
+
   plug Plug.Static,
     at: "/", from: :constable
 
@@ -24,5 +26,5 @@ defmodule Constable.Endpoint do
     signing_salt: "/CEisxlR",
     encryption_salt: "W5B5Vc1E"
 
-  plug :router, Constable.Router
+  plug Constable.Router
 end

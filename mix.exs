@@ -35,11 +35,11 @@ defmodule Constable.Mixfile do
       {:dotenv, "~> 0.0.4"},
       {:earmark, "~> 0.1.17"},
       {:exgravatar, "~> 0.2.0"},
-      {:oauth2, "~> 0.0.4"},
+      {:oauth2, "~> 0.2.0"},
       {:pact, "~> 0.1.0"},
-      {:phoenix_ecto, "~> 0.6"},
-      {:phoenix_html, "~> 1.1"},
-      {:phoenix, "~> 0.14.0"},
+      {:phoenix_ecto, "~> 0.8"},
+      {:phoenix_html, "~> 1.4"},
+      {:phoenix, "~> 0.15.0"},
       {:postgrex, ">= 0.0.0"},
       {:secure_random, "~> 0.1"}
     ]

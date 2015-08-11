@@ -30,8 +30,8 @@ defmodule RouterHelper do
     conn |> Constable.Router.call(Constable.Router.init([]))
   end
 
-  def phoenix_conn(verb, path \\ "/", params \\ nil, headers \\ []) do
-    conn = conn(verb, path, params, headers)
+  def phoenix_conn(verb, path \\ "/", params \\ nil) do
+    conn = conn(verb, path, params)
     |> put_private(:plug_skip_csrf_protection, true)
     |> Plug.Conn.fetch_query_params
     |> with_session

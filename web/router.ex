@@ -8,10 +8,6 @@ defmodule Constable.Router do
     plug :fetch_flash
   end
 
-  pipeline :auth do
-    plug :put_oauth_strategy
-  end
-
   pipeline :api do
     plug :accepts, ~w(json)
   end
@@ -23,34 +19,9 @@ defmodule Constable.Router do
   end
 
   scope "/auth", alias: Constable do
-    pipe_through [:browser, :auth]
+    pipe_through [:browser]
 
     get "/", AuthController, :index
     get "/callback", AuthController, :callback
-  end
-
-  socket "/ws", Constable do
-    channel "announcements*", AnnouncementChannel
-    channel "comments*", CommentChannel
-    channel "interests*", InterestChannel
-    channel "subscriptions*", SubscriptionChannel
-    channel "users*", UserChannel
-    channel "user_interests*", UserInterestChannel
-  end
-
-  defp put_oauth_strategy(conn, _) do
-    put_private(conn, :oauth2_strategy, apply(Strategy.AuthCode, :new, [google_auth_params]))
-  end
-
-  defp google_auth_params do
-    [
-      client_id: System.get_env("CLIENT_ID"),
-      client_secret: System.get_env("CLIENT_SECRET"),
-      authorize_url: "https://accounts.google.com/o/oauth2/auth",
-      token_url: "https://www.googleapis.com/oauth2/v3/token",
-      site: "https://www.googleapis.com",
-      redirect_uri: System.get_env("REDIRECT_URI"),
-      scope: "email"
-    ]
   end
 end

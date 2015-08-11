@@ -41,7 +41,7 @@ defmodule AuthControllerTest do
       client_id: "",
       redirect_uri: "",
       response_type: "code",
-      scope: "openid email profile"
+      scope: "email"
     )
     assert redirected_to(conn) =~ auth_uri
     assert get_session(conn, :redirect_after_success_uri) == "foo.com"

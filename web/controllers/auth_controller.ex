@@ -3,7 +3,6 @@ defmodule Constable.AuthController do
   import Ecto.Query
   require Logger
 
-  alias OAuth2.Strategy.AuthCode
   alias Constable.Interest
   alias Constable.User
   alias Constable.UserInterest
@@ -16,7 +15,7 @@ defmodule Constable.AuthController do
   def index(conn, %{"redirect_uri" => redirect_uri}) do
     conn
     |> put_session(:redirect_after_success_uri, redirect_uri)
-    |> redirect external: authorize_url(conn)
+    |> redirect(external: GoogleStrategy.authorize_url!([]))
   end
 
   @doc """
@@ -26,7 +25,7 @@ defmodule Constable.AuthController do
   access the email address on behalf of the user.
   """
   def callback(conn, %{"code" => code}) do
-    token = Pact.get("token_retriever").get_token!(strategy(conn), code, token_params)
+    token = GoogleStrategy.get_token!(code: code)
 
     user = find_or_insert_user(token)
     if from_thoughtbot?(user) do
@@ -76,18 +75,4 @@ defmodule Constable.AuthController do
   defp redirect_after_success_uri(conn, token) do
     "#{get_session(conn, :redirect_after_success_uri)}/#{token}"
   end
-
-  defp authorize_url(conn) do
-    AuthCode.authorize_url(strategy(conn), auth_params)
-  end
-
-  defp auth_params do
-    %{redirect_uri: System.get_env("REDIRECT_URI"), scope: "openid email profile"}
-  end
-
-  defp token_params do
-    Map.merge(%{headers: [{"Accept", "application/json"}]}, auth_params)
-  end
-
-  defp strategy(conn), do: conn.private.oauth2_strategy
 end

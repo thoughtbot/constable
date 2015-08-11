@@ -1,5 +1,9 @@
 defimpl Poison.Encoder, for:  Constable.User do
+  alias Constable.Repo
+
   def encode(user, _options) do
+    user = user |> Repo.preload([:subscriptions, :user_interests])
+
     %{
       id: user.id,
       email: user.email,
