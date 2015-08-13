@@ -8,7 +8,7 @@ defmodule Constable.UserSocket do
   channel "users*", Constable.UserChannel
   channel "user_interests*", Constable.UserInterestChannel
 
-  transport :websocket, Phoenix.Transports.WebSocket
+  transport :websocket, Phoenix.Transports.WebSocket, check_origin: false
   transport :longpoll, Phoenix.Transports.LongPoll
 
   def connect(_params, socket) do
