@@ -10,8 +10,8 @@ defmodule Constable.User do
     field :token
     field :name
 
-    has_many :user_interests, UserInterest
-    has_many :subscriptions, Subscription
+    has_many :user_interests, UserInterest, on_delete: :fetch_and_delete
+    has_many :subscriptions, Subscription, on_delete: :fetch_and_delete
 
     timestamps
   end

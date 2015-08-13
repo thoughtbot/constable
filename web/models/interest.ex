@@ -8,9 +8,9 @@ defmodule Constable.Interest do
     field :name
     timestamps
 
-    has_many :announcements_interests, AnnouncementInterest
+    has_many :announcements_interests, AnnouncementInterest, on_delete: :fetch_and_delete
     has_many :announcements, through: [:announcements_interests, :announcement]
-    has_many :users_interests, UserInterest
+    has_many :users_interests, UserInterest, on_delete: :fetch_and_delete
     has_many :interested_users, through: [:users_interests, :user]
   end
 
