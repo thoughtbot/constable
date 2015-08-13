@@ -4,6 +4,7 @@ defmodule CommentChannelTest do
   alias Constable.Announcement
   alias Constable.Comment
   alias Constable.CommentChannel
+  alias Constable.Subscription
 
   @channel CommentChannel
 
@@ -62,6 +63,17 @@ defmodule CommentChannelTest do
     # comment = comment_with_associations
     # assert_received {:users, [^user]}
     # assert_received {:comment, ^comment}
+  end
+
+  test "'create' subscribes the author to the announcement" do
+    user = Forge.saved_user(Repo)
+    announcement = Forge.saved_announcement(Repo, user_id: user.id)
+    socket = join!("comments", %{"token" => user.token})
+
+    ref = push socket, "create", comment_params_for(announcement)
+
+    wait_for_reply ref, :ok
+    assert Repo.get_by!(Subscription, user_id: user.id, announcement_id: announcement.id)
   end
 
   def comment_params_for(announcement) do

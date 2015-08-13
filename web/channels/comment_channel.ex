@@ -10,6 +10,7 @@ defmodule Constable.CommentChannel do
     comment = insert_comment(socket, comment_params)
     update_announcement_timestamps(comment.announcement_id)
     email_subscribers(comment)
+    subscribe_author(comment)
 
     broadcast socket, "add", %{comment: comment}
     {:reply, {:ok, %{comment: comment}}, socket}
@@ -38,5 +39,12 @@ defmodule Constable.CommentChannel do
   defp update_announcement_timestamps(announcement_id) do
     announcement = Repo.get(Announcement, announcement_id)
     Repo.update(%{announcement | updated_at: Ecto.DateTime.utc})
+  end
+
+  defp subscribe_author(comment) do
+    Subscription.changeset(%{
+      user_id: comment.user_id,
+      announcement_id: comment.announcement_id
+    }) |> Repo.get_or_insert
   end
 end
