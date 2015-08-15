@@ -13,7 +13,7 @@ defmodule Forge do
 
   register :announcement,
     __struct__: Announcement,
-    title: "Post Title",
+    title: Sequence.next(:email, &"Post Title#{&1}"),
     body: "Post Body",
     inserted_at: Ecto.DateTime.utc,
     updated_at: Ecto.DateTime.utc

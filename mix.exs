@@ -41,6 +41,7 @@ defmodule Constable.Mixfile do
       {:phoenix_html, "~> 1.4"},
       {:phoenix, "~> 0.16.1"},
       {:postgrex, ">= 0.0.0"},
+      {:timex, "~> 0.19.0"},
       {:secure_random, "~> 0.1"}
     ]
   end

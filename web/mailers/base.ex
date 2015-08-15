@@ -10,7 +10,7 @@ defmodule Constable.Mailers.Base do
     [front_end_uri: System.get_env("FRONT_END_URI")]
   end
 
-  defp email_domain do
+  def email_domain do
     System.get_env("EMAIL_DOMAIN")
   end
 end

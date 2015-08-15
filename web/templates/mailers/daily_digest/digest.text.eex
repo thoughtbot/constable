@@ -1,0 +1,22 @@
+# Daily digest of new Interests and Announcements
+
+New Interests
+-------------
+
+<%= for interest <- interests do %>
+#<%= interest.name %>
+<% end %>
+
+
+New Announcements
+-----------------
+
+<%= for announcement <- announcements do %>
+<%= announcement.title %> - <%= front_end_uri %>/announcements/<%= announcement.id %>
+posted by <%= announcement.user.name %>
+
+<% end %>
+
+
+View Interests and Announcements on Constable
+<%= front_end_uri %>/announcements
