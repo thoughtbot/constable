@@ -42,7 +42,8 @@ defmodule Constable.Mixfile do
       {:phoenix, "~> 0.16.1"},
       {:postgrex, ">= 0.0.0"},
       {:timex, "~> 0.19.0"},
-      {:secure_random, "~> 0.1"}
+      {:secure_random, "~> 0.1"},
+      {:httpoison, github: "edgurgel/httpoison", override: true}
     ]
   end
 
