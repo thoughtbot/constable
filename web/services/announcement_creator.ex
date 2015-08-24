@@ -7,14 +7,20 @@ defmodule Constable.Services.AnnouncementCreator do
   alias Constable.Subscription
 
   def create(announcement_params, interest_names) do
-    create_announcement(announcement_params)
-    |> add_interests(interest_names)
-    |> subscribe_author
+    case create_announcement(announcement_params) do
+      {:ok, announcement} ->
+        announcement = announcement
+        |> add_interests(interest_names)
+        |> subscribe_author
+
+        {:ok, announcement}
+      error -> error
+    end
   end
 
   defp create_announcement(params) do
     Announcement.changeset(%Announcement{}, :create, params)
-    |> Repo.insert!
+    |> Repo.insert
   end
 
   defp add_interests(announcement, interest_names) do
@@ -25,7 +31,7 @@ defmodule Constable.Services.AnnouncementCreator do
   end
 
   defp subscribe_author(announcement) do
-    Subscription.changeset(%{
+    Subscription.changeset(:create, %{
       user_id: announcement.user_id,
       announcement_id: announcement.id
     })

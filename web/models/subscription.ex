@@ -9,7 +9,7 @@ defmodule Constable.Subscription do
     timestamps
   end
 
-  def changeset(subscription \\ %__MODULE__{}, params) do
+  def changeset(subscription \\ %__MODULE__{}, _, params) do
     subscription
     |> cast(params, ~w(user_id announcement_id))
   end

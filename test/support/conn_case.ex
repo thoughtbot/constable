@@ -31,6 +31,24 @@ defmodule Constable.ConnCase do
 
       # The default endpoint for testing
       @endpoint Constable.Endpoint
+
+      def authenticate(user \\ nil) do
+        unless user do
+          user = Forge.saved_user(Repo)
+        end
+
+        conn = conn()
+        |> put_req_header("accept", "application/json")
+        |> put_req_header("authorization", user.token)
+        %{conn: conn, user: user}
+      end
+
+      defp fetch_json_ids(conn, status \\ 200) do
+        records = json_response(conn, status)["data"]
+        Enum.map(records, fn(json) ->
+          Map.get(json, "id")
+        end)
+      end
     end
   end
 

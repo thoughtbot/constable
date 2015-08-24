@@ -20,11 +20,12 @@ defmodule Constable.AnnouncementChannel do
   end
 
   def handle_in("create", %{"announcement" => announcement_params}, socket) do
-    announcement =
+    {:ok, announcement} =
       announcement_params
       |> Map.merge(%{"user_id" => current_user_id(socket)})
       |> AnnouncementCreator.create(announcement_params["interests"])
-      |> preload_associations
+
+    announcement = announcement |> preload_associations
 
     Pact.get(:announcement_mailer).created(announcement)
 

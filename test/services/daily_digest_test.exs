@@ -1,7 +1,6 @@
 defmodule Constable.DailyDigestTest do
   use Constable.ModelCase, async: false
   require Forge
-  alias Timex.Date
   alias Constable.Repo
   alias Constable.Mandrill
   alias Constable.DailyDigest

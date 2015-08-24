@@ -21,7 +21,7 @@ defmodule Constable.Announcement do
   def changeset(announcement, context, params \\ nil)
   def changeset(announcement, :update, params) do
     announcement
-    |> cast(params, ~w(), ~w(title body))
+    |> cast(params, ~w(title body))
   end
 
   def changeset(announcement, :create, params) do

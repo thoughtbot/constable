@@ -42,7 +42,7 @@ defmodule Constable.CommentChannel do
   end
 
   defp subscribe_author(comment) do
-    Subscription.changeset(%{
+    Subscription.changeset(:create, %{
       user_id: comment.user_id,
       announcement_id: comment.announcement_id
     }) |> Repo.get_or_insert

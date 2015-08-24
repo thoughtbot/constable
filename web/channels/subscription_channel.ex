@@ -15,7 +15,7 @@ defmodule Constable.SubscriptionChannel do
 
   def handle_in("create", %{"subscription" =>  subscription}, socket) do
     user_id = current_user_id(socket)
-    subscription = Subscription.changeset(%{
+    subscription = Subscription.changeset(:create, %{
       user_id: user_id,
       announcement_id: Map.get(subscription, "announcement_id")
     }) |> Repo.insert!
