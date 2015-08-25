@@ -13,7 +13,7 @@ use Mix.Config
 
 config :constable, Constable.Endpoint,
   url: [host: "example.com"],
-  http: [port: System.get_env("PORT")],
+  http: [port: System.get_env("PORT"), compress: true],
   secret_key_base: "tJ+MdrPlKWMpmz7JyJgSu/11xvwnNZo7Sz8IAacy9MM6di3GqackE9iNjhkHI9p8"
 
 config :constable, Constable.Repo,
