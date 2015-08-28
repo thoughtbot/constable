@@ -9,6 +9,7 @@ defmodule Constable.User do
     field :email
     field :token
     field :name
+    field :username
 
     has_many :user_interests, UserInterest, on_delete: :fetch_and_delete
     has_many :subscriptions, Subscription, on_delete: :fetch_and_delete

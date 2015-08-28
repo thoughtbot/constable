@@ -15,6 +15,7 @@ defmodule Constable.Api.UserView do
       id: user.id,
       name: user.name,
       gravatar_url: Exgravatar.generate(user.email),
+      username: user.username,
       user_interests: pluck(user.user_interests, :id),
       subscriptions: pluck(user.subscriptions, :id)
     }

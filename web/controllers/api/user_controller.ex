@@ -17,4 +17,18 @@ defmodule Constable.Api.UserController do
     user = Repo.get!(User, id)
     render(conn, "show.json", user: user)
   end
+
+  def update(conn, %{"user" => params}) do
+    current_user = current_user(conn)
+    changeset = User.changeset(current_user, params)
+
+    case Repo.update(changeset) do
+      {:ok, user} ->
+        render(conn, "show.json", user: user)
+      {:error, changeset} ->
+        conn
+        |> put_status(:unprocessable_entity)
+        |> render(Constable.ChangesetView, "error.json", changeset: changeset)
+    end
+  end
 end
