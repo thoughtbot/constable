@@ -2,6 +2,7 @@ defmodule Constable.Api.CommentController do
   use Constable.Web, :controller
 
   alias Constable.Comment
+  alias Constable.Api.CommentView
 
   plug :scrub_params, "comment" when action in [:create]
 
@@ -13,6 +14,11 @@ defmodule Constable.Api.CommentController do
 
     case Repo.insert(changeset) do
       {:ok, comment} ->
+        Constable.Endpoint.broadcast!(
+          "update",
+          "comment:add", 
+          CommentView.render("show.json", %{comment: comment})
+        )
         conn |> put_status(201) |> render("show.json", comment: comment)
       {:error, changeset} ->
         conn

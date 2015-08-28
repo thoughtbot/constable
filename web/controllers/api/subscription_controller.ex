@@ -31,6 +31,7 @@ defmodule Constable.Api.SubscriptionController do
     subscription = Repo.get!(Subscription, id)
 
     if current_user.id == subscription.user_id do
+      Repo.delete!(subscription)
       send_resp(conn, 204, "")
     else
       unauthorized(conn)

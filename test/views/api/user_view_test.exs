@@ -12,7 +12,7 @@ defmodule Constable.Api.UserViewTest do
     rendered_user = render_one(user, UserView, "show.json")
 
     assert rendered_user == %{
-      data: %{
+      user: %{
         id: user.id,
         name: user.name,
         gravatar_url: Exgravatar.generate(user.email),

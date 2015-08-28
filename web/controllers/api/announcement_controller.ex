@@ -3,6 +3,7 @@ defmodule Constable.Api.AnnouncementController do
 
   alias Constable.Announcement
   alias Constable.Services.AnnouncementCreator
+  alias Constable.Api.AnnouncementView
 
   plug :scrub_params, "announcement" when action in [:create, :update]
 
@@ -18,6 +19,11 @@ defmodule Constable.Api.AnnouncementController do
 
     case AnnouncementCreator.create(announcement_params, interest_names) do
       {:ok, announcement} ->
+        Constable.Endpoint.broadcast!(
+          "update",
+          "announcement:add", 
+          AnnouncementView.render("show.json", %{announcement: announcement})
+        )
         conn
         |> put_status(:created)
         |> render("show.json", announcement: announcement)
@@ -41,6 +47,11 @@ defmodule Constable.Api.AnnouncementController do
     if announcement.user_id == current_user.id do
       case Repo.update(changeset) do
         {:ok, announcement} ->
+          Constable.Endpoint.broadcast!(
+            "update",
+            "announcement:add", 
+            AnnouncementView.render("show.json", %{announcement: announcement})
+          )
           render(conn, "show.json", announcement: announcement)
         {:error, changeset} ->
           conn
@@ -58,6 +69,11 @@ defmodule Constable.Api.AnnouncementController do
 
     if announcement.user_id == current_user.id do
       Repo.delete!(announcement)
+      Constable.Endpoint.broadcast!(
+        "update",
+        "announcement:remove",
+        %{id: announcement.id}
+      )
       send_resp(conn, 204, "")
     else
       unauthorized(conn)

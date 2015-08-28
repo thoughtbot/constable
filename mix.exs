@@ -43,7 +43,8 @@ defmodule Constable.Mixfile do
       {:postgrex, ">= 0.0.0"},
       {:timex, "~> 0.19.0"},
       {:secure_random, "~> 0.1"},
-      {:httpoison, github: "edgurgel/httpoison", override: true}
+      {:httpoison, github: "edgurgel/httpoison", override: true},
+      {:cors_plug, "~> 0.1.3"}
     ]
   end
 

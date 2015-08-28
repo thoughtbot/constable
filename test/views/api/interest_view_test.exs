@@ -8,7 +8,7 @@ defmodule Constable.Api.InterestViewTest do
     rendered_interest = render_one(interest, InterestView, "show.json")
 
     assert rendered_interest == %{
-      data: %{
+      interest: %{
         id: interest.id,
         name: interest.name,
       }

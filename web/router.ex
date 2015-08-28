@@ -29,11 +29,12 @@ defmodule Constable.Router do
 
   scope "/api", alias: Constable.Api do
     pipe_through :api
+
     resources "/announcements", AnnouncementController
     resources "/comments", CommentController, only: [:create]
     resources "/interests", InterestController, only: [:index, :show]
     resources "/subscriptions", SubscriptionController, only: [:index, :create, :delete]
-    resources "/user_interests", UserInterestController, only: [:index, :show, :delete]
-    resources "/user", UserController, only: [:index, :show]
+    resources "/user_interests", UserInterestController, only: [:index, :show, :create, :delete]
+    resources "/users", UserController, only: [:index, :show]
   end
 end

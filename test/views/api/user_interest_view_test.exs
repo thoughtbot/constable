@@ -10,7 +10,7 @@ defmodule Constable.Api.UserInterestViewTest do
     rendered_user_interest = render_one(user_interest, UserInterestView, "show.json")
 
     assert rendered_user_interest == %{
-      data: %{
+      user_interest: %{
         id: user_interest.id,
         interest_id: interest.id,
         user_id: user.id,

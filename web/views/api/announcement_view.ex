@@ -1,12 +1,17 @@
 defmodule Constable.Api.AnnouncementView do
   use Constable.Web, :view
+  import Ecto.Query
+
+  alias Constable.Api.CommentView
 
   def render("index.json", %{announcements: announcements}) do
-    %{data: render_many(announcements, Constable.Api.AnnouncementView, "announcement.json")}
+    %{
+      announcements: render_many(announcements, __MODULE__, "announcement.json"),
+    }
   end
 
   def render("show.json", %{announcement: announcement}) do
-    %{data: render_one(announcement, Constable.Api.AnnouncementView, "announcement.json")}
+    %{announcement: render_one(announcement, __MODULE__, "announcement.json")}
   end
 
   def render("announcement.json", %{announcement: announcement}) do
@@ -17,9 +22,9 @@ defmodule Constable.Api.AnnouncementView do
       body: announcement.body,
       inserted_at: announcement.inserted_at,
       updated_at: announcement.updated_at,
-      user: announcement.user_id,
-      comments: pluck(announcement.comments, :id),
-      interests: pluck(announcement.interests, :id)
+      user_id: announcement.user_id,
+      comments: render_many(announcement.comments, CommentView, "comment.json"),
+      interest_ids: pluck(announcement.interests, :id)
     }
   end
 end

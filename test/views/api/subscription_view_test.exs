@@ -10,7 +10,7 @@ defmodule Constable.Api.SubscriptionViewTest do
     rendered_subscription = render_one(subscription, SubscriptionView, "show.json")
 
     assert rendered_subscription == %{
-      data: %{
+      subscription: %{
         id: subscription.id,
         announcement_id: announcement.id,
         user_id: user.id,

@@ -19,8 +19,8 @@ defmodule Constable.Api.SubscriptionControllerTest do
 
     conn = get conn, subscription_path(conn, :index)
 
-    json_response(conn, 200)["data"]
-    ids = fetch_json_ids(conn)
+    json_response(conn, 200)["subscriptions"]
+    ids = fetch_json_ids("subscriptions", conn)
 
     assert ids == [subscription_1.id, subscription_2.id]
   end

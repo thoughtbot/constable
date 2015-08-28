@@ -15,6 +15,23 @@ defmodule Constable.Api.UserInterestController do
     render conn, "show.json", user_interest: user_interest
   end
 
+  def create(conn, %{"user_interest" => params}) do
+    conn |> put_status(201)
+    current_user = current_user(conn)
+    params = Map.put(params, "user_id", current_user.id)
+
+    changeset = UserInterest.changeset(params)
+
+    case Repo.insert(changeset) do
+      {:ok, user_interest} ->
+        conn |> put_status(201) |> render("show.json", user_interest: user_interest)
+      {:error, changeset} ->
+        conn
+        |> put_status(422)
+        |> render(Constable.ChangesetView, "error.json", changeset: changeset)
+    end
+  end
+
   def delete(conn, %{"id" => id}) do
     current_user = current_user(conn)
     user_interest = Repo.get!(UserInterest, id)

@@ -10,8 +10,8 @@ defmodule Constable.Api.UserInterestControllerTest do
     Forge.saved_user_interest(Repo, id: 2, user_id: user.id)
     conn = get conn, user_interest_path(conn, :index)
 
-    json_response(conn, 200)["data"]
-    ids = fetch_json_ids(conn)
+    json_response(conn, 200)["user_interests"]
+    ids = fetch_json_ids("user_interests", conn)
 
     assert ids == [1, 2]
   end
@@ -20,7 +20,7 @@ defmodule Constable.Api.UserInterestControllerTest do
     user_interest = Forge.saved_user_interest(Repo, id: 2)
     conn = get conn, user_interest_path(conn, :show, user_interest.id)
 
-    assert json_response(conn, 200)["data"]["id"] == user_interest.id
+    assert json_response(conn, 200)["user_interest"]["id"] == user_interest.id
   end
 
   test "#destroy destroys a user interest", %{conn: conn, user: user} do

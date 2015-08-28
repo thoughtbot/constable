@@ -9,8 +9,8 @@ defmodule Constable.Api.UserControllerTest do
     other_user = Forge.saved_user(Repo)
     conn = get conn, user_path(conn, :index)
 
-    json_response(conn, 200)["data"]
-    ids = fetch_json_ids(conn)
+    json_response(conn, 200)["users"]
+    ids = fetch_json_ids("users", conn)
 
     assert ids == [user.id, other_user.id]
   end
@@ -19,12 +19,12 @@ defmodule Constable.Api.UserControllerTest do
     user = Forge.saved_user(Repo)
     conn = get conn, user_path(conn, :show, user.id)
 
-    assert json_response(conn, 200)["data"]["id"] == user.id
+    assert json_response(conn, 200)["user"]["id"] == user.id
   end
 
   test "#show returns current user when id is me", %{conn: conn, user: user} do
     conn = get conn, user_path(conn, :show, user.id)
 
-    assert json_response(conn, 200)["data"]["id"] == user.id
+    assert json_response(conn, 200)["user"]["id"] == user.id
   end
 end

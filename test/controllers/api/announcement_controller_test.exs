@@ -12,7 +12,7 @@ defmodule Constable.Api.AnnouncementControllerTest do
     Forge.saved_announcement(Repo, id: 2, user_id: user.id)
     conn = get conn, announcement_path(conn, :index)
 
-    ids = fetch_json_ids(conn)
+    ids = fetch_json_ids("announcements", conn)
 
     assert ids == [1, 2]
   end
@@ -21,7 +21,7 @@ defmodule Constable.Api.AnnouncementControllerTest do
     announcement = Forge.saved_announcement(Repo, id: 1, user_id: user.id)
 
     conn = get conn, announcement_path(conn, :show, announcement.id)
-    assert json_response(conn, 200)["data"]["id"] == announcement.id
+    assert json_response(conn, 200)["announcement"]["id"] == announcement.id
   end
 
   test "#create with valid attributes saves an announcement", %{conn: conn} do
@@ -33,7 +33,7 @@ defmodule Constable.Api.AnnouncementControllerTest do
       interest_names: ["foo"]
     }
 
-    json_response(conn, 201)["data"]
+    json_response(conn, 201)["announcement"]
     announcement = Repo.one(Announcement) |> Repo.preload(:interests)
     interest_names = Enum.map(announcement.interests, fn(interest) ->
       interest.name

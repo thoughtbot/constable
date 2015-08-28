@@ -26,5 +26,6 @@ defmodule Constable.Endpoint do
     signing_salt: "/CEisxlR",
     encryption_salt: "W5B5Vc1E"
 
+  plug CORSPlug
   plug Constable.Router
 end

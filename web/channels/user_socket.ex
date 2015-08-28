@@ -1,19 +1,26 @@
 defmodule Constable.UserSocket do
   use Phoenix.Socket
 
-  channel "announcements*", Constable.AnnouncementChannel
-  channel "comments*", Constable.CommentChannel
-  channel "interests*", Constable.InterestChannel
-  channel "subscriptions*", Constable.SubscriptionChannel
-  channel "users*", Constable.UserChannel
-  channel "user_interests*", Constable.UserInterestChannel
+  alias Constable.Repo
+  alias Constable.User
+
+  channel "update", Constable.UpdateChannel
 
   transport :websocket, Phoenix.Transports.WebSocket, check_origin: false
   transport :longpoll, Phoenix.Transports.LongPoll
 
-  def connect(_params, socket) do
-    {:ok, socket}
+  def connect(%{"token" => token}, socket) do
+    if user = user_with_token(token) do
+      socket = assign(socket, :current_user_id, user.id)
+      {:ok, socket}
+    else
+      {:error, "Unauthorized"}
+    end
   end
 
   def id(_socket), do: nil
+
+  defp user_with_token(token) do
+    Repo.get_by!(User, token: token)
+  end
 end

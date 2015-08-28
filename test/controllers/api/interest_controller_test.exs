@@ -10,7 +10,7 @@ defmodule Constable.Api.InterestControllerTest do
     Forge.saved_interest(Repo, id: 2)
 
     conn = get conn, interest_path(conn, :index)
-    ids = fetch_json_ids(conn)
+    ids = fetch_json_ids("interests", conn)
 
     assert ids == [1, 2]
   end
@@ -19,6 +19,6 @@ defmodule Constable.Api.InterestControllerTest do
     interest = Forge.saved_interest(Repo)
 
     conn = get conn, interest_path(conn, :show, interest.id)
-    assert json_response(conn, 200)["data"]["id"] == interest.id
+    assert json_response(conn, 200)["interest"]["id"] == interest.id
   end
 end

@@ -43,8 +43,8 @@ defmodule Constable.ConnCase do
         %{conn: conn, user: user}
       end
 
-      defp fetch_json_ids(conn, status \\ 200) do
-        records = json_response(conn, status)["data"]
+      defp fetch_json_ids(key, conn, status \\ 200) do
+        records = json_response(conn, status)[key]
         Enum.map(records, fn(json) ->
           Map.get(json, "id")
         end)

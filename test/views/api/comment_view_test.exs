@@ -10,11 +10,12 @@ defmodule Constable.Api.CommentViewTest do
     rendered_comment = render_one(comment, CommentView, "show.json")
 
     assert rendered_comment == %{
-      data: %{
+      comment: %{
         id: comment.id,
         body: comment.body,
         announcement_id: announcement.id,
         user_id: user.id,
+        inserted_at: comment.inserted_at,
       }
     }
   end
