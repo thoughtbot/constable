@@ -5,6 +5,7 @@ defmodule Constable.Services.AnnouncementCreator do
   alias Constable.AnnouncementInterest
   alias Constable.Announcement
   alias Constable.Subscription
+  alias Constable.Api.InterestView
 
   def create(announcement_params, interest_names) do
     case create_announcement(announcement_params) do
@@ -43,7 +44,12 @@ defmodule Constable.Services.AnnouncementCreator do
     List.wrap(names)
     |> Enum.reject(&blank_interest?/1)
     |> Enum.map(fn(name) ->
-      Repo.get_or_insert(Interest.changeset(%{name: name}))
+      interest = Interest.changeset(%{name: name})
+
+      case Repo.get_by(Interest, interest.changes) do
+        nil -> create_and_broadcast(interest)
+        interest -> interest
+      end
     end)
     |> Enum.uniq
   end
@@ -58,5 +64,17 @@ defmodule Constable.Services.AnnouncementCreator do
       |> Map.merge(%{announcement_id: announcement.id})
       |> Repo.insert!
     end)
+  end
+
+  defp create_and_broadcast(changeset) do
+    interest = changeset |> Repo.insert!
+
+    Constable.Endpoint.broadcast!(
+      "update",
+      "interest:add", 
+      InterestView.render("show.json", %{interest: interest})
+    )
+
+    interest
   end
 end
