@@ -7,10 +7,11 @@ defmodule Constable.Mailers.Announcement do
   @template_base "web/templates/mailers/announcements"
   @tags ~w(new-announcement)
 
-  def created(announcement) do
+  def created(announcement, users) do
+    announcement = announcement |> Repo.preload([:user, :interests])
     default_attributes(announcement: announcement, author: announcement.user)
     |> Map.merge(%{
-      to: interested_users(announcement),
+      to: Mandrill.format_users(users),
       subject: announcement.title,
       tags: @tags,
       html: email_html(announcement),
@@ -34,12 +35,6 @@ defmodule Constable.Mailers.Announcement do
       author: announcement.user,
       author_avatar_url: Exgravatar.generate(announcement.user.email)
     )
-  end
-
-  defp interested_users(announcement) do
-    announcement
-    |> Map.get(:interested_users)
-    |> Mandrill.format_users
   end
 
   def interest_names(announcement) do

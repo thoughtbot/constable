@@ -22,7 +22,7 @@ defmodule Constable.Mailers.AnnouncementTest do
     interested_users = [create_interested_user(interest)]
     announcement = create_announcement_with_interests([interest, interest_2])
 
-    Mailers.Announcement.created(announcement)
+    Mailers.Announcement.created(announcement, interested_users)
 
     author = announcement.user
     users = Mandrill.format_users(interested_users)

@@ -27,4 +27,14 @@ defmodule Constable.Api.UserControllerTest do
 
     assert json_response(conn, 200)["user"]["id"] == user.id
   end
+
+  test "#update updates the current user", %{conn: conn, user: user} do
+    conn = put conn, user_path(conn, :update), user: %{
+      daily_digest: false,
+      auto_subscribe: false
+    }
+
+    assert json_response(conn, 200)["user"]["id"] == user.id
+    assert json_response(conn, 200)["user"]["daily_digest"] == false
+  end
 end

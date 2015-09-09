@@ -36,5 +36,6 @@ defmodule Constable.Router do
     resources "/subscriptions", SubscriptionController, only: [:index, :create, :delete]
     resources "/user_interests", UserInterestController, only: [:index, :show, :create, :delete]
     resources "/users", UserController, only: [:index, :show]
+    resources "/users", UserController, only: [:update], singleton: true
   end
 end

@@ -10,11 +10,17 @@ defmodule Constable.User do
     field :token
     field :name
     field :username
+    field :auto_subscribe, :boolean, default: false
+    field :daily_digest, :boolean, default: true
 
     has_many :user_interests, UserInterest, on_delete: :fetch_and_delete
     has_many :subscriptions, Subscription, on_delete: :fetch_and_delete
 
     timestamps
+  end
+
+  def changeset(user, params) do
+    user |> cast(params, ~w(), ~w(daily_digest auto_subscribe))
   end
 
   defp generate_token(changeset) do

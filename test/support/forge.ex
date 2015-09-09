@@ -35,6 +35,8 @@ defmodule Forge do
 
   register :user,
     __struct__: User,
+    auto_subscribe: false,
+    daily_digest: true,
     name: "Gumbo",
     email: Sequence.next(:email, &"test#{&1}@thoughtbot.com")
 
