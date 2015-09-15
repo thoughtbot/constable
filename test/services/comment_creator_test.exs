@@ -1,7 +1,6 @@
 defmodule Constable.Services.CommentCreatorTest do
   use Constable.TestWithEcto, async: false
 
-  alias Constable.Repo
   alias Constable.Comment
   alias Constable.Services.CommentCreator
 
@@ -23,26 +22,24 @@ defmodule Constable.Services.CommentCreatorTest do
   end
 
   test "creates a comment" do
-    user = Forge.saved_user(Repo)
-    announcement = Forge.saved_announcement(Repo, user_id: user.id)
+    announcement = create(:announcement) |> Repo.preload(:user)
 
     CommentCreator.create(%{
-      user_id: user.id,
+      user_id: announcement.user.id,
       body: "Foo",
       announcement_id: announcement.id
     })
 
     comment = Repo.one(Comment)
 
-    assert comment.user_id == user.id
+    assert comment.user_id == announcement.user.id
     assert comment.announcement_id == announcement.id
     assert comment.body == "Foo"
   end
 
   test "create emails announcement subscribers" do
-    user = Forge.saved_user(Repo)
-    announcement = Forge.saved_announcement(Repo, user_id: user.id)
-    Forge.saved_subscription(Repo, user_id: user.id, announcement_id: announcement.id)
+    user = create(:user)
+    announcement = create(:announcement) |> with_subscriber(user)
 
     {:ok, comment} = CommentCreator.create(%{
       user_id: user.id,
@@ -55,12 +52,13 @@ defmodule Constable.Services.CommentCreatorTest do
   end
 
   test "create emails mentioned users" do
-    user = Forge.saved_user(Repo, username: "blake")
-    announcement = Forge.saved_announcement(Repo, user_id: user.id)
+    mentioned_username = "blake"
+    user = create(:user, username: mentioned_username)
+    announcement = create(:announcement, user: user)
 
     {:ok, comment} = CommentCreator.create(%{
       user_id: user.id,
-      body: "Hey @blake, @fakeuser was looking for you.",
+      body: "Hey @#{mentioned_username}, @fakeuser was looking for you.",
       announcement_id: announcement.id
     })
 
@@ -68,20 +66,19 @@ defmodule Constable.Services.CommentCreatorTest do
     assert_receive {:mentioned_users, [^user]}
   end
 
-  test "create only emails user once if subscribed and mentioned" do
-    user = Forge.saved_user(Repo, username: "blake")
-    announcement = Forge.saved_announcement(Repo, user_id: user.id)
-    Forge.saved_subscription(Repo, user_id: user.id, announcement_id: announcement.id)
+  test "create only sends mention email if subscribed and mentioned" do
+    mentioned_username = "blake"
+    user = create(:user, username: mentioned_username)
+    announcement = create(:announcement) |> with_subscriber(user)
 
     {:ok, comment} = CommentCreator.create(%{
       user_id: user.id,
-      body: "Hey @blake",
+      body: "Hey @#{mentioned_username}",
       announcement_id: announcement.id
     })
 
     assert_received {:comment, comment}
     assert_received {:users, []}
-
 
     assert_receive {:mentioned_comment, ^comment}
     assert_receive {:mentioned_users, [^user]}

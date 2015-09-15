@@ -9,39 +9,30 @@ defmodule Constable.Api.SubscriptionControllerTest do
   end
 
   test "#index shows all current users subscriptions", %{conn: conn, user: user} do
-    other_user = Forge.saved_user(Repo)
-    announcement = Forge.saved_announcement(Repo, user_id: user.id)
-    other_announcement = Forge.saved_announcement(Repo, user_id: user.id)
-
-    subscription_1 = Forge.saved_subscription(Repo, user_id: user.id, announcement_id: announcement.id)
-    subscription_2= Forge.saved_subscription(Repo, user_id: user.id, announcement_id: other_announcement.id)
-    Forge.saved_subscription(Repo, user_id: other_user.id, announcement_id: announcement.id)
+    other_user = create(:user)
+    subscription_1 = create(:subscription, user: user)
+    subscription_2 = create(:subscription, user: user)
+    create(:subscription, user: other_user)
 
     conn = get conn, subscription_path(conn, :index)
 
-    json_response(conn, 200)["subscriptions"]
     ids = fetch_json_ids("subscriptions", conn)
-
     assert ids == [subscription_1.id, subscription_2.id]
   end
 
   test "#create subscribes the current user to an announcement", %{conn: conn, user: user} do
-    announcement = Forge.saved_announcement(Repo, user_id: user.id)
-    conn = post conn, subscription_path(conn, :create), subscription: %{
+    announcement = create(:announcement)
+    post conn, subscription_path(conn, :create), subscription: %{
       announcement_id: announcement.id
     }
 
-    json_response(conn, 201)
-
     subscription = Repo.one!(Subscription)
-
     assert subscription.user_id == user.id
     assert subscription.announcement_id == announcement.id
   end
 
   test "#delete destroys subscription", %{conn: conn, user: user} do
-    announcement = Forge.saved_announcement(Repo, user_id: user.id)
-    subscription = Forge.saved_subscription(Repo, user_id: user.id, announcement_id: announcement.id)
+    subscription = create(:subscription, user: user)
 
     conn = delete conn, subscription_path(conn, :delete, subscription.id)
 
@@ -49,9 +40,8 @@ defmodule Constable.Api.SubscriptionControllerTest do
   end
 
   test "#delete can only destroys current users subscriptions", %{conn: conn} do
-    user = Forge.saved_user(Repo)
-    announcement = Forge.saved_announcement(Repo, user_id: user.id)
-    subscription = Forge.saved_subscription(Repo, user_id: user.id, announcement_id: announcement.id)
+    other_user = create(:user)
+    subscription = create(:subscription, user: other_user)
 
     conn = delete conn, subscription_path(conn, :delete, subscription.id)
 

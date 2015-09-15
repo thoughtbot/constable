@@ -1,19 +1,17 @@
 defmodule Constable.Api.UserInterestViewTest do
-  use Constable.ViewCase, async: true
+  use Constable.ViewCase
   alias Constable.Api.UserInterestView
 
   test "show.json returns correct fields" do
-    user = Forge.user
-    interest = Forge.interest
-    user_interest = Forge.user_interest(user: user, interest: interest)
+    user_interest = create(:user_interest) |> Repo.preload([:user, :interest])
 
     rendered_user_interest = render_one(user_interest, UserInterestView, "show.json")
 
     assert rendered_user_interest == %{
       user_interest: %{
         id: user_interest.id,
-        interest_id: interest.id,
-        user_id: user.id,
+        interest_id: user_interest.interest.id,
+        user_id: user_interest.user.id,
       }
     }
   end

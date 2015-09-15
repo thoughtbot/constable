@@ -1,6 +1,5 @@
 defmodule Constable.DailyDigestTest do
   use Constable.ModelCase, async: false
-  require Forge
   alias Constable.Repo
   alias Constable.Mandrill
   alias Constable.DailyDigest
@@ -19,8 +18,7 @@ defmodule Constable.DailyDigestTest do
   test "does not send email if there are no new announcements" do
     Repo.delete_all(Constable.Announcement)
     Pact.override(self, :mailer, FakeMandrill)
-    Forge.saved_user(Repo)
-    users = [Forge.saved_user(Repo)]
+    users = [create(:user)]
 
     DailyDigest.send_email(users)
 
@@ -29,14 +27,12 @@ defmodule Constable.DailyDigestTest do
 
   test "includes interests and announcements from the last 24 hours" do
     Pact.override(self, :mailer, FakeMandrill)
-    author = Forge.saved_user(Repo)
-    users = [Forge.saved_user(Repo)]
-    old_interest = Forge.saved_interest(Repo, inserted_at: yesterday)
-    new_interest = Forge.saved_interest(Repo, inserted_at: today)
-    Forge.having(user_id: author.id) do
-      old_announcement = Forge.saved_announcement(Repo, inserted_at: yesterday)
-      new_announcement = Forge.saved_announcement(Repo, inserted_at: today)
-    end
+    author = create(:user)
+    users = [create(:user)]
+    old_interest = create(:interest, inserted_at: yesterday)
+    new_interest = create(:interest, inserted_at: today)
+    old_announcement = create(:announcement, user: author, inserted_at: yesterday)
+    new_announcement = create(:announcement, user: author, inserted_at: today)
 
     DailyDigest.send_email(users)
 

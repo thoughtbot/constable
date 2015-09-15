@@ -2,8 +2,7 @@ defmodule Constable.CommentViewTest do
   use Constable.ViewCase, async: true
 
   test "returns json with comment id and body" do
-    user = Forge.user
-    comment = Forge.comment(id: 1, user: user)
+    comment = create(:comment)
 
     rendered_comment = CommentView.render("show.json", %{comment: comment})
 

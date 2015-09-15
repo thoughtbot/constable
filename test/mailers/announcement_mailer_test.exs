@@ -1,7 +1,7 @@
 defmodule Constable.Mailers.AnnouncementTest do
   use Constable.TestWithEcto, async: false
+
   alias Constable.Mailers
-  alias Constable.Repo
   alias Constable.Mandrill
 
   defmodule FakeMandrill do
@@ -17,8 +17,8 @@ defmodule Constable.Mailers.AnnouncementTest do
 
   test "sends markdown formatted email to people subscribed to the interest" do
     Pact.override(self, :mailer, FakeMandrill)
-    interest = Forge.saved_interest(Repo)
-    interest_2 = Forge.saved_interest(Repo)
+    interest = create(:interest)
+    interest_2 = create(:interest)
     interested_users = [create_interested_user(interest)]
     announcement = create_announcement_with_interests([interest, interest_2])
 
@@ -48,26 +48,20 @@ defmodule Constable.Mailers.AnnouncementTest do
   end
 
   def create_announcement_with_interests(interests) do
-    author = Forge.saved_user(Repo)
-    Forge.saved_announcement(Repo, user_id: author.id)
+    create(:announcement)
     |> associate_interests_with_announcement(interests)
     |> Repo.preload([:user, :interested_users])
   end
 
   def create_interested_user(interest) do
-    user = Forge.saved_user(Repo)
-    Forge.saved_user_interest(Repo,
-      interest_id: interest.id,
-      user_id: user.id
-    )
+    user = create(:user)
+    create(:user_interest, interest: interest, user: user)
     user
   end
 
   def associate_interests_with_announcement(announcement, interests) do
     Enum.each(interests, fn(interest) ->
-      Forge.saved_announcement_interest(
-        Repo, announcement_id: announcement.id, interest_id: interest.id
-      )
+      create(:announcement_interest, announcement: announcement, interest: interest)
     end)
     announcement
   end

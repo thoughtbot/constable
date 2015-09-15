@@ -1,18 +1,18 @@
 defmodule Constable.AnnouncementViewTest do
-  use Constable.ViewCase, async: true
+  use Constable.ViewCase
   alias Constable.AnnouncementView
   alias Constable.CommentView
   alias Constable.UserView
 
   test "show.json returns id, title, body, user and embedded comments" do
-    user = Forge.user
-    interest = Forge.interest
-    announcement = Forge.announcement(user: user, interests: [interest])
-    comment = Forge.comment(announcement: announcement, user: user)
-    announcement = Map.put(announcement, :comments, [comment])
+    interest = create(:interest)
+    announcement = create(:announcement, interests: [interest])
+      |> with_comment
+      |> Repo.preload([:user, :comments])
 
     rendered_announcement = render_one(announcement, AnnouncementView, "show.json")
 
+    assert length(announcement.comments) == 1
     assert rendered_announcement == %{
       id: announcement.id,
       title: announcement.title,

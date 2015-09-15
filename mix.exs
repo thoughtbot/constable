@@ -21,7 +21,7 @@ defmodule Constable.Mixfile do
   end
 
   defp app_list(:dev), do: [:dotenv | app_list]
-  defp app_list(:test), do: [:blacksmith | app_list]
+  defp app_list(:test), do: [:ex_machina | app_list]
   defp app_list(_), do: app_list
   defp app_list, do: [:phoenix, :cowboy, :logger, :postgrex, :ecto, :httpoison]
 
@@ -30,11 +30,11 @@ defmodule Constable.Mixfile do
   # Type `mix help deps` for examples and options
   defp deps do
     [
-      {:blacksmith, "~> 0.1.1"},
       {:cowboy, "~> 1.0"},
       {:dotenv, "~> 0.0.4"},
       {:earmark, "~> 0.1.17"},
       {:exgravatar, "~> 0.2.0"},
+      {:ex_machina, "~> 0.2"},
       {:oauth2, "~> 0.2.0"},
       {:pact, "~> 0.1.0"},
       {:phoenix_ecto, "~> 0.8"},

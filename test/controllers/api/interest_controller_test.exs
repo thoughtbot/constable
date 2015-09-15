@@ -1,24 +1,30 @@
 defmodule Constable.Api.InterestControllerTest do
   use Constable.ConnCase
 
+  alias Constable.Api.InterestView
+
   setup do
     {:ok, authenticate}
   end
 
   test "#index displays all interests", %{conn: conn} do
-    Forge.saved_interest(Repo, id: 1)
-    Forge.saved_interest(Repo, id: 2)
+    interests = create_pair(:interest)
 
     conn = get conn, interest_path(conn, :index)
-    ids = fetch_json_ids("interests", conn)
 
-    assert ids == [1, 2]
+    assert json_response(conn, 200) == render_json(interests)
   end
 
   test "#show displays a single interest", %{conn: conn} do
-    interest = Forge.saved_interest(Repo)
+    interest = create(:interest)
 
     conn = get conn, interest_path(conn, :show, interest.id)
+
     assert json_response(conn, 200)["interest"]["id"] == interest.id
+  end
+
+  defp render_json(interests) do
+    InterestView.render("index.json", interests: interests)
+    |> format_json
   end
 end

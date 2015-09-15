@@ -1,7 +1,7 @@
 defmodule Constable.Mailers.CommentMailerTest do
   use Constable.TestWithEcto, async: false
+
   alias Constable.Mailers
-  alias Constable.Repo
   alias Constable.Mandrill
 
   defmodule FakeMandrill do
@@ -17,15 +17,15 @@ defmodule Constable.Mailers.CommentMailerTest do
 
   test "sends markdown formatted new comment email" do
     Pact.override(self, :mailer, FakeMandrill)
-    author = Forge.saved_user(Repo)
-    users = [author, Forge.saved_user(Repo)]
+    author = create(:user)
+    users = [author, create(:user)]
     title = "Foo Announcement"
     subject = "Re: #{title}"
     comment_body = "Bar is cool"
     from_name = "#{author.name} (Constable)"
-    announcement = Forge.saved_announcement(Repo, title: title, user_id: author.id)
+    announcement = create(:announcement, title: title, user: author)
     from_email = "constable-#{announcement.id}@#{System.get_env("EMAIL_DOMAIN")}"
-    comment = Forge.comment(
+    comment = create(:comment,
       body: comment_body,
       user: author,
       announcement: announcement

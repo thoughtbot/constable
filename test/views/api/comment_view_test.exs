@@ -1,11 +1,9 @@
 defmodule Constable.Api.CommentViewTest do
-  use Constable.ViewCase, async: true
+  use Constable.ViewCase
   alias Constable.Api.CommentView
 
   test "show.json returns correct fields" do
-    user = Forge.user
-    announcement = Forge.announcement(user: user)
-    comment = Forge.comment(announcement: announcement, user: user)
+    comment = create(:comment)
 
     rendered_comment = render_one(comment, CommentView, "show.json")
 
@@ -13,8 +11,8 @@ defmodule Constable.Api.CommentViewTest do
       comment: %{
         id: comment.id,
         body: comment.body,
-        announcement_id: announcement.id,
-        user_id: user.id,
+        announcement_id: comment.announcement_id,
+        user_id: comment.user_id,
         inserted_at: comment.inserted_at,
       }
     }

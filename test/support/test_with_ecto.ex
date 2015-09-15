@@ -1,7 +1,12 @@
 defmodule Constable.TestWithEcto do
   use ExUnit.CaseTemplate
-  alias Ecto.Adapters.SQL
-  alias Constable.Repo
+
+  using do
+    quote do
+      import Constable.Factories
+      alias Constable.Repo
+    end
+  end
 
   setup tags do
     unless tags[:async] do

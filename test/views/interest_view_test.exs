@@ -1,9 +1,9 @@
 defmodule Constable.InterestViewTest do
-  use Constable.ViewCase, async: true
+  use Constable.ViewCase
   alias Constable.InterestView
 
   test "show.json returns json with id and name" do
-    interest = Forge.interest
+    interest = create(:interest)
 
     rendered_interest = render_one(interest, InterestView, "show.json")
 
@@ -14,7 +14,7 @@ defmodule Constable.InterestViewTest do
   end
 
   test "name.json return just the name" do
-    interest = Forge.interest
+    interest = create(:interest)
 
     rendered_interest = render_one(interest, InterestView, "name.json")
 

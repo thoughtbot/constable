@@ -1,13 +1,13 @@
 defmodule Constable.UserViewTest do
-  use Constable.ViewCase, async: true
+  use Constable.ViewCase
   alias Constable.UserInterestView
   alias Constable.SubscriptionView
 
   test "returns json with id, email, name, and gravatar_url" do
-    user =
-      Forge.user
-      |> Map.put(:user_interests, [Forge.user_interest])
-      |> Map.put(:subscriptions, [Forge.subscription])
+    user = create(:user)
+    create(:user_interest, user: user)
+    create(:subscription, user: user)
+    user = user |> Repo.preload([:user_interests, :subscriptions])
 
     rendered_user = UserView.render("show.json", %{user: user})
 

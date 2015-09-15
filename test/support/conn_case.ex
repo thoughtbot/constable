@@ -20,11 +20,13 @@ defmodule Constable.ConnCase do
     quote do
       # Import conveniences for testing with connections
       use Phoenix.ConnTest
+      use Constable.Web, :view
 
       # Alias the data repository and import query/model functions
       alias Constable.Repo
-      import Ecto.Model
+      import Ecto.Model, except: [build: 2]
       import Ecto.Query, only: [from: 2]
+      import Constable.Factories
 
       # Import URL helpers from the router
       import Constable.Router.Helpers
@@ -32,11 +34,7 @@ defmodule Constable.ConnCase do
       # The default endpoint for testing
       @endpoint Constable.Endpoint
 
-      def authenticate(user \\ nil) do
-        unless user do
-          user = Forge.saved_user(Repo)
-        end
-
+      def authenticate(user \\ create(:user)) do
         conn = conn()
         |> put_req_header("accept", "application/json")
         |> put_req_header("authorization", user.token)
@@ -48,6 +46,20 @@ defmodule Constable.ConnCase do
         Enum.map(records, fn(json) ->
           Map.get(json, "id")
         end)
+      end
+
+      defmacro render_json(template, assigns) do
+        view = Module.get_attribute(__CALLER__.module, :view)
+        quote do
+          render_json(unquote(template), unquote(view), unquote(assigns))
+        end
+      end
+      def render_json(template, view, assigns) do
+        view.render(template, assigns) |> format_json
+      end
+
+      defp format_json(data) do
+        data |> Poison.encode! |> Poison.decode!
       end
     end
   end

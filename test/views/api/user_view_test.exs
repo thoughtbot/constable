@@ -1,13 +1,12 @@
 defmodule Constable.Api.UserViewTest do
-  use Constable.ViewCase, async: false
+  use Constable.ViewCase
   alias Constable.Api.UserView
 
   test "show.json returns correct fields" do
-    user_interest = Forge.user_interest
-    subscription = Forge.subscription
-    user = Forge.saved_user(Repo)
-      |> Map.put(:user_interests, [user_interest])
-      |> Map.put(:subscriptions, [subscription])
+    user = create(:user)
+      |> with_interest
+      |> with_subscription
+      |> Repo.preload([:user_interests, :subscriptions])
 
     rendered_user = render_one(user, UserView, "show.json")
 
@@ -18,9 +17,9 @@ defmodule Constable.Api.UserViewTest do
         gravatar_url: Exgravatar.generate(user.email),
         daily_digest: user.daily_digest,
         auto_subscribe: user.auto_subscribe,
-        user_interests: [user_interest.id],
-        subscriptions: [subscription.id],
-        username: user.username
+        username: user.username,
+        user_interests: ids_from(user.user_interests),
+        subscriptions: ids_from(user.subscriptions)
       }
     }
   end

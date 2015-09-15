@@ -1,15 +1,13 @@
 defmodule Constable.Api.AnnouncementViewTest do
-  use Constable.ViewCase, async: true
+  use Constable.ViewCase
 
   alias Constable.Api.AnnouncementView
   alias Constable.Api.CommentView
 
   test "show.json returns correct fields" do
-    user = Forge.user
-    interest = Forge.interest
-    announcement = Forge.announcement(user: user, interests: [interest])
-    comment = Forge.comment(announcement: announcement, user: user)
-    announcement = Map.put(announcement, :comments, [comment])
+    interest = create(:interest)
+    announcement = create(:announcement) |> tag_with_interest(interest)
+    comment = create(:comment, announcement: announcement)
 
     rendered_announcement = render_one(announcement, AnnouncementView, "show.json")
 
