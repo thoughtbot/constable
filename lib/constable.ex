@@ -30,6 +30,7 @@ defmodule Constable do
     Pact.put(:request_with_access_token, OAuth2.AccessToken)
     Pact.put(:token_retriever, OAuth2.Strategy.AuthCode)
     Pact.put(:daily_digest, Constable.DailyDigest)
+    Pact.put(:google_strategy, GoogleStrategy)
   end
 
   # Tell Phoenix to update the endpoint configuration

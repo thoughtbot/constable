@@ -64,7 +64,7 @@ defmodule AuthControllerTest do
   test "callback redirects to success URI with existing user token" do
     Pact.override(self, "token_retriever", FakeTokenRetriever)
     Pact.override(self, "request_with_access_token", FakeRequestWithAccessToken)
-    Forge.saved_user(Repo, email: @oauth_email_address)
+    create(:user, email: @oauth_email_address)
 
     conn =
       request_authorization("foo.com")
@@ -93,7 +93,7 @@ defmodule AuthControllerTest do
   end
 
   defp create_everyone_interest do
-    Forge.saved_interest(Repo, name: "everyone")
+    create(:interest, name: "everyone")
   end
 
   defp request_authorization(redirect_uri) do
@@ -107,7 +107,7 @@ defmodule AuthControllerTest do
 
   defp user_has_interest(interest) do
     user = Repo.one(User)
-    Repo.get_by!(UserInterest, 
+    Repo.get_by!(UserInterest,
       user_id: user.id,
       interest_id: interest.id
     )

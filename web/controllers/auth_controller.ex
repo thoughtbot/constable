@@ -25,7 +25,7 @@ defmodule Constable.AuthController do
   access the email address on behalf of the user.
   """
   def callback(conn, %{"code" => code}) do
-    token = GoogleStrategy.get_token!(code: code)
+    token = google_strategy.get_token!(code: code)
 
     user = find_or_insert_user(token)
     if from_thoughtbot?(user) do
@@ -39,6 +39,10 @@ defmodule Constable.AuthController do
   def callback(conn, %{"error" => error_message}) do
     Logger.warn("Auth error: #{error_message}")
     conn |> redirect external: "/"
+  end
+
+  defp google_strategy do
+    Pact.get(:google_strategy)
   end
 
   defp get_userinfo(token) do
