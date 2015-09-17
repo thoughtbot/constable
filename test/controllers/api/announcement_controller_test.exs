@@ -53,11 +53,14 @@ defmodule Constable.Api.AnnouncementControllerTest do
     announcement = create(:announcement, user: user, title: "Foo")
 
     put conn, announcement_path(conn, :update, announcement), announcement: %{
-      title: "Foobar"
-    }
+      title: "Foobar",
+      body: "wat"
+    }, interest_names: ["foo"]
 
-    announcement = Repo.one(Announcement)
+    announcement = Repo.one(Announcement) |> Repo.preload(:interests)
+    interest_names = Enum.map(announcement.interests, &(&1.name))
     assert announcement.title == "Foobar"
+    assert interest_names == ["foo"]
   end
 
   test "#update with invalid attributes renders errors", %{conn: conn, user: user} do
@@ -66,7 +69,7 @@ defmodule Constable.Api.AnnouncementControllerTest do
     conn = put conn, announcement_path(conn, :update, announcement), announcement: %{
       title: nil,
       body: nil
-    }
+    }, interest_names: ["Foo"]
 
     assert %{"errors" => _} = json_response(conn, 422)
   end
@@ -75,7 +78,10 @@ defmodule Constable.Api.AnnouncementControllerTest do
     other_user = create(:user)
     announcement = create(:announcement, user: other_user)
 
-    conn = put conn, announcement_path(conn, :update, announcement), announcement: %{}
+    conn = put conn,
+      announcement_path(conn, :update, announcement),
+      announcement: %{},
+      interest_names: []
 
     assert response(conn, 401)
   end

@@ -3,6 +3,7 @@ defmodule Constable.Api.AnnouncementController do
 
   alias Constable.Announcement
   alias Constable.Services.AnnouncementCreator
+  alias Constable.Services.AnnouncementUpdater
   alias Constable.Api.AnnouncementView
 
   plug :scrub_params, "announcement" when action in [:create, :update]
@@ -33,23 +34,26 @@ defmodule Constable.Api.AnnouncementController do
         |> render(Constable.ChangesetView, "error.json", changeset: changeset)
     end
   end
+  def create(conn, _params), do: send_resp(conn, 422, "")
 
   def show(conn, %{"id" => id}) do
     announcement = Repo.get!(Announcement, id)
     render conn, "show.json", announcement: announcement
   end
 
-  def update(conn, %{"id" => id, "announcement" => announcement_params}) do
+  def update(conn, %{
+      "id" => id, "announcement" => announcement_params,
+      "interest_names" => interest_names
+    }) do
     current_user = current_user(conn)
     announcement = Repo.get!(Announcement, id)
-    changeset = Announcement.changeset(announcement, :update, announcement_params)
 
     if announcement.user_id == current_user.id do
-      case Repo.update(changeset) do
+      case AnnouncementUpdater.update(announcement, announcement_params, interest_names) do
         {:ok, announcement} ->
           Constable.Endpoint.broadcast!(
             "update",
-            "announcement:add", 
+            "announcement:update", 
             AnnouncementView.render("show.json", %{announcement: announcement})
           )
           render(conn, "show.json", announcement: announcement)
@@ -62,6 +66,7 @@ defmodule Constable.Api.AnnouncementController do
       unauthorized(conn)
     end
   end
+  def update(conn, _params), do: send_resp(conn, 422, "")
 
   def delete(conn, %{"id" => id}) do
     current_user = current_user(conn)

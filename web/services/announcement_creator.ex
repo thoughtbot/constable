@@ -1,11 +1,9 @@
 defmodule Constable.Services.AnnouncementCreator do
-  import Ecto.Query
   alias Constable.Repo
-  alias Constable.Interest
-  alias Constable.AnnouncementInterest
   alias Constable.Announcement
   alias Constable.Subscription
-  alias Constable.Api.InterestView
+
+  alias Constable.Services.AnnouncementInterestAssociator
 
   def create(params, interest_names) do
     changeset = Announcement.changeset(%Announcement{}, :create, params)
@@ -22,9 +20,7 @@ defmodule Constable.Services.AnnouncementCreator do
   end
 
   defp add_interests(announcement, interest_names) do
-    interest_names
-    |> get_or_create_interests
-    |> associate_interests_with_announcement(announcement)
+    AnnouncementInterestAssociator.add_interests(announcement, interest_names)
   end
 
   defp subscribe_author(announcement) do
@@ -66,45 +62,5 @@ defmodule Constable.Services.AnnouncementCreator do
       announcement_id: announcement.id
     })
     |> Repo.insert!
-  end
-
-  defp get_or_create_interests(names) do
-    List.wrap(names)
-    |> Enum.reject(&blank_interest?/1)
-    |> Enum.map(fn(name) ->
-      interest = Interest.changeset(%{name: name})
-
-      case Repo.get_by(Interest, interest.changes) do
-        nil -> create_and_broadcast(interest)
-        interest -> interest
-      end
-    end)
-    |> Enum.uniq
-  end
-
-  defp blank_interest?(" " <> rest), do: blank_interest?(rest)
-  defp blank_interest?(""), do: true
-  defp blank_interest?(_), do: false
-
-  defp associate_interests_with_announcement(interests, announcement) do
-    Enum.each(interests, fn(interest) ->
-      %AnnouncementInterest{interest_id: interest.id}
-      |> Map.merge(%{announcement_id: announcement.id})
-      |> Repo.insert!
-    end)
-
-    announcement
-  end
-
-  defp create_and_broadcast(changeset) do
-    interest = changeset |> Repo.insert!
-
-    Constable.Endpoint.broadcast!(
-      "update",
-      "interest:add", 
-      InterestView.render("show.json", %{interest: interest})
-    )
-
-    interest
   end
 end
