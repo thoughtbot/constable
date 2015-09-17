@@ -1,7 +1,7 @@
 defmodule Constable.Api.InterestControllerTest do
   use Constable.ConnCase
 
-  alias Constable.Api.InterestView
+  @view Constable.Api.InterestView
 
   setup do
     {:ok, authenticate}
@@ -12,7 +12,7 @@ defmodule Constable.Api.InterestControllerTest do
 
     conn = get conn, interest_path(conn, :index)
 
-    assert json_response(conn, 200) == render_json(interests)
+    assert json_response(conn, 200) == render_json("index.json", interests: interests)
   end
 
   test "#show displays a single interest", %{conn: conn} do
@@ -21,10 +21,5 @@ defmodule Constable.Api.InterestControllerTest do
     conn = get conn, interest_path(conn, :show, interest.id)
 
     assert json_response(conn, 200)["interest"]["id"] == interest.id
-  end
-
-  defp render_json(interests) do
-    InterestView.render("index.json", interests: interests)
-    |> format_json
   end
 end
