@@ -1,7 +1,8 @@
 defmodule Constable.Factories do
   use ExMachina.Ecto, repo: Constable.Repo
+  import Constable.FactoryHelper
 
-  def factory(:email_reply_message) do
+  factory :email_reply_message do
     %{
       text: "My email reply",
       from_email: sequence(:email, &"test#{&1}@thoughtbot.com"),
@@ -9,20 +10,20 @@ defmodule Constable.Factories do
     }
   end
 
-  def factory(:email_reply_webhook) do
+  factory :email_reply_webhook do
     %{
       event: "inbound",
       msg: build(:email_reply_message)
     }
   end
 
-  def factory(:interest) do
+  factory :interest do
     %Constable.Interest{
       name: sequence(:interest_name, &"interest-#{&1}")
     }
   end
 
-  def factory(:user) do
+  factory :user do
     %Constable.User{
       username: "myusername",
       name: "Gumbo",
@@ -32,48 +33,48 @@ defmodule Constable.Factories do
     }
   end
 
-  def factory(:announcement, attrs) do
+  factory :announcement do
     %Constable.Announcement{
       title: sequence(:email, &"Post Title#{&1}"),
       body: "Post Body",
-      user_id: assoc(attrs, :user).id
+      user_id: assoc(:user)
     }
   end
 
-  def factory(:announcement_params, attrs) do
+  factory :announcement_params do
     %{
       title: "Title",
       body: "Body",
-      user_id: assoc(attrs, :user).id
+      user_id: assoc(:user)
     }
   end
 
-  def factory(:announcement_interest, attrs) do
+  factory :announcement_interest do
     %Constable.AnnouncementInterest{
-      announcement_id: assoc(attrs, :announcement).id,
-      interest_id: assoc(attrs, :interest).id
+      announcement_id: assoc(:announcement),
+      interest_id: assoc(:interest)
     }
   end
 
-  def factory(:comment, attrs) do
+  factory :comment do
     %Constable.Comment{
       body: "Post Body",
-      user_id: assoc(attrs, :user).id,
-      announcement_id: assoc(attrs, :announcement).id
+      user_id: assoc(:user),
+      announcement_id: assoc(:announcement)
     }
   end
 
-  def factory(:subscription, attrs) do
+  factory :subscription do
     %Constable.Subscription{
-      user_id: assoc(attrs, :user).id,
-      announcement_id: assoc(attrs, :announcement).id
+      user_id: assoc(:user),
+      announcement_id: assoc(:announcement)
     }
   end
 
-  def factory(:user_interest, attrs) do
+  factory :user_interest do
     %Constable.UserInterest{
-      user_id: assoc(attrs, :user).id,
-      interest_id: assoc(attrs, :interest).id
+      user_id: assoc(:user),
+      interest_id: assoc(:interest)
     }
   end
 
