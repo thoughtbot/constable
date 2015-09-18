@@ -3,7 +3,7 @@ defmodule Constable.Services.AnnouncementInterestAssociator do
   alias Constable.Interest
   alias Constable.AnnouncementInterest
 
-  alias Constable.InterestView
+  alias Constable.Api.InterestView
 
   def add_interests(announcement, names) do
     get_or_create_interests(names)
