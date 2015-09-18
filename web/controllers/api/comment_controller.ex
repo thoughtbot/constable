@@ -3,6 +3,7 @@ defmodule Constable.Api.CommentController do
 
   alias Constable.Comment
   alias Constable.Api.CommentView
+  alias Constable.Services.CommentCreator
 
   plug :scrub_params, "comment" when action in [:create]
 
@@ -10,9 +11,7 @@ defmodule Constable.Api.CommentController do
     current_user = current_user(conn)
     params = Map.put(params, "user_id", current_user.id)
 
-    changeset = Comment.changeset(:create, params)
-
-    case Repo.insert(changeset) do
+    case CommentCreator.create(params) do
       {:ok, comment} ->
         Constable.Endpoint.broadcast!(
           "update",
