@@ -9,7 +9,7 @@ config :constable, Constable.Endpoint,
 config :constable, Constable.Repo,
   adapter: Ecto.Adapters.Postgres,
   database: "constable_api_development",
-  hostname: "localhost"
+  hostname: "db"
 
 # Enables code reloading for development
 config :phoenix, :code_reloader, true
