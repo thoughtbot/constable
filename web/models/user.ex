@@ -10,7 +10,7 @@ defmodule Constable.User do
     field :token
     field :name
     field :username
-    field :auto_subscribe, :boolean, default: false
+    field :auto_subscribe, :boolean, default: true
     field :daily_digest, :boolean, default: true
 
     has_many :user_interests, UserInterest, on_delete: :fetch_and_delete
