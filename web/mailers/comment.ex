@@ -8,6 +8,7 @@ defmodule Constable.Mailers.Comment do
 
   def created(comment, []), do: nil
   def created(comment, users) do
+    comment = comment |> Repo.preload([:announcement, :user])
     default_attributes(announcement: comment.announcement, author: comment.user)
     |> Map.merge(%{
       html: created_html(comment),
@@ -21,6 +22,7 @@ defmodule Constable.Mailers.Comment do
 
   def mentioned(comment, []), do: nil
   def mentioned(comment, users) do
+    comment = comment |> Repo.preload([:announcement, :user])
     default_attributes(announcement: comment.announcement, author: comment.user)
     |> Map.merge(%{
       html: mentioned_html(comment),
