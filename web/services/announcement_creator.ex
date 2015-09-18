@@ -36,6 +36,9 @@ defmodule Constable.Services.AnnouncementCreator do
   end
 
   defp email_users(announcement, users) do
+    users = Enum.reject(users, fn(user) ->
+      user.id == announcement.user_id
+    end)
     Pact.get(:announcement_mailer).created(announcement, users)
     announcement
   end

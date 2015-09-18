@@ -94,22 +94,22 @@ defmodule Constable.Services.AnnouncementCreatorTest do
     )
   end
 
-  test "sends announcement email" do
-    user = create(:user)
+  test "sends announcement email to subscribed users except author" do
     interest = create(:interest, name: "foo")
-    create(:user_interest, user: user, interest: interest)
+    author = create(:user) |> with_interest(interest)
+    subscribed_user = create(:user) |> with_interest(interest)
 
     announcement_params = %{
       title: "Title",
       body: "Body",
-      user_id: user.id
+      user_id: author.id
     }
 
     AnnouncementCreator.create(announcement_params, ["foo"])
 
     announcement = Repo.one(Announcement)
     assert_received {:announcement, ^announcement}
-    assert_received {:users, [^user]}
+    assert_received {:users, [^subscribed_user]}
   end
 
   defp announcement_has_interest_named?(announcement, interest_name) do
