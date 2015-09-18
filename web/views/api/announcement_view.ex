@@ -5,17 +5,18 @@ defmodule Constable.Api.AnnouncementView do
   alias Constable.Api.CommentView
 
   def render("index.json", %{announcements: announcements}) do
+    announcements = announcements |> Repo.preload([:comments, :interests])
     %{
       announcements: render_many(announcements, __MODULE__, "announcement.json"),
     }
   end
 
   def render("show.json", %{announcement: announcement}) do
+    announcement = announcement |> Repo.preload([:comments, :interests])
     %{announcement: render_one(announcement, __MODULE__, "announcement.json")}
   end
 
   def render("announcement.json", %{announcement: announcement}) do
-    announcement = announcement |> Repo.preload([:comments, :interests])
     %{
       id: announcement.id,
       title: announcement.title,
