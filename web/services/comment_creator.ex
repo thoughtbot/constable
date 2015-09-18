@@ -18,6 +18,7 @@ defmodule Constable.Services.CommentCreator do
 
   defp email_subscribers(comment, mentioned_users) do
     users = find_subscribed_users(comment.announcement_id) -- mentioned_users
+    |> Enum.reject(fn (user) -> user.id == comment.user_id end)
 
     Pact.get(:comment_mailer).created(comment, users)
     comment

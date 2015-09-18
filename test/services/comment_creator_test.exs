@@ -42,7 +42,7 @@ defmodule Constable.Services.CommentCreatorTest do
     announcement = create(:announcement) |> with_subscriber(user)
 
     {:ok, comment} = CommentCreator.create(%{
-      user_id: user.id,
+      user_id: create(:user).id,
       body: "Foo",
       announcement_id: announcement.id
     })
@@ -57,7 +57,7 @@ defmodule Constable.Services.CommentCreatorTest do
     announcement = create(:announcement, user: user)
 
     {:ok, comment} = CommentCreator.create(%{
-      user_id: user.id,
+      user_id: create(:user).id,
       body: "Hey @#{mentioned_username}, @fakeuser was looking for you.",
       announcement_id: announcement.id
     })
@@ -82,5 +82,22 @@ defmodule Constable.Services.CommentCreatorTest do
 
     assert_receive {:mentioned_comment, ^comment}
     assert_receive {:mentioned_users, [^user]}
+  end
+
+  test "create does not email author of comment" do
+    author = create(:user)
+    announcement = create(:announcement) |> with_subscriber(author)
+
+    {:ok, comment} = CommentCreator.create(%{
+      user_id: author.id,
+      body: "Foo!",
+      announcement_id: announcement.id
+    })
+
+    assert_received {:comment, comment}
+    assert_received {:users, []}
+
+    assert_receive {:mentioned_comment, ^comment}
+    assert_receive {:mentioned_users, []}
   end
 end
