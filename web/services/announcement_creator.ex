@@ -61,6 +61,6 @@ defmodule Constable.Services.AnnouncementCreator do
       user_id: user_id,
       announcement_id: announcement.id
     })
-    |> Repo.insert!
+    |> Repo.get_or_insert
   end
 end

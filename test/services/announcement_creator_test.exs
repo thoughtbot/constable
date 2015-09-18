@@ -17,6 +17,15 @@ defmodule Constable.Services.AnnouncementCreatorTest do
     {:ok, %{}}
   end
 
+  test "doesn't subscribe creator twice when interested in announcement and autosubscribe is set" do
+    interest = create(:interest)
+    author = create(:user, auto_subscribe: true) |> with_interest(interest)
+
+    announcement_params = build(:announcement_params, user: author)
+
+    assert AnnouncementCreator.create(announcement_params, [interest.name])
+  end
+
   test "creates an announcement with new and existing interests" do
     author = create(:user)
     existing_interest = create(:interest)

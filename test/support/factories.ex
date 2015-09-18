@@ -86,8 +86,8 @@ defmodule Constable.Factories do
     create(:comment, announcement: announcement).announcement
   end
 
-  def with_interest(user) do
-    create(:user_interest, user: user).user
+  def with_interest(user, interest \\ create(:interest)) do
+    create(:user_interest, user: user, interest: interest).user
   end
 
   def with_subscription(user) do
