@@ -16,12 +16,13 @@ mix compile
 mix ecto.create
 mix ecto.migrate
 
-# Only if this isn't CI
+# If not CI and heroku executable is present
 if [ -z "$CI" ]; then
-  # Set up Heroku
-  heroku join --app constable-api-staging
-  heroku git:remote -r staging -a constable-api-staging
+  if ! type "heroku" > /dev/null; then
+    heroku join --app constable-api-staging
+    heroku git:remote -r staging -a constable-api-staging
 
-  heroku join --app constable-api-production
-  heroku git:remote -r production -a constable-api-production
+    heroku join --app constable-api-production
+    heroku git:remote -r production -a constable-api-production
+  fi
 fi
