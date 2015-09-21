@@ -199,6 +199,7 @@
                   <!-- Vertical Spacer -->
                   <tr>
                     <td colspan='3' height='30'></td>
+                    <td style="text-align: center;"><a href="<%= back_end_uri %>/unsubscribe/{{subscription_id}}/">unsubscribe me from this announcement</a></td>
                   </tr>
                 </table>
               </td>

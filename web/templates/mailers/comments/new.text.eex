@@ -4,3 +4,4 @@
 
 <%= comment.body %>
 
+Unsubscribe: <%= back_end_uri %>/unsubscribe/{{subscription_id}}/

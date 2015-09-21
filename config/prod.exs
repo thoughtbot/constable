@@ -12,7 +12,7 @@ use Mix.Config
 # disk for the key and cert.
 
 config :constable, Constable.Endpoint,
-  url: [host: "example.com"],
+  url: [host: System.get_env("HOST")],
   http: [port: System.get_env("PORT"), compress: true],
   secret_key_base: "tJ+MdrPlKWMpmz7JyJgSu/11xvwnNZo7Sz8IAacy9MM6di3GqackE9iNjhkHI9p8"
 

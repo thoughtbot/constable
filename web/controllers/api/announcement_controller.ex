@@ -45,6 +45,7 @@ defmodule Constable.Api.AnnouncementController do
       "id" => id, "announcement" => announcement_params,
       "interest_names" => interest_names
     }) do
+
     current_user = current_user(conn)
     announcement = Repo.get!(Announcement, id)
 

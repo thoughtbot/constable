@@ -18,13 +18,15 @@ defmodule Constable.Mailers.CommentMailerTest do
   test "sends markdown formatted new comment email" do
     Pact.override(self, :mailer, FakeMandrill)
     author = create(:user)
-    users = [author, create(:user)]
+    user = create(:user)
+    users = [author, user]
     title = "Foo Announcement"
     subject = "Re: #{title}"
     comment_body = "Bar is cool"
     from_name = "#{author.name} (Constable)"
     announcement = create(:announcement, title: title, user: author)
     from_email = "constable-#{announcement.id}@#{System.get_env("EMAIL_DOMAIN")}"
+    create(:subscription, user: author, announcement: announcement)
     comment = create(:comment,
       body: comment_body,
       user: author,

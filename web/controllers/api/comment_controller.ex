@@ -1,7 +1,6 @@
 defmodule Constable.Api.CommentController do
   use Constable.Web, :controller
 
-  alias Constable.Comment
   alias Constable.Api.CommentView
   alias Constable.Services.CommentCreator
 

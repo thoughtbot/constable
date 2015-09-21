@@ -33,6 +33,6 @@ defmodule Constable.Api.CommentControllerTest do
     assert comment.body == "Foo"
     assert comment.user_id == user.id
     assert comment.announcement_id == announcement.id
-    assert_received {:users, [subscribed_user]}
+    assert_received {:users, [^subscribed_user]}
   end
 end

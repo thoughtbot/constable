@@ -18,6 +18,7 @@ defmodule Constable.Router do
     pipe_through :browser
 
     resources "/email_replies", EmailReplyController, only: [:create]
+    resources "/unsubscribe", UnsubscribeController, only: [:show]
   end
 
   scope "/auth", alias: Constable do

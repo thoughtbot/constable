@@ -31,7 +31,7 @@ defmodule Constable.Services.CommentCreator do
   end
 
   defp find_subscribed_users(announcement_id) do
-    users = Repo.all(Queries.Subscription.for_announcement(announcement_id))
+    Repo.all(Queries.Subscription.for_announcement(announcement_id))
     |> Enum.map(fn (subscription) -> subscription.user end)
   end
 

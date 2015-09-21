@@ -1,21 +1,25 @@
 defmodule Constable.Mailers.Comment do
-  alias Constable.User
-  alias Constable.Repo
   alias Constable.Mandrill
+  alias Constable.Repo
+  alias Constable.Subscription
+  alias Constable.User
+
   import Constable.Mailers.Base
 
   @template_base "web/templates/mailers/comments"
 
-  def created(comment, []), do: nil
+  def created(_comment, []), do: nil
   def created(comment, users) do
     comment = comment |> Repo.preload([:announcement, :user])
     default_attributes(announcement: comment.announcement, author: comment.user)
     |> Map.merge(%{
       html: created_html(comment),
       text: created_text(comment),
+      merge_language: "handlebars",
       subject: "Re: #{comment.announcement.title}",
       to: Mandrill.format_users(users),
-      tags: ["new-comment"]
+      tags: ["new-comment"],
+      merge_vars: generate_merge_vars(users, comment)
     })
     |> Pact.get(:mailer).message_send
   end
@@ -67,5 +71,31 @@ defmodule Constable.Mailers.Comment do
   defp render_template(path, bindings) do
     bindings = Dict.merge(default_bindings, bindings)
     EEx.eval_file("#{@template_base}/#{path}.eex", bindings)
+  end
+
+  defp generate_merge_vars(users, comment) do
+    Enum.map(users, fn(user) ->
+      subscription = Repo.get_by(Subscription,
+        announcement_id: comment.announcement_id,
+        user_id: user.id,
+      )
+
+      case subscription do
+        nil -> %{}
+        subscription -> generate_var(user, subscription)
+      end
+    end)
+  end
+
+  defp generate_var(user, subscription) do
+    %{
+      rcpt: user.email,
+      vars: [
+        %{
+          name: "subscription_id",
+          content: subscription.token
+        }
+      ]
+    }
   end
 end
