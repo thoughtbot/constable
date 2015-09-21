@@ -1,0 +1,20 @@
+db:
+  image: postgres:9.4
+  ports:
+   - "5432"
+web:
+  build: .
+  command: mix phoenix.server
+  volumes:
+   - .:/app
+  environment:
+    - HOST=0.0.0.0
+    - PGUSER=postgres
+    - PGPASS
+    - PGHOST=db
+    - PGPORT=5432
+  stdin_open: true
+  ports:
+   - "4000:4000"
+  links:
+   - db
