@@ -1,5 +1,7 @@
 #!/usr/bin/env sh
 
+set -e
+
 # Install virtual box
 brew tap caskroom/cask
 brew install brew-cask
