@@ -1,0 +1,26 @@
+#!/usr/bin/env sh
+
+# Install virtual box
+brew tap caskroom/cask
+brew install brew-cask
+brew cask install virtualbox
+
+# Install docker and friends
+brew install docker
+brew install docker-compose
+brew install docker-machine
+
+# Create dev image if dev image isn't found
+docker-machine ls | grep dev &> /dev/null
+if [[  $? -eq 1 ]]; then
+  docker-machine create --driver virtualbox dev
+fi
+
+docker-machine up dev
+eval $(docker-machine env dev)
+
+docker-compose build
+
+echo
+echo "Docker machine environment variables must be set to use docker."
+echo "This can be done by adding `eval $(docker-machine env dev)` to your ~/.zshrc or ~/.bashrc"

@@ -3,6 +3,12 @@
 Constable API uses Phoenix Channels to make a real time connection to the
 Constable front end.
 
+## Running Constable
+
+Constable uses Docker for its development environment.
+
+To get started you can run 
+
 ## Starting Constable
 
 1. Run `bin/setup` to install dependencies and setup the database. This is
