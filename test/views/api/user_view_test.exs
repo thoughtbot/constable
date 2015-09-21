@@ -14,7 +14,7 @@ defmodule Constable.Api.UserViewTest do
       user: %{
         id: user.id,
         name: user.name,
-        gravatar_url: Exgravatar.generate(user.email),
+        gravatar_url: Exgravatar.generate(user.email, %{}, true),
         daily_digest: user.daily_digest,
         auto_subscribe: user.auto_subscribe,
         username: user.username,
