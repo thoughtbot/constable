@@ -3,16 +3,13 @@ defmodule Constable.Mandrill do
 
   @mandrill_url "https://mandrillapp.com/api/1.0/messages/send.json"
 
-  def message_send(message_params) do
-    params = %{
-      key: System.get_env("MANDRILL_KEY"),
-      message: message_params
-    } |> Poison.encode!
+  def message_send_sync(message_params) do
+    send_message(message_params)
+  end
 
+  def message_send(message_params) do
     Task.async(fn ->
-      Logger.info "Sending email with params:"
-      Logger.info inspect(params)
-      HTTPoison.post(@mandrill_url, params) |> inspect |> Logger.info
+      send_message(message_params)
     end)
   end
 
@@ -24,5 +21,16 @@ defmodule Constable.Mandrill do
         type: "bcc"
       }
     end)
+  end
+
+  defp send_message(message_params) do
+    params = %{
+      key: System.get_env("MANDRILL_KEY"),
+      message: message_params
+    } |> Poison.encode!
+
+    Logger.info "Sending email with params:"
+    Logger.info inspect(params)
+    HTTPoison.post(@mandrill_url, params) |> inspect |> Logger.info
   end
 end

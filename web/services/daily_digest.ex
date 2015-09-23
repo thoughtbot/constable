@@ -20,7 +20,7 @@ defmodule Constable.DailyDigest do
         to: Mandrill.format_users(users),
         tags: ["daily-digest"]
       }
-      |> Pact.get(:mailer).message_send
+      |> Pact.get(:mailer).message_send_sync
     end
   end
 

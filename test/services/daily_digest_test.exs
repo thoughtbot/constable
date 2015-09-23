@@ -5,7 +5,7 @@ defmodule Constable.DailyDigestTest do
   alias Constable.DailyDigest
 
   defmodule FakeMandrill do
-    def message_send(message_params) do
+    def message_send_sync(message_params) do
       send self, {:to, message_params.to}
       send self, {:subject, message_params.subject}
       send self, {:from_email, message_params.from_email}
