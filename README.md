@@ -3,6 +3,9 @@
 Constable API uses Phoenix Channels to make a real time connection to the
 Constable front end.
 
+Use `bin/console` to start the console. Use `bin/console staging|production` to
+start the console in staging or production.
+
 ## Starting Constable
 
 1. Run `bin/setup` to install dependencies and setup the database. This is

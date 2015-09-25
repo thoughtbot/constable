@@ -1,0 +1,9 @@
+#!/usr/bin/env sh
+
+set -e
+
+if [ -z "$1" ]; then
+  iex -S mix
+else
+  heroku run iex -S mix --app constable-api-$1
+fi
