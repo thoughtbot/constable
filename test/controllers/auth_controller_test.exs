@@ -90,6 +90,7 @@ defmodule AuthControllerTest do
       |> get("/auth/callback", code: "foo")
 
     assert redirected_to(conn) =~  "/"
+    refute Repo.one(User)
   end
 
   defp create_everyone_interest do

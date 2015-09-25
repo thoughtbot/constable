@@ -27,8 +27,9 @@ defmodule Constable.AuthController do
   def callback(conn, %{"code" => code}) do
     token = google_strategy.get_token!(code: code)
 
-    user = find_or_insert_user(token)
-    if from_thoughtbot?(user) do
+    %{"email" => email, "name" => name} = get_userinfo(token)
+    if from_thoughtbot?(email) do
+      user = find_or_insert_user(email, name)
       conn |> redirect(external: redirect_after_success_uri(conn, user.token))
     else
       Logger.warn("Non-thoughtbot email")
@@ -49,13 +50,11 @@ defmodule Constable.AuthController do
     Pact.get("request_with_access_token").get!(token, "/oauth2/v1/userinfo?alt=json")
   end
 
-  defp from_thoughtbot?(user) do
-    String.ends_with?(user.email, "@thoughtbot.com")
+  defp from_thoughtbot?(email) do
+    String.ends_with?(email, "@thoughtbot.com")
   end
 
-  defp find_or_insert_user(token) do
-    userinfo = get_userinfo(token)
-    %{"email" => email, "name" => name} = userinfo
+  defp find_or_insert_user(email, name) do
     unless user = Repo.one(Queries.User.with_email(email)) do
       user =
         %User{email: email, name: name}
