@@ -7,27 +7,13 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Hello Phoenix!</title>
+    <title>You've been unsubscribed</title>
     <link rel="stylesheet" href="/css/phoenix.css">
-    <script type="text/javascript" src="/js/phoenix.js"></script>
-    <script type="text/javascript" src="/js/channel_example.js"></script>
   </head>
 
   <body>
     <div class="container">
-      <div class="header">
-        <ul class="nav nav-pills pull-right">
-          <li><a href="http://www.phoenixframework.org/docs">Get Started</a></li>
-        </ul>
-        <span class="logo"></span>
-      </div>
-
       <%= @inner %>
-
-      <div class="footer">
-        <p><a href="http://phoenixframework.org">phoenixframework.org</a></p>
-      </div>
-
     </div> <!-- /container -->
   </body>
 </html>

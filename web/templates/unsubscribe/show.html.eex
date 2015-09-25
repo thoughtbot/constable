@@ -1,0 +1,4 @@
+<section class="unsubscribe-banner">
+  You've been unsubscribed. <%= link "Continue to Constable", to:
+  System.get_env("FRONT_END_URI") %>
+</section>

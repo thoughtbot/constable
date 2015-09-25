@@ -5,9 +5,10 @@ defmodule Constable.UnsubscribeController do
   alias Constable.Repo
 
   def show(conn, %{"id" => token}) do
-    subscription = Repo.get_by!(Subscription, token: token)
-    Repo.delete(subscription)
+    if subscription = Repo.get_by(Subscription, token: token) do
+      Repo.delete(subscription)
+    end
 
-    conn |> redirect(external: System.get_env("FRONT_END_URI"))
+    render(conn, "show.html")
   end
 end

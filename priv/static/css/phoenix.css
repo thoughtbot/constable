@@ -13,6 +13,11 @@ body {
   padding-bottom: 20px;
 }
 
+.unsubscribe-banner {
+  text-align: center;
+  margin-top: 100px;
+}
+
 /* Everything but the jumbotron gets side spacing for mobile first views */
 .header,
 .marketing,
