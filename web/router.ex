@@ -9,9 +9,12 @@ defmodule Constable.Router do
     plug :fetch_flash
   end
 
+  pipeline :authenticated do
+    plug Constable.AuthPlug
+  end
+
   pipeline :api do
     plug :accepts, ~w(json)
-    plug Constable.AuthPlug
   end
 
   scope "/", Constable do
@@ -28,8 +31,14 @@ defmodule Constable.Router do
     get "/callback", AuthController, :callback
   end
 
-  scope "/api", alias: Constable.Api do
+  scope "/auth", alias: Constable do
     pipe_through :api
+
+    post "/mobile_callback", AuthController, :mobile_callback
+  end
+
+  scope "/api", alias: Constable.Api do
+    pipe_through [:api, :authenticated]
 
     resources "/announcements", AnnouncementController
     resources "/comments", CommentController, only: [:create]

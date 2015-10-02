@@ -42,12 +42,33 @@ defmodule Constable.AuthController do
     conn |> redirect external: "/"
   end
 
+  @doc """
+  This action is reached via `/auth/mobile_callback` is the the endpoint that
+  mobile apps will pass in the token it received from Google.
+  The token will then be used to access the email address on behalf of the user.
+  """
+  def mobile_callback(conn, %{"idToken" => id_token}) do
+    %{"email" => email, "name" => name} = get_tokeninfo!(id_token)
+
+    if from_thoughtbot?(email) do
+      user = find_or_insert_user(email, name)
+      conn |> put_status(201) |>  render("show.json", user: user)
+    else
+      Logger.warn("Non-thoughtbot email")
+      conn |> put_status(403) |> json %{error: "Non-thoughtbot email"}
+    end
+  end
+
   defp google_strategy do
     Pact.get(:google_strategy)
   end
 
   defp get_userinfo(token) do
     Pact.get("request_with_access_token").get!(token, "/oauth2/v1/userinfo?alt=json")
+  end
+
+  defp get_tokeninfo!(id_token) do
+    google_strategy.get_tokeninfo!(id_token)
   end
 
   defp from_thoughtbot?(email) do

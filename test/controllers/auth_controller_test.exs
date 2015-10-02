@@ -34,6 +34,22 @@ defmodule AuthControllerTest do
     end
   end
 
+  defmodule FakeTokenInfoGoogleStrategy do
+    @oauth_email_address "fake@thoughtbot.com"
+
+    def get_tokeninfo!(_id_token) do
+      %{"email" => @oauth_email_address, "name" => "John Doe"}
+    end
+  end
+
+  defmodule NonThoughtbotTokenInfoGoogleStrategy do
+    @oauth_email_address "fake@example.com"
+
+    def get_tokeninfo!(_id_token) do
+      %{"email" => @oauth_email_address, "name" => "John Doe"}
+    end
+  end
+
   test "index redirects to google with the correct redirect URI" do
     conn = get(conn, "/auth", redirect_uri: "foo.com")
 
@@ -91,6 +107,28 @@ defmodule AuthControllerTest do
 
     assert redirected_to(conn) =~  "/"
     refute Repo.one(User)
+  end
+
+  test "mobile_callback returns user json when successful" do
+    create_everyone_interest
+    auth_params = %{"idToken" => "token"}
+    Pact.override(self, :google_strategy, FakeTokenInfoGoogleStrategy)
+
+    conn = post conn, auth_path(conn, :mobile_callback), auth_params
+
+    assert json_response(conn, 201)
+    assert json_response(conn, 201)["user"]["email"] == @oauth_email_address
+  end
+
+  test "mobile_callback returns error json when user has non-thoughtbot email" do
+    create_everyone_interest
+    auth_params = %{"idToken" => "token"}
+    Pact.override(self, :google_strategy, NonThoughtbotTokenInfoGoogleStrategy)
+
+    conn = post conn, auth_path(conn, :mobile_callback), auth_params
+
+    assert json_response(conn, 403)
+    assert json_response(conn, 403)["error"] == "Non-thoughtbot email"
   end
 
   defp create_everyone_interest do
