@@ -1,6 +1,5 @@
 defmodule Constable.Factories do
   use ExMachina.Ecto, repo: Constable.Repo
-  import Constable.FactoryHelper
 
   factory :email_reply_message do
     %{
@@ -37,7 +36,7 @@ defmodule Constable.Factories do
     %Constable.Announcement{
       title: sequence(:email, &"Post Title#{&1}"),
       body: "Post Body",
-      user_id: assoc(:user)
+      user: assoc(:user)
     }
   end
 
@@ -45,36 +44,36 @@ defmodule Constable.Factories do
     %{
       title: "Title",
       body: "Body",
-      user_id: assoc(:user)
+      user_id: nil
     }
   end
 
   factory :announcement_interest do
     %Constable.AnnouncementInterest{
-      announcement_id: assoc(:announcement),
-      interest_id: assoc(:interest)
+      announcement: assoc(:announcement),
+      interest: assoc(:interest)
     }
   end
 
   factory :comment do
     %Constable.Comment{
       body: "Post Body",
-      user_id: assoc(:user),
-      announcement_id: assoc(:announcement)
+      user: assoc(:user),
+      announcement: assoc(:announcement)
     }
   end
 
   factory :subscription do
     %Constable.Subscription{
-      user_id: assoc(:user),
-      announcement_id: assoc(:announcement)
+      user: assoc(:user),
+      announcement: assoc(:announcement)
     }
   end
 
   factory :user_interest do
     %Constable.UserInterest{
-      user_id: assoc(:user),
-      interest_id: assoc(:interest)
+      user: assoc(:user),
+      interest: assoc(:interest)
     }
   end
 

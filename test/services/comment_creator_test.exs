@@ -22,7 +22,7 @@ defmodule Constable.Services.CommentCreatorTest do
   end
 
   test "creates a comment" do
-    announcement = create(:announcement) |> Repo.preload(:user)
+    announcement = create(:announcement)
 
     CommentCreator.create(%{
       user_id: announcement.user.id,
@@ -30,9 +30,9 @@ defmodule Constable.Services.CommentCreatorTest do
       announcement_id: announcement.id
     })
 
-    comment = Repo.one(Comment)
+    comment = Repo.one!(Comment)
 
-    assert comment.user_id == announcement.user.id
+    assert comment.user_id == announcement.user_id
     assert comment.announcement_id == announcement.id
     assert comment.body == "Foo"
   end

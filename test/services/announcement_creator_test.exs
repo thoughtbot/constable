@@ -21,7 +21,7 @@ defmodule Constable.Services.AnnouncementCreatorTest do
     interest = create(:interest)
     author = create(:user, auto_subscribe: true) |> with_interest(interest)
 
-    announcement_params = build(:announcement_params, user: author)
+    announcement_params = build(:announcement_params, user_id: author.id)
 
     assert AnnouncementCreator.create(announcement_params, [interest.name])
   end
@@ -34,7 +34,7 @@ defmodule Constable.Services.AnnouncementCreatorTest do
     duplicate_interest = "#foo"
     interest_names =
       [existing_interest.name, new_interest_name, interest_name_with_hash, duplicate_interest]
-    announcement_params = build(:announcement_params, user: author)
+    announcement_params = build(:announcement_params, user_id: author.id)
 
     AnnouncementCreator.create(announcement_params, interest_names)
 
@@ -47,7 +47,7 @@ defmodule Constable.Services.AnnouncementCreatorTest do
 
   test "subscribes the author to the newly created announcement" do
     author = create(:user)
-    announcement_params = build(:announcement_params, user: author)
+    announcement_params = build(:announcement_params, user_id: author.id)
 
     AnnouncementCreator.create(announcement_params, [])
 
@@ -59,7 +59,7 @@ defmodule Constable.Services.AnnouncementCreatorTest do
 
   test "does not create blank interests" do
     interest_names = [""]
-    announcement_params = build(:announcement_params)
+    announcement_params = build(:announcement_params, user_id: create(:user).id)
 
     AnnouncementCreator.create(announcement_params, interest_names)
 

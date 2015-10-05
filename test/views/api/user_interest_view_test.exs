@@ -3,15 +3,15 @@ defmodule Constable.Api.UserInterestViewTest do
   alias Constable.Api.UserInterestView
 
   test "show.json returns correct fields" do
-    user_interest = create(:user_interest) |> Repo.preload([:user, :interest])
+    user_interest = create(:user_interest)
 
     rendered_user_interest = render_one(user_interest, UserInterestView, "show.json")
 
     assert rendered_user_interest == %{
       user_interest: %{
         id: user_interest.id,
-        interest_id: user_interest.interest.id,
-        user_id: user_interest.user.id,
+        interest_id: user_interest.interest_id,
+        user_id: user_interest.user_id,
       }
     }
   end
