@@ -2,20 +2,19 @@ defmodule Constable.DailyDigest do
   alias Constable.Repo
   alias Constable.Mandrill
   alias Constable.Announcement
-  alias Constable.Time
   alias Constable.Interest
   import Ecto.Query
   import Constable.Mailers.Base
 
   @template_base "web/templates/mailers/daily_digest"
 
-  def send_email(users) do
-    if length(new_announcements) > 0 do
+  def send_email(users, time) do
+    if new_items_since?(time) do
       %{
         from_email: "constable@#{email_domain}",
         from_name: "Constable (thoughtbot)",
-        html: email_html,
-        text: email_text,
+        html: email_html(time),
+        text: email_text(time),
         subject: "Daily Digest",
         to: Mandrill.format_users(users),
         tags: ["daily-digest"]
@@ -24,26 +23,31 @@ defmodule Constable.DailyDigest do
     end
   end
 
-  defp email_text do
+  defp new_items_since?(time) do
+    !Enum.empty?(announcements_since(time)) 
+      && !Enum.empty?(interests_since(time))
+  end
+
+  defp email_text(time) do
     render_template("digest.text",
-      interests: new_interests,
-      announcements: new_announcements
+      interests: interests_since(time),
+      announcements: announcements_since(time)
     )
   end
 
-  defp email_html do
+  defp email_html(time) do
     render_template("digest.html",
-      interests: new_interests,
-      announcements: new_announcements
+      interests: interests_since(time),
+      announcements: announcements_since(time)
     )
   end
 
-  defp new_interests do
-    Repo.all(from i in Interest, where: i.inserted_at > ^Time.yesterday)
+  defp interests_since(time) do
+    Repo.all(from i in Interest, where: i.inserted_at > ^time)
   end
 
-  defp new_announcements do
-    Repo.all(from i in Announcement, where: i.inserted_at > ^Time.yesterday)
+  defp announcements_since(time) do
+    Repo.all(from i in Announcement, where: i.inserted_at > ^time)
     |> Repo.preload(:user)
   end
 

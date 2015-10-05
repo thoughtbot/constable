@@ -8,6 +8,7 @@ defmodule Mix.Tasks.Constable.SendDailyDigest do
   def run(_) do
     Mix.Task.run "app.start"
     users = Repo.all(from u in User, where: u.daily_digest == true)
-    Pact.get(:daily_digest).send_email(users)
+    since = Constable.Time.yesterday
+    Pact.get(:daily_digest).send_email(users, since)
   end
 end

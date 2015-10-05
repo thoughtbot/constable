@@ -2,7 +2,7 @@ defmodule Mix.Tasks.Constable.SendDailyDigestTest do
   use Constable.TestWithEcto, async: false
 
   defmodule FakeDailyDigest do
-    def send_email(users) do
+    def send_email(users, time) do
       send self, {:users, users}
     end
   end
