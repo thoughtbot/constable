@@ -48,4 +48,10 @@ defmodule Constable.Router do
     resources "/users", UserController, only: [:index, :show]
     resources "/users", UserController, only: [:update], singleton: true
   end
+
+  scope "/api", alias: Constable.Api do
+    pipe_through :api
+
+    resources "/users", UserController, only: [:create]
+  end
 end

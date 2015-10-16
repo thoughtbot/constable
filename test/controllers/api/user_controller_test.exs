@@ -1,8 +1,22 @@
 defmodule Constable.Api.UserControllerTest do
   use Constable.ConnCase
+  alias Constable.User
+
+  @view Constable.Api.UserView
 
   setup do
     {:ok, authenticate}
+  end
+
+  test "#create creates a user", %{conn: conn} do
+    name = "Ian D. Anderson"
+    conn = post conn, user_path(conn, :create), user: %{
+      name: name,
+      email: "ian@thoughtbot.com"
+    }
+
+    user = Repo.get_by!(User, email: "ian@thoughtbot.com", username: "ian")
+    assert json_response(conn, 200) == render_json("show.json", user: user)
   end
 
   test "#index returns all users", %{conn: conn, user: user} do

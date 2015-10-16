@@ -3,6 +3,19 @@ defmodule Constable.Api.UserController do
 
   alias Constable.User
 
+  def create(conn, %{"user" => user_params}) do
+    changeset = User.create_changeset(%User{}, user_params)
+
+    case Repo.insert(changeset) do
+      {:ok, user} ->
+        render(conn, "show.json", user: user)
+      {:error, changeset} ->
+        conn
+        |> put_status(:unprocessable_entity)
+        |> render(Constable.ChangesetView, "error.json", changeset: changeset)
+    end
+  end
+
   def index(conn, _params) do
     users = Repo.all(User)
 

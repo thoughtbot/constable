@@ -26,14 +26,11 @@ defmodule Constable.AuthController do
   """
   def callback(conn, %{"code" => code}) do
     token = google_strategy.get_token!(code: code)
-
     %{"email" => email, "name" => name} = get_userinfo(token)
-    if from_thoughtbot?(email) do
-      user = find_or_insert_user(email, name)
-      conn |> redirect(external: redirect_after_success_uri(conn, user.token))
-    else
-      Logger.warn("Non-thoughtbot email")
-      conn |> redirect external: "/"
+
+    case find_or_insert_user(email, name) do
+      nil -> redirect(conn, external: "/")
+      user -> redirect(conn, external: redirect_after_success_uri(conn, user.token))
     end
   end
 
@@ -50,12 +47,9 @@ defmodule Constable.AuthController do
   def mobile_callback(conn, %{"idToken" => id_token}) do
     %{"email" => email, "name" => name} = get_tokeninfo!(id_token)
 
-    if from_thoughtbot?(email) do
-      user = find_or_insert_user(email, name)
-      conn |> put_status(201) |>  render("show.json", user: user)
-    else
-      Logger.warn("Non-thoughtbot email")
-      conn |> put_status(403) |> json %{error: "Non-thoughtbot email"}
+    case find_or_insert_user(email, name) do
+      nil -> conn |> put_status(403) |> json %{error: "Non-thoughtbot email"}
+      user -> conn |> put_status(201) |>  render("show.json", user: user)
     end
   end
 
@@ -71,18 +65,20 @@ defmodule Constable.AuthController do
     google_strategy.get_tokeninfo!(id_token)
   end
 
-  defp from_thoughtbot?(email) do
-    String.ends_with?(email, "@thoughtbot.com")
+  defp find_or_insert_user(email, name) do
+    Repo.one(Queries.User.with_email(email)) || insert_new_user(email, name)
   end
 
-  defp find_or_insert_user(email, name) do
-    unless user = Repo.one(Queries.User.with_email(email)) do
-      user =
-        %User{email: email, name: name}
-        |> Repo.insert!
-        |> add_everyone_interest
+  defp insert_new_user(email, name) do
+    changeset = User.create_changeset(%User{}, %{email: email, name: name})
+
+    case Repo.insert(changeset) do
+      {:ok, user} ->
+        user |> add_everyone_interest
+      {:error, changeset} ->
+        Logger.warn("Non-thoughtbot email")
+        nil
     end
-    user
   end
 
   defp add_everyone_interest(user) do

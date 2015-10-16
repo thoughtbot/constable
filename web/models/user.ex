@@ -23,8 +23,34 @@ defmodule Constable.User do
     user |> cast(params, ~w(), ~w(daily_digest auto_subscribe))
   end
 
+  def create_changeset(user \\ %__MODULE__{}, params) do
+    user
+    |> cast(params, ~w(email name), ~w())
+    |> require_thoughtbot_email
+    |> generate_token
+    |> generate_username
+  end
+
+  defp require_thoughtbot_email(changeset) do
+    changeset
+    |> validate_change :email, fn(:email, value) ->
+      case String.split(value, "@") do
+        [_, "thoughtbot.com"] -> []
+        _ -> [email: "must be a member of thoughtbot"]
+      end
+    end
+  end
+
   defp generate_token(changeset) do
     token = SecureRandom.urlsafe_base64(32)
     put_change changeset, :token, token
+  end
+
+  defp generate_username(changeset) do
+    email = get_change(changeset, :email)
+    if email do
+      [username, _] = String.split(email, "@")
+      put_change changeset, :username, username
+    end
   end
 end
