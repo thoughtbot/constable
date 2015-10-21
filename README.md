@@ -8,11 +8,9 @@ start the console in staging or production.
 
 ## Starting Constable
 
-1. Run `bin/setup` to install dependencies and setup the database. This is
-idempotent. Run whenever you like.
-2. Start Phoenix endpoint with `mix phoenix.server`
-
-Now you can visit `localhost:4000` from your browser.
+1. Install elixir. If you're on OS X, run `brew install elixir`
+2. Run `bin/setup` to install dependencies and setup the database.
+3. Start Phoenix endpoint with `mix phoenix.server`
 
 ## Email templates
 
