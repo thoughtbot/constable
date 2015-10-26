@@ -14,7 +14,7 @@ use Mix.Config
 config :constable, Constable.Endpoint,
   url: [host: System.get_env("HOST")],
   http: [port: System.get_env("PORT"), compress: true],
-  secret_key_base: "tJ+MdrPlKWMpmz7JyJgSu/11xvwnNZo7Sz8IAacy9MM6di3GqackE9iNjhkHI9p8"
+  secret_key_base: System.get_env("SECRET_KEY_BASE")
 
 config :constable, Constable.Repo,
   url: System.get_env("DATABASE_URL")
