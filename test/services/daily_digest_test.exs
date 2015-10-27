@@ -16,13 +16,12 @@ defmodule Constable.DailyDigestTest do
   end
 
   test "doesn't send if there are no new records since the time" do
-    Repo.delete_all(Constable.Announcement)
     Pact.override(self, :mailer, FakeMandrill)
     _old_announcement = create(:announcement, inserted_at: yesterday)
     _old_interest = create(:interest, inserted_at: yesterday)
     users = [create(:user)]
 
-    DailyDigest.send_email(users, today)
+    DailyDigest.send_email(users, yesterday)
 
     refute_receive {:to, _}
   end
@@ -56,6 +55,28 @@ defmodule Constable.DailyDigestTest do
     refute email_text_body =~ old_interest.name
     refute email_html_body =~ old_announcement.title
     refute email_text_body =~ old_announcement.title
+  end
+
+  test "sends if there are only new announcements" do
+    Pact.override(self, :mailer, FakeMandrill)
+    _new_announcement = create(:announcement, inserted_at: today)
+    _old_interest = create(:interest, inserted_at: yesterday)
+    users = [create(:user)]
+
+    DailyDigest.send_email(users, yesterday)
+
+    assert_receive {:to, _}
+  end
+
+  test "sends if there are only new interests" do
+    Pact.override(self, :mailer, FakeMandrill)
+    _old_announcement = create(:announcement, inserted_at: yesterday)
+    _new_interest = create(:interest, inserted_at: today)
+    users = [create(:user)]
+
+    DailyDigest.send_email(users, yesterday)
+
+    assert_receive {:to, _}
   end
 
   def today do

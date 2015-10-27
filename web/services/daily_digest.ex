@@ -24,8 +24,7 @@ defmodule Constable.DailyDigest do
   end
 
   defp new_items_since?(time) do
-    !Enum.empty?(announcements_since(time)) 
-      && !Enum.empty?(interests_since(time))
+    !Enum.empty?(announcements_since(time)) || !Enum.empty?(interests_since(time))
   end
 
   defp email_text(time) do
