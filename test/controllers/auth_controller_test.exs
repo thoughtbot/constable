@@ -116,8 +116,9 @@ defmodule AuthControllerTest do
 
     conn = post conn, auth_path(conn, :mobile_callback), auth_params
 
+    user_auth_token = Repo.one(User).token
     assert json_response(conn, 201)
-    assert json_response(conn, 201)["user"]["email"] == @oauth_email_address
+    assert json_response(conn, 201)["user"]["token"] == user_auth_token
   end
 
   test "mobile_callback returns error json when user has non-thoughtbot email" do
