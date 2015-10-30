@@ -1,7 +1,7 @@
 defmodule Constable.Mailers.Base do
-  def default_attributes(announcement: announcement, author: author) do
+  def default_attributes(author: author) do
     %{
-      from_email: "constable-#{announcement.id}@#{email_domain}",
+      from_email: "announcements@#{outbound_domain}",
       from_name: "#{author.name} (Constable)"
     }
   end
@@ -11,8 +11,20 @@ defmodule Constable.Mailers.Base do
      back_end_uri: "http://#{back_end_host}"]
   end
 
-  def email_domain do
-    System.get_env("EMAIL_DOMAIN")
+  def reply_to(message, email) do
+    message |> Dict.put(:headers, %{ "Reply-To": email })
+  end
+
+  def announcement_email_address(announcement) do
+    "announcement-#{announcement.id}@#{inbound_domain}"
+  end
+
+  def outbound_domain do
+    Constable.Env.get("OUTBOUND_EMAIL_DOMAIN")
+  end
+
+  def inbound_domain do
+    Constable.Env.get("INBOUND_EMAIL_DOMAIN")
   end
 
   def back_end_host do

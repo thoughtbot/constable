@@ -9,7 +9,7 @@ defmodule Constable.EmailReplyTest do
     email_reply_webhook = create_email_reply_webhook(
       from_email: user.email,
       text: "YO DAWG",
-      email: "constable-#{announcement.id}@thoughtbot.com"
+      email: "announcement-#{announcement.id}@foo.com"
     )
 
     conn = post(conn, "/email_replies", email_reply_webhook)
@@ -29,14 +29,15 @@ defmodule Constable.EmailReplyTest do
 
     Sure looks like it!!
     """
-    body_text = """
-    #{user_text}\n> On Oct 16, 2015, at 5:05 PM, Paul Smith (Constable) <constable-40@staging.constable.io> wrote:\n> \n> \t\n> my text\t\n\n\n
+    whole_email_with_quoted_text = """
+    #{user_text}\n> On Oct 16, 2015, at 5:05 PM, Paul Smith (Constable) <constable-40@#{Constable.Env.get("OUTBOUND_EMAIL_DOMAIN")}> wrote:\n> \n> \t\n> my text\t\n\n\n
     """
+    comment_author = create(:user)
     announcement = create(:announcement)
     email_reply_webhook = create_email_reply_webhook(
-      from_email: announcement.user.email,
-      text: body_text,
-      email: "constable-#{announcement.id}@thoughtbot.com"
+      from_email: comment_author.email,
+      text: whole_email_with_quoted_text,
+      email: "announcement-#{announcement.id}@foo.com"
     )
 
     post(conn, "/email_replies", email_reply_webhook)

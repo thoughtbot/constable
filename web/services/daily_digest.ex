@@ -11,7 +11,7 @@ defmodule Constable.DailyDigest do
   def send_email(users, time) do
     if new_items_since?(time) do
       %{
-        from_email: "constable@#{email_domain}",
+        from_email: "constable@#{outbound_domain}",
         from_name: "Constable (thoughtbot)",
         html: email_html(time),
         text: email_text(time),

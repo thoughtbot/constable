@@ -37,7 +37,7 @@ defmodule Constable.DailyDigestTest do
 
     subject = "Daily Digest"
     from_name = "Constable (thoughtbot)"
-    from_email = "constable@#{System.get_env("EMAIL_DOMAIN")}"
+    from_email = "constable@#{Constable.Env.get("OUTBOUND_EMAIL_DOMAIN")}"
     users = Mandrill.format_users(users)
     assert_receive {:to, ^users}
     assert_receive {:subject, ^subject}

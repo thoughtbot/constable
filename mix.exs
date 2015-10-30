@@ -21,7 +21,7 @@ defmodule Constable.Mixfile do
   end
 
   defp app_list(:dev), do: [:dotenv | app_list]
-  defp app_list(:test), do: [:ex_machina | app_list]
+  defp app_list(:test), do: [:ex_machina, :dotenv | app_list]
   defp app_list(_), do: app_list
   defp app_list, do: [:phoenix, :cowboy, :logger, :postgrex, :ecto, :httpoison]
 

@@ -12,9 +12,9 @@ defmodule Constable.EmailReplyController do
   end
 
   defp create_comments(messages) do
-    Enum.each(messages, fn(message) ->
+    for message <- messages do
       Comment.changeset(:create, comment_params(message)) |> Repo.insert!
-    end)
+    end
   end
 
   defp comment_params(
@@ -30,7 +30,7 @@ defmodule Constable.EmailReplyController do
     Queries.User.with_email(email_address) |> Repo.one
   end
 
-  defp announcement_id_from_email("constable-" <> key_and_domain) do
+  defp announcement_id_from_email("announcement-" <> key_and_domain) do
     key_and_domain |> String.split("@") |> List.first
   end
 
@@ -42,6 +42,6 @@ defmodule Constable.EmailReplyController do
   end
 
   defp is_from_new_email?(line) do
-    !String.contains?(line, "@#{System.get_env("EMAIL_DOMAIN")}")
+    !String.contains?(line, "@#{Constable.Env.get("OUTBOUND_EMAIL_DOMAIN")}")
   end
 end

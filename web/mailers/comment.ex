@@ -10,7 +10,7 @@ defmodule Constable.Mailers.Comment do
   def created(_comment, []), do: nil
   def created(comment, users) do
     comment = comment |> Repo.preload([:announcement, :user])
-    default_attributes(announcement: comment.announcement, author: comment.user)
+    default_attributes(author: comment.user)
     |> Map.merge(%{
       html: created_html(comment),
       text: created_text(comment),
@@ -20,6 +20,7 @@ defmodule Constable.Mailers.Comment do
       tags: ["new-comment"],
       merge_vars: generate_merge_vars(users, comment)
     })
+    |> reply_to(announcement_email_address(comment.announcement))
     |> Pact.get(:mailer).message_send
   end
 

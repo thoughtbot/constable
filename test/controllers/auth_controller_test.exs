@@ -54,8 +54,8 @@ defmodule AuthControllerTest do
     conn = get(conn, "/auth", redirect_uri: "foo.com")
 
     auth_uri = google_auth_uri(
-      client_id: "",
-      redirect_uri: "",
+      client_id: Constable.Env.get("CLIENT_ID"),
+      redirect_uri: Constable.Env.get("REDIRECT_URI"),
       response_type: "code",
       scope: "email"
     )

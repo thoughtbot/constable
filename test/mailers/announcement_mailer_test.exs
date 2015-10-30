@@ -10,6 +10,7 @@ defmodule Constable.Mailers.AnnouncementTest do
       send self, {:subject, message_params.subject}
       send self, {:from_email, message_params.from_email}
       send self, {:from_name, message_params.from_name}
+      send self, {:headers, message_params.headers}
       send self, {:html, message_params.html}
       send self, {:text, message_params.text}
     end
@@ -28,11 +29,15 @@ defmodule Constable.Mailers.AnnouncementTest do
     users = Mandrill.format_users(interested_users)
     subject = "#{announcement.title}"
     from_name = "#{author.name} (Constable)"
-    from_email = "constable-#{announcement.id}@#{System.get_env("EMAIL_DOMAIN")}"
+    from_email = "announcements@#{Constable.Env.get("OUTBOUND_EMAIL_DOMAIN")}"
+    headers = %{
+      "Reply-To": "announcement-#{announcement.id}@#{Constable.Env.get("INBOUND_EMAIL_DOMAIN")}"
+    }
     assert_received {:to, ^users}
     assert_received {:subject, ^subject}
     assert_received {:from_email, ^from_email}
     assert_received {:from_name, ^from_name}
+    assert_received {:headers, ^headers}
     assert_received {:html, email_html_body}
     assert_received {:text, email_text_body}
     html_announcement_body = Earmark.to_html(announcement.body)

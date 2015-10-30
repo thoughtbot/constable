@@ -8,7 +8,7 @@ defmodule Constable.Mailers.Announcement do
 
   def created(announcement, users) do
     announcement = announcement |> Repo.preload([:user, :interests])
-    default_attributes(announcement: announcement, author: announcement.user)
+    default_attributes(author: announcement.user)
     |> Map.merge(%{
       to: Mandrill.format_users(users),
       subject: announcement.title,
@@ -16,6 +16,7 @@ defmodule Constable.Mailers.Announcement do
       html: email_html(announcement),
       text: email_text(announcement)
     })
+    |> reply_to(announcement_email_address(announcement))
     |> Pact.get(:mailer).message_send
   end
 

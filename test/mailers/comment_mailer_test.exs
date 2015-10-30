@@ -9,6 +9,7 @@ defmodule Constable.Mailers.CommentMailerTest do
       send self, {:to, message_params.to}
       send self, {:subject, message_params.subject}
       send self, {:from_email, message_params.from_email}
+      send self, {:headers, message_params.headers}
       send self, {:from_name, message_params.from_name}
       send self, {:html, message_params.html}
       send self, {:text, message_params.text}
@@ -25,7 +26,10 @@ defmodule Constable.Mailers.CommentMailerTest do
     comment_body = "Bar is cool"
     from_name = "#{author.name} (Constable)"
     announcement = create(:announcement, title: title, user: author)
-    from_email = "constable-#{announcement.id}@#{System.get_env("EMAIL_DOMAIN")}"
+    from_email = "announcements@#{Constable.Env.get("OUTBOUND_EMAIL_DOMAIN")}"
+    headers = %{
+      "Reply-To": "announcement-#{announcement.id}@#{Constable.Env.get("INBOUND_EMAIL_DOMAIN")}"
+    }
     create(:subscription, user: author, announcement: announcement)
     comment = create(:comment,
       body: comment_body,
@@ -40,6 +44,7 @@ defmodule Constable.Mailers.CommentMailerTest do
     assert_received {:subject, ^subject}
     assert_received {:from_name, ^from_name}
     assert_received {:from_email, ^from_email}
+    assert_received {:headers, ^headers}
     assert_received {:html, email_html_body}
     assert_received {:text, email_text_body}
     html_comment_body = Earmark.to_html(comment.body)
