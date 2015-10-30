@@ -1,6 +1,5 @@
 defmodule Constable.AuthController do
   use Constable.Web, :controller
-  import Ecto.Query
   require Logger
 
   alias Constable.Interest
@@ -75,7 +74,7 @@ defmodule Constable.AuthController do
     case Repo.insert(changeset) do
       {:ok, user} ->
         user |> add_everyone_interest
-      {:error, changeset} ->
+      {:error, _changeset} ->
         Logger.warn("Non-thoughtbot email")
         nil
     end

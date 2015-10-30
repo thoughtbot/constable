@@ -1,8 +1,7 @@
 defmodule Constable.UnsubscribeController do
-  use Phoenix.Controller
+  use Constable.Web, :controller
 
   alias Constable.Subscription
-  alias Constable.Repo
 
   def show(conn, %{"id" => token}) do
     if subscription = Repo.get_by(Subscription, token: token) do

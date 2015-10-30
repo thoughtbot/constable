@@ -1,7 +1,5 @@
 defmodule Constable.Router do
   use Phoenix.Router
-  import Ecto.Query
-  alias OAuth2.Strategy
 
   pipeline :browser do
     plug :accepts, ~w(html)

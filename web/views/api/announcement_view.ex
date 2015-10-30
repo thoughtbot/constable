@@ -1,6 +1,5 @@
 defmodule Constable.Api.AnnouncementView do
   use Constable.Web, :view
-  import Ecto.Query
 
   alias Constable.Api.CommentView
 

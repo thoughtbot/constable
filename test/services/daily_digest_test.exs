@@ -1,6 +1,5 @@
 defmodule Constable.DailyDigestTest do
   use Constable.ModelCase, async: false
-  alias Constable.Repo
   alias Constable.Mandrill
   alias Constable.DailyDigest
 

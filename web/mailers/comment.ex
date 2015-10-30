@@ -2,7 +2,6 @@ defmodule Constable.Mailers.Comment do
   alias Constable.Mandrill
   alias Constable.Repo
   alias Constable.Subscription
-  alias Constable.User
 
   import Constable.Mailers.Base
 
@@ -24,7 +23,7 @@ defmodule Constable.Mailers.Comment do
     |> Pact.get(:mailer).message_send
   end
 
-  def mentioned(comment, []), do: nil
+  def mentioned(_comment, []), do: nil
   def mentioned(comment, users) do
     comment = comment |> Repo.preload([:announcement, :user])
     default_attributes(announcement: comment.announcement, author: comment.user)

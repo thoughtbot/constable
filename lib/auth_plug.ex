@@ -1,6 +1,5 @@
 defmodule Constable.AuthPlug do
   import Plug.Conn
-  import Ecto.Query
 
   alias Constable.Repo
   alias Constable.User

@@ -19,7 +19,7 @@ defmodule Constable.Api.SubscriptionController do
     case Repo.insert(changeset) do
       {:ok, subscription} ->
         conn |> put_status(201) |> render("show.json", subscription: subscription)
-      {:error, changset} ->
+      {:error, changeset} ->
         conn
         |> put_status(422)
         |> render(Constable.ChangesetView, "error.json", changeset: changeset)

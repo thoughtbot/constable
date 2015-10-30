@@ -1,5 +1,4 @@
 defmodule Constable.Mailers.Announcement do
-  alias Constable.User
   alias Constable.Repo
   alias Constable.Mandrill
   import Constable.Mailers.Base
