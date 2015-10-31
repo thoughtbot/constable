@@ -5,6 +5,7 @@ dependencies:
     - sudo apt-get install elixir=1.0.5-2
     - yes | mix deps.get
     - mix local.rebar
+    - cp .sample.env .env
 test:
   override:
     - MIX_ENV=prod mix compile --warnings-as-errors

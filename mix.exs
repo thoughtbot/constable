@@ -20,8 +20,8 @@ defmodule Constable.Mixfile do
      applications: app_list(Mix.env)]
   end
 
-  defp app_list(:dev), do: [:dotenv | app_list]
-  defp app_list(:test), do: [:ex_machina, :dotenv | app_list]
+  defp app_list(:dev), do: app_list
+  defp app_list(:test), do: [:ex_machina | app_list]
   defp app_list(_), do: app_list
   defp app_list, do: [:phoenix, :cowboy, :logger, :postgrex, :ecto, :httpoison]
 
@@ -31,7 +31,7 @@ defmodule Constable.Mixfile do
   defp deps do
     [
       {:cowboy, "~> 1.0"},
-      {:dotenv, "~> 0.0.4"},
+      {:envy, "~> 0.0.1"},
       {:earmark, "~> 0.1.17"},
       {:exgravatar, "~> 0.2.0"},
       {:ex_machina, "~> 0.3"},
