@@ -1,7 +1,5 @@
-<%= author.name %> commented on <%= comment.announcement.title %>
+<%= comment.body %>
 
 <%= front_end_uri %>/announcements/<%= comment.announcement.id %>
-
-<%= comment.body %>
 
 Unsubscribe: <%= back_end_uri %>/unsubscribe/{{subscription_id}}/

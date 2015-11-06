@@ -47,8 +47,6 @@ defmodule Constable.Mailers.AnnouncementTest do
     assert email_html_body =~ author.name
     assert email_html_body =~ Exgravatar.generate(author.email)
 
-    assert email_text_body =~ announcement.title
-    assert email_text_body =~ "Announced by: #{author.name}"
     assert email_text_body =~ announcement.body
   end
 

@@ -54,7 +54,6 @@ defmodule Constable.Mailers.CommentMailerTest do
     assert email_html_body =~ author.name
     assert email_html_body =~ Exgravatar.generate(author.email)
 
-    assert email_text_body =~ "#{author.name} commented on #{announcement.title}"
     assert email_text_body =~ comment.body
   end
 end
