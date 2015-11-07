@@ -14,11 +14,15 @@ defmodule Constable.Mailers.Announcement do
       subject: announcement.title,
       tags: @tags,
       html: email_html(announcement),
-      text: email_text(announcement)
+      text: email_text(announcement),
+      headers: %{
+        "Message-ID" => announcement_message_id(announcement)
+      }
     })
     |> reply_to(announcement_email_address(announcement))
     |> Pact.get(:mailer).message_send
   end
+
 
   defp email_text(announcement) do
     render_template("new.text",

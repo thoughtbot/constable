@@ -12,7 +12,9 @@ defmodule Constable.Mailers.Base do
   end
 
   def reply_to(message, email) do
-    message |> Dict.put(:headers, %{ "Reply-To": email })
+    message
+    |> Map.put_new(:headers, %{})
+    |> put_in [:headers, "Reply-To"], email
   end
 
   def announcement_email_address(announcement) do
@@ -29,5 +31,9 @@ defmodule Constable.Mailers.Base do
 
   def back_end_host do
     Application.get_env(:constable, Constable.Endpoint) |> get_in([:url, :host])
+  end
+
+  def announcement_message_id(announcement) do
+    "announcement-#{announcement.id}@#{Constable.Env.get("OUTBOUND_EMAIL_DOMAIN")}"
   end
 end

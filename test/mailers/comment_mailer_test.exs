@@ -28,7 +28,8 @@ defmodule Constable.Mailers.CommentMailerTest do
     announcement = create(:announcement, title: title, user: author)
     from_email = "announcements@#{Constable.Env.get("OUTBOUND_EMAIL_DOMAIN")}"
     headers = %{
-      "Reply-To": "announcement-#{announcement.id}@#{Constable.Env.get("INBOUND_EMAIL_DOMAIN")}"
+      "In-Reply-To" => "announcement-#{announcement.id}@#{Constable.Env.get("OUTBOUND_EMAIL_DOMAIN")}",
+      "Reply-To" => "announcement-#{announcement.id}@#{Constable.Env.get("INBOUND_EMAIL_DOMAIN")}"
     }
     create(:subscription, user: author, announcement: announcement)
     comment = create(:comment,

@@ -18,7 +18,10 @@ defmodule Constable.Mailers.Comment do
       subject: "Re: #{comment.announcement.title}",
       to: Mandrill.format_users(users),
       tags: ["new-comment"],
-      merge_vars: generate_merge_vars(users, comment)
+      merge_vars: generate_merge_vars(users, comment),
+      headers: %{
+        "In-Reply-To" => announcement_message_id(comment.announcement)
+      }
     })
     |> reply_to(announcement_email_address(comment.announcement))
     |> Pact.get(:mailer).message_send
