@@ -1,6 +1,5 @@
 <%= author.name %> mentioned you on <%= comment.announcement.title %>
 
-<%= front_end_uri %>/announcements/<%= comment.announcement.id %>
-
 <%= comment.body %>
 
+<%= front_end_uri %>/announcements/<%= comment.announcement.id %>

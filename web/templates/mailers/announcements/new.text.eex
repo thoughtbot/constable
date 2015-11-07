@@ -1,7 +1,5 @@
-<%= announcement.title %>
-
 Announced by: <%= author.name %>
 
-<%= front_end_uri %>/announcements/<%= announcement.id  %>
-
 <%= announcement.body %>
+
+<%= front_end_uri %>/announcements/<%= announcement.id  %>

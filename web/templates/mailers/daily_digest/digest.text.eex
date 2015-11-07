@@ -19,4 +19,5 @@ posted by <%= announcement.user.name %>
 
 
 View Interests and Announcements on Constable
+
 <%= front_end_uri %>/announcements
