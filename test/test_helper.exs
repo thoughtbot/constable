@@ -1,6 +1,7 @@
 :erlang.system_flag :backtrace_depth, 50
 ExUnit.configure exclude: [pending: true]
 ExUnit.start
+Application.ensure_all_started(:ex_machina)
 Pact.put(:google_strategy, FakeGoogleStrategy)
 
 # Create the database, run migrations, and start the test transaction.

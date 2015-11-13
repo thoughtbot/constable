@@ -17,12 +17,9 @@ defmodule Constable.Mixfile do
   # Type `mix help compile.app` for more information
   def application do
     [mod: {Constable, []},
-     applications: app_list(Mix.env)]
+     applications: app_list]
   end
 
-  defp app_list(:dev), do: app_list
-  defp app_list(:test), do: [:ex_machina | app_list]
-  defp app_list(_), do: app_list
   defp app_list, do: [:phoenix, :cowboy, :logger, :postgrex, :ecto, :httpoison]
 
   # Specifies your project dependencies
