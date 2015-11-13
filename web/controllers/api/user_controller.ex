@@ -3,6 +3,8 @@ defmodule Constable.Api.UserController do
 
   alias Constable.User
 
+  plug :scrub_params, "user" when action in [:create]
+
   def create(conn, %{"user" => user_params}) do
     changeset = User.create_changeset(%User{}, user_params)
 

@@ -19,6 +19,17 @@ defmodule Constable.Api.UserControllerTest do
     assert json_response(conn, 200) == render_json("show.json", user: user)
   end
 
+  test "#create doesn't create a user with invalid data", %{conn: conn} do
+    Repo.delete_all(User)
+    conn = post conn, user_path(conn, :create), user: %{
+      name: "",
+      email: ""
+    }
+
+    assert json_response(conn, :unprocessable_entity)
+    refute Repo.one(User)
+  end
+
   test "#index returns all users", %{conn: conn, user: user} do
     other_user = create(:user)
 

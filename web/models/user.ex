@@ -25,7 +25,7 @@ defmodule Constable.User do
 
   def create_changeset(user \\ %__MODULE__{}, params) do
     user
-    |> cast(params, ~w(email name), ~w())
+    |> cast(params, ~w(email name))
     |> require_thoughtbot_email
     |> generate_token
     |> generate_username
@@ -51,6 +51,8 @@ defmodule Constable.User do
     if email do
       [username, _] = String.split(email, "@")
       put_change changeset, :username, username
+    else
+      changeset
     end
   end
 end

@@ -3,6 +3,12 @@ defmodule Constable.UserTest do
 
   alias Constable.User
 
+  test "create_changeset returns invalid changeset" do
+    changeset = User.create_changeset(%User{}, %{email: nil, name: nil})
+
+    refute changeset.valid?
+  end
+
   test "create_changeset sets token and username" do
     changeset = User.create_changeset(%User{}, %{
       email: "foo@thoughtbot.com",
