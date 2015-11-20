@@ -3,17 +3,11 @@ defmodule Constable.Api.CommentControllerTest do
   use Constable.ConnCase
 
   alias Constable.Comment
-
-  defmodule FakeCommentMailer do
-    def created(comment, users) do
-      send self, {:comment, comment}
-      send self, {:users, users}
-    end
-
-    def mentioned(_, _), do: nil
-  end
+  alias Bamboo.SentEmail
+  alias Bamboo.Formatter
 
   setup do
+    SentEmail.reset
     {:ok, authenticate}
   end
 
@@ -33,6 +27,9 @@ defmodule Constable.Api.CommentControllerTest do
     assert comment.body == "Foo"
     assert comment.user_id == user.id
     assert comment.announcement_id == announcement.id
-    assert_received {:users, [^subscribed_user]}
+
+    email = SentEmail.one
+    assert email.to == Formatter.format_recipient([subscribed_user])
+    assert email.subject =~ announcement.title
   end
 end

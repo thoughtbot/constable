@@ -4,12 +4,15 @@ defmodule Constable.Services.CommentCreator do
   alias Constable.Queries
   alias Constable.Repo
   alias Constable.Services.MentionFinder
+  alias Constable.Emails
+  alias Constable.Mailer
 
   def create(params) do
     changeset = Comment.changeset(:create, params)
 
     case Repo.insert(changeset) do
       {:ok, comment} ->
+        comment = comment |> Repo.preload([:user, :announcement])
         mentioned_users = email_mentioned_users(comment)
         email_subscribers(comment, mentioned_users)
         broadcast(comment)
@@ -22,13 +25,18 @@ defmodule Constable.Services.CommentCreator do
     users = find_subscribed_users(comment.announcement_id) -- mentioned_users
     |> Enum.reject(fn (user) -> user.id == comment.user_id end)
 
-    Pact.get(:comment_mailer).created(comment, users)
+    if length(users) > 0 do
+      Emails.new_comment(comment, users) |> Mailer.deliver_async
+    end
     comment
   end
 
   defp email_mentioned_users(comment) do
     users = MentionFinder.find_users(comment.body)
-    Pact.get(:comment_mailer).mentioned(comment, users)
+
+    if length(users) > 0 do
+      Emails.new_comment_mention(comment, users) |> Mailer.deliver_async
+    end
     users
   end
 
@@ -40,7 +48,7 @@ defmodule Constable.Services.CommentCreator do
   defp broadcast(comment) do
     Constable.Endpoint.broadcast!(
       "update",
-      "comment:add", 
+      "comment:add",
       CommentView.render("show.json", %{comment: comment})
     )
   end

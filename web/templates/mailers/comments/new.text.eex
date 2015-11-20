@@ -1,5 +1,0 @@
-<%= comment.body %>
-
-<%= front_end_uri %>/announcements/<%= comment.announcement.id %>
-
-Unsubscribe: <%= back_end_uri %>/unsubscribe/{{subscription_id}}/

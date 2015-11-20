@@ -11,6 +11,10 @@ config :constable, Constable.Repo,
   database: "constable_api_development",
   hostname: "localhost"
 
+config :constable, Constable.Mailer,
+  adapter: Bamboo.MandrillAdapter,
+  api_key: ""
+
 # Enables code reloading for development
 config :phoenix, :code_reloader, true
 

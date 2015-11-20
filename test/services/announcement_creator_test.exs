@@ -4,21 +4,11 @@ defmodule Constable.Services.AnnouncementCreatorTest do
   alias Constable.Announcement
   alias Constable.Subscription
   alias Constable.Services.AnnouncementCreator
-
-  defmodule FakeAnnouncementMailer do
-    def created(announcement, users) do
-      send self, {:announcement, announcement}
-      send self, {:users, users}
-    end
-
-    def mentioned(announcement, users) do
-      send self, {:mentioned_announcement, announcement}
-      send self, {:mentioned_users, users}
-    end
-  end
+  alias Bamboo.SentEmail
+  alias Bamboo.Formatter
 
   setup do
-    Pact.override self, :announcement_mailer, __MODULE__.FakeAnnouncementMailer
+    SentEmail.reset
     {:ok, %{}}
   end
 
@@ -112,15 +102,15 @@ defmodule Constable.Services.AnnouncementCreatorTest do
 
     AnnouncementCreator.create(announcement_params, ["foo"])
 
-    announcement = Repo.one(Announcement)
-    assert_received {:announcement, ^announcement}
-    assert_received {:users, [^subscribed_user]}
+    email = SentEmail.one
+    assert email.to == Formatter.format_recipient([subscribed_user])
+    assert email.subject =~ announcement_params.title
   end
 
   test "sends announcement email to mentioned users" do
     interest = create(:interest, name: "foo")
     author = create(:user) |> with_interest(interest)
-    mentioned = create(:user, username: "joedirt")
+    mentioned_user = create(:user, username: "joedirt")
 
     announcement_params = %{
       title: "Title",
@@ -130,9 +120,9 @@ defmodule Constable.Services.AnnouncementCreatorTest do
 
     AnnouncementCreator.create(announcement_params, ["foo"])
 
-    announcement = Repo.one(Announcement)
-    assert_received {:mentioned_announcement, ^announcement}
-    assert_received {:mentioned_users, [^mentioned]}
+    email = SentEmail.one
+    assert email.to == Formatter.format_recipient([mentioned_user])
+    assert email.subject =~ "mentioned"
   end
 
   defp announcement_has_interest_named?(announcement, interest_name) do

@@ -2,6 +2,8 @@ defmodule Constable.Services.AnnouncementCreator do
   alias Constable.Repo
   alias Constable.Announcement
   alias Constable.Subscription
+  alias Constable.Emails
+  alias Constable.Mailer
 
   alias Constable.Services.AnnouncementInterestAssociator
   alias Constable.Services.MentionFinder
@@ -12,6 +14,7 @@ defmodule Constable.Services.AnnouncementCreator do
       {:ok, announcement} ->
         announcement
         |> add_interests(interest_names)
+        |> Repo.preload(:user)
         |> subscribe_author
         |> email_and_subscribe_users
 
@@ -42,14 +45,18 @@ defmodule Constable.Services.AnnouncementCreator do
   defp email_users(announcement, users) do
     users = filter_author(announcement.user_id, users)
 
-    Pact.get(:announcement_mailer).created(announcement, users)
+    if length(users) > 0 do
+      Emails.new_announcement(announcement, users) |> Mailer.deliver_async
+    end
     announcement
   end
 
   def email_mentioned_users(announcement, users) do
     users = filter_author(announcement.user_id, users)
 
-    Pact.get(:announcement_mailer).mentioned(announcement, users)
+    if length(users) > 0 do
+      Emails.new_announcement_mention(announcement, users) |> Mailer.deliver_async
+    end
     announcement
   end
 

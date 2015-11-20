@@ -108,7 +108,7 @@
                   <tr>
                     <td width='40'></td>
                     <td align='center' style='vertical-align: top;'>
-                      <img alt='avatar' class='avatar' src='<%= author_avatar_url %>' style='border-radius: 50%;' width='70'>
+                      <img alt='avatar' class='avatar' src='<%= author_avatar_url(@comment.user) %>' style='border-radius: 50%;' width='70'>
                     </td>
                     <td width='40'></td>
                   </tr>
@@ -120,7 +120,7 @@
                     <td width='40'></td>
                     <td align='center'>
                       <h4 style='color: #7b819c; font-size: 14px; margin: 0;'>
-                        <%= author.name %> left a comment on <%= comment.announcement.title %>
+                        <%= @author.name %> mentioned you in a comment on <%= @comment.announcement.title %>
                       </h4>
                     </td>
                   </tr>
@@ -158,7 +158,7 @@
             <tr>
               <td width='40'></td>
               <td align='left'>
-                <%= Earmark.to_html(comment.body) %>
+                <%= raw Earmark.to_html(@comment.body) %>
               </td>
               <td width='40'></td>
             </tr>
@@ -172,7 +172,7 @@
             <tr>
               <td width='40'></td>
               <td align='center'>
-                <a href='<%= front_end_uri %>/announcements/<%= comment.announcement.id  %>' style='color: #c32f34;'>
+                <a href='<%= front_end_uri %>/announcements/<%= @comment.announcement.id  %>' style='color: #c32f34;'>
                   <h4 style='#c32f34 font-size: 18px; margin: 0; padding-bottom: 5px;'>View this announcement on #Constable</h4>
                 </a>
               </td>
@@ -199,7 +199,6 @@
                   <!-- Vertical Spacer -->
                   <tr>
                     <td colspan='3' height='30'></td>
-                    <td style="text-align: center;"><a href="<%= back_end_uri %>/unsubscribe/{{subscription_id}}/">unsubscribe me from this announcement</a></td>
                   </tr>
                 </table>
               </td>
@@ -210,3 +209,4 @@
       </tr>
     </table>
   </body>
+</html>

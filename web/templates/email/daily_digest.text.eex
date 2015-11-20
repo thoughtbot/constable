@@ -3,7 +3,7 @@
 New Interests
 -------------
 
-<%= for interest <- interests do %>
+<%= for interest <- @interests do %>
 #<%= interest.name %>
 <% end %>
 
@@ -11,9 +11,9 @@ New Interests
 New Announcements
 -----------------
 
-<%= for announcement <- announcements do %>
-<%= announcement.title %> - <%= front_end_uri %>/announcements/<%= announcement.id %>
-posted by <%= announcement.user.name %>
+<%= for announcement <- @announcements do %>
+  <%= announcement.title %> - <%= front_end_uri %>/announcements/<%= announcement.id %>
+  posted by <%= announcement.user.name %>
 
 <% end %>
 

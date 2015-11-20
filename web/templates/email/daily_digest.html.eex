@@ -3,7 +3,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width" />
-    <title>Constable announcement</title>
+    <title>Constable comment</title>
     <style>
       * {
         text-rendering: optimizeLegibility;
@@ -94,58 +94,6 @@
           <!-- ===================================== -->
           <!-- Announcement Container -->
           <!-- ===================================== -->
-          <table bgcolor='#2e303b' border='0' cellpadding='0' cellspacing='0' style='border-bottom: 1px solid #727791;' width='100%'>
-            <tr>
-              <td>
-                <!-- ===================================== -->
-                <!-- Announcement Content -->
-                <!-- ===================================== -->
-                <table align='center' border='0' cellpadding='0' cellspacing='0' class='flex-size' style='color: #ffffff; font-family: Helvetica, Tahoma, sans-serif; font-size: 16px; line-height: 1.5;' width='700'>
-                  <!-- Vertical Spacer -->
-                  <tr>
-                    <td colspan='3' height='40'></td>
-                  </tr>
-                  <tr>
-                    <td width='40'></td>
-                    <td align='center' style='vertical-align: top;'>
-                      <img alt='avatar' class='avatar' src='<%=
-                      author_avatar_url %>' style='border-radius: 50%;' width='70'>
-                    </td>
-                    <td width='40'></td>
-                  </tr>
-                  <!-- Vertical Spacer -->
-                  <tr>
-                    <td colspan='3' height='10'></td>
-                  </tr>
-                  <tr>
-                    <td width='40'></td>
-                    <td align='center'>
-                      <h4 style='color: #7b819c; font-size: 14px; margin: 0;'>
-                        <%= author.name %> made an announcement
-                      </h4>
-                    </td>
-                  </tr>
-                  <!-- Vertical Spacer -->
-                  <tr>
-                    <td colspan='3' height='10'></td>
-                  </tr>
-                </table>
-                <table align='center' border='0' cellpadding='0' cellspacing='0' class='flex-size' style='color: #ffffff; font-family: Helvetica, Tahoma, sans-serif; font-size: 16px; line-height: 1.5;' width='700'>
-                  <tr>
-                    <td width='12'></td>
-                    <td align='center' style='font-size: 12px;'>
-                      Tagged: <%= interests %>
-                    </td>
-                    <td width='12'></td>
-                  </tr>
-                  <!-- Vertical Spacer -->
-                  <tr>
-                    <td colspan='3' height='35'></td>
-                  </tr>
-                </table>
-              </td>
-            </tr>
-          </table>
           <!-- ===================================== -->
           <!-- Content Name -->
           <!-- ===================================== -->
@@ -164,7 +112,26 @@
             <tr>
               <td width='40'></td>
               <td align='left'>
-                <%= Earmark.to_html(announcement.body) %>
+                <h4>Recently added interests</h4>
+
+                <ul>
+                  <%= for interest <- @interests do %>
+                    <li>#<%= interest.name %></li>
+                  <% end %>
+                </ul>
+
+                <h4>Recently added announcements</h4><!-- Change to h4 to match interests -->
+                <ul>
+                  <%= for announcement <- @announcements do %>
+                    <li>
+                      <a href="<%= front_end_uri %>/announcements/<%= announcement.id %>" style='color: #c32f34;'>
+                        <%= announcement.title %>
+                      </a>
+                      posted by <strong><%= announcement.user.name %></strong>
+                    </li>
+                  <% end %>
+                </ul>
+
               </td>
               <td width='40'></td>
             </tr>
@@ -178,8 +145,10 @@
             <tr>
               <td width='40'></td>
               <td align='center'>
-                <a href='<%= front_end_uri %>/announcements/<%= announcement.id  %>' style='color: #c32f34;'>
-                  <h4 style='#c32f34 font-size: 18px; margin: 0; padding-bottom: 5px;'>View this announcement on #Constable</h4>
+                <a href="<%= front_end_uri %>/announcements %>" style='color: #c32f34;'>
+                  <h4 style='#c32f34 font-size: 18px; margin: 0; padding-bottom: 5px;'>
+                    View Interests and Announcements on Constable
+                  </h4>
                 </a>
               </td>
               <td width='40'></td>
@@ -202,17 +171,6 @@
                 <!-- Footer Content -->
                 <!-- ===================================== -->
                 <table align='center' border='0' cellpadding='0' cellspacing='0' class='flex-size' style='color: #d4d4d4; font-family: Helvetica, Tahoma, sans-serif; font-size: 16px; line-height: 1.5; font-size: 14px;' width='700'>
-                  <tr>
-                    <td width='40'></td>
-                    <td align='center'>
-                      <!--
-                      <a href='#' style='color: #babdd1'>
-                        Manage your subscription settings
-                      </a>
-                      -->
-                    </td>
-                    <td width='40'></td>
-                  </tr>
                   <!-- Vertical Spacer -->
                   <tr>
                     <td colspan='3' height='30'></td>
@@ -226,3 +184,4 @@
       </tr>
     </table>
   </body>
+</html>

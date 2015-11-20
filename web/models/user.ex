@@ -3,6 +3,12 @@ defmodule Constable.User do
   alias Constable.UserInterest
   alias Constable.Subscription
 
+  defimpl Bamboo.Formatter, for: __MODULE__ do
+    def format_recipient(user) do
+      %{name: user.name, address: user.email}
+    end
+  end
+
   before_insert :generate_token
 
   schema "users" do

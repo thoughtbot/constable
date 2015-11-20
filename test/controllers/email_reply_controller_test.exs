@@ -2,22 +2,20 @@ defmodule Constable.EmailReplyTest do
   use Constable.ConnCase
 
   alias Constable.Comment
+  alias Bamboo.SentEmail
 
-  defmodule FakeCommentMailer do
-    def created(comment, users) do
-      send self, {:comment, comment}
-      send self, {:users, users}
-    end
-
-    def mentioned(_, _), do: nil
+  setup do
+    SentEmail.reset
+    :ok
   end
 
   test "adds a comment to announcement and sends an email" do
-    Pact.override self, :comment_mailer, FakeCommentMailer
-    user = create(:user)
-    announcement = create(:announcement, user: user)
+    subscriber = create(:user)
+    announcement = create(:announcement) |> with_subscriber(subscriber)
+    comment_author = create(:user)
+
     email_reply_webhook = create_email_reply_webhook(
-      from_email: user.email,
+      from_email: comment_author.email,
       text: "YO DAWG",
       email: "announcement-#{announcement.id}@foo.com"
     )
@@ -27,10 +25,11 @@ defmodule Constable.EmailReplyTest do
     comment = Repo.one(Comment, preload: [:user, :announcement])
     assert conn.status == 200
     assert comment.announcement_id == announcement.id
-    assert comment.user_id == user.id
+    assert comment.user_id == comment_author.id
     assert comment.body == "YO DAWG"
 
-    assert_received {:comment, ^comment}
+    email = SentEmail.one
+    assert email.text_body =~ comment.body
   end
 
   test "removes the last quoted section from the email reply" do

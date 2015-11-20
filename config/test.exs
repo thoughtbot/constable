@@ -8,5 +8,8 @@ config :constable, Constable.Repo,
   hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox
 
+config :constable, Constable.Mailer,
+  adapter: Bamboo.LocalAdapter
+
 # Print only warnings and errors during test
 config :logger, level: :warn
