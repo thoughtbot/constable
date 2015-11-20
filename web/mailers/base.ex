@@ -14,7 +14,7 @@ defmodule Constable.Mailers.Base do
   def reply_to(message, email) do
     message
     |> Map.put_new(:headers, %{})
-    |> put_in [:headers, "Reply-To"], email
+    |> put_in [:headers, "Reply-To"], "<#{email}>"
   end
 
   def announcement_email_address(announcement) do
@@ -34,6 +34,6 @@ defmodule Constable.Mailers.Base do
   end
 
   def announcement_message_id(announcement) do
-    "announcement-#{announcement.id}@#{Constable.Env.get("OUTBOUND_EMAIL_DOMAIN")}"
+    "<announcement-#{announcement.id}@#{Constable.Env.get("OUTBOUND_EMAIL_DOMAIN")}>"
   end
 end

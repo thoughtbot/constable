@@ -31,8 +31,8 @@ defmodule Constable.Mailers.AnnouncementTest do
     from_name = "#{author.name} (Constable)"
     from_email = "announcements@#{Constable.Env.get("OUTBOUND_EMAIL_DOMAIN")}"
     headers = %{
-      "Message-ID" => "announcement-#{announcement.id}@#{Constable.Env.get("OUTBOUND_EMAIL_DOMAIN")}",
-      "Reply-To" => "announcement-#{announcement.id}@#{Constable.Env.get("INBOUND_EMAIL_DOMAIN")}"
+      "Message-ID" => "<announcement-#{announcement.id}@#{Constable.Env.get("OUTBOUND_EMAIL_DOMAIN")}>",
+      "Reply-To" => "<announcement-#{announcement.id}@#{Constable.Env.get("INBOUND_EMAIL_DOMAIN")}>"
     }
     assert_received {:to, ^users}
     assert_received {:subject, ^subject}
