@@ -1,7 +1,7 @@
 defmodule Constable.Factories do
   use ExMachina.Ecto, repo: Constable.Repo
 
-  factory :email_reply_message do
+  def factory :email_reply_message do
     %{
       text: "My email reply",
       from_email: sequence(:email, &"test#{&1}@thoughtbot.com"),
@@ -9,26 +9,26 @@ defmodule Constable.Factories do
     }
   end
 
-  factory :email_reply_event do
+  def factory :email_reply_event do
     %{
       event: "inbound",
       msg: build(:email_reply_message)
     }
   end
 
-  factory :email_reply_webhook do
+  def factory :email_reply_webhook do
     %{
       mandrill_events: [build(:email_reply_event)]
     }
   end
 
-  factory :interest do
+  def factory :interest do
     %Constable.Interest{
       name: sequence(:interest_name, &"interest-#{&1}")
     }
   end
 
-  factory :user do
+  def factory :user do
     %Constable.User{
       username: "myusername",
       name: "Gumbo",
@@ -38,15 +38,15 @@ defmodule Constable.Factories do
     }
   end
 
-  factory :announcement do
+  def factory :announcement do
     %Constable.Announcement{
       title: sequence(:email, &"Post Title#{&1}"),
       body: "Post Body",
-      user: assoc(:user)
+      user: build(:user)
     }
   end
 
-  factory :announcement_params do
+  def factory :announcement_params do
     %{
       title: "Title",
       body: "Body",
@@ -54,32 +54,32 @@ defmodule Constable.Factories do
     }
   end
 
-  factory :announcement_interest do
+  def factory :announcement_interest do
     %Constable.AnnouncementInterest{
-      announcement: assoc(:announcement),
-      interest: assoc(:interest)
+      announcement: build(:announcement),
+      interest: build(:interest)
     }
   end
 
-  factory :comment do
+  def factory :comment do
     %Constable.Comment{
       body: "Post Body",
-      user: assoc(:user),
-      announcement: assoc(:announcement)
+      user: build(:user),
+      announcement: build(:announcement)
     }
   end
 
-  factory :subscription do
+  def factory :subscription do
     %Constable.Subscription{
-      user: assoc(:user),
-      announcement: assoc(:announcement)
+      user: build(:user),
+      announcement: build(:announcement)
     }
   end
 
-  factory :user_interest do
+  def factory :user_interest do
     %Constable.UserInterest{
-      user: assoc(:user),
-      interest: assoc(:interest)
+      user: build(:user),
+      interest: build(:interest)
     }
   end
 

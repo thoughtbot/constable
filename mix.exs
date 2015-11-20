@@ -31,7 +31,7 @@ defmodule Constable.Mixfile do
       {:envy, "~> 0.0.1"},
       {:earmark, "~> 0.1.17"},
       {:exgravatar, "~> 0.2.0"},
-      {:ex_machina, "~> 0.3"},
+      {:ex_machina, "~> 0.5"},
       {:oauth2, "~> 0.2.0"},
       {:pact, "~> 0.1.0"},
       {:phoenix_ecto, "~> 0.8"},
