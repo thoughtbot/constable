@@ -1,6 +1,8 @@
 defmodule Constable.Services.CommentCreatorTest do
-  use Constable.TestWithEcto, async: false
+  use Constable.ChannelCase
+  use Phoenix.ChannelTest
 
+  alias Constable.Api.CommentView
   alias Constable.Comment
   alias Constable.Services.CommentCreator
 
@@ -35,6 +37,22 @@ defmodule Constable.Services.CommentCreatorTest do
     assert comment.user_id == announcement.user_id
     assert comment.announcement_id == announcement.id
     assert comment.body == "Foo"
+  end
+
+  test "sends an update over a channel" do
+    user = create(:user)
+    announcement = create(:announcement)
+    {:ok, socket} = connect(Constable.UserSocket, %{"token" => user.token})
+    subscribe_and_join!(socket, "update")
+
+    {:ok, comment} = CommentCreator.create(%{
+      user_id: create(:user).id,
+      body: "Foo",
+      announcement_id: announcement.id
+    })
+
+    content = CommentView.render("show.json", %{comment: comment})
+    assert_broadcast "comment:add", ^content
   end
 
   test "create emails announcement subscribers" do

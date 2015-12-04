@@ -3,7 +3,7 @@ defmodule GoogleStrategy do
   alias OAuth2.Request
 
   def new do
-    OAuth2.new([
+    OAuth2.Client.new([
       client_id: System.get_env("CLIENT_ID"),
       client_secret: System.get_env("CLIENT_SECRET"),
       authorize_url: "https://accounts.google.com/o/oauth2/auth",

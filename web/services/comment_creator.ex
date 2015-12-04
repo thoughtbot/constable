@@ -1,4 +1,5 @@
 defmodule Constable.Services.CommentCreator do
+  alias Constable.Api.CommentView
   alias Constable.Repo
   alias Constable.Comment
   alias Constable.Queries
@@ -11,6 +12,7 @@ defmodule Constable.Services.CommentCreator do
       {:ok, comment} ->
         mentioned_users = email_mentioned_users(comment)
         email_subscribers(comment, mentioned_users)
+        broadcast(comment)
         {:ok, comment}
       {:error, changeset} -> {:error, changeset}
     end
@@ -40,5 +42,13 @@ defmodule Constable.Services.CommentCreator do
     |> Enum.map(fn ([_, username]) -> username end)
     |> Enum.map(&(Repo.get_by(User, username: &1)))
     |> Enum.reject(&is_nil/1)
+  end
+
+  defp broadcast(comment) do
+    Constable.Endpoint.broadcast!(
+      "update",
+      "comment:add", 
+      CommentView.render("show.json", %{comment: comment})
+    )
   end
 end

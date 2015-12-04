@@ -24,6 +24,7 @@ defmodule Constable.ChannelCase do
       alias Constable.Repo
       import Ecto.Model
       import Ecto.Query, only: [from: 2]
+      import Constable.Factories
 
       # The default endpoint for testing
       @endpoint Constable.Endpoint

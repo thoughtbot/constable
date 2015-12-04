@@ -3,7 +3,7 @@ defmodule Constable.Repo.Migrations.AddNullConstrainToUsername do
   alias Constable.Repo
 
   def up do
-    %{rows: users} = Ecto.Adapters.SQL.query(Repo, "SELECT id,email FROM users", [])
+    {:ok, %{rows: users}} = Ecto.Adapters.SQL.query(Repo, "SELECT id,email FROM users", [])
 
     Enum.each(users, fn([id, email]) ->
       [name, _] = String.split(email, "@")

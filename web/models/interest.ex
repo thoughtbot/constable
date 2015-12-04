@@ -1,6 +1,5 @@
 defmodule Constable.Interest do
   use Constable.Web, :model
-  alias Constable.Repo
   alias Constable.UserInterest
   alias Constable.AnnouncementInterest
 
@@ -20,6 +19,6 @@ defmodule Constable.Interest do
     |> validate_presence(:name)
     |> update_change(:name, &String.replace(&1, "#", ""))
     |> update_change(:name, &String.downcase/1)
-    |> validate_unique(:name, on: Repo)
+    |> unique_constraint(:name)
   end
 end

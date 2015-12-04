@@ -3,8 +3,8 @@ defmodule Constable.Repo.Migrations.CreateAnnouncements do
 
   def change do
     create table(:announcement) do
-      add :title
-      add :body
+      add :title, :string
+      add :body, :text
 
       timestamps
     end
