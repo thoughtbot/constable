@@ -1,6 +1,6 @@
 defmodule Constable.EmailReplyController do
   use Constable.Web, :controller
-  alias Constable.Comment
+  alias Constable.Services.CommentCreator
   alias Constable.Queries
 
   def create(conn, %{"mandrill_events" => messages}) do
@@ -13,7 +13,7 @@ defmodule Constable.EmailReplyController do
 
   defp create_comments(messages) do
     for message <- messages do
-      Comment.changeset(:create, comment_params(message)) |> Repo.insert!
+      message |> comment_params |> CommentCreator.create
     end
   end
 

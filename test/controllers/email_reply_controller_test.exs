@@ -3,7 +3,17 @@ defmodule Constable.EmailReplyTest do
 
   alias Constable.Comment
 
-  test "adds a comment to announcement from the message key" do
+  defmodule FakeCommentMailer do
+    def created(comment, users) do
+      send self, {:comment, comment}
+      send self, {:users, users}
+    end
+
+    def mentioned(_, _), do: nil
+  end
+
+  test "adds a comment to announcement and sends an email" do
+    Pact.override self, :comment_mailer, FakeCommentMailer
     user = create(:user)
     announcement = create(:announcement, user: user)
     email_reply_webhook = create_email_reply_webhook(
@@ -19,6 +29,8 @@ defmodule Constable.EmailReplyTest do
     assert comment.announcement_id == announcement.id
     assert comment.user_id == user.id
     assert comment.body == "YO DAWG"
+
+    assert_received {:comment, ^comment}
   end
 
   test "removes the last quoted section from the email reply" do
