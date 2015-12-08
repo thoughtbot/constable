@@ -13,8 +13,8 @@ defmodule Constable.Mailers.Announcement do
       to: Mandrill.format_users(users),
       subject: announcement.title,
       tags: @tags,
-      html: email_html(announcement),
-      text: email_text(announcement),
+      html: created_html(announcement),
+      text: created_text(announcement),
       headers: %{
         "Message-ID" => announcement_message_id(announcement)
       }
@@ -23,8 +23,24 @@ defmodule Constable.Mailers.Announcement do
     |> Pact.get(:mailer).message_send
   end
 
+  def mentioned(announcement, users) do
+    announcement = announcement |> Repo.preload([:user, :interests])
+    default_attributes(author: announcement.user)
+    |> Map.merge(%{
+      to: Mandrill.format_users(users),
+      subject: "You were mentioned in: #{announcement.title}",
+      tags: @tags,
+      html: mentioned_html(announcement),
+      text: mentioned_text(announcement),
+      headers: %{
+        "Message-ID" => announcement_message_id(announcement)
+      }
+    })
+    |> reply_to(announcement_email_address(announcement))
+    |> Pact.get(:mailer).message_send
+  end
 
-  defp email_text(announcement) do
+  defp created_text(announcement) do
     render_template("new.text",
       announcement: announcement,
       interests: interest_names(announcement),
@@ -32,12 +48,29 @@ defmodule Constable.Mailers.Announcement do
     )
   end
 
-  defp email_html(announcement) do
+  defp created_html(announcement) do
     render_template("new.html",
       announcement: announcement,
       interests: interest_names(announcement),
       author: announcement.user,
       author_avatar_url: Exgravatar.generate(announcement.user.email)
+    )
+  end
+
+  defp mentioned_html(announcement) do
+    render_template("mentioned.html",
+      announcement: announcement,
+      interests: interest_names(announcement),
+      author: announcement.user,
+      author_avatar_url: Exgravatar.generate(announcement.user.email)
+    )
+  end
+
+  defp mentioned_text(announcement) do
+    render_template("mentioned.text",
+      announcement: announcement,
+      interests: interest_names(announcement),
+      author: announcement.user,
     )
   end
 

@@ -10,6 +10,11 @@ defmodule Constable.Services.AnnouncementCreatorTest do
       send self, {:announcement, announcement}
       send self, {:users, users}
     end
+
+    def mentioned(announcement, users) do
+      send self, {:mentioned_announcement, announcement}
+      send self, {:mentioned_users, users}
+    end
   end
 
   setup do
@@ -110,6 +115,24 @@ defmodule Constable.Services.AnnouncementCreatorTest do
     announcement = Repo.one(Announcement)
     assert_received {:announcement, ^announcement}
     assert_received {:users, [^subscribed_user]}
+  end
+
+  test "sends announcement email to mentioned users" do
+    interest = create(:interest, name: "foo")
+    author = create(:user) |> with_interest(interest)
+    mentioned = create(:user, username: "joedirt")
+
+    announcement_params = %{
+      title: "Title",
+      body: "Hello @joedirt",
+      user_id: author.id
+    }
+
+    AnnouncementCreator.create(announcement_params, ["foo"])
+
+    announcement = Repo.one(Announcement)
+    assert_received {:mentioned_announcement, ^announcement}
+    assert_received {:mentioned_users, [^mentioned]}
   end
 
   defp announcement_has_interest_named?(announcement, interest_name) do

@@ -4,6 +4,7 @@ defmodule Constable.Services.AnnouncementCreator do
   alias Constable.Subscription
 
   alias Constable.Services.AnnouncementInterestAssociator
+  alias Constable.Services.MentionFinder
 
   def create(params, interest_names) do
     changeset = Announcement.changeset(%Announcement{}, :create, params)
@@ -29,18 +30,33 @@ defmodule Constable.Services.AnnouncementCreator do
   end
 
   defp email_and_subscribe_users(announcement) do
-    interested_users = find_interested_users(announcement)
+    mentioned_users = find_mentioned_users(announcement)
+    interested_users = find_interested_users(announcement) -- mentioned_users
+
     announcement
     |> email_users(interested_users)
+    |> email_mentioned_users(mentioned_users)
     |> subscribe_users(interested_users)
   end
 
   defp email_users(announcement, users) do
-    users = Enum.reject(users, fn(user) ->
-      user.id == announcement.user_id
-    end)
+    users = filter_author(announcement.user_id, users)
+
     Pact.get(:announcement_mailer).created(announcement, users)
     announcement
+  end
+
+  def email_mentioned_users(announcement, users) do
+    users = filter_author(announcement.user_id, users)
+
+    Pact.get(:announcement_mailer).mentioned(announcement, users)
+    announcement
+  end
+
+  defp filter_author(author_id, users)  do
+    Enum.reject(users, fn(user) ->
+      user.id == author_id
+    end)
   end
 
   defp subscribe_users(announcement, interested_users) do
@@ -57,6 +73,10 @@ defmodule Constable.Services.AnnouncementCreator do
     announcement
     |> Repo.preload([:interested_users])
     |> Map.get(:interested_users)
+  end
+
+  def find_mentioned_users(announcement) do
+    MentionFinder.find_users(announcement.body)
   end
 
   defp subscribe_user(announcement, user_id) do
