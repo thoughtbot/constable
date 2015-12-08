@@ -14,7 +14,6 @@ defmodule Constable.ConnCase do
   """
 
   use ExUnit.CaseTemplate
-  alias Constable.Repo
 
   using do
     quote do
