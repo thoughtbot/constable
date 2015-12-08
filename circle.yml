@@ -8,5 +8,4 @@ dependencies:
     - cp .sample.env .env
 test:
   override:
-    - MIX_ENV=prod mix compile --warnings-as-errors
-    - mix test
+    - mix test --warnings-as-errors
