@@ -19,6 +19,10 @@ config :constable, Constable.Endpoint,
 config :constable, Constable.Repo,
   url: System.get_env("DATABASE_URL")
 
+config :constable, Constable.Mailer,
+  adapter: Bamboo.MandrillAdapter,
+  api_key: System.get_env("MANDRILL_KEY")
+
 # Do not pring debug messages in production
 config :logger, level: :info
 
