@@ -1,4 +1,4 @@
-%{"bamboo": {:git, "https://github.com/paulcsmith/bamboo.git", "b0a4b8d031696642595ea224b4bc9ee1f2a2d31e", []},
+%{"bamboo": {:git, "https://github.com/paulcsmith/bamboo.git", "86e0b998267ac24cb1ef4e877268446978640e41", []},
   "certifi": {:hex, :certifi, "0.3.0"},
   "combine": {:hex, :combine, "0.6.0"},
   "cors_plug": {:hex, :cors_plug, "0.1.4"},

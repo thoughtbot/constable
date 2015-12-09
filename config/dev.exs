@@ -13,7 +13,7 @@ config :constable, Constable.Repo,
 
 config :constable, Constable.Mailer,
   adapter: Bamboo.MandrillAdapter,
-  api_key: ""
+  api_key: System.get_env("MANDRILL_KEY")
 
 # Enables code reloading for development
 config :phoenix, :code_reloader, true

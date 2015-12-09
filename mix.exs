@@ -27,7 +27,7 @@ defmodule Constable.Mixfile do
   # Type `mix help deps` for examples and options
   defp deps do
     [
-      {:bamboo, "~> 0.0.1", github: "paulcsmith/bamboo"},
+      {:bamboo, "~> 0.1.0", github: "paulcsmith/bamboo"},
       {:cowboy, "~> 1.0"},
       {:envy, "~> 0.0.1"},
       {:earmark, "~> 0.1.17"},
