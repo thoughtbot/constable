@@ -28,4 +28,23 @@ defmodule Constable.Announcement do
     announcement
     |> cast(params, ~w(title body user_id))
   end
+
+  def search(query \\ __MODULE__, search_term) do
+    search_term = search_term |> prepare_for_tsquery
+
+    from(a in query,
+      where: fragment("to_tsvector('english', ?) || to_tsvector('english', ?) @@ to_tsquery('english', ?)",
+        a.title,
+        a.body,
+        ^search_term
+      )
+    )
+  end
+
+  defp prepare_for_tsquery(search_term) do
+    search_term
+    |> String.split(" ", trim: true)
+    |> Enum.intersperse(" & ")
+    |> Enum.join("")
+  end
 end
