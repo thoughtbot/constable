@@ -58,6 +58,7 @@ defmodule Constable.AuthController do
 
   defp get_userinfo(token) do
     Pact.get("request_with_access_token").get!(token, "/oauth2/v1/userinfo?alt=json")
+    |> Map.get(:body)
   end
 
   defp get_tokeninfo!(id_token) do

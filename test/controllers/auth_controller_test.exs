@@ -16,9 +16,11 @@ defmodule AuthControllerTest do
     @oauth_email_address "fake@thoughtbot.com"
 
     def get!(_token, _path) do
-      %{
-        "email" => @oauth_email_address,
-        "name" => "Gumbo McGee"
+      %OAuth2.Response{
+        body: %{
+          "email" => @oauth_email_address,
+          "name" => "Gumbo McGee"
+        }
       }
     end
   end
@@ -27,9 +29,11 @@ defmodule AuthControllerTest do
     @oauth_email_address "fake@example.com"
 
     def get!(_token, _path) do
-      %{
-        "email" => @oauth_email_address,
-        "name" => "Gumbo McGee"
+      %OAuth2.Response{
+        body: %{
+          "email" => @oauth_email_address,
+          "name" => "Gumbo McGee"
+        }
       }
     end
   end
