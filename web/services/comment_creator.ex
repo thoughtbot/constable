@@ -4,7 +4,6 @@ defmodule Constable.Services.CommentCreator do
   alias Constable.Queries
   alias Constable.Repo
   alias Constable.Services.MentionFinder
-  alias Constable.User
 
   def create(params) do
     changeset = Comment.changeset(:create, params)
