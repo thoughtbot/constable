@@ -7,6 +7,7 @@ defmodule Constable.Mailers.CommentMailerTest do
     author = create(:user)
     user = create(:user)
     announcement = create(:announcement, user: author)
+    subscription = create(:subscription, user: user, announcement: announcement)
     comment = create(:comment, user: author, announcement: announcement)
     users = [author, user]
 
@@ -23,6 +24,18 @@ defmodule Constable.Mailers.CommentMailerTest do
     assert email.subject == subject
     assert email.from == %{name: from_name, address: from_email}
     assert email.headers == headers
+    assert email.private.message_params.merge_language == "handlebars"
+    assert email.private.message_params.merge_vars == [
+      %{
+        rcpt: user.email,
+        vars: [
+          %{
+            name: "subscription_id",
+            content: subscription.token
+          }
+        ]
+      }
+    ]
 
     html_comment_body = Earmark.to_html(comment.body)
     assert email.html_body =~ announcement.title

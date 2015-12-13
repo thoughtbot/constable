@@ -4,6 +4,7 @@ defmodule Constable.Emails do
   import Bamboo.Email
   import Bamboo.MandrillEmail
   alias Constable.Repo
+  alias Constable.Subscription
 
   def new_announcement(announcement, recipients) do
     new_email(to: recipients)
@@ -26,6 +27,7 @@ defmodule Constable.Emails do
     |> from_author(comment.user)
     |> put_reply_headers(announcement)
     |> tag("new-comment")
+    |> add_unsubscribe_vars(comment)
     |> render("new_comment", %{
       announcement: announcement,
       comment: comment,
@@ -70,6 +72,38 @@ defmodule Constable.Emails do
       interests: interests,
       announcements: announcements
     )
+  end
+
+  defp add_unsubscribe_vars(email, comment) do
+    email
+    |> put_message_param(:merge_language, "handlebars")
+    |> put_message_param(:merge_vars, unsubscribe_vars(email.to, comment))
+  end
+
+  defp unsubscribe_vars(recipients, comment) do
+    Enum.map(recipients, fn(recipient) ->
+      subscription = Repo.get_by(Subscription,
+        announcement_id: comment.announcement_id,
+        user_id: recipient.id,
+      )
+
+      case subscription do
+        nil -> nil
+        subscription -> subscription_merge_var(recipient, subscription)
+      end
+    end) |> Enum.reject(&is_nil/1)
+  end
+
+  defp subscription_merge_var(recipient, subscription) do
+    %{
+      rcpt: recipient.email,
+      vars: [
+        %{
+          name: "subscription_id",
+          content: subscription.token
+        }
+      ]
+    }
   end
 
   defp put_reply_headers(email, announcement) do
