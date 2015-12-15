@@ -35,7 +35,7 @@ defmodule Constable.AuthController do
 
   def callback(conn, %{"error" => error_message}) do
     Logger.warn("Auth error: #{error_message}")
-    conn |> redirect external: "/"
+    conn |> redirect(external: "/")
   end
 
   @doc """
@@ -47,7 +47,7 @@ defmodule Constable.AuthController do
     %{"email" => email, "name" => name} = get_tokeninfo!(id_token)
 
     case find_or_insert_user(email, name) do
-      nil -> conn |> put_status(403) |> json %{error: "Non-thoughtbot email"}
+      nil -> conn |> put_status(403) |> json(%{error: "Non-thoughtbot email"})
       user -> conn |> put_status(201) |>  render("show.json", user: user)
     end
   end

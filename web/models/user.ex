@@ -39,12 +39,12 @@ defmodule Constable.User do
 
   defp require_thoughtbot_email(changeset) do
     changeset
-    |> validate_change :email, fn(:email, value) ->
+    |> validate_change(:email, fn(:email, value) ->
       case String.split(value, "@") do
         [_, "thoughtbot.com"] -> []
         _ -> [email: "must be a member of thoughtbot"]
       end
-    end
+    end)
   end
 
   defp generate_token(changeset) do

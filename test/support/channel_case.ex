@@ -28,37 +28,6 @@ defmodule Constable.ChannelCase do
 
       # The default endpoint for testing
       @endpoint Constable.Endpoint
-
-      defmacro join!(topic, payload \\ Macro.escape(%{})) do
-        quote do
-          join!(@channel, unquote(topic), unquote(payload))
-        end
-      end
-      def join!(channel, topic, as: user) do
-        join!(channel, topic, %{"token" => user.token})
-      end
-      def join!(channel, topic, payload) when is_binary(topic) do
-        {:ok, _, socket} = subscribe_and_join(channel, topic, payload)
-        socket
-      end
-
-      def wait_for_reply(ref, status) do
-        assert_reply(ref, ^status)
-      end
-
-      def payload_from_reply(ref, status) do
-        assert_reply ref, status, payload
-        payload
-      end
-
-      defmacro refute_broadcast(event, payload, timeout \\ 100) do
-        quote do
-          refute_receive %Phoenix.Socket.Broadcast{
-            event: unquote(event),
-            payload: unquote(payload)},
-            unquote(timeout)
-        end
-      end
     end
   end
 
