@@ -77,7 +77,7 @@ defmodule AuthControllerTest do
       |> get("/auth/callback", code: "foo")
 
     user_auth_token = Repo.one(User).token
-    assert redirected_to(conn) =~ "foo.com/#{user_auth_token}"
+    assert redirected_to(conn) =~ "foo.com/#{user_auth_token}?new_user=true"
     assert user_has_interest(everyone_interest)
   end
 
@@ -91,7 +91,7 @@ defmodule AuthControllerTest do
       |> get("/auth/callback", code: "foo")
 
     user_auth_token = Repo.one(User).token
-    assert redirected_to(conn) =~ "foo.com/#{user_auth_token}"
+    assert redirected_to(conn) =~ "foo.com/#{user_auth_token}?new_user=false"
   end
 
   test "callback redirects to the root path when there is an error" do
