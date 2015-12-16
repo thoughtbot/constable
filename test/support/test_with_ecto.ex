@@ -3,7 +3,7 @@ defmodule Constable.TestWithEcto do
 
   using do
     quote do
-      import Constable.Factories
+      import Constable.Factory
       alias Constable.Repo
     end
   end

@@ -20,7 +20,7 @@ defmodule Constable.Mixfile do
      applications: app_list]
   end
 
-  defp app_list, do: [:phoenix, :cowboy, :logger, :postgrex, :ecto, :httpoison]
+  defp app_list, do: [:ex_machina, :phoenix, :cowboy, :logger, :postgrex, :ecto, :httpoison]
 
   # Specifies your project dependencies
   #

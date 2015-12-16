@@ -19,6 +19,9 @@ defmodule Constable.Router do
     pipe_through :browser
 
     resources "/unsubscribe", UnsubscribeController, only: [:show]
+    if Mix.env != :production do
+      get "/emails/:email_name", EmailPreviewController, :show
+    end
   end
 
   scope "/", Constable do

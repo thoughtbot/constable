@@ -1,5 +1,5 @@
 defmodule Constable.ConnTestHelper do
-  import Constable.Factories
+  import Constable.Factory
   import Phoenix.ConnTest
   import Plug.Conn
 

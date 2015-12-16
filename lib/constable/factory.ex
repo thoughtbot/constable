@@ -1,4 +1,4 @@
-defmodule Constable.Factories do
+defmodule Constable.Factory do
   use ExMachina.Ecto, repo: Constable.Repo
 
   def factory(:email_reply_message) do

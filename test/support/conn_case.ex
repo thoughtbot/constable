@@ -26,7 +26,7 @@ defmodule Constable.ConnCase do
       alias Constable.Repo
       import Ecto.Model, except: [build: 2]
       import Ecto.Query, only: [from: 2]
-      import Constable.Factories
+      import Constable.Factory
 
       # Import URL helpers from the router
       import Constable.Router.Helpers

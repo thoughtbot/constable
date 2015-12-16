@@ -5,7 +5,7 @@ defmodule Constable.ViewCase do
     quote do
       use Constable.Web, :view
 
-      import Constable.Factories
+      import Constable.Factory
       alias Constable.UserView
       alias Constable.InterestsView
       alias Constable.SubscriptionView
