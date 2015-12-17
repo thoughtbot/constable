@@ -1,0 +1,51 @@
+<style>
+  * {
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5 {
+    margin-bottom: .5em; !important;
+  }
+
+  @media (max-width: 600px) {
+
+    /* Typography */
+
+    table {
+      font-size: 14px !important;
+    }
+
+    h1 {
+      font-size: 20px !important;
+    }
+
+    h2 {
+      font-size: 18px !important;
+    }
+
+    h3 {
+      font-size: 16px !important;
+    }
+
+    h4, h5 {
+      font-size: 15px !important;
+    }
+
+    /* Makes fixed width items flexible */
+
+    .flex-size {
+      width: 100% !important;
+    }
+
+    /* Contains content images */
+
+    .flex-size img {
+      max-width: 100% !important;
+    }
+  }
+</style>

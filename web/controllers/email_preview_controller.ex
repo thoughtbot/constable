@@ -8,6 +8,10 @@ defmodule Constable.EmailPreviewController do
     html(conn, email_body(email_name))
   end
 
+  defp email_body(email_name) do
+    email_for(String.to_atom(email_name)).html_body
+  end
+
   defp email_for(:new_announcement) do
     Emails.new_announcement(announcement, [])
   end
@@ -45,9 +49,5 @@ defmodule Constable.EmailPreviewController do
 
   defp announcement do
     build(:announcement) |> Map.put(:interests, build_pair(:interest))
-  end
-
-  defp email_body(email_name) do
-    email_for(String.to_atom(email_name)).html_body
   end
 end

@@ -14,10 +14,10 @@ start the console in staging or production.
 
 ## Email templates
 
-You can edit the email contents from `web/templates/mailers`. To change the
-styling see the [`constable-email-templates`
-repo](https://github.com/thoughtbot/constable-email-templates). From that repo
-you can change the styling and regenerate the HTML.
+You can edit the email contents from `web/templates/email`.
+
+You can preview templates by going to `localhost:4000/emails/#{template_name}`.
+You can find a list of templates in the `EmailPreviewController`.
 
 ## Testing
 

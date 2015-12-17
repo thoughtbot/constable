@@ -1,0 +1,5 @@
+<tr>
+  <td colspan="2" height="125" align="center">
+    <a href="<%= unsubscribe_link %>" style="font-size: 13px; color: <%= light_gray %>;">Unsubscribe from emails</a>
+  </td>
+</tr>

@@ -12,7 +12,7 @@ defmodule Constable.Services.CommentCreator do
 
     case Repo.insert(changeset) do
       {:ok, comment} ->
-        comment = comment |> Repo.preload([:user, :announcement])
+        comment = comment |> Repo.preload([:user, announcement: :user])
         mentioned_users = email_mentioned_users(comment)
         email_subscribers(comment, mentioned_users)
         broadcast(comment)

@@ -42,7 +42,7 @@ defmodule Constable.Emails do
     |> from_author(comment.user)
     |> put_reply_headers(announcement)
     |> tag("new-comment-mention")
-    |> render("new_comment_mention", %{
+    |> render("new_comment", %{
       announcement: announcement,
       comment: comment,
       author: comment.user
@@ -56,7 +56,7 @@ defmodule Constable.Emails do
     |> tag("new-announcement-mention")
     |> put_header("Reply-To", announcement_email_address(announcement))
     |> put_header("Message-ID", announcement_message_id(announcement))
-    |> render("new_announcement_mention",
+    |> render("new_announcement",
       announcement: announcement,
       interests: interest_names(announcement),
       author: announcement.user
