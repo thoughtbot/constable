@@ -1,8 +1,9 @@
 defmodule Constable.DailyDigest do
+  import Ecto.Query
+  require Logger
   alias Constable.Repo
   alias Constable.Announcement
   alias Constable.Interest
-  import Ecto.Query
   alias Constable.Mailer
   alias Constable.Emails
 
@@ -10,7 +11,10 @@ defmodule Constable.DailyDigest do
 
   def send_email(users, time) do
     if new_items_since?(time) do
-      daily_digest_email(time, users) |> Mailer.deliver_async
+      Logger.info "Sending daily digest"
+      daily_digest_email(time, users) |> Mailer.deliver
+    else
+      Logger.info "No new items since: #{inspect time}"
     end
   end
 

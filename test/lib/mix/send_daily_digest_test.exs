@@ -1,19 +1,21 @@
 defmodule Mix.Tasks.Constable.SendDailyDigestTest do
   use Constable.TestWithEcto, async: false
 
-  defmodule FakeDailyDigest do
-    def send_email(users, _time) do
-      send self, {:users, users}
-    end
+  alias Bamboo.SentEmail
+  alias Bamboo.Formatter
+
+  setup do
+    Bamboo.SentEmail.reset
+    :ok
   end
 
-  test "calls daily digest with users that have daily digest enabled" do
+  test "sends daily digest to users that want a daily digest" do
     daily_digest_user = create(:user, daily_digest: true)
+    create(:announcement, user: daily_digest_user)
     create(:user, daily_digest: false)
-    Pact.override self, :daily_digest, FakeDailyDigest
 
     Mix.Tasks.Constable.SendDailyDigest.run(nil)
 
-    assert_receive {:users, [^daily_digest_user]}
+    assert SentEmail.one.to == [Formatter.format_recipient(daily_digest_user)]
   end
 end
