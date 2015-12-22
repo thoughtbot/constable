@@ -7,6 +7,7 @@ defmodule Constable.Services.AnnouncementCreator do
 
   alias Constable.Services.AnnouncementInterestAssociator
   alias Constable.Services.MentionFinder
+  alias Constable.Services.SlackHook
 
   def create(params, interest_names) do
     changeset = Announcement.changeset(%Announcement{}, :create, params)
@@ -17,6 +18,7 @@ defmodule Constable.Services.AnnouncementCreator do
         |> Repo.preload(:user)
         |> subscribe_author
         |> email_and_subscribe_users
+        |> SlackHook.new_announcement
 
         {:ok, announcement}
       error -> error

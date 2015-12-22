@@ -5,6 +5,7 @@ defmodule Constable.Interest do
 
   schema "interests" do
     field :name
+    field :slack_channel
     timestamps
 
     has_many :announcements_interests, AnnouncementInterest, on_delete: :fetch_and_delete
@@ -20,5 +21,11 @@ defmodule Constable.Interest do
     |> update_change(:name, &String.replace(&1, "#", ""))
     |> update_change(:name, &String.downcase/1)
     |> unique_constraint(:name)
+  end
+
+  def update_channel_changeset(interest, channel_name) do
+    interest
+    |> cast(%{slack_channel: channel_name}, ~w(slack_channel))
+    |> update_change(:slack_channel, &Regex.replace(~r/^#*/, &1, "#"))
   end
 end

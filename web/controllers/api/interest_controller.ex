@@ -2,6 +2,7 @@ defmodule Constable.Api.InterestController do
   use Constable.Web, :controller
 
   alias Constable.Interest
+  alias Constable.Api.InterestView
 
   def index(conn, _params) do
     interests = Repo.all(Interest)
@@ -12,5 +13,22 @@ defmodule Constable.Api.InterestController do
   def show(conn, %{"id" => id}) do
     interest = Repo.get!(Interest, id)
     render conn, "show.json", interest: interest
+  end
+
+  def update(conn, %{"id" => id, "channel" => channel}) do
+    interest = Repo.get!(Interest, id)
+    case Repo.update(Interest.update_channel_changeset(interest, channel)) do
+      {:ok, interest} ->
+        Constable.Endpoint.broadcast!(
+          "update",
+          "interest:update", 
+          InterestView.render("show.json", %{interest: interest})
+        )
+        render(conn, "show.json", interest: interest)
+      {:error, changeset} ->
+        conn
+        |> put_status(:unprocessable_entity)
+        |> render(Constable.ChangesetView, "error.json", changeset: changeset)
+    end
   end
 end

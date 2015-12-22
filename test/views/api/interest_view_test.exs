@@ -11,6 +11,7 @@ defmodule Constable.Api.InterestViewTest do
       interest: %{
         id: interest.id,
         name: interest.name,
+        slack_channel: interest.slack_channel,
       }
     }
   end

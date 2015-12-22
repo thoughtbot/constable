@@ -48,7 +48,7 @@ defmodule Constable.Router do
 
     resources "/announcements", AnnouncementController
     resources "/comments", CommentController, only: [:create]
-    resources "/interests", InterestController, only: [:index, :show]
+    resources "/interests", InterestController, only: [:index, :show, :update]
     resources "/searches", SearchController, only: [:create]
     resources "/subscriptions", SubscriptionController, only: [:index, :create, :delete]
     resources "/user_interests", UserInterestController, only: [:index, :show, :create, :delete]

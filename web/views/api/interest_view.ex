@@ -13,6 +13,7 @@ defmodule Constable.Api.InterestView do
     %{
       id: interest.id,
       name: interest.name,
+      slack_channel: interest.slack_channel,
     }
   end
 end

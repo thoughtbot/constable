@@ -22,4 +22,12 @@ defmodule Constable.Api.InterestControllerTest do
 
     assert json_response(conn, 200)["interest"]["id"] == interest.id
   end
+
+  test "#update changes the slack channel and adds leading #", %{conn: conn} do
+    interest = create(:interest)
+
+    conn = put conn, interest_path(conn, :update, interest.id), channel: "boston"
+
+    assert json_response(conn, 200)["interest"]["slack_channel"] == "#boston"
+  end
 end
