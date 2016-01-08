@@ -26,7 +26,7 @@ defmodule Constable.User do
   end
 
   def changeset(user, params) do
-    user |> cast(params, ~w(), ~w(daily_digest auto_subscribe))
+    user |> cast(params, ~w(), ~w(auto_subscribe daily_digest name))
   end
 
   def create_changeset(user \\ %__MODULE__{}, params) do
