@@ -19,8 +19,8 @@ defmodule Constable.User do
     field :auto_subscribe, :boolean, default: true
     field :daily_digest, :boolean, default: true
 
-    has_many :user_interests, UserInterest, on_delete: :fetch_and_delete
-    has_many :subscriptions, Subscription, on_delete: :fetch_and_delete
+    has_many :user_interests, UserInterest, on_delete: :delete_all
+    has_many :subscriptions, Subscription, on_delete: :delete_all
 
     timestamps
   end
@@ -31,7 +31,7 @@ defmodule Constable.User do
 
   def create_changeset(user \\ %__MODULE__{}, params) do
     user
-    |> cast(params, ~w(email name))
+    |> cast(params, ~w(email name), [])
     |> require_thoughtbot_email
     |> generate_token
     |> generate_username

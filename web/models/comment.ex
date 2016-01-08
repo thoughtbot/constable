@@ -13,6 +13,6 @@ defmodule Constable.Comment do
 
   def changeset(model_or_changeset \\ %__MODULE__{}, :create, params) do
     model_or_changeset
-    |> cast(params, ~w(announcement_id user_id body))
+    |> cast(params, ~w(announcement_id user_id body), [])
   end
 end

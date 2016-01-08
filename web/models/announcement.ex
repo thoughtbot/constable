@@ -11,9 +11,9 @@ defmodule Constable.Announcement do
     timestamps
 
     belongs_to :user, User
-    has_many :comments, Comment, on_delete: :fetch_and_delete
-    has_many :subscriptions, Subscription, on_delete: :fetch_and_delete
-    has_many :announcements_interests, AnnouncementInterest, on_delete: :fetch_and_delete
+    has_many :comments, Comment, on_delete: :delete_all
+    has_many :subscriptions, Subscription, on_delete: :delete_all
+    has_many :announcements_interests, AnnouncementInterest, on_delete: :delete_all
     has_many :interests, through: [:announcements_interests, :interest]
     has_many :interested_users, through: [:interests, :interested_users]
   end
@@ -21,12 +21,12 @@ defmodule Constable.Announcement do
   def changeset(announcement, context, params \\ nil)
   def changeset(announcement, :update, params) do
     announcement
-    |> cast(params, ~w(title body))
+    |> cast(params, ~w(title body), [])
   end
 
   def changeset(announcement, :create, params) do
     announcement
-    |> cast(params, ~w(title body user_id))
+    |> cast(params, ~w(title body user_id), [])
   end
 
   def search(query \\ __MODULE__, search_term) do

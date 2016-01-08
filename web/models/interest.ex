@@ -8,15 +8,15 @@ defmodule Constable.Interest do
     field :slack_channel
     timestamps
 
-    has_many :announcements_interests, AnnouncementInterest, on_delete: :fetch_and_delete
+    has_many :announcements_interests, AnnouncementInterest, on_delete: :delete_all
     has_many :announcements, through: [:announcements_interests, :announcement]
-    has_many :users_interests, UserInterest, on_delete: :fetch_and_delete
+    has_many :users_interests, UserInterest, on_delete: :delete_all
     has_many :interested_users, through: [:users_interests, :user]
   end
 
   def changeset(interest \\ %__MODULE__{}, params) do
     interest
-    |> cast(params, ~w(name))
+    |> cast(params, ~w(name), [])
     |> validate_presence(:name)
     |> update_change(:name, &String.replace(&1, "#", ""))
     |> update_change(:name, &String.downcase/1)
@@ -25,7 +25,7 @@ defmodule Constable.Interest do
 
   def update_channel_changeset(interest, channel_name) do
     interest
-    |> cast(%{slack_channel: channel_name}, ~w(slack_channel))
+    |> cast(%{slack_channel: channel_name}, ~w(slack_channel), [])
     |> update_change(:slack_channel, &Regex.replace(~r/^#*/, &1, "#"))
   end
 end

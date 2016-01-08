@@ -14,7 +14,7 @@ defmodule Constable.PresenceValidatorTest do
   test "is valid when there is at least one letter" do
     params = %{name: "a"}
 
-    changeset = cast(%User{}, params, ~w(name)) |> validate_presence(:name)
+    changeset = cast(%User{}, params, ~w(name), []) |> validate_presence(:name)
 
     assert changeset.errors == []
   end
@@ -22,7 +22,7 @@ defmodule Constable.PresenceValidatorTest do
   test "is invalid when the string only contains spaces" do
     params = %{name: "  "}
 
-    changeset = cast(%User{}, params, ~w(name)) |> validate_presence(:name)
+    changeset = cast(%User{}, params, ~w(name), []) |> validate_presence(:name)
 
     assert {"should not be blank", _} = changeset.errors[:name]
   end

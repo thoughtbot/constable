@@ -14,7 +14,7 @@ defmodule Constable.Subscription do
 
   def changeset(subscription \\ %__MODULE__{}, _, params) do
     subscription
-    |> cast(params, ~w(user_id announcement_id))
+    |> cast(params, ~w(user_id announcement_id), [])
   end
 
   defp generate_token(changeset) do
