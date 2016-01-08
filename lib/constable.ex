@@ -29,9 +29,6 @@ defmodule Constable do
 
   defp setup_dependencies do
     Pact.start
-    Pact.put(:announcement_mailer, Constable.Mailers.Announcement)
-    Pact.put(:comment_mailer, Constable.Mailers.Comment)
-    Pact.put(:mailer, Constable.Mandrill)
     Pact.put(:request_with_access_token, OAuth2.AccessToken)
     Pact.put(:token_retriever, OAuth2.Strategy.AuthCode)
     Pact.put(:daily_digest, Constable.DailyDigest)

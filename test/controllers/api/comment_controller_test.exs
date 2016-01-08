@@ -12,8 +12,6 @@ defmodule Constable.Api.CommentControllerTest do
   end
 
   test "#create creates a comment for user and announcement", %{conn: conn, user: user} do
-    Pact.override self, :comment_mailer, FakeCommentMailer
-
     announcement = create(:announcement)
     subscribed_user = create(:user) |> with_subscription(announcement)
 
