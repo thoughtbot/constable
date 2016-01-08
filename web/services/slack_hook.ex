@@ -7,7 +7,7 @@ defmodule Constable.Services.SlackHook do
     Enum.each(announcement.interests, fn(interest) ->
       if interest.slack_channel do
         payload = %{
-          text: "#{announcement.user.name} posted <#{front_end_uri}/announcements/#{announcement.id}|#{announcement.title}> on Constable",
+          text: "#{announcement.user.name} posted <#{front_end_uri}/announcements/#{announcement.id}|#{announcement.title}>",
           channel: interest.slack_channel,
         }
 
