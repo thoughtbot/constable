@@ -31,10 +31,11 @@ defmodule Constable.User do
 
   def create_changeset(user \\ %__MODULE__{}, params) do
     user
-    |> cast(params, ~w(email name), [])
+    |> cast(params, ~w(email), ~w(name))
     |> require_thoughtbot_email
     |> generate_token
     |> generate_username
+    |> ensure_name_is_set
   end
 
   defp require_thoughtbot_email(changeset) do
@@ -59,6 +60,23 @@ defmodule Constable.User do
       put_change changeset, :username, username
     else
       changeset
+    end
+  end
+
+  defp ensure_name_is_set(changeset) do
+    username = changeset |> get_change(:username)
+    if get_change(changeset, :name) |> is_blank? do
+      changeset |> put_change(:name, username)
+    else
+      changeset
+    end
+  end
+
+  defp is_blank?(nil), do: true
+  defp is_blank?(string) when is_binary(string) do
+    case String.strip(string) do
+      "" -> true
+      _ -> false
     end
   end
 end
