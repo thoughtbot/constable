@@ -28,7 +28,7 @@ defmodule Constable do
   end
 
   defp setup_dependencies do
-    Pact.start
+    {:ok, _} = Pact.start
     Pact.put(:request_with_access_token, OAuth2.AccessToken)
     Pact.put(:token_retriever, OAuth2.Strategy.AuthCode)
     Pact.put(:daily_digest, Constable.DailyDigest)
