@@ -9,7 +9,16 @@ defmodule Constable.Mixfile do
      compilers: [:phoenix] ++ Mix.compilers,
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
+     dialyzer: dialyzer_settings,
      deps: deps]
+  end
+
+  defp dialyzer_settings do
+    [
+      plt_add_deps: true,
+      plt_file: ".dialyzer.plt",
+      flags: ["-Wunderspecs", "-Wno_undefined_callbacks"]
+    ]
   end
 
   # Configuration for the OTP application
@@ -29,6 +38,7 @@ defmodule Constable.Mixfile do
     [
       {:bamboo, "~> 0.1.0", github: "paulcsmith/bamboo"},
       {:cowboy, "~> 1.0"},
+      {:dialyxir, "~> 0.3", only: [:dev]},
       {:envy, "~> 0.0.1"},
       {:earmark, "~> 0.1.17"},
       {:ecto, "~> 1.1"},

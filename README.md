@@ -23,6 +23,15 @@ you can change the styling and regenerate the HTML.
 
 1. Run `mix test`
 
+## Static Analysis
+
+Run `mix dialyzer.plt` to build the lookup table for static analysis. Then run
+`mix dialyzer` to run analysis. If your dependencies or your elixir version
+change, delete `.dialyzer.plt` and run `mix dialyzer.plt` to rebuild it.
+
+There are still a lot of warnings that are not fixable, but occasionally some
+real errors are found by dialyzer
+
 ## Using the Constable API
 
 Visit the [thoughtbot/constable repo](http://github.com/thoughtbot/constable) to

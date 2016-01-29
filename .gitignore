@@ -9,3 +9,4 @@ erl_crash.dump
 *.stTheme.cache
 *.sublime-workspace
 *.sublime-project
+.dialyzer.plt
