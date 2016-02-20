@@ -4,7 +4,7 @@ defmodule Constable.Mixfile do
   def project do
     [app: :constable,
      version: "0.0.1",
-     elixir: "~> 1.0",
+     elixir: "~> 1.2",
      elixirc_paths: elixirc_paths(Mix.env),
      compilers: [:phoenix] ++ Mix.compilers,
      build_embedded: Mix.env == :prod,
@@ -36,7 +36,7 @@ defmodule Constable.Mixfile do
   # Type `mix help deps` for examples and options
   defp deps do
     [
-      {:bamboo, "~> 0.1.0", github: "paulcsmith/bamboo"},
+      {:bamboo, "~> 0.3.0", github: "paulcsmith/bamboo"},
       {:cowboy, "~> 1.0"},
       {:dialyxir, "~> 0.3", only: [:dev]},
       {:envy, "~> 0.0.1"},

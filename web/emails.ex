@@ -1,5 +1,5 @@
 defmodule Constable.Emails do
-  use Bamboo.Phoenix
+  use Bamboo.Phoenix, view: Constable.EmailView
 
   import Bamboo.Email
   import Bamboo.MandrillEmail
@@ -13,7 +13,7 @@ defmodule Constable.Emails do
     |> put_header("Reply-To", announcement_email_address(announcement))
     |> put_header("Message-ID", announcement_message_id(announcement))
     |> tag("new-announcement")
-    |> render("new_announcement", %{
+    |> render(:new_announcement, %{
       announcement: announcement,
       interests: interest_names(announcement),
       author: announcement.user
@@ -28,7 +28,7 @@ defmodule Constable.Emails do
     |> put_reply_headers(announcement)
     |> tag("new-comment")
     |> add_unsubscribe_vars(comment)
-    |> render("new_comment", %{
+    |> render(:new_comment, %{
       announcement: announcement,
       comment: comment,
       author: comment.user
@@ -42,7 +42,7 @@ defmodule Constable.Emails do
     |> from_author(comment.user)
     |> put_reply_headers(announcement)
     |> tag("new-comment-mention")
-    |> render("new_comment", %{
+    |> render(:new_comment, %{
       announcement: announcement,
       comment: comment,
       author: comment.user
@@ -53,10 +53,11 @@ defmodule Constable.Emails do
     announcement = announcement |> Repo.preload([:user, :interests])
     new_email(to: recipients)
     |> subject("You were mentioned in: #{announcement.title}")
+    |> from_author(announcement.user)
     |> tag("new-announcement-mention")
     |> put_header("Reply-To", announcement_email_address(announcement))
     |> put_header("Message-ID", announcement_message_id(announcement))
-    |> render("new_announcement",
+    |> render(:new_announcement,
       announcement: announcement,
       interests: interest_names(announcement),
       author: announcement.user
@@ -66,9 +67,9 @@ defmodule Constable.Emails do
   def daily_digest(interests, announcements, recipients) do
     new_email(to: recipients)
     |> subject("Daily Digest")
-    |> from(%{name: "Constable (thoughtbot)", address: "constable@#{outbound_domain}"})
+    |> from({"Constable (thoughtbot)", "constable@#{outbound_domain}"})
     |> tag("daily-digest")
-    |> render("daily_digest",
+    |> render(:daily_digest,
       interests: interests,
       announcements: announcements
     )
@@ -76,8 +77,8 @@ defmodule Constable.Emails do
 
   defp add_unsubscribe_vars(email, comment) do
     email
-    |> put_message_param(:merge_language, "handlebars")
-    |> put_message_param(:merge_vars, unsubscribe_vars(email.to, comment))
+    |> put_param(:merge_language, "handlebars")
+    |> put_param(:merge_vars, unsubscribe_vars(email.to, comment))
   end
 
   defp unsubscribe_vars(recipients, comment) do
@@ -113,7 +114,7 @@ defmodule Constable.Emails do
   end
 
   defp from_author(email, user) do
-    from(email, %{name: "#{user.name} (Constable)", address: from_email_address})
+    from(email, {"#{user.name} (Constable)", from_email_address})
   end
 
   defp interest_names(announcement) do

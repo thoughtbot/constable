@@ -1,17 +1,11 @@
 defmodule Constable.Services.CommentCreatorTest do
   use Constable.ChannelCase
   use Phoenix.ChannelTest
-
+  use Bamboo.Test
+  alias Constable.Emails
   alias Constable.Api.CommentView
   alias Constable.Comment
   alias Constable.Services.CommentCreator
-  alias Bamboo.SentEmail
-  alias Bamboo.Formatter
-
-  setup do
-    SentEmail.reset
-    {:ok, %{}}
-  end
 
   test "creates a comment" do
     announcement = create(:announcement)
@@ -55,9 +49,7 @@ defmodule Constable.Services.CommentCreatorTest do
       announcement_id: announcement.id
     })
 
-    email = SentEmail.one
-    assert email.to == Formatter.format_recipient([user])
-    assert email.html_body =~ comment.body
+    assert_delivered_email Emails.new_comment(comment, [user])
   end
 
   test "create emails mentioned users" do
@@ -71,10 +63,7 @@ defmodule Constable.Services.CommentCreatorTest do
       announcement_id: announcement.id
     })
 
-    email = SentEmail.one
-    assert email.to == Formatter.format_recipient([user])
-    assert email.html_body =~ comment.body
-    assert email.subject =~ "mentioned"
+    assert_delivered_email Emails.new_comment_mention(comment, [user])
   end
 
   test "create only sends mention email if subscribed and mentioned" do
@@ -82,15 +71,13 @@ defmodule Constable.Services.CommentCreatorTest do
     user = create(:user, username: mentioned_username)
     announcement = create(:announcement) |> with_subscriber(user)
 
-    {:ok, _comment} = CommentCreator.create(%{
+    {:ok, comment} = CommentCreator.create(%{
       user_id: user.id,
       body: "Hey @#{mentioned_username}",
       announcement_id: announcement.id
     })
 
-    email = SentEmail.one
-    assert email.to == Formatter.format_recipient([user])
-    assert email.subject =~ "mentioned"
+    assert_delivered_email Emails.new_comment_mention(comment, [user])
   end
 
   test "create does not email author of comment" do
@@ -103,6 +90,6 @@ defmodule Constable.Services.CommentCreatorTest do
       announcement_id: announcement.id
     })
 
-    assert SentEmail.all == []
+    assert_no_emails_sent
   end
 end

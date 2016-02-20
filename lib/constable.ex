@@ -15,7 +15,8 @@ defmodule Constable do
     children = [
       # Start the endpoint when the application starts
       worker(Constable.Endpoint, []),
-      worker(Constable.Repo, [])
+      worker(Constable.Repo, []),
+      Bamboo.TaskSupervisorStrategy.child_spec
 
       # Here you could define other workers and supervisors as children
       # worker(Constable.Worker, [arg1, arg2, arg3]),

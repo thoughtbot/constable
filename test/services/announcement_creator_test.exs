@@ -1,16 +1,11 @@
 defmodule Constable.Services.AnnouncementCreatorTest do
   use Constable.TestWithEcto, async: false
+  use Bamboo.Test
+  alias Constable.Emails
 
   alias Constable.Announcement
   alias Constable.Subscription
   alias Constable.Services.AnnouncementCreator
-  alias Bamboo.SentEmail
-  alias Bamboo.Formatter
-
-  setup do
-    SentEmail.reset
-    {:ok, %{}}
-  end
 
   test "doesn't subscribe creator twice when interested in announcement and autosubscribe is set" do
     interest = create(:interest)
@@ -102,9 +97,8 @@ defmodule Constable.Services.AnnouncementCreatorTest do
 
     AnnouncementCreator.create(announcement_params, ["foo"])
 
-    email = SentEmail.one
-    assert email.to == Formatter.format_recipient([subscribed_user])
-    assert email.subject =~ announcement_params.title
+    announcement = Repo.one(Announcement) |> Repo.preload(:user)
+    assert_delivered_email Emails.new_announcement(announcement, [subscribed_user])
   end
 
   test "sends announcement email to mentioned users" do
@@ -120,9 +114,8 @@ defmodule Constable.Services.AnnouncementCreatorTest do
 
     AnnouncementCreator.create(announcement_params, ["foo"])
 
-    email = SentEmail.one
-    assert email.to == Formatter.format_recipient([mentioned_user])
-    assert email.subject =~ "mentioned"
+    announcement = Repo.one(Announcement) |> Repo.preload(:user)
+    assert_delivered_email Emails.new_announcement_mention(announcement, [mentioned_user])
   end
 
   defp announcement_has_interest_named?(announcement, interest_name) do

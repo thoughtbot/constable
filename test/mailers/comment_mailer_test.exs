@@ -1,6 +1,5 @@
 defmodule Constable.Mailers.CommentMailerTest do
   use Constable.TestWithEcto, async: false
-
   alias Constable.Emails
 
   test "new comment email" do
@@ -22,7 +21,7 @@ defmodule Constable.Mailers.CommentMailerTest do
     }
     assert email.to == users
     assert email.subject == subject
-    assert email.from == %{name: from_name, address: from_email}
+    assert email.from == {from_name, from_email}
     assert email.headers == headers
     assert email.private.message_params.merge_language == "handlebars"
     assert email.private.message_params.merge_vars == [
@@ -62,7 +61,7 @@ defmodule Constable.Mailers.CommentMailerTest do
     }
     assert email.to == users
     assert email.subject =~ announcement.title
-    assert email.from == %{name: from_name, address: from_email}
+    assert email.from == {from_name, from_email}
     assert email.headers == headers
 
     html_comment_body = Earmark.to_html(comment.body)

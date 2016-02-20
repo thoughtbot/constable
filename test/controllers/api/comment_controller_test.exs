@@ -1,13 +1,11 @@
 defmodule Constable.Api.CommentControllerTest do
   import Ecto.Query
   use Constable.ConnCase
-
+  use Bamboo.Test
+  alias Constable.Emails
   alias Constable.Comment
-  alias Bamboo.SentEmail
-  alias Bamboo.Formatter
 
   setup do
-    SentEmail.reset
     {:ok, authenticate}
   end
 
@@ -21,13 +19,11 @@ defmodule Constable.Api.CommentControllerTest do
     }
 
     assert json_response(conn, 201)
-    comment = Repo.one(Comment)
+    comment = Repo.one(Comment) |> Repo.preload([:user, announcement: :user])
     assert comment.body == "Foo"
     assert comment.user_id == user.id
     assert comment.announcement_id == announcement.id
 
-    email = SentEmail.one
-    assert email.to == Formatter.format_recipient([subscribed_user])
-    assert email.subject =~ announcement.title
+    assert_delivered_email Emails.new_comment(comment, [subscribed_user])
   end
 end

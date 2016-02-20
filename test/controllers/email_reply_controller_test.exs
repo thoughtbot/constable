@@ -1,13 +1,8 @@
 defmodule Constable.EmailReplyTest do
   use Constable.ConnCase
-
+  use Bamboo.Test
+  alias Constable.Emails
   alias Constable.Comment
-  alias Bamboo.SentEmail
-
-  setup do
-    SentEmail.reset
-    :ok
-  end
 
   test "adds a comment to announcement and sends an email" do
     subscriber = create(:user)
@@ -22,14 +17,13 @@ defmodule Constable.EmailReplyTest do
 
     conn = post(conn, "/email_replies", email_reply_webhook)
 
-    comment = Repo.one(Comment, preload: [:user, :announcement])
+    comment = Repo.one(Comment) |> Repo.preload([:user, announcement: :user])
     assert conn.status == 200
     assert comment.announcement_id == announcement.id
     assert comment.user_id == comment_author.id
     assert comment.body == "YO DAWG"
 
-    email = SentEmail.one
-    assert email.text_body =~ comment.body
+    assert_delivered_email Emails.new_comment(comment, [subscriber])
   end
 
   test "removes the last quoted section from the email reply" do

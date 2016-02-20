@@ -1,6 +1,5 @@
 defmodule Constable.Mailers.AnnouncementTest do
   use Constable.TestWithEcto, async: false
-
   alias Constable.Emails
 
   test "sends markdown formatted email to people subscribed to the interest" do
@@ -21,7 +20,7 @@ defmodule Constable.Mailers.AnnouncementTest do
     html_announcement_body = Earmark.to_html(announcement.body)
     assert email.to == interested_users
     assert email.subject == announcement.title
-    assert email.from == %{name: from_name, address: from_email}
+    assert email.from == {from_name, from_email}
     assert email.headers == headers
     assert email.html_body =~ html_announcement_body
     assert email.html_body =~ author.name

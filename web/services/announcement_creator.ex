@@ -47,18 +47,14 @@ defmodule Constable.Services.AnnouncementCreator do
   defp email_users(announcement, users) do
     users = filter_author(announcement.user_id, users)
 
-    if length(users) > 0 do
-      Emails.new_announcement(announcement, users) |> Mailer.deliver_async
-    end
+    Emails.new_announcement(announcement, users) |> Mailer.deliver_later
     announcement
   end
 
   def email_mentioned_users(announcement, users) do
     users = filter_author(announcement.user_id, users)
 
-    if length(users) > 0 do
-      Emails.new_announcement_mention(announcement, users) |> Mailer.deliver_async
-    end
+    Emails.new_announcement_mention(announcement, users) |> Mailer.deliver_later
     announcement
   end
 
