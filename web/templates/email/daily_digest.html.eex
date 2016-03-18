@@ -116,7 +116,11 @@
 
                 <ul>
                   <%= for interest <- @interests do %>
-                    <li>#<%= interest.name %></li>
+                    <li>
+                      <a href="<%= front_end_uri %>/interests/<%= interest.id %>" style="color: #c32f34;">
+                        #<%= interest.name %>
+                      </a>
+                    </li>
                   <% end %>
                 </ul>
 

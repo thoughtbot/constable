@@ -4,9 +4,8 @@ New Interests
 -------------
 
 <%= for interest <- @interests do %>
-#<%= interest.name %>
+  #<%= interest.name %> - <%= front_end_uri %>/interests/<%= interest.id %>
 <% end %>
-
 
 New Announcements
 -----------------
@@ -16,7 +15,6 @@ New Announcements
   posted by <%= announcement.user.name %>
 
 <% end %>
-
 
 View Interests and Announcements on Constable
 <%= front_end_uri %>/announcements
