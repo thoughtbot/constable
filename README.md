@@ -12,12 +12,16 @@ start the console in staging or production.
 2. Run `bin/setup` to install dependencies and setup the database.
 3. Start Phoenix endpoint with `mix phoenix.server`
 
-## Email templates
+## Email Templates
 
 You can edit the email contents from `web/templates/email`.
 
 You can preview templates by going to `localhost:4000/emails/#{template_name}`.
 You can find a list of templates in the `EmailPreviewController`.
+
+## Viewing Sent Emails
+
+You can view sent emails in develpoment by going to `localhost:4000/sent_emails`
 
 ## Testing
 

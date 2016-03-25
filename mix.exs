@@ -29,14 +29,14 @@ defmodule Constable.Mixfile do
      applications: app_list]
   end
 
-  defp app_list, do: [:ex_machina, :phoenix, :cowboy, :logger, :postgrex, :ecto, :httpoison]
+  defp app_list, do: [:ex_machina, :phoenix, :cowboy, :logger, :postgrex, :ecto, :httpoison, :bamboo]
 
   # Specifies your project dependencies
   #
   # Type `mix help deps` for examples and options
   defp deps do
     [
-      {:bamboo, "~> 0.3.0", github: "paulcsmith/bamboo"},
+      {:bamboo, "~> 0.4.0"},
       {:cowboy, "~> 1.0"},
       {:dialyxir, "~> 0.3", only: [:dev]},
       {:envy, "~> 0.0.1"},

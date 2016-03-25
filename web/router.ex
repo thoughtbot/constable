@@ -19,9 +19,14 @@ defmodule Constable.Router do
     pipe_through :browser
 
     resources "/unsubscribe", UnsubscribeController, only: [:show]
-    if Mix.env != :production do
+
+    if Mix.env == :dev do
       get "/emails/:email_name", EmailPreviewController, :show
     end
+  end
+
+  if Mix.env == :dev do
+    forward "/sent_emails", Bamboo.EmailPreviewPlug
   end
 
   scope "/", Constable do
