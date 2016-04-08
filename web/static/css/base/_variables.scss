@@ -1,0 +1,69 @@
+// Typography
+$base-font-family: "Calibre", "Helvetica";
+$heading-font-family: $base-font-family;
+
+// Font Sizes
+$large-font-size: 28px;
+$base-font-size: 18px;
+$small-font-size: 15px;
+
+// Font Weight
+
+$bold-weight: 500;
+
+// Line height
+$base-line-height: 1.6;
+$heading-line-height: 1.2;
+
+// Other Sizes
+$base-border-radius: 4px;
+$base-spacing: 30px;
+$large-spacing: $base-spacing * 2;
+$small-spacing: $base-spacing / 2;
+$tiny-spacing: $small-spacing / 2;
+$base-z-index: 0;
+
+// Colors
+$red: #ed3e44;
+$dark-blue: #2e303a;
+$light-gray: #eaeaeb;
+$dark-gray: #454f52;
+$medium-gray: #999;
+
+$light-gray-shade: shade($light-gray, 20%);
+$lightest-gray: lighten($light-gray, 7%);
+$subdued-subhead-color: darken($light-gray, 40%);
+$autocomplete-hover-color: darken($light-gray, 5%);
+
+// Font Colors
+$base-font-color: $dark-gray;
+$action-color: $red;
+
+// Border
+$base-border-color: $light-gray;
+$base-border: 1px solid $base-border-color;
+
+// Background Colors
+$base-background-color: #fff;
+$secondary-background-color: tint($base-border-color, 75%);
+
+// Forms
+$form-box-shadow: inset 0 1px 3px rgba(#000, 0.06);
+$form-box-shadow-focus: $form-box-shadow, 0 0 5px adjust-color($action-color, $lightness: -5%, $alpha: -0.3);
+
+// Animations
+$base-duration: 150ms;
+$base-timing: ease;
+
+// Z-indeces
+$base-z-index: 0;
+$z-index-interests-overlay: 1;
+$z-index-interests-select: 2;
+
+// Transitions
+$base-transition-time: 0.3s;
+$fast-transtion-time: $base-transition-time / 2;
+
+// Box shadow
+$base-box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.25);
+$tight-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.75);

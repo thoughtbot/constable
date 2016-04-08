@@ -5,7 +5,7 @@ defmodule Constable.Api.SubscriptionControllerTest do
   alias Constable.Subscription
 
   setup do
-    {:ok, authenticate}
+    {:ok, api_authenticate}
   end
 
   test "#index shows all current users subscriptions", %{conn: conn, user: user} do
@@ -14,7 +14,7 @@ defmodule Constable.Api.SubscriptionControllerTest do
     subscription_2 = create(:subscription, user: user)
     create(:subscription, user: other_user)
 
-    conn = get conn, subscription_path(conn, :index)
+    conn = get conn, api_subscription_path(conn, :index)
 
     ids = fetch_json_ids("subscriptions", conn)
     assert ids == [subscription_1.id, subscription_2.id]
@@ -22,7 +22,7 @@ defmodule Constable.Api.SubscriptionControllerTest do
 
   test "#create subscribes the current user to an announcement", %{conn: conn, user: user} do
     announcement = create(:announcement)
-    post conn, subscription_path(conn, :create), subscription: %{
+    post conn, api_subscription_path(conn, :create), subscription: %{
       announcement_id: announcement.id
     }
 
@@ -34,7 +34,7 @@ defmodule Constable.Api.SubscriptionControllerTest do
   test "#delete destroys subscription", %{conn: conn, user: user} do
     subscription = create(:subscription, user: user)
 
-    conn = delete conn, subscription_path(conn, :delete, subscription.id)
+    conn = delete conn, api_subscription_path(conn, :delete, subscription.id)
 
     assert response(conn, 204)
   end
@@ -43,7 +43,7 @@ defmodule Constable.Api.SubscriptionControllerTest do
     other_user = create(:user)
     subscription = create(:subscription, user: other_user)
 
-    conn = delete conn, subscription_path(conn, :delete, subscription.id)
+    conn = delete conn, api_subscription_path(conn, :delete, subscription.id)
 
     assert response(conn, 401)
   end

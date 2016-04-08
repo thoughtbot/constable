@@ -4,7 +4,7 @@ defmodule Constable.Api.SearchesControllerTest do
   @view Constable.Api.AnnouncementView
 
   setup do
-    {:ok, authenticate}
+    {:ok, api_authenticate}
   end
 
   test "returns matching announcements", %{conn: conn} do
@@ -21,7 +21,7 @@ defmodule Constable.Api.SearchesControllerTest do
   end
 
   defp results_for(conn, query: search_term) do
-    response = post conn, search_path(conn, :create), query: search_term
+    response = post conn, api_search_path(conn, :create), query: search_term
     json_response(response, 200)
   end
 

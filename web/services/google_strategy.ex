@@ -2,25 +2,25 @@ defmodule GoogleStrategy do
   use OAuth2.Strategy
   alias OAuth2.Request
 
-  def new do
+  def client(redirect_uri) do
     OAuth2.Client.new([
       client_id: System.get_env("CLIENT_ID"),
       client_secret: System.get_env("CLIENT_SECRET"),
       authorize_url: "https://accounts.google.com/o/oauth2/auth",
       token_url: "https://www.googleapis.com/oauth2/v3/token",
       site: "https://www.googleapis.com",
-      redirect_uri: System.get_env("REDIRECT_URI"),
+      redirect_uri: redirect_uri,
     ])
   end
 
-  def authorize_url!(params \\ []) do
-    new()
+  def authorize_url!(redirect_uri) do
+    client(redirect_uri)
     |> put_param(:scope, "email")
-    |> OAuth2.Client.authorize_url!(params)
+    |> OAuth2.Client.authorize_url!([])
   end
 
-  def get_token!(params \\ [], headers \\ [], options \\ []) do
-    OAuth2.Client.get_token!(new(), params, headers, options)
+  def get_token!(redirect_uri, params \\ [], headers \\ [], options \\ []) do
+    OAuth2.Client.get_token!(client(redirect_uri), params, headers, options)
   end
 
   @doc """
@@ -40,8 +40,8 @@ defmodule GoogleStrategy do
 
   * `id_token` - id_token received from Google
   """
-  def get_tokeninfo!(id_token) do
-    {client, url} = tokeninfo_url(new(), id_token)
+  def get_tokeninfo!(redirect_uri, id_token) do
+    {client, url} = tokeninfo_url(client(redirect_uri), id_token)
     case Request.post(url, client.params, client.headers) do
       {:ok, response} -> response.body
       {:error, error} -> raise error

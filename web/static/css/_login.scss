@@ -1,0 +1,12 @@
+.login-page {
+  @include align-items(center);
+  @include display(flex);
+  @include justify-content(center);
+  min-height: 100vh;
+}
+
+.sign-in-link {
+  border: 1px solid $red;
+  border-radius: $base-border-radius;
+  padding: 30px 70px;
+}

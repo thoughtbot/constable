@@ -3,8 +3,6 @@ defmodule Constable.Subscription do
   alias Constable.Announcement
   alias Constable.User
 
-  before_insert :generate_token
-
   schema "subscriptions" do
     field :token
     belongs_to :user, User
@@ -12,9 +10,10 @@ defmodule Constable.Subscription do
     timestamps
   end
 
-  def changeset(subscription \\ %__MODULE__{}, _, params) do
+  def changeset(subscription \\ %__MODULE__{}, params) do
     subscription
     |> cast(params, ~w(user_id announcement_id), [])
+    |> generate_token
   end
 
   defp generate_token(changeset) do

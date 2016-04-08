@@ -3,7 +3,13 @@ defmodule Constable.ConnTestHelper do
   import Phoenix.ConnTest
   import Plug.Conn
 
-  def authenticate(user \\ create(:user)) do
+  def browser_authenticate(user \\ create(:user)) do
+    conn = conn()
+    |> assign(:current_user, user)
+    %{conn: conn, user: user}
+  end
+
+  def api_authenticate(user \\ create(:user)) do
     conn = conn()
     |> put_req_header("accept", "application/json")
     |> put_req_header("authorization", user.token)

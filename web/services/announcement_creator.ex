@@ -85,10 +85,15 @@ defmodule Constable.Services.AnnouncementCreator do
   end
 
   defp subscribe_user(announcement, user_id) do
-    Subscription.changeset(:create, %{
+    params = %{
       user_id: user_id,
       announcement_id: announcement.id
-    })
-    |> Repo.get_or_insert
+    }
+
+    Repo.get_by(Subscription, params) || insert_subscription(params)
+  end
+
+  defp insert_subscription(params) do
+    Subscription.changeset(params) |> Repo.insert!
   end
 end

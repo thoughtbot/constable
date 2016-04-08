@@ -4,13 +4,13 @@ defmodule Constable.Api.InterestControllerTest do
   @view Constable.Api.InterestView
 
   setup do
-    {:ok, authenticate}
+    {:ok, api_authenticate}
   end
 
   test "#index displays all interests", %{conn: conn} do
     interests = create_pair(:interest)
 
-    conn = get conn, interest_path(conn, :index)
+    conn = get conn, api_interest_path(conn, :index)
 
     assert json_response(conn, 200) == render_json("index.json", interests: interests)
   end
@@ -18,7 +18,7 @@ defmodule Constable.Api.InterestControllerTest do
   test "#show displays a single interest", %{conn: conn} do
     interest = create(:interest)
 
-    conn = get conn, interest_path(conn, :show, interest.id)
+    conn = get conn, api_interest_path(conn, :show, interest.id)
 
     assert json_response(conn, 200)["interest"]["id"] == interest.id
   end
@@ -26,7 +26,7 @@ defmodule Constable.Api.InterestControllerTest do
   test "#update changes the slack channel and adds leading #", %{conn: conn} do
     interest = create(:interest)
 
-    conn = put conn, interest_path(conn, :update, interest.id), channel: "boston"
+    conn = put conn, api_interest_path(conn, :update, interest.id), channel: "boston"
 
     assert json_response(conn, 200)["interest"]["slack_channel"] == "#boston"
   end

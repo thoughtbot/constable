@@ -34,7 +34,8 @@ defmodule Constable.Factory do
       name: "Gumbo",
       email: sequence(:email, &"test#{&1}@thoughtbot.com"),
       daily_digest: true,
-      auto_subscribe: false
+      auto_subscribe: false,
+      token: sequence(:token, &"omgtokens#{&1}")
     }
   end
 
@@ -72,7 +73,8 @@ defmodule Constable.Factory do
   def factory(:subscription) do
     %Constable.Subscription{
       user: build(:user),
-      announcement: build(:announcement)
+      announcement: build(:announcement),
+      token: sequence(:token, &"omgtokens#{&1}")
     }
   end
 

@@ -1,0 +1,6 @@
+$small-screen: new-breakpoint(max-width em(520));
+$medium-screen: new-breakpoint(max-width em(720));
+$large-screen: new-breakpoint(max-width em(860));
+
+$small-screen-up: new-breakpoint(min-width em(520));
+$medium-screen-up: new-breakpoint(min-width em(720));

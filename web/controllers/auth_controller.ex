@@ -8,13 +8,40 @@ defmodule Constable.AuthController do
   alias Constable.Repo
   alias Constable.Queries
 
+  def index(conn, %{"browser" => "true"}) do
+    conn
+    |> redirect(external: GoogleStrategy.authorize_url!(auth_url(conn, :browser_callback)))
+  end
+
   @doc """
   This action is reached via `/auth` and redirects to the Google Auth API.
   """
   def index(conn, %{"redirect_uri" => redirect_uri}) do
     conn
     |> put_session(:redirect_after_success_uri, redirect_uri)
-    |> redirect(external: GoogleStrategy.authorize_url!([]))
+    |> redirect(external: GoogleStrategy.authorize_url!(auth_url(conn, :javascript_callback)))
+  end
+
+  def browser_callback(conn, %{"code" => code}) do
+    token = google_strategy.get_token!(auth_url(conn, :browser_callback), code: code)
+    %{"email" => email, "name" => name} = get_userinfo(token)
+
+    case find_or_insert_user(email, name) do
+      nil -> 
+        conn
+        |> put_flash(:error, gettext("You must sign up with a thoughtbot email address"))
+        |> redirect(external: "/")
+      user ->
+        conn
+        |> put_session(:user_id, user.id)
+        |> redirect(external: session_path(conn, :new))
+    end
+  end
+  def browser_callback(conn, %{"error" => error_message}) do
+    Logger.warn("Auth error: #{error_message}")
+    conn
+    |> put_flash(:error, error_message)
+    |> redirect(external: "/")
   end
 
   @doc """
@@ -23,8 +50,8 @@ defmodule Constable.AuthController do
   be used to request an access token. The access token will then be used to
   access the email address on behalf of the user.
   """
-  def callback(conn, %{"code" => code}) do
-    token = google_strategy.get_token!(code: code)
+  def javascript_callback(conn, %{"code" => code}) do
+    token = google_strategy.get_token!(auth_url(conn, :javascript_callback), code: code)
     %{"email" => email, "name" => name} = get_userinfo(token)
 
     case find_or_insert_user(email, name) do
@@ -32,8 +59,7 @@ defmodule Constable.AuthController do
       user -> redirect(conn, external: redirect_after_success_uri(conn, user.token))
     end
   end
-
-  def callback(conn, %{"error" => error_message}) do
+  def javascript_callback(conn, %{"error" => error_message}) do
     Logger.warn("Auth error: #{error_message}")
     conn |> redirect(external: "/")
   end

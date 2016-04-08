@@ -14,7 +14,7 @@ defmodule Constable.Api.SubscriptionController do
     current_user = current_user(conn)
     params = params |> Map.put("user_id", current_user.id)
 
-    changeset = Subscription.changeset(:create, params)
+    changeset = Subscription.changeset(params)
 
     case Repo.insert(changeset) do
       {:ok, subscription} ->

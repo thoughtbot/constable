@@ -5,12 +5,12 @@ defmodule Constable.Api.UserControllerTest do
   @view Constable.Api.UserView
 
   setup do
-    {:ok, authenticate}
+    {:ok, api_authenticate}
   end
 
   test "#create creates a user", %{conn: conn} do
     name = "Ian D. Anderson"
-    conn = post conn, user_path(conn, :create), user: %{
+    conn = post conn, api_user_path(conn, :create), user: %{
       name: name,
       email: "ian@thoughtbot.com"
     }
@@ -21,7 +21,7 @@ defmodule Constable.Api.UserControllerTest do
 
   test "#create doesn't create a user with invalid data", %{conn: conn} do
     Repo.delete_all(User)
-    conn = post conn, user_path(conn, :create), user: %{
+    conn = post conn, api_user_path(conn, :create), user: %{
       name: "",
       email: ""
     }
@@ -33,7 +33,7 @@ defmodule Constable.Api.UserControllerTest do
   test "#index returns all users", %{conn: conn, user: user} do
     other_user = create(:user)
 
-    conn = get conn, user_path(conn, :index)
+    conn = get conn, api_user_path(conn, :index)
 
     ids = fetch_json_ids("users", conn)
     assert ids == [user.id, other_user.id]
@@ -42,19 +42,19 @@ defmodule Constable.Api.UserControllerTest do
   test "#show returns user", %{conn: conn} do
     user = create(:user)
 
-    conn = get conn, user_path(conn, :show, user.id)
+    conn = get conn, api_user_path(conn, :show, user.id)
 
     assert json_response(conn, 200)["user"]["id"] == user.id
   end
 
   test "#show returns current user when id is me", %{conn: conn, user: user} do
-    conn = get conn, user_path(conn, :show, "me")
+    conn = get conn, api_user_path(conn, :show, "me")
 
     assert json_response(conn, 200)["user"]["id"] == user.id
   end
 
   test "#update updates the current user", %{conn: conn, user: user} do
-    conn = put conn, user_path(conn, :update), user: %{
+    conn = put conn, api_user_path(conn, :update), user: %{
       daily_digest: false,
       auto_subscribe: false,
       name: "Ian Justin"

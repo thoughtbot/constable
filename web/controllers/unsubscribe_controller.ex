@@ -8,6 +8,8 @@ defmodule Constable.UnsubscribeController do
       Repo.delete(subscription)
     end
 
-    render(conn, "show.html")
+    conn
+    |> put_layout(false)
+    |> render("show.html")
   end
 end

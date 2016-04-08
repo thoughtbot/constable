@@ -1,0 +1,84 @@
+.main-header {
+  align-items: center;
+  background-color: $lightest-gray;
+  border-bottom: 1px solid darken($lightest-gray, 4%);
+  display: flex;
+  justify-content: space-between;
+  padding: $base-spacing;
+
+  @include media($small-screen) {
+    padding: $small-spacing;
+  }
+
+  a {
+    color: $dark-blue;
+    font-size: $small-font-size;
+    font-weight: bold;
+  }
+}
+
+.logo a {
+  text-decoration: none;
+}
+
+.navigation {
+  display: flex;
+
+  li {
+    margin-right: $small-spacing;
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+}
+
+.button-create-new {
+  position: relative;
+
+  &::before,
+  &::after {
+    @include position(absolute, null null 50% 50%);
+    @include size(2px 10px);
+    background-color: $base-background-color;
+    content: '';
+    display: block;
+    margin-bottom: -5px;
+    margin-left: -1px;
+  }
+
+  &::after {
+    @include transform(rotate(90deg));
+  }
+}
+
+.icon-search {
+  border: 2px solid $base-background-color;
+  border-radius: 30px;
+  display: inline-block;
+  height: 11px;
+  margin-left: -6px;
+  position: relative;
+  transform: translateY(-75%);
+  width: 11px;
+
+  &::after {
+    background-color: $base-background-color;
+    content: "";
+    height: 3px;
+    left: 6px;
+    position: absolute;
+    top: 7px;
+    transform: rotate(45deg);
+    width: 7px;
+  }
+}
+
+.settings-gravatar {
+  display: block;
+}
+
+.current-user-gravatar {
+  border-radius: $base-border-radius;
+  vertical-align: middle;
+}

@@ -11,7 +11,7 @@ config :constable, Constable.Endpoint,
   secret_key_base: "tJ+MdrPlKWMpmz7JyJgSu/11xvwnNZo7Sz8IAacy9MM6di3GqackE9iNjhkHI9p8",
   debug_errors: false,
   root: Path.expand("..", __DIR__),
-  code_reloader: true,
+  code_reloader: false,
   pubsub: [
     name: Constable.PubSub,
     adapter: Phoenix.PubSub.PG2]

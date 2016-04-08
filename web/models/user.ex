@@ -9,8 +9,6 @@ defmodule Constable.User do
     end
   end
 
-  before_insert :generate_token
-
   schema "users" do
     field :email
     field :token

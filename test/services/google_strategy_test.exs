@@ -2,7 +2,7 @@ defmodule Constable.GoogleStrategyTest do
   use Constable.TestWithEcto, async: false
 
   test ".tokeninfo_url adds correct headers" do
-    client = GoogleStrategy.new()
+    client = GoogleStrategy.client("/")
 
     {client, _} = GoogleStrategy.tokeninfo_url(client, "1234")
 
@@ -11,7 +11,7 @@ defmodule Constable.GoogleStrategyTest do
   end
 
   test ".tokeninfo_url adds correct params" do
-    client = GoogleStrategy.new()
+    client = GoogleStrategy.client("/")
 
     {client, _} = GoogleStrategy.tokeninfo_url(client, "1234")
 
@@ -19,7 +19,7 @@ defmodule Constable.GoogleStrategyTest do
   end
 
   test ".tokeninfo_url adds id_token to the URL" do
-    client = GoogleStrategy.new()
+    client = GoogleStrategy.client("/")
 
     {_, url} = GoogleStrategy.tokeninfo_url(client, "1234")
 

@@ -6,14 +6,14 @@ defmodule Constable.Api.CommentControllerTest do
   alias Constable.Comment
 
   setup do
-    {:ok, authenticate}
+    {:ok, api_authenticate}
   end
 
   test "#create creates a comment for user and announcement", %{conn: conn, user: user} do
     announcement = create(:announcement)
     subscribed_user = create(:user) |> with_subscription(announcement)
 
-    conn = post conn, comment_path(conn, :create), comment: %{
+    conn = post conn, api_comment_path(conn, :create), comment: %{
       body: "Foo",
       announcement_id: announcement.id
     }

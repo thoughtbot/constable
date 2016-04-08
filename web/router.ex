@@ -5,10 +5,11 @@ defmodule Constable.Router do
     plug :accepts, ~w(html)
     plug :fetch_session
     plug :fetch_flash
+    plug Constable.Plugs.FetchCurrentUser
   end
 
   pipeline :authenticated do
-    plug Constable.AuthPlug
+    plug Constable.Plugs.ApiAuth
   end
 
   pipeline :api do
@@ -18,7 +19,8 @@ defmodule Constable.Router do
   scope "/", Constable do
     pipe_through :browser
 
-    get "/", PageController, :index
+    get "/", SessionController, :new
+    resources "/announcements", AnnouncementController, only: [:index, :show]
     resources "/unsubscribe", UnsubscribeController, only: [:show]
 
     if Mix.env == :dev do
@@ -40,7 +42,8 @@ defmodule Constable.Router do
     pipe_through [:browser]
 
     get "/", AuthController, :index
-    get "/callback", AuthController, :callback
+    get "/javascript_callback", AuthController, :javascript_callback
+    get "/browser_callback", AuthController, :browser_callback
   end
 
   scope "/auth", alias: Constable do
@@ -49,7 +52,7 @@ defmodule Constable.Router do
     post "/mobile_callback", AuthController, :mobile_callback
   end
 
-  scope "/api", alias: Constable.Api do
+  scope "/api", as: :api, alias: Constable.Api do
     pipe_through [:api, :authenticated]
 
     resources "/announcements", AnnouncementController
@@ -62,7 +65,7 @@ defmodule Constable.Router do
     resources "/users", UserController, only: [:update], singleton: true
   end
 
-  scope "/api", alias: Constable.Api do
+  scope "/api", as: :api, alias: Constable.Api do
     pipe_through :api
 
     resources "/users", UserController, only: [:create]

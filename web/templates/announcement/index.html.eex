@@ -1,0 +1,18 @@
+<div class="announcements">
+  <%= for announcement <- @announcements do %>
+    <li class="announcement__item">
+      <a href="#">
+        <h1><%= announcement.title %></h1>
+      </a>
+
+      <%= gettext "announced" %> <%= announcement.inserted_at %>
+
+      <%= for interest <- announcement.interests do %>
+        <span class="interest"><%= interest.name %></span>
+      <% end %>
+
+      <div class="comments">
+      </div>
+    </li>
+  <% end %>
+</div>

@@ -12,15 +12,41 @@
   </head>
 
   <body>
-    <div class="container">
-      <%= if get_flash(@conn, :info) do %>
-        <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
-      <% end %>
-      <%= if get_flash(@conn, :error) do %>
-        <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
-      <% end %>
+    <div class="page">
+      <header class="main-header">
+        <%= if get_flash(@conn, :info) do %>
+          <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
+        <% end %>
+        <%= if get_flash(@conn, :error) do %>
+          <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
+        <% end %>
 
-      <%= render @view_module, @view_template, assigns %>
+        <%= link "#constable", to: "/", class: "logo" %>
+
+        <ul class="navigation right">
+          <li>
+            <a href="#"><span class="icon-search"></a>
+          </li>
+          <li>
+            <%= link "",
+              to: announcement_path(@conn, :index),
+              class: "button button-square button-create-new"
+            %>
+          </li>
+          <li>
+            <%= link to: "#", class: "settings-gravatar" do %>
+              <img
+                src="<%= gravatar(@conn.assigns.current_user) %>"
+                class="current-user-gravatar button-square"
+              />
+            <% end %>
+          </li>
+        </ul>
+      </header>
+
+      <div class="container">
+        <%= render @view_module, @view_template, assigns %>
+      </div>
     </div>
 
     <script src="<%= static_path(@conn, "/js/app.js") %>"></script>

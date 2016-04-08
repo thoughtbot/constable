@@ -59,7 +59,7 @@ defmodule AuthControllerTest do
 
     auth_uri = google_auth_uri(
       client_id: Constable.Env.get("CLIENT_ID"),
-      redirect_uri: Constable.Env.get("REDIRECT_URI"),
+      redirect_uri: auth_url(conn, :javascript_callback),
       response_type: "code",
       scope: "email"
     )
@@ -74,7 +74,7 @@ defmodule AuthControllerTest do
 
     conn =
       request_authorization("foo.com")
-      |> get("/auth/callback", code: "foo")
+      |> get("/auth/javascript_callback", code: "foo")
 
     user_auth_token = Repo.one(User).token
     assert redirected_to(conn) =~ "foo.com/#{user_auth_token}"
@@ -88,14 +88,14 @@ defmodule AuthControllerTest do
 
     conn =
       request_authorization("foo.com")
-      |> get("/auth/callback", code: "foo")
+      |> get("/auth/javascript_callback", code: "foo")
 
     user_auth_token = Repo.one(User).token
     assert redirected_to(conn) =~ "foo.com/#{user_auth_token}"
   end
 
   test "callback redirects to the root path when there is an error" do
-    conn = get(conn, "/auth/callback", error: "Foo")
+    conn = get(conn, "/auth/javascript_callback", error: "Foo")
 
     assert redirected_to(conn) =~  "/"
   end
@@ -107,7 +107,7 @@ defmodule AuthControllerTest do
 
     conn =
       request_authorization("foo.com")
-      |> get("/auth/callback", code: "foo")
+      |> get("/auth/javascript_callback", code: "foo")
 
     assert redirected_to(conn) =~  "/"
     refute Repo.one(User)
@@ -134,6 +134,20 @@ defmodule AuthControllerTest do
 
     assert json_response(conn, 403)
     assert json_response(conn, 403)["error"] == "Non-thoughtbot email"
+  end
+
+  test "browser_callback sets user_id on session when successful" do
+    create_everyone_interest
+    Pact.override(self, "token_retriever", FakeTokenRetriever)
+    Pact.override(self, "request_with_access_token", FakeRequestWithAccessToken)
+
+
+    conn =
+      request_authorization("foo.com")
+      |> get("/auth/browser_callback", code: "foo")
+
+    user = Repo.one(User)
+    assert get_session(conn, :user_id) == user.id
   end
 
   defp create_everyone_interest do
