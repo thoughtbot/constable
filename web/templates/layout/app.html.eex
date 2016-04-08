@@ -7,13 +7,22 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>You've been unsubscribed</title>
-    <link rel="stylesheet" href="/css/phoenix.css">
+    <title>Constable</title>
+    <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
   </head>
 
   <body>
     <div class="container">
-      <%= @inner %>
-    </div> <!-- /container -->
+      <%= if get_flash(@conn, :info) do %>
+        <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
+      <% end %>
+      <%= if get_flash(@conn, :error) do %>
+        <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
+      <% end %>
+
+      <%= render @view_module, @view_template, assigns %>
+    </div>
+
+    <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
   </body>
 </html>

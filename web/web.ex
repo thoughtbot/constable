@@ -14,11 +14,15 @@ defmodule Constable.Web do
 
   def view do
     quote do
+      import Phoenix.Controller, only: [get_csrf_token: 0, get_flash: 2, view_module: 1]
+      import Constable.Router.Helpers
+      import Constable.ErrorHelpers
+      import Constable.Gettext
+
       use Phoenix.HTML
       use Phoenix.View, root: "web/templates"
-      alias Constable.Repo
 
-      import Constable.Router.Helpers
+      alias Constable.Repo
 
       def pluck(enumerable, property) do
         Enum.map(enumerable, fn(object) ->

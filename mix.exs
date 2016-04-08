@@ -6,7 +6,7 @@ defmodule Constable.Mixfile do
      version: "0.0.1",
      elixir: "~> 1.2",
      elixirc_paths: elixirc_paths(Mix.env),
-     compilers: [:phoenix] ++ Mix.compilers,
+     compilers: [:phoenix, :gettext] ++ Mix.compilers,
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
      dialyzer: dialyzer_settings,
@@ -29,7 +29,17 @@ defmodule Constable.Mixfile do
      applications: app_list]
   end
 
-  defp app_list, do: [:ex_machina, :phoenix, :cowboy, :logger, :postgrex, :ecto, :httpoison, :bamboo]
+  defp app_list, do: [
+    :bamboo,
+    :cowboy,
+    :ecto,
+    :ex_machina,
+    :gettext,
+    :httpoison,
+    :logger,
+    :phoenix,
+    :postgrex,
+  ]
 
   # Specifies your project dependencies
   #
@@ -44,11 +54,12 @@ defmodule Constable.Mixfile do
       {:ecto, "~> 1.1"},
       {:exgravatar, "~> 0.2.0"},
       {:ex_machina, "~> 0.6.1"},
+      {:gettext, "~> 0.11.0"},
       {:oauth2, "~> 0.5.0"},
       {:pact, "~> 0.1.0"},
       {:phoenix_ecto, "~> 1.2.0"},
-      {:phoenix_html, "~> 2.1"},
-      {:phoenix, "~> 1.0.0"},
+      {:phoenix_html, "~> 2.4"},
+      {:phoenix, "~> 1.1.4"},
       {:postgrex, ">= 0.0.0"},
       {:timex, "~> 0.19.0"},
       {:secure_random, "~> 0.1"},

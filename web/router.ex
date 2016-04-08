@@ -18,6 +18,7 @@ defmodule Constable.Router do
   scope "/", Constable do
     pipe_through :browser
 
+    get "/", PageController, :index
     resources "/unsubscribe", UnsubscribeController, only: [:show]
 
     if Mix.env == :dev do
