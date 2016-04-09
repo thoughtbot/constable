@@ -39,6 +39,7 @@ defmodule Constable.Mixfile do
     :logger,
     :phoenix,
     :postgrex,
+    :timex,
   ]
 
   # Specifies your project dependencies
@@ -61,7 +62,7 @@ defmodule Constable.Mixfile do
       {:phoenix_html, "~> 2.4"},
       {:phoenix, "~> 1.1.4"},
       {:postgrex, ">= 0.0.0"},
-      {:timex, "~> 0.19.0"},
+      {:timex, "~> 2.1.4"},
       {:secure_random, "~> 0.1"},
       {:httpoison, github: "edgurgel/httpoison", override: true},
       {:cors_plug, "~> 0.1.3"}

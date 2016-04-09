@@ -1,18 +1,51 @@
 <div class="announcements">
-  <%= for announcement <- @announcements do %>
-    <li class="announcement__item">
-      <a href="#">
-        <h1><%= announcement.title %></h1>
-      </a>
+  <nav class="nav-primary">
+    <ul class="container">
+      <li>
+        <%= link gettext("All announcements"),
+          to: announcement_path(@conn, :index, all: true),
+          class: class_for("all", @conn)
+        %>
+      </li>
+      <li>
+        <%= link gettext("Your interests"),
+          to: announcement_path(@conn, :index),
+          class: class_for("mine", @conn)
+        %>
+        <a class="select-interests-link">
+          <i class="caret"></i>
+        </a>
+      </li>
+    </ul>
+  </nav>
+  <ul class="container">
+    <%= for announcement <- @announcements do %>
+      <li class="announcement-list-item">
+        <a href="#">
+          <h1><%= announcement.title %></h1>
+        </a>
 
-      <%= gettext "announced" %> <%= announcement.inserted_at %>
+        <span>
+          <%= gettext "announced" %>
+          <time>
+            <%= Constable.LayoutView.time_ago_in_words(announcement.inserted_at) %>
+          </time>
+          to
+        </span>
 
-      <%= for interest <- announcement.interests do %>
-        <span class="interest"><%= interest.name %></span>
-      <% end %>
+        <%= for interest <- announcement.interests do %>
+          <span class="interest"><%= interest.name %></span>
+        <% end %>
 
-      <div class="comments">
-      </div>
-    </li>
-  <% end %>
+        <div class="commenters">
+          <%= for gravatar <- user_gravatars(announcement) do %>
+            <img
+              class="avatar-rounded"
+              src="<%= gravatar %>"
+            />
+          <% end %>
+        </div>
+      </li>
+    <% end %>
+  </ul>
 </div>

@@ -18,6 +18,7 @@ defmodule Constable.Web do
       import Constable.Router.Helpers
       import Constable.ErrorHelpers
       import Constable.Gettext
+      import Constable.SharedView
 
       use Phoenix.HTML
       use Phoenix.View, root: "web/templates"

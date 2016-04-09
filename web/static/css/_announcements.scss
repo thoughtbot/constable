@@ -1,0 +1,32 @@
+.announcements {
+  list-style-type: none;
+}
+
+.announcement-list-item {
+  @include padding($base-spacing null);
+  border-bottom: $base-border;
+
+  span {
+    color: $subdued-subhead-color;
+  }
+
+  .interest {
+    color: $dark-blue;
+
+    &:after {
+      content: ", "
+    }
+
+    &:before {
+      content: "#"
+    }
+
+    &:last-of-type:after {
+      content: "";
+    }
+  }
+}
+
+.commenters {
+  margin-top: $tiny-spacing;
+}

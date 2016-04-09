@@ -14,6 +14,6 @@ defmodule Constable.Time do
   end
 
   def to_ecto(date) do
-    date |> Timex.Date.Convert.to_erlang_datetime |> Ecto.DateTime.from_erl
+    date |> Timex.to_erlang_datetime |> Ecto.DateTime.from_erl
   end
 end

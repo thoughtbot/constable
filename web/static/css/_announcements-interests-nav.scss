@@ -1,0 +1,74 @@
+.nav-primary {
+  border-bottom: $base-border;
+  font-size: $small-font-size;
+
+  .announcements & {
+    padding: 0;
+  }
+
+  a {
+    border-bottom: 1px solid transparent;
+    color: $medium-gray;
+    padding: $tiny-spacing;
+    transform: translateY(1px);
+
+    &:hover,
+    &:active {
+      color: $dark-blue;
+    }
+
+    &.selected {
+      border-color: $dark-blue;
+    }
+  }
+
+  ul {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    list-style-type: none;
+
+    li {
+      display: inline-flex;
+    }
+  }
+
+  .container {
+    align-items: center;
+  }
+
+  .selected {
+    color: $dark-blue;
+  }
+
+  .select-interests-link {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    padding-right: $tiny-spacing;
+
+    &::before {
+      color: $light-gray;
+      content: "|";
+      margin-right: $tiny-spacing;
+    }
+
+    &:hover {
+      .caret {
+        border-top-color: $dark-blue;
+      }
+    }
+  }
+
+  .caret {
+    @include triangle(10px, $subdued-subhead-color, down);
+    transition: border-top-color $base-transition-time;
+  }
+}
+
+.mine.selected {
+  + .select-interests-link,
+  .caret {
+    border-bottom: $dark-blue 1px solid;
+  }
+}
