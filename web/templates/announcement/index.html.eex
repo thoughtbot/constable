@@ -21,14 +21,14 @@
   <ul class="container">
     <%= for announcement <- @announcements do %>
       <li class="announcement-list-item">
-        <a href="#">
+        <%= link to: announcement_path(@conn, :show, announcement.id) do %>
           <h1><%= announcement.title %></h1>
-        </a>
+        <% end %>
 
         <span>
           <%= gettext "announced" %>
           <time>
-            <%= Constable.LayoutView.time_ago_in_words(announcement.inserted_at) %>
+            <%= time_ago_in_words(announcement.inserted_at) %>
           </time>
           to
         </span>

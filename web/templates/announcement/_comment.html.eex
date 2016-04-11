@@ -1,0 +1,16 @@
+<li class="comment">
+  <div class="comment-information">
+    <div class="author-information">
+      <img class="avatar-rounded" src="<%= gravatar @comment.user %>">
+      <h4 class="author"><%= @comment.user.name %></h4>
+    </div>
+
+    <time class="comment-time">
+      <%= time_ago_in_words @comment.inserted_at %>
+    </time>
+  </div>
+
+  <div class="comment-body">
+    <%= raw Earmark.to_html(@comment.body) %>
+  </div>
+</li>

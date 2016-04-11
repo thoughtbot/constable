@@ -20,7 +20,10 @@ defmodule Constable.Router do
     pipe_through :browser
 
     get "/", SessionController, :new
-    resources "/announcements", AnnouncementController, only: [:index, :show]
+    resources "/announcements", AnnouncementController, only: [:index, :show] do
+      resources "/comments", CommentController, only: [:create]
+      resources "/subscriptions", SubscriptionController, singleton: true, only: [:create, :delete]
+    end
     resources "/unsubscribe", UnsubscribeController, only: [:show]
 
     if Mix.env == :dev do

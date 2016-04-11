@@ -1,0 +1,141 @@
+.announcement {
+  margin-top: $base-spacing * 3;
+
+  h1 {
+    margin-bottom: 5px;
+  }
+
+  pre {
+    background-color: lighten($dark-blue, 77%);
+    border: 1px solid lighten($dark-blue, 74%);
+    color: lighten($dark-blue, 20%);
+    overflow-x: auto;
+    padding: 10px;
+  }
+
+  code {
+    background-color: lighten($dark-blue, 77%);
+    font-size: $small-font-size - 1;
+    padding: 2px;
+  }
+
+  &.loading {
+    @include animation(loading-spinner 0.6s infinite linear);
+    @include border-style(solid);
+    @include border-width(0.5em);
+    @include hide-text();
+    @include size(5em);
+    border-color: $base-border-color;
+    border-left-color: $dark-blue;
+    border-radius: 50%;
+    text-transform: uppercase;
+  }
+
+  section {
+    margin-bottom: $base-spacing;
+  }
+
+  time {
+    display: block;
+    margin-bottom: $base-spacing;
+
+    &.comment-time {
+      margin-bottom: 0;
+      font-size: $small-font-size - 2px;
+    }
+  }
+}
+
+.announcement-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: $base-spacing;
+}
+
+.announcement-interest {
+  color: $dark-gray;
+  font-size: $small-font-size;
+  margin-bottom: $base-spacing;
+  text-decoration: underline;
+
+  &::after {
+    content: ",\00a0"; // unicode space
+    display: inline-block;
+    text-decoration: none;
+  }
+
+  &::before {
+    content: "#"
+  }
+
+  &:last-of-type:after {
+    content: "";
+  }
+}
+
+.announcement-posted-by {
+  @include margin($large-spacing null $base-spacing);
+  align-items: center;
+  display: flex;
+}
+
+.announcement-body,
+.comment-body {
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-weight: 500;
+    margin-bottom: $small-spacing;
+  }
+
+  h1 {
+    font-size: 20px;
+  }
+
+  h2 {
+    font-size: 18px;
+  }
+
+  h3 {
+    font-size: 16px;
+  }
+
+  ul,
+  ol {
+    margin: 0 0 $base-spacing $base-spacing;
+  }
+
+  ul {
+    list-style-type: disc;
+  }
+
+  ol {
+    list-style-type: decimal;
+  }
+
+  img {
+    max-width: 100%;
+  }
+
+  p {
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  blockquote {
+    border-left: 3px solid $action-color;
+    padding-left: $small-spacing;
+
+    p {
+      color: lighten($base-font-color, 13%);
+      font-size: 90%;
+      line-height: 1.5;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+}

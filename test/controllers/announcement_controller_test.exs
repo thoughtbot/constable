@@ -5,7 +5,7 @@ defmodule Constable.AnnouncementControllerTest do
     {:ok, browser_authenticate}
   end
 
-  test "all announcements are shown when query param all is set", %{conn: conn, user: user} do
+  test "#index all announcements are shown when query param all is set", %{conn: conn, user: user} do
     create(:announcement, title: "Awesome", user: user)
     create(:announcement, title: "Lame", user: user)
 
@@ -15,7 +15,7 @@ defmodule Constable.AnnouncementControllerTest do
     assert html_response(conn, :ok) =~ "Lame"
   end
 
-  test "only my announcements are shown by default", %{conn: conn, user: user} do
+  test "#index only my announcements are shown by default", %{conn: conn, user: user} do
     my_interest = create(:interest)
     create(:user_interest, user: user, interest: my_interest)
     create(:announcement, title: "Shows up") |> tag_with_interest(my_interest)
@@ -25,5 +25,22 @@ defmodule Constable.AnnouncementControllerTest do
 
     assert html_response(conn, :ok) =~ "Shows up"
     refute html_response(conn, :ok) =~ "Does not show up"
+  end
+
+  test "#show renders markdown as html", %{conn: conn} do
+    announcement = create(:announcement, body: "# Hello")
+
+    conn = get conn, announcement_path(conn, :show, announcement.id)
+
+    assert html_response(conn, :ok) =~ "<h1>Hello</h1>"
+  end
+
+  test "#show renders comments as html", %{conn: conn} do
+    announcement = create(:announcement)
+    create(:comment, body: "# Comment", announcement: announcement)
+
+    conn = get conn, announcement_path(conn, :show, announcement.id)
+
+    assert html_response(conn, :ok) =~ "<h1>Comment</h1>"
   end
 end

@@ -1,0 +1,25 @@
+defmodule Constable.SubscriptionController do
+  use Constable.Web, :controller
+
+  alias Constable.Subscription
+
+  def create(conn, %{"announcement_id" => announcement_id}) do
+    changeset = Subscription.changeset(%{
+      announcement_id: announcement_id,
+      user_id: conn.assigns.current_user.id,
+    })
+
+    Repo.insert!(changeset)
+    redirect(conn, to: announcement_path(conn, :show, announcement_id))
+  end
+
+  def delete(conn, %{"announcement_id" => announcement_id}) do
+    subscription = Repo.get_by(Subscription,
+      announcement_id: announcement_id,
+      user_id: conn.assigns.current_user.id,
+    )
+
+    Repo.delete!(subscription)
+    redirect(conn, to: announcement_path(conn, :show, announcement_id))
+  end
+end

@@ -1,0 +1,66 @@
+<div class="announcement container">
+  <header class="announcement-header">
+    <div class="announcement-interests">
+      <%= for interest <- @announcement.interests do %>
+        <%= link interest.name, to: "#", class: "announcement-interest" %>
+      <% end %>
+    </div>
+
+    <div class="subscription">
+      <%= if @subscription do %>
+        <%= link to: announcement_subscription_path(@conn, :delete, @announcement.id),
+          method: :delete,
+          class: "button button-unsubscribe" do %>
+          <%= gettext("Unsubscribe") %>
+        <% end %>
+      <% else %>
+        <%= link to: announcement_subscription_path(@conn, :create, @announcement.id),
+          method: :post,
+          class: "button button-subscribe" do %>
+          <%= gettext("Subscribe") %>
+        <% end %>
+      <% end %>
+    </div>
+  </header>
+
+  <h1>
+    <%= @announcement.title %>
+  </h1>
+
+  <time>
+    <%= gettext("Announced") %>
+    <%= time_ago_in_words(@announcement.inserted_at) %>
+  </time>
+
+  <div class="announcement-body">
+    <%= raw Earmark.to_html(@announcement.body) %>
+  </div>
+
+  <div class="announcement-posted-by">
+    <img src="<%= gravatar @announcement.user %>" class="avatar-rounded avatar-announcement"/>
+    <h4 class="author author-announcement"><%= @announcement.user.name %></h4>
+  </div>
+
+  <%= if !Enum.empty?(@announcement.comments) do %>
+    <ul class="comments-list">
+      <%= for comment <- @announcement.comments do %>
+        <%= render "_comment.html", comment: comment %>
+      <% end %>
+    </ul>
+  <% end %>
+
+  <div class="comment-new">
+    <div class="comment-body">
+      <%= form_for @comment, announcement_comment_path(@conn, :create, @announcement), fn(f) -> %>
+        <%= textarea f,
+          :body,
+          class: "new-comment-textarea moustrap",
+          placeholder: gettext("Your markdown formatted comment here"),
+          required: true
+        %>
+
+        <%= submit gettext("Post Comment") %>
+      <% end %>
+    </div>
+  </div>
+</div>
