@@ -9,7 +9,8 @@
     "bourbon-neat": "^1.7.2",
     "jquery": "^2.2.0",
     "phoenix": "file:deps/phoenix",
-    "phoenix_html": "file:deps/phoenix_html"
+    "phoenix_html": "file:deps/phoenix_html",
+    "turbolinks": "^5.0.0-beta4"
   },
   "devDependencies": {
     "babel-brunch": "~6.0.0",
