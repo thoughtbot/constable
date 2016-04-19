@@ -53,10 +53,11 @@ defmodule Constable.AuthController do
   def javascript_callback(conn, %{"code" => code}) do
     token = google_strategy.get_token!(auth_url(conn, :javascript_callback), code: code)
     %{"email" => email, "name" => name} = get_userinfo(token)
+    existing_user = find_user(email)
 
     case find_or_insert_user(email, name) do
       nil -> redirect(conn, external: "/")
-      user -> redirect(conn, external: redirect_after_success_uri(conn, user.token))
+      user -> redirect(conn, external: redirect_after_success_uri(conn, user.token, existing_user))
     end
   end
   def javascript_callback(conn, %{"error" => error_message}) do
@@ -92,7 +93,11 @@ defmodule Constable.AuthController do
   end
 
   defp find_or_insert_user(email, name) do
-    Repo.one(Queries.User.with_email(email)) || insert_new_user(email, name)
+    find_user(email) || insert_new_user(email, name)
+  end
+
+  defp find_user(email) do
+    Repo.one(Queries.User.with_email(email))
   end
 
   defp insert_new_user(email, name) do
@@ -118,7 +123,7 @@ defmodule Constable.AuthController do
     Repo.get_by!(Interest, name: "everyone")
   end
 
-  defp redirect_after_success_uri(conn, token) do
-    "#{get_session(conn, :redirect_after_success_uri)}/#{token}"
+  defp redirect_after_success_uri(conn, token, existing_user) do
+    "#{get_session(conn, :redirect_after_success_uri)}/#{token}?new_user=#{!existing_user}"
   end
 end
