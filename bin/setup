@@ -16,6 +16,9 @@ mix compile
 mix ecto.create
 mix ecto.migrate
 
+# Grab JS dependencies from NPM
+npm install
+
 # Only if this isn't CI
 if [ -z "$CI" ]; then
   # Set up Heroku
@@ -25,3 +28,5 @@ if [ -z "$CI" ]; then
   heroku join --app constable-api-production
   heroku git:remote -r production -a constable-api-production
 fi
+
+echo "Get the CLIENT_ID and CLIENT_SECRET from the constable-api-staging app on Heroku and put it in your .env"

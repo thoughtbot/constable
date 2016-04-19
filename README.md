@@ -6,11 +6,38 @@ Constable front end.
 Use `bin/console` to start the console. Use `bin/console staging|production` to
 start the console in staging or production.
 
-## Starting Constable
+## Developing the Application
 
-1. Install elixir. If you're on OS X, run `brew install elixir`
-2. Run `bin/setup` to install dependencies and setup the database.
-3. Start Phoenix endpoint with `mix phoenix.server`
+To set up your development environment, there are a few steps you'll need to
+follow.
+
+### Install Elixir
+
+If you're on OS X and using Homebrew, run `brew install elixir`. Otherwise,
+follow the instructions on the [Elixir installation page].
+
+[Elixir installation page]: http://elixir-lang.org/install.html
+
+### Configure Your Local Environment
+
+Run:
+
+```sh
+bin/setup
+```
+
+This will grab all Elixir and NPM dependencies and ensure the database is
+up-to-date, and provides further instructions for configuring your environment
+variables.
+
+### Starting the Phoenix Server
+
+Once all the dependencies have been installed, you can start the Phoenix
+server with:
+
+```sh
+mix phoenix.server
+```
 
 ## Email Templates
 
