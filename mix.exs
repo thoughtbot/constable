@@ -56,6 +56,7 @@ defmodule Constable.Mixfile do
       {:exgravatar, "~> 0.2.0"},
       {:ex_machina, "~> 0.6.1"},
       {:gettext, "~> 0.11.0"},
+      {:wallaby, "~> 0.4.0", only: :test},
       {:oauth2, "~> 0.5.0"},
       {:pact, "~> 0.1.0"},
       {:phoenix_ecto, "~> 1.2.0"},

@@ -1,5 +1,6 @@
 :erlang.system_flag :backtrace_depth, 50
 ExUnit.configure exclude: [pending: true]
+{:ok, _} = Application.ensure_all_started(:wallaby)
 ExUnit.start
 Application.ensure_all_started(:bamboo)
 Pact.put(:google_strategy, FakeGoogleStrategy)

@@ -11,7 +11,10 @@ defmodule Constable.AnnouncementController do
   end
 
   def show(conn, %{"id" => id}) do
-    announcement = Repo.get!(Announcement, id) |> preload_associations
+    announcement =
+      Announcement
+      |> Announcement.with_announcement_list_assocs
+      |> Repo.get!(id)
     comment = Comment.changeset(:create, %{})
     subscription = Repo.get_by(Subscription,
       announcement_id: announcement.id,
@@ -28,16 +31,16 @@ defmodule Constable.AnnouncementController do
 
   defp my_announcements(conn) do
     conn.assigns.current_user
-    |> Repo.preload(:interesting_announcements)
-    |> Map.get(:interesting_announcements)
-    |> preload_associations
+    |> Ecto.assoc(:interesting_announcements)
+    |> Announcement.with_announcement_list_assocs
+    |> Repo.all
     |> sort_announcements
   end
 
   defp all_announcements do
     Announcement
+    |> Announcement.with_announcement_list_assocs
     |> Repo.all
-    |> preload_associations
     |> sort_announcements
   end
 
@@ -49,14 +52,5 @@ defmodule Constable.AnnouncementController do
     first = Enum.max([first.updated_at, List.last(first.comments)])
     second = Enum.max([second.updated_at, List.last(second.comments)])
     first > second
-  end
-
-  defp preload_associations(announcements) do
-    Repo.preload(announcements, [
-      :interests,
-      :user,
-      comments: from(c in Comment, order_by: [asc: c.inserted_at]),
-      comments: :user
-    ])
   end
 end

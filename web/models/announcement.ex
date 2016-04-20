@@ -29,6 +29,15 @@ defmodule Constable.Announcement do
     |> cast(params, ~w(title body user_id), [])
   end
 
+  def with_announcement_list_assocs(query) do
+    from q in query, preload: [
+      :interests,
+      :user,
+      comments: ^newest_comments_first,
+      comments: :user
+    ]
+  end
+
   def search(query \\ __MODULE__, search_term) do
     search_term = search_term |> prepare_for_tsquery
 
@@ -46,5 +55,9 @@ defmodule Constable.Announcement do
     |> String.split(" ", trim: true)
     |> Enum.intersperse(" & ")
     |> Enum.join("")
+  end
+
+  defp newest_comments_first do
+    from(c in Comment, order_by: [asc: c.inserted_at])
   end
 end

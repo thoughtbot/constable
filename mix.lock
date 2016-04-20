@@ -8,6 +8,7 @@
   "db_connection": {:hex, :db_connection, "0.2.5"},
   "decimal": {:hex, :decimal, "1.1.1"},
   "dialyxir": {:hex, :dialyxir, "0.3.2"},
+  "dialyze": {:hex, :dialyze, "0.2.1"},
   "earmark": {:hex, :earmark, "0.1.19"},
   "ecto": {:hex, :ecto, "1.1.5"},
   "envy": {:hex, :envy, "0.0.2"},
@@ -15,6 +16,7 @@
   "exgravatar": {:hex, :exgravatar, "0.2.0"},
   "gettext": {:hex, :gettext, "0.11.0"},
   "hackney": {:hex, :hackney, "1.4.10"},
+  "hound": {:hex, :hound, "1.0.0"},
   "httpoison": {:git, "https://github.com/edgurgel/httpoison.git", "87aabe18be27bf25af2a4182b4754cd0a35aa1dd", []},
   "idna": {:hex, :idna, "1.1.0"},
   "mimerl": {:hex, :mimerl, "1.0.2"},
@@ -32,4 +34,5 @@
   "secure_random": {:hex, :secure_random, "0.2.0"},
   "ssl_verify_hostname": {:hex, :ssl_verify_hostname, "1.0.5"},
   "timex": {:hex, :timex, "2.1.4"},
-  "tzdata": {:hex, :tzdata, "0.5.7"}}
+  "tzdata": {:hex, :tzdata, "0.5.7"},
+  "wallaby": {:hex, :wallaby, "0.4.0"}}

@@ -5,6 +5,11 @@ defmodule Constable.Router do
     plug :accepts, ~w(html)
     plug :fetch_session
     plug :fetch_flash
+
+    if Mix.env == :test do
+      plug Constable.Plugs.SetUserIdFromParams
+    end
+
     plug Constable.Plugs.FetchCurrentUser
   end
 
@@ -25,6 +30,7 @@ defmodule Constable.Router do
       resources "/subscriptions", SubscriptionController, singleton: true, only: [:create, :delete]
     end
     resources "/unsubscribe", UnsubscribeController, only: [:show]
+    get "/search", SearchController, :new
 
     if Mix.env == :dev do
       get "/emails/:email_name", EmailPreviewController, :show

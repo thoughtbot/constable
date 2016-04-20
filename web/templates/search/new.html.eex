@@ -1,0 +1,8 @@
+<div class="container">
+  <%= form_tag search_path(@conn, :new), method: :get do %>
+    <input type="text" name="query" id="query" />
+    <%= submit gettext("Search"), id: "submit-search" %>
+  <% end %>
+</div>
+
+<%= render Constable.AnnouncementListView, "index.html", conn: @conn, announcements: @announcements %>

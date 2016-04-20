@@ -13,3 +13,5 @@ priv/static
 *.sublime-workspace
 *.sublime-project
 .dialyzer.plt
+
+screenshots
