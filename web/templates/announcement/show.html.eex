@@ -1,6 +1,6 @@
 <div class="announcement container" data-announcement-id="<%= @announcement.id %>">
   <header class="announcement-header">
-    <div class="announcement-interests">
+    <div class="announcement-interests" data-role="interests">
       <%= for interest <- @announcement.interests do %>
         <%= link interest.name, to: interest_path(@conn, :show, interest), class: "announcement-interest" %>
       <% end %>
@@ -23,7 +23,7 @@
     </div>
   </header>
 
-  <h1>
+  <h1 data-role="title">
     <%= @announcement.title %>
   </h1>
 
@@ -32,7 +32,7 @@
     <%= time_ago_in_words(@announcement.inserted_at) %>
   </time>
 
-  <div class="announcement-body">
+  <div class="announcement-body" data-role="body">
     <%= raw Earmark.to_html(@announcement.body) %>
   </div>
 

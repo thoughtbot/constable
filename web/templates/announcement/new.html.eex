@@ -1,0 +1,41 @@
+<%= form_for @changeset, announcement_path(@conn, :create), [class: "flex-container"], fn(f) -> %>
+  <nav class="header-tags">
+    <div class="header-tag header-tag-markdown active">
+      <%= gettext("Markdown") %>
+    </div>
+
+    <div class="header-tag header-tag-preview">
+      <%= gettext("Preview") %>
+    </div>
+  </nav>
+  <div class="col-markdown announcement-create active">
+    <div class="announcement-form">
+      <%= text_input f, :title, placeholder: gettext("What are you announcing?") %>
+
+      <%= text_input :announcement, :interests, placeholder: gettext("Interests") %>
+
+      <%= textarea f, :body, placeholder: gettext("Write markdown here. You can @mention specific people to notify them") %>
+    </div>
+  </div>
+
+  <div class="announcement-preview">
+    <h1 data-role="title-preview">Preview</h1>
+    <div class="markdown" data-role="markdown-preview">
+      Preview
+    </div>
+  </div>
+
+  <div class="button-container">
+    <button class="button-create-announcement">
+      <%= submit gettext("Create Announcement") %>
+    </button>
+  </div>
+<% end %>
+
+<script>
+  (function() {
+    window.INTERESTS_NAMES = <%= raw json_interests(@interests) %>;
+    require('web/static/js/announcement-form');
+    require('web/static/js/announcement-form-mobile');
+  })()
+</script>

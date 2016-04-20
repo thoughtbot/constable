@@ -1,6 +1,12 @@
 defmodule Constable.AnnouncementView do
   use Constable.Web, :view
 
+  def json_interests(interests) do
+    interests
+    |> Enum.map(&(%{name: &1.name}))
+    |> Poison.encode!
+  end
+
   def class_for("all", %{params: %{"all" => "true"}}) do
     "selected"
   end

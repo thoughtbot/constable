@@ -49,6 +49,14 @@ exports.config = {
 
   npm: {
     enabled: true,
-    whitelist: ["phoenix", "phoenix_html", "jquery", "textarea-autogrow", "turbolinks"]
+    whitelist: [
+      "jquery",
+      "marked",
+      "phoenix",
+      "phoenix_html",
+      "selectize",
+      "textarea-autogrow",
+      "turbolinks",
+    ]
   }
 };

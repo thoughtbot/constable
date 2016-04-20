@@ -33,7 +33,7 @@
           </li>
           <li>
             <%= link "",
-              to: announcement_path(@conn, :index),
+              to: announcement_path(@conn, :new),
               class: "button button-square button-create-new"
             %>
           </li>

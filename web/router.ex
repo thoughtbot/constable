@@ -25,7 +25,7 @@ defmodule Constable.Router do
     pipe_through :browser
 
     get "/", SessionController, :new
-    resources "/announcements", AnnouncementController, only: [:index, :show] do
+    resources "/announcements", AnnouncementController, only: [:index, :show, :new, :create] do
       resources "/comments", CommentController, only: [:create]
       resources "/subscriptions", SubscriptionController, singleton: true, only: [:create, :delete]
     end
