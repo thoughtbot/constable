@@ -1,0 +1,16 @@
+<div class="page-slack-channel">
+  <div class="interest container">
+    <h1><%= @interest.name %></h1>
+
+    <div>
+      <%= gettext("Here you can enter the slack channel to be notified when an announcement is created for this interest.") %>
+    </div>
+
+    <div class="current-channel">
+      <%= form_for @changeset, interest_slack_channel_path(@conn, :update, @interest), fn f -> %>
+        <%= text_input f, :slack_channel %>
+        <%= submit gettext("Save"), id: "submit-channel-name" %>
+      <% end %>
+    </div>
+  </div>
+</div>

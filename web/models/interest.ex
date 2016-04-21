@@ -1,7 +1,6 @@
 defmodule Constable.Interest do
   use Constable.Web, :model
-  alias Constable.UserInterest
-  alias Constable.AnnouncementInterest
+  alias Constable.{Announcement, AnnouncementInterest, UserInterest}
 
   schema "interests" do
     field :name
@@ -21,6 +20,11 @@ defmodule Constable.Interest do
     |> update_change(:name, &String.replace(&1, "#", ""))
     |> update_change(:name, &String.downcase/1)
     |> unique_constraint(:name)
+  end
+
+  def with_announcements(query \\ __MODULE__) do
+    from interest in query,
+      preload: [announcements: ^Announcement.with_announcement_list_assocs]
   end
 
   def update_channel_changeset(interest, channel_name) do

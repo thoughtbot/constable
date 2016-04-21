@@ -1,4 +1,4 @@
-<ul class="container">
+<ul class="container announcement-list">
   <%= for announcement <- @announcements do %>
     <li class="announcement-list-item">
       <%= link to: announcement_path(@conn, :show, announcement.id) do %>
