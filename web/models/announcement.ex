@@ -29,7 +29,7 @@ defmodule Constable.Announcement do
     |> cast(params, ~w(title body user_id), [])
   end
 
-  def with_announcement_list_assocs(query) do
+  def with_announcement_list_assocs(query \\ __MODULE__) do
     from q in query, preload: [
       :interests,
       :user,

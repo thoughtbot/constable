@@ -11,10 +11,7 @@ defmodule Constable.AnnouncementController do
   end
 
   def show(conn, %{"id" => id}) do
-    announcement =
-      Announcement
-      |> Announcement.with_announcement_list_assocs
-      |> Repo.get!(id)
+    announcement = Repo.get!(Announcement.with_announcement_list_assocs, id)
     comment = Comment.changeset(:create, %{})
     subscription = Repo.get_by(Subscription,
       announcement_id: announcement.id,
@@ -38,8 +35,7 @@ defmodule Constable.AnnouncementController do
   end
 
   defp all_announcements do
-    Announcement
-    |> Announcement.with_announcement_list_assocs
+    Announcement.with_announcement_list_assocs
     |> Repo.all
     |> sort_announcements
   end
