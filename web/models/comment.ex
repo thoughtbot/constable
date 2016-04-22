@@ -1,5 +1,5 @@
 defmodule Constable.Comment do
-  use Ecto.Model
+  use Constable.Web, :model
   alias Constable.Announcement
   alias Constable.User
 
@@ -11,8 +11,19 @@ defmodule Constable.Comment do
     timestamps
   end
 
-  def changeset(model_or_changeset \\ %__MODULE__{}, :create, params) do
-    model_or_changeset
+  def changeset(model \\ %__MODULE__{}, :create, params) do
+    model
     |> cast(params, ~w(announcement_id user_id body), [])
+    |> set_last_discussed_at
+  end
+
+  defp set_last_discussed_at(changeset) do
+    prepare_changes changeset, fn(changeset) ->
+      Announcement
+      |> where(id: ^get_field(changeset, :announcement_id))
+      |> changeset.repo.update_all(set: [last_discussed_at: Ecto.DateTime.utc])
+
+      changeset
+    end
   end
 end

@@ -1,13 +1,15 @@
 defmodule Constable.Announcement do
-  use Ecto.Model
+  use Constable.Web, :model
   alias Constable.Comment
   alias Constable.User
   alias Constable.Subscription
   alias Constable.AnnouncementInterest
 
-  schema "announcement" do
+  schema "announcements" do
     field :title
     field :body
+    field :last_discussed_at, Ecto.DateTime
+    @ecto_autogenerate_insert {:last_discussed_at, Ecto.DateTime, [:sec]}
     timestamps
 
     belongs_to :user, User
@@ -27,6 +29,10 @@ defmodule Constable.Announcement do
   def changeset(announcement, :create, params) do
     announcement
     |> cast(params, ~w(title body user_id), [])
+  end
+
+  def last_discussed_first(query \\ __MODULE__) do
+    query |> order_by(desc: :last_discussed_at)
   end
 
   def with_announcement_list_assocs(query \\ __MODULE__) do

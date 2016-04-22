@@ -1,5 +1,8 @@
 use Mix.Config
 
+# Longer stacktraces in development
+:erlang.system_flag :backtrace_depth, 25
+
 config :constable, Constable.Endpoint,
   http: [port: System.get_env("PORT") || 4000],
   debug_errors: true,

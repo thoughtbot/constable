@@ -58,24 +58,14 @@ defmodule Constable.AnnouncementController do
     conn.assigns.current_user
     |> Ecto.assoc(:interesting_announcements)
     |> Announcement.with_announcement_list_assocs
+    |> Announcement.last_discussed_first
     |> Repo.all
-    |> sort_announcements
   end
 
   defp all_announcements do
     Announcement.with_announcement_list_assocs
+    |> Announcement.last_discussed_first
     |> Repo.all
-    |> sort_announcements
-  end
-
-  defp sort_announcements(announcements) do
-    Enum.sort(announcements, &compare_announcements/2)
-  end
-
-  defp compare_announcements(first, second) do
-    first = Enum.max([first.updated_at, List.last(first.comments)])
-    second = Enum.max([second.updated_at, List.last(second.comments)])
-    first > second
   end
 
   defp preload_interests(user) do

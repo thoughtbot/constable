@@ -58,6 +58,7 @@ defmodule Constable.Web do
     quote do
       use Ecto.Model
       import Constable.PresenceValidator
+      import Ecto.Query
     end
   end
 

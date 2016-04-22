@@ -1,0 +1,10 @@
+#!/usr/bin/env sh
+
+# Exit if any subcommand fails
+set -e
+
+echo "Dropping existing db"
+mix ecto.drop
+
+echo "Importing production data into local development database"
+heroku pg:pull DATABASE_URL constable_api_development --remote production

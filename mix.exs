@@ -48,25 +48,26 @@ defmodule Constable.Mixfile do
   defp deps do
     [
       {:bamboo, "~> 0.4.0"},
+      {:cors_plug, "~> 0.1.3"},
       {:cowboy, "~> 1.0"},
       {:dialyxir, "~> 0.3", only: [:dev]},
-      {:envy, "~> 0.0.1"},
       {:earmark, "~> 0.1.17"},
       {:ecto, "~> 1.1"},
-      {:exgravatar, "~> 0.2.0"},
+      {:envy, "~> 0.0.1"},
       {:ex_machina, "~> 0.6.1"},
+      {:exgravatar, "~> 0.2.0"},
       {:gettext, "~> 0.11.0"},
-      {:wallaby, "~> 0.4.0", only: :test},
+      {:good_times, "~> 1.1"},
+      {:httpoison, github: "edgurgel/httpoison", override: true},
       {:oauth2, "~> 0.5.0"},
       {:pact, "~> 0.1.0"},
       {:phoenix_ecto, "~> 1.2.0"},
       {:phoenix_html, "~> 2.4"},
       {:phoenix, "~> 1.1.4"},
       {:postgrex, ">= 0.0.0"},
-      {:timex, "~> 2.1.4"},
       {:secure_random, "~> 0.1"},
-      {:httpoison, github: "edgurgel/httpoison", override: true},
-      {:cors_plug, "~> 0.1.3"},
+      {:timex, "~> 2.1.4"},
+      {:wallaby, "~> 0.4.0", only: :test},
     ]
   end
 
