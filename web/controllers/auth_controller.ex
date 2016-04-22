@@ -10,7 +10,7 @@ defmodule Constable.AuthController do
 
   def index(conn, %{"browser" => "true"}) do
     conn
-    |> redirect(external: GoogleStrategy.authorize_url!(auth_url(conn, :browser_callback)))
+    |> redirect(external: GoogleStrategy.authorize_url!(auth_url(uri(conn), :browser_callback)))
   end
 
   @doc """
@@ -19,7 +19,7 @@ defmodule Constable.AuthController do
   def index(conn, %{"redirect_uri" => redirect_uri}) do
     conn
     |> put_session(:redirect_after_success_uri, redirect_uri)
-    |> redirect(external: GoogleStrategy.authorize_url!(auth_url(conn, :javascript_callback)))
+    |> redirect(external: GoogleStrategy.authorize_url!(auth_url(uri(conn), :javascript_callback)))
   end
 
   def browser_callback(conn, %{"code" => code}) do
@@ -120,5 +120,9 @@ defmodule Constable.AuthController do
 
   defp redirect_after_success_uri(conn, token) do
     "#{get_session(conn, :redirect_after_success_uri)}/#{token}"
+  end
+
+  defp uri(conn) do
+    %URI{host: conn.host, scheme: conn.scheme}
   end
 end
