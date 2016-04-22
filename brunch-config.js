@@ -52,6 +52,7 @@ exports.config = {
     whitelist: [
       "jquery",
       "marked",
+      "mousetrap",
       "phoenix",
       "phoenix_html",
       "selectize",

@@ -46,11 +46,10 @@
   </ul>
 
   <div class="comment-new">
-    <div class="comment-body">
       <%= form_for @comment, announcement_comment_path(@conn, :create, @announcement), [class: "comment-form"], fn(f) -> %>
         <%= textarea f,
           :body,
-          class: "new-comment-textarea moustrap",
+          class: "new-comment-textarea mousetrap",
           placeholder: gettext("Your markdown formatted comment here"),
           required: true
         %>
