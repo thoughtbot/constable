@@ -2,7 +2,8 @@
 ExUnit.configure exclude: [pending: true]
 {:ok, _} = Application.ensure_all_started(:wallaby)
 ExUnit.start
-Application.ensure_all_started(:bamboo)
+{:ok, _} = Application.ensure_all_started(:bamboo)
+{:ok, _} = Application.ensure_all_started(:wallaby)
 Pact.put(:google_strategy, FakeGoogleStrategy)
 
 # Create the database, run migrations, and start the test transaction.

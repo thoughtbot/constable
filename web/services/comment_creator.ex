@@ -13,9 +13,10 @@ defmodule Constable.Services.CommentCreator do
     case Repo.insert(changeset) do
       {:ok, comment} ->
         comment = comment |> Repo.preload([:user, announcement: :user])
+        broadcast_html(comment)
+        broadcast(comment)
         mentioned_users = email_mentioned_users(comment)
         email_subscribers(comment, mentioned_users)
-        broadcast(comment)
         {:ok, comment}
       {:error, changeset} -> {:error, changeset}
     end
@@ -47,5 +48,20 @@ defmodule Constable.Services.CommentCreator do
       "comment:add",
       CommentView.render("show.json", %{comment: comment})
     )
+  end
+
+  defp broadcast_html(comment) do
+    Constable.Endpoint.broadcast!(
+      "live-html",
+      "new-comment",
+      %{
+        announcement_id: comment.announcement_id,
+        comment_html: render_comment_html(comment)
+      }
+    )
+  end
+
+  defp render_comment_html(comment) do
+    Phoenix.View.render_to_string(Constable.AnnouncementView, "_comment.html", comment: comment)
   end
 end
