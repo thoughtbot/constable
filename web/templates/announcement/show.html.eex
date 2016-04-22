@@ -1,4 +1,4 @@
-<div class="announcement container">
+<div class="announcement container" data-announcement-id="<%= @announcement.id %>">
   <header class="announcement-header">
     <div class="announcement-interests">
       <%= for interest <- @announcement.interests do %>
@@ -41,17 +41,15 @@
     <h4 class="author author-announcement"><%= @announcement.user.name %></h4>
   </div>
 
-  <%= if !Enum.empty?(@announcement.comments) do %>
-    <ul class="comments-list">
-      <%= for comment <- @announcement.comments do %>
-        <%= render "_comment.html", comment: comment %>
-      <% end %>
-    </ul>
-  <% end %>
+  <ul class="comments-list">
+    <%= for comment <- @announcement.comments do %>
+      <%= render "_comment.html", comment: comment %>
+    <% end %>
+  </ul>
 
   <div class="comment-new">
     <div class="comment-body">
-      <%= form_for @comment, announcement_comment_path(@conn, :create, @announcement), fn(f) -> %>
+      <%= form_for @comment, announcement_comment_path(@conn, :create, @announcement), [class: "comment-form"], fn(f) -> %>
         <%= textarea f,
           :body,
           class: "new-comment-textarea moustrap",
@@ -59,8 +57,14 @@
           required: true
         %>
 
-        <%= submit gettext("Post Comment") %>
+        <%= submit gettext("Post Comment"), id: "submit-comment" %>
       <% end %>
     </div>
   </div>
 </div>
+
+<script>
+  (function() {
+    require("web/static/js/comment-form");
+  })()
+</script>

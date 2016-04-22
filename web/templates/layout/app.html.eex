@@ -9,6 +9,7 @@
 
     <title>Constable</title>
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
+    <script>window.userToken = "<%= @current_user.token %>";</script>
     <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
   </head>
 

@@ -66,7 +66,7 @@ defmodule Constable.Mixfile do
       {:timex, "~> 2.1.4"},
       {:secure_random, "~> 0.1"},
       {:httpoison, github: "edgurgel/httpoison", override: true},
-      {:cors_plug, "~> 0.1.3"}
+      {:cors_plug, "~> 0.1.3"},
     ]
   end
 
