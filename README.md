@@ -11,24 +11,30 @@ start the console in staging or production.
 To set up your development environment, there are a few steps you'll need to
 follow.
 
-### Install Elixir
+### Install Elixir and Phantomjs
 
-If you're on OS X and using Homebrew, run `brew install elixir`. Otherwise,
-follow the instructions on the [Elixir installation page].
+If you're on OS X and using Homebrew, run `brew install elixir` and `brew
+install phantomjs`. Otherwise, follow the instructions on the [Elixir
+installation page] and the [Phantomjs page].
 
 [Elixir installation page]: http://elixir-lang.org/install.html
+[Phantomjs page]: http://phantomjs.org/download.html
 
 ### Configure Your Local Environment
 
-Run:
+1. Run:
 
-```sh
-bin/setup
-```
+  ```sh
+  # Will grab all Elixir and NPM dependencies and then setup the database
+  bin/setup
+  ```
 
-This will grab all Elixir and NPM dependencies and ensure the database is
-up-to-date, and provides further instructions for configuring your environment
-variables.
+2. Get necessary env variables:
+
+  Go to [`constable-api-staging`], click "Reveal Config Vars" and copy/paste the
+  `CLIENT_ID` and `CLIENT_SECRET` into your `.env` file.
+
+[`constable-api-staging`]: https://dashboard-preview.heroku.com/apps/constable-api-staging/settings
 
 ### Starting the Phoenix Server
 
@@ -48,7 +54,7 @@ You can find a list of templates in the `EmailPreviewController`.
 
 ## Viewing Sent Emails
 
-You can view sent emails in develpoment by going to `localhost:4000/sent_emails`
+You can view sent emails in development by going to `localhost:4000/sent_emails`
 
 ## Testing
 

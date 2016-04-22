@@ -3,30 +3,41 @@
 # Exit if any subcommand fails
 set -e
 
-# set up environment variables
-cp .sample.env .env
+# set up environment variables if not set up yet
+echo "Copyying .env file"
+if [ ! -f .env ]; then
+  cp .sample.env .env
+fi
+
+echo "Removing previous build artifacts"
+rm -rf deps _build
 
 # Set up phoenix
+echo "Installing dependencies and compiling"
 mix local.hex --force
 mix deps.get
 mix deps.compile
 mix compile
 
 # Set up database
+echo "Setting up the database"
 mix ecto.create
 mix ecto.migrate
+mix run priv/repo/seeds.exs
 
 # Grab JS dependencies from NPM
+echo "Installing npm dependencies"
 npm install
 
 # Only if this isn't CI
 if [ -z "$CI" ]; then
   # Set up Heroku
-  heroku join --app constable-api-staging
-  heroku git:remote -r staging -a constable-api-staging
+  echo "Setting up Heroku and git remotes"
+  heroku join --app constable-api-staging || true
+  heroku git:remote -r staging -a constable-api-staging || true
 
-  heroku join --app constable-api-production
-  heroku git:remote -r production -a constable-api-production
+  heroku join --app constable-api-production || true
+  heroku git:remote -r production -a constable-api-production || true
 fi
 
-echo "Get the CLIENT_ID and CLIENT_SECRET from the constable-api-staging app on Heroku and put it in your .env"
+echo "\nNow see the Constable README for instructions on setting up your .env variables"
