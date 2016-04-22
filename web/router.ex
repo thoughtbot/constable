@@ -29,6 +29,7 @@ defmodule Constable.Router do
       resources "/comments", CommentController, only: [:create]
       resources "/subscriptions", SubscriptionController, singleton: true, only: [:create, :delete]
     end
+    resources "/settings", SettingsController, singleton: true, only: [:show, :update]
     resources "/unsubscribe", UnsubscribeController, only: [:show]
     get "/search", SearchController, :new
 

@@ -3,6 +3,13 @@ defmodule Constable.UserTest do
 
   alias Constable.User
 
+  test "changeset validates length of name" do
+    changeset = User.changeset(%User{}, %{name: "ab"})
+
+    refute changeset.valid?
+    assert changeset.errors[:name]
+  end
+
   test "create_changeset returns invalid changeset" do
     changeset = User.create_changeset(%User{}, %{email: nil, name: nil})
 
