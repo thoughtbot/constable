@@ -12,8 +12,10 @@
     </table>
   </td>
   <td align="right">
-    <a href="<%= front_end_uri %>/announcements/<%= @announcement.id  %>" style="color: <%= red %>; font-size: 14px;">
-      View on #Constable
-    </a>
+    <%= link to: announcement_url(Constable.Endpoint, :show, @announcement) do %>
+      <span style="color: <%= red %>; font-size: 14px;">
+        <%= gettext("View on #Constable") %>
+      </span>
+    <% end %>
   </td>
 </tr>

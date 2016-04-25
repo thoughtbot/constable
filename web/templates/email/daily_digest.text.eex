@@ -1,20 +1,20 @@
-# Daily digest of new Interests and Announcements
+<%= gettext("# Daily digest of new Interests and Announcements") %>
 
-New Interests
+<%= gettext("New Interests") %>
 -------------
 
 <%= for interest <- @interests do %>
-  #<%= interest.name %> - <%= front_end_uri %>/interests/<%= interest.id %>
+  #<%= interest.name %> - <%= interest_url(Constable.Endpoint, :show, interest) %>
 <% end %>
 
-New Announcements
+<%= gettext("New Announcements") %>
 -----------------
 
 <%= for announcement <- @announcements do %>
-  <%= announcement.title %> - <%= front_end_uri %>/announcements/<%= announcement.id %>
-  posted by <%= announcement.user.name %>
+  <%= announcement.title %> - <%= announcement_url(Constable.Endpoint, :show, announcement) %>
+  <%= gettext("posted by") %> <%= announcement.user.name %>
 
 <% end %>
 
-View Interests and Announcements on Constable
-<%= front_end_uri %>/announcements
+<%= gettext("View Interests and Announcements on Constable") %>
+<%= announcement_path(Constable.Endpoint, :index) %>

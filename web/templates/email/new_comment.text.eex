@@ -1,5 +1,5 @@
 <%= @comment.body %>
 
-<%= front_end_uri %>/announcements/<%= @comment.announcement.id %>
+<%= announcement_url(Constable.Endpoint, :show, @comment.announcement) %>
 
-Unsubscribe: <%= unsubscribe_link %>
+<%= gettext("Unsubscribe:") %> <%= unsubscribe_link %>

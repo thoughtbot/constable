@@ -112,14 +112,12 @@
             <tr>
               <td width='40'></td>
               <td align='left'>
-                <h4>Recently added interests</h4>
+                <h4><%= gettext("Recently added interests") %></h4>
 
                 <ul>
                   <%= for interest <- @interests do %>
                     <li>
-                      <a href="<%= front_end_uri %>/interests/<%= interest.id %>" style="color: #c32f34;">
-                        #<%= interest.name %>
-                      </a>
+                      <%= link "##{interest.name}", to: interest_url(Constable.Endpoint, :show, interest), style: "color: #{red}" %>
                     </li>
                   <% end %>
                 </ul>
@@ -128,10 +126,8 @@
                 <ul>
                   <%= for announcement <- @announcements do %>
                     <li>
-                      <a href="<%= front_end_uri %>/announcements/<%= announcement.id %>" style='color: #c32f34;'>
-                        <%= announcement.title %>
-                      </a>
-                      posted by <strong><%= announcement.user.name %></strong>
+                      <%= link announcement.title, to: announcement_url(Constable.Endpoint, :show, announcement), style: "color: #{red}" %>
+                      <%= gettext("posted by") %> <strong><%= announcement.user.name %></strong>
                     </li>
                   <% end %>
                 </ul>
@@ -149,11 +145,11 @@
             <tr>
               <td width='40'></td>
               <td align='center'>
-                <a href="<%= front_end_uri %>/announcements" style='color: #c32f34;'>
-                  <h4 style='#c32f34 font-size: 18px; margin: 0; padding-bottom: 5px;'>
-                    View Interests and Announcements on Constable
+                <%= link to: announcement_url(Constable.Endpoint, :index) do %>
+                  <h4 style='color: <%= red %>; font-size: 18px; margin: 0; padding-bottom: 5px;'>
+                    <%= gettext("View Interests and Announcements on Constable") %>
                   </h4>
-                </a>
+                <% end %>
               </td>
               <td width='40'></td>
             </tr>

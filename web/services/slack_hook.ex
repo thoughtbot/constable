@@ -1,4 +1,6 @@
 defmodule Constable.Services.SlackHook do
+  import Constable.Router.Helpers
+
   alias Constable.Repo
 
   def new_announcement(announcement) do
@@ -7,7 +9,7 @@ defmodule Constable.Services.SlackHook do
     Enum.each(announcement.interests, fn(interest) ->
       if interest.slack_channel do
         payload = %{
-          text: "#{announcement.user.name} posted <#{front_end_uri}/announcements/#{announcement.id}|#{announcement.title}>",
+          text: "#{announcement.user.name} posted <#{announcement_url(Constable.Endpoint, :show, announcement)}|#{announcement.title}>",
           channel: interest.slack_channel,
         }
 
@@ -22,10 +24,6 @@ defmodule Constable.Services.SlackHook do
         HTTPoison.post(slack_webhook_url, Poison.encode!(payload))
       end
     end
-  end
-
-  defp front_end_uri do
-    System.get_env("FRONT_END_URI")
   end
 
   defp slack_webhook_url do
