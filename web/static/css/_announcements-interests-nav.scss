@@ -40,30 +40,6 @@
   .selected {
     color: $dark-blue;
   }
-
-  .select-interests-link {
-    align-items: center;
-    display: flex;
-    justify-content: center;
-    padding-right: $tiny-spacing;
-
-    &::before {
-      color: $light-gray;
-      content: "|";
-      margin-right: $tiny-spacing;
-    }
-
-    &:hover {
-      .caret {
-        border-top-color: $dark-blue;
-      }
-    }
-  }
-
-  .caret {
-    @include triangle(10px, $subdued-subhead-color, down);
-    transition: border-top-color $base-transition-time;
-  }
 }
 
 .mine.selected {
@@ -71,4 +47,9 @@
   .caret {
     border-bottom: $dark-blue 1px solid;
   }
+}
+
+.interests-message {
+  padding-top: $base-spacing * 0.5;
+  text-align: center;
 }

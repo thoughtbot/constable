@@ -5,10 +5,16 @@ defmodule Constable.AnnouncementController do
   alias Constable.Services.AnnouncementCreator
 
   def index(conn, %{"all" => "true"}) do
-    render(conn, "index.html", announcements: all_announcements)
+    conn
+    |> assign(:announcements, all_announcements)
+    |> assign(:current_user, preload_interests(conn.assigns.current_user))
+    |> render("index.html")
   end
   def index(conn, _params) do
-    render(conn, "index.html", announcements: my_announcements(conn))
+    conn
+    |> assign(:announcements, my_announcements(conn))
+    |> assign(:current_user, preload_interests(conn.assigns.current_user))
+    |> render("index.html")
   end
 
   def show(conn, %{"id" => id}) do
@@ -70,5 +76,9 @@ defmodule Constable.AnnouncementController do
     first = Enum.max([first.updated_at, List.last(first.comments)])
     second = Enum.max([second.updated_at, List.last(second.comments)])
     first > second
+  end
+
+  defp preload_interests(user) do
+    Repo.preload user, :interests
   end
 end

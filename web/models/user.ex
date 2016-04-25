@@ -40,6 +40,10 @@ defmodule Constable.User do
     |> ensure_name_is_set
   end
 
+  def interested_in?(user, interest) do
+    interest.id in Enum.map(user.interests, &(&1.id))
+  end
+
   defp require_thoughtbot_email(changeset) do
     changeset
     |> validate_change(:email, fn(:email, value) ->

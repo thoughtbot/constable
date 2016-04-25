@@ -32,4 +32,8 @@ defmodule Constable.Interest do
     |> cast(%{slack_channel: channel_name}, ~w(slack_channel), [])
     |> update_change(:slack_channel, &Regex.replace(~r/^#*/, &1, "#"))
   end
+
+  def ordered_by_name(query \\ __MODULE__) do
+    from i in query, order_by: [asc: i.name]
+  end
 end

@@ -12,12 +12,16 @@
           to: announcement_path(@conn, :index),
           class: class_for("mine", @conn)
         %>
-        <a class="select-interests-link">
-          <i class="caret"></i>
-        </a>
       </li>
     </ul>
   </nav>
+
+  <p class="interests-message container">
+    <%= dngettext("interest-count", "You're subscribed to 1 interest.", "You're subscribed to %{count} interests.", interest_count_for(@current_user)) %>
+    <%= link to: interest_path(@conn, :index), data: [role: "view-all-interests"] do %>
+      <%= gettext "Manage your interests." %>
+    <% end %>
+  </p>
 
   <%= render Constable.AnnouncementListView, "index.html", conn: @conn, announcements: @announcements %>
 </div>

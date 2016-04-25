@@ -4,3 +4,47 @@
     margin-top: $base-spacing;
   }
 }
+
+.interests.container {
+  h1 {
+    padding-top: $base-spacing*.5;
+  }
+}
+
+.interest-list-item {
+  border-bottom: $base-border;
+  display: flex;
+  justify-content: space-between;
+  margin: $base-spacing*.5 0 0;
+  padding: 0;
+
+  h3 {
+    line-height: inherit;
+    margin: 0;
+    padding: 0;
+
+    &::before {
+      content: "#";
+    }
+  }
+
+  a.subscribe, a.unsubscribe {
+    border-radius: $base-border-radius;
+    display: inline-block;
+    height: $base-spacing;
+    line-height: $base-spacing*1.2;
+    margin: 0;
+    padding: 0;
+    width: $base-spacing*2;
+
+    span { display: none; }
+  }
+
+  a.subscribe {
+    background: $light-gray url("../images/icon-plus.svg") no-repeat center / 1em;
+  }
+
+  a.unsubscribe {
+    background: $dark-blue url("../images/icon-check.svg") no-repeat center / 1em;
+  }
+}

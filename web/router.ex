@@ -31,8 +31,9 @@ defmodule Constable.Router do
     end
     resources "/settings", SettingsController, singleton: true, only: [:show, :update]
     resources "/unsubscribe", UnsubscribeController, only: [:show]
-    resources "/interests", InterestController, only: [:show] do
+    resources "/interests", InterestController, only: [:index, :show] do
       resources "/slack_channel", SlackChannelController, singleton: true, only: [:edit, :update]
+      resources "/user_interest", UserInterestController, singleton: true, only: [:create, :delete]
     end
     get "/search", SearchController, :new
 

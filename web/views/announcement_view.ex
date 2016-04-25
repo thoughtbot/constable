@@ -15,4 +15,8 @@ defmodule Constable.AnnouncementView do
     "mine selected"
   end
   def class_for(_, _), do: nil
+
+  def interest_count_for(user) do
+    length user.interests
+  end
 end
