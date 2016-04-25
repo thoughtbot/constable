@@ -15,8 +15,8 @@ defmodule Constable.EmailForwardControllerTest do
     conn = post(conn, email_forward_path(Endpoint, :create), forwarded_emails)
 
     assert conn.status == 200
-    assert Emails.forwarded_email(message).to == ~w(1@foo.com 2@foo.com)
     message = forwarded_emails.mandrill_events |> Poison.decode! |> List.first |> Map.fetch!("msg")
+    assert Emails.forwarded_email(message).to == ~w(1@foo.com 2@foo.com)
     assert_delivered_email Emails.forwarded_email(message)
   end
 
