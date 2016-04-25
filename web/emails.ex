@@ -6,6 +6,35 @@ defmodule Constable.Emails do
   alias Constable.Repo
   alias Constable.Subscription
 
+  def forwarded_email(%{"email" => to, "from_email" => from, "text" => email_body}) do
+    new_email
+    |> to(admins)
+    |> from(generic_address)
+    |> put_header("Reply-To", from)
+    |> text_body(forwarded_body(email_body, from, to))
+  end
+
+  defp admins do
+    admin_emails |> String.split(", ")
+  end
+
+  defp admin_emails do
+    System.get_env("ADMIN_EMAILS") || raise "Need to set ADMIN_EMAILS env variable"
+  end
+
+  defp generic_address do
+    "admin@#{outbound_domain}"
+  end
+
+  defp forwarded_body(text_body, from_address, to) do
+    """
+    Originally from: #{from_address}
+    Originally to: #{to}
+
+    #{text_body}
+    """
+  end
+
   def new_announcement(announcement, recipients) do
     new_email(to: recipients)
     |> subject(announcement.title)

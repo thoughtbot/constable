@@ -45,6 +45,7 @@ defmodule Constable.Router do
   scope "/", Constable do
     pipe_through :api
 
+    resources "/email_forwards", EmailForwardController, only: [:create]
     resources "/email_replies", EmailReplyController, only: [:create]
   end
 
