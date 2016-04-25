@@ -4,8 +4,8 @@
 set -e
 
 # set up environment variables if not set up yet
-echo "Copyying .env file"
 if [ ! -f .env ]; then
+  echo "Copying .env file"
   cp .sample.env .env
 fi
 
