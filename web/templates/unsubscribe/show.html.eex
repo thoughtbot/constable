@@ -14,8 +14,8 @@
   <body>
     <div class="container">
       <section class="unsubscribe-banner">
-        You've been unsubscribed. <%= link "Continue to Constable", to:
-        System.get_env("FRONT_END_URI") %>
+        You've been unsubscribed.
+        <%= link "Continue to Constable", to: announcement_path(@conn, :index) %>
       </section>
     </div>
   </body>

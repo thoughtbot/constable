@@ -4,11 +4,6 @@ defmodule Constable.UsubscribeController.Test do
   alias Constable.Repo
   alias Constable.Subscription
 
-  setup do
-    System.put_env("FRONT_END_URI", "http://localhost:8000")
-    {:ok, %{}}
-  end
-
   test "#show deletes subscription and shows a page" do
     subscription = create(:subscription)
 
