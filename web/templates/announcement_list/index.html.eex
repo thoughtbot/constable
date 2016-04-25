@@ -14,7 +14,9 @@
       </span>
 
       <%= for interest <- announcement.interests do %>
-        <span class="interest"><%= interest.name %></span>
+        <%= link to: interest_path(@conn, :show, interest) do %>
+          <span class="interest"><%= interest.name %></span>
+        <% end %>
       <% end %>
 
       <div class="commenters">

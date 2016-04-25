@@ -2,7 +2,7 @@
   <header class="announcement-header">
     <div class="announcement-interests">
       <%= for interest <- @announcement.interests do %>
-        <%= link interest.name, to: "#", class: "announcement-interest" %>
+        <%= link interest.name, to: interest_path(@conn, :show, interest), class: "announcement-interest" %>
       <% end %>
     </div>
 
