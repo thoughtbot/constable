@@ -14,7 +14,9 @@
             %>
           </p>
         <% else %>
-          <p>Click here to add a slack channel webhook to this interest.</p>
+          <p data-role="current-channel">
+            <%= gettext("Click here to add a slack channel webhook to this interest.") %>
+          </p>
         <% end %>
       <% end %>
     </div>

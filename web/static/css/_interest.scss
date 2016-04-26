@@ -5,6 +5,17 @@
   }
 }
 
+.current-channel {
+  position: relative;
+}
+
+.remove-slack-channel {
+  @include position(absolute, null 0 0 null);
+
+  color: $dark-gray;
+  background-color: $light-gray;
+}
+
 .interests.container {
   h1 {
     padding-top: $base-spacing*.5;

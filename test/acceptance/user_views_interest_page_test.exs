@@ -25,7 +25,7 @@ defmodule Constable.UserViewsInterestPageTest do
     |> fill_in("interest_slack_channel", with: "#channel-name")
     |> click_submit
 
-    assert has_channel_text?(session, "#channel-name")
+    assert has_slack_channel_set?(session, "#channel-name")
   end
 
   test "user edits an existing slack channel for an interest", %{session: session} do
@@ -34,14 +34,31 @@ defmodule Constable.UserViewsInterestPageTest do
 
     visit(session, interest_path(Endpoint, :show, interest, as: user.id))
 
-    assert has_channel_text?(session, "#channel-name")
+    assert has_slack_channel_set?(session, "#channel-name")
 
     session
     |> click_edit_interest
     |> fill_in("interest_slack_channel", with: "#new-channel-name")
     |> click_submit
 
-    assert has_channel_text?(session, "#new-channel-name")
+    assert has_slack_channel_set?(session, "#new-channel-name")
+  end
+
+  test "user removes an existing slack channel for an interest", %{session: session} do
+    interest = create(:interest, name: "interest", slack_channel: "#channel-name")
+    user = create(:user)
+
+    session
+    |> visit(interest_slack_channel_path(Endpoint, :edit, interest, as: user.id))
+    |> accept_all_confirm_dialogs
+    |> click_remove_slack_channel
+
+    assert has_no_slack_channel_set?(session)
+  end
+
+  defp click_remove_slack_channel(session) do
+    session
+    |> click("a[data-role=remove-channel]")
   end
 
   defp has_announcement_text?(session, announcment_title) do
@@ -58,10 +75,16 @@ defmodule Constable.UserViewsInterestPageTest do
     session
   end
 
-  defp has_channel_text?(session, channel_name) do
+  defp has_slack_channel_set?(session, channel_name) do
     session
-    |> find("p[data-role=current-channel]")
+    |> find("[data-role=current-channel]")
     |> has_text?(channel_name)
+  end
+
+  defp has_no_slack_channel_set?(session) do
+    session
+    |> find("[data-role=current-channel]")
+    |> has_text?("add a slack channel")
   end
 
   defp click_submit(session) do

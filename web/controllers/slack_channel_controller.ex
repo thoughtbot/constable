@@ -20,4 +20,10 @@ defmodule Constable.SlackChannelController do
         |> render(Constable.ChangesetView, "edit.html", changeset: changeset)
     end
   end
+
+  def delete(conn, %{"interest_id" => id}) do
+    interest = Repo.get!(Interest, id)
+    Repo.update!(Interest.changeset(interest, %{slack_channel: nil}))
+    redirect conn, to: interest_path(conn, :show, interest)
+  end
 end

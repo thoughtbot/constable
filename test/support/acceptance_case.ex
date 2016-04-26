@@ -10,6 +10,7 @@ defmodule Constable.AcceptanceCase do
       import Ecto.Query, only: [from: 2]
       import Constable.Router.Helpers
       import Constable.Factory
+      import Constable.WallabyHelper
       Application.put_env(:wallaby, :base_url, Constable.Endpoint.url)
     end
   end

@@ -15,7 +15,7 @@ defmodule Constable.Interest do
 
   def changeset(interest \\ %__MODULE__{}, params) do
     interest
-    |> cast(params, ~w(name), [])
+    |> cast(params, ~w(name), ~w(slack_channel))
     |> validate_presence(:name)
     |> update_change(:name, &String.replace(&1, "#", ""))
     |> update_change(:name, &String.downcase/1)
