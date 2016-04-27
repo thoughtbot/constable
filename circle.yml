@@ -3,11 +3,12 @@ machine:
     PATH: "$HOME/.asdf/bin:$HOME/.asdf/shims:$PATH"
   pre:
     - sudo curl --output /usr/local/bin/phantomjs https://s3.amazonaws.com/circle-downloads/phantomjs-2.1.1
+  node:
+    version: 6.0.0
 
 dependencies:
   cache_directories:
     - ~/.asdf
-    - _build
     - deps
 
   pre:
@@ -19,6 +20,9 @@ dependencies:
     - yes | mix deps.get
     - mix local.rebar
     - cp .sample.env .env
+
+  post:
+    - node_modules/brunch/bin/brunch build
 
 test:
   override:

@@ -1,6 +1,7 @@
 defmodule Constable.UserCreatesAnnouncementTest do
   use Constable.AcceptanceCase, async: true
 
+  @tag pending: true
   test "user creates an announcement", %{session: session} do
     user = create(:user)
 
