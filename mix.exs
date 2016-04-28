@@ -10,6 +10,7 @@ defmodule Constable.Mixfile do
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
      dialyzer: dialyzer_settings,
+     aliases: aliases,
      deps: deps]
   end
 
@@ -73,4 +74,10 @@ defmodule Constable.Mixfile do
 
   defp elixirc_paths(:test), do: ["lib", "web", "test/support"]
   defp elixirc_paths(_),     do: ["lib", "web"]
+
+  defp aliases do
+    [
+      "ecto.reset": ["ecto.drop", "ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"]
+    ]
+  end
 end
