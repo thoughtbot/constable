@@ -2,6 +2,10 @@ defmodule Constable.Router do
   use Phoenix.Router
 
   pipeline :browser do
+    if Mix.env == :production do
+      plug Plug.SSL
+    end
+
     plug :accepts, ~w(html)
     plug :fetch_session
     plug :fetch_flash
