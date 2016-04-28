@@ -27,18 +27,16 @@
     <%= @announcement.title %>
   </h1>
 
-  <time>
-    <%= gettext("Announced") %>
-    <%= time_ago_in_words(@announcement.inserted_at) %>
-  </time>
+  <div class="announcement-posted-by">
+    <img src="<%= gravatar @announcement.user %>" class="avatar-rounded"/>
+    <span class="author"><%= @announcement.user.name %></span>
+    <time>
+      <%= time_ago_in_words(@announcement.inserted_at) %>
+    </time>
+  </div>
 
   <div class="announcement-body" data-role="body">
     <%= raw Earmark.to_html(@announcement.body) %>
-  </div>
-
-  <div class="announcement-posted-by">
-    <img src="<%= gravatar @announcement.user %>" class="avatar-rounded avatar-announcement"/>
-    <h4 class="author author-announcement"><%= @announcement.user.name %></h4>
   </div>
 
   <ul class="comments-list">

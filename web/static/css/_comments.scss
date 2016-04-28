@@ -1,3 +1,8 @@
+%align-center-flex {
+  align-items: center;
+  display: flex;
+}
+
 .comment-loading {
   @include animation(loading-spinner 0.6s infinite linear);
   @include border-style(solid);
@@ -37,29 +42,26 @@
   }
 }
 
-.author-announcement {
-  margin-top: $tiny-spacing;
-}
-
 .avatar-rounded {
-  @include size(24px);
+  @include size(20px);
   border-radius: 50%;
-  margin-right: $tiny-spacing;
+  margin-right: 0.3rem;
 }
 
-.avatar-announcement {
-  @include size(44px);
+.author-information {
+  @extend %align-center-flex;
+
+  .author {
+    font-size: $small-font-size;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+  }
 }
 
 .comment-information {
-  margin-bottom: $tiny-spacing;
+  @extend %align-center-flex;
   justify-content: space-between;
-}
-
-.author-information,
-.comment-information {
-  align-items: center;
-  display: flex;
+  margin-bottom: $small-spacing;
 }
 
 .comment-new {

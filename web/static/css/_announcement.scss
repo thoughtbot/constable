@@ -2,7 +2,7 @@
   margin-top: $base-spacing * 3;
 
   h1 {
-    margin-bottom: 5px;
+    margin-bottom: 6px;
   }
 
   pre {
@@ -35,14 +35,9 @@
     margin-bottom: $base-spacing;
   }
 
-  time {
-    display: block;
-    margin-bottom: $base-spacing;
-
-    &.comment-time {
-      margin-bottom: 0;
-      font-size: $small-font-size - 2px;
-    }
+  .comment-time {
+    font-size: $small-font-size - 2px;
+    margin-bottom: 0;
   }
 }
 
@@ -74,9 +69,18 @@
 }
 
 .announcement-posted-by {
-  @include margin($large-spacing null $base-spacing);
-  align-items: center;
-  display: flex;
+  @include margin(null null $base-spacing);
+  color: $medium-gray;
+  font-size: 1rem;
+
+  .author {
+    color: $dark-gray;
+  }
+
+  .avatar-rounded {
+    @include margin(-2px 0.2rem null null);
+    vertical-align: middle;
+  }
 }
 
 .announcement-body,
@@ -126,6 +130,7 @@
 
   blockquote {
     border-left: 3px solid $action-color;
+    margin-top: $base-spacing;
     padding-left: $small-spacing;
 
     p {
