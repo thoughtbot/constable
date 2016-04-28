@@ -12,8 +12,9 @@ use Mix.Config
 # disk for the key and cert.
 
 config :constable, Constable.Endpoint,
-  url: [host: System.get_env("HOST"), port: System.get_env("URL_PORT")],
+  url: [scheme: "https", host: System.get_env("HOST"), port: System.get_env("URL_PORT")],
   http: [port: {:system, "PORT"}, compress: true],
+  force_ssl: [rewrite_on: [:x_forwarded_proto], host: System.get_env("HOST")],
   secret_key_base: System.get_env("SECRET_KEY_BASE")
 
 config :constable, Constable.Repo,
