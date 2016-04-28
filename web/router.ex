@@ -25,21 +25,26 @@ defmodule Constable.Router do
     pipe_through :browser
 
     get "/", SessionController, :new
+    resources "/unsubscribe", UnsubscribeController, only: [:show]
+
+    if Mix.env == :dev do
+      get "/emails/:email_name", EmailPreviewController, :show
+    end
+  end
+
+  scope "/", Constable do
+    pipe_through [:browser, Constable.Plugs.RequireLogin]
+
     resources "/announcements", AnnouncementController, only: [:index, :show, :new, :create] do
       resources "/comments", CommentController, only: [:create]
       resources "/subscriptions", SubscriptionController, singleton: true, only: [:create, :delete]
     end
     resources "/settings", SettingsController, singleton: true, only: [:show, :update]
-    resources "/unsubscribe", UnsubscribeController, only: [:show]
     resources "/interests", InterestController, only: [:index, :show] do
       resources "/slack_channel", SlackChannelController, singleton: true, only: [:edit, :update, :delete]
       resources "/user_interest", UserInterestController, singleton: true, only: [:create, :delete]
     end
     get "/search", SearchController, :new
-
-    if Mix.env == :dev do
-      get "/emails/:email_name", EmailPreviewController, :show
-    end
   end
 
   if Mix.env == :dev do
