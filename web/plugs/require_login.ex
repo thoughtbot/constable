@@ -13,8 +13,7 @@ defmodule Constable.Plugs.RequireLogin do
 
   defp redirect_to_login(conn) do
     conn
-    |> put_resp_header("location", "/")
-    |> send_resp(302, "")
+    |> Phoenix.Controller.redirect(to: "/")
     |> halt
   end
 end
