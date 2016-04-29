@@ -30,12 +30,17 @@ exports.config = {
     babel: {
       ignore: [/web\/static\/vendor/]
     },
-
+    postcss: {
+      processors: [
+        require("autoprefixer")
+      ],
+    },
     sass: {
       options: {
         includePaths: [
           bourbonPath,
           "./node_modules/bourbon-neat/app/assets/stylesheets",
+          "./node_modules/normalize-css",
         ],
       }
     }
@@ -53,6 +58,7 @@ exports.config = {
       "jquery",
       "marked",
       "mousetrap",
+      "normalize.css",
       "phoenix",
       "selectize",
       "textarea-autogrow",

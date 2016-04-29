@@ -5,13 +5,16 @@
     "watch": "brunch watch --stdin"
   },
   "dependencies": {
+    "autoprefixer": "^6.3.6",
     "bourbon": "^4.2.6",
     "bourbon-neat": "^1.7.2",
     "jquery": "^2.2.0",
     "marked": "^0.3.5",
     "mousetrap": "^1.5.3",
+    "normalize.css": "^4.1.1",
     "phoenix": "file:deps/phoenix",
     "phoenix_html": "file:deps/phoenix_html",
+    "postcss-brunch": "^0.5.0",
     "selectize": "^0.12.1",
     "turbolinks": "^5.0.0-beta4"
   },

@@ -26,8 +26,8 @@
   </div>
 
   <div class="button-container">
-    <button class="button-create-announcement">
-      <%= submit gettext("Create Announcement") %>
+    <button>
+      <%= gettext("Create Announcement") %>
     </button>
   </div>
 <% end %>
