@@ -6,7 +6,7 @@
   "cowboy": {:hex, :cowboy, "1.0.4"},
   "cowlib": {:hex, :cowlib, "1.0.2"},
   "db_connection": {:hex, :db_connection, "0.2.5"},
-  "decimal": {:hex, :decimal, "1.1.1"},
+  "decimal": {:hex, :decimal, "1.1.2"},
   "dialyxir": {:hex, :dialyxir, "0.3.3"},
   "dialyze": {:hex, :dialyze, "0.2.1"},
   "earmark": {:hex, :earmark, "0.1.19"},
@@ -22,7 +22,7 @@
   "metrics": {:hex, :metrics, "1.0.1"},
   "mimerl": {:hex, :mimerl, "1.0.2"},
   "mimetype_parser": {:hex, :mimetype_parser, "0.1.2"},
-  "oauth2": {:hex, :oauth2, "0.5.0"},
+  "oauth2": {:hex, :oauth2, "0.6.0"},
   "pact": {:hex, :pact, "0.1.0"},
   "phoenix": {:hex, :phoenix, "1.1.4"},
   "phoenix_ecto": {:hex, :phoenix_ecto, "1.2.0"},
@@ -36,4 +36,4 @@
   "ssl_verify_fun": {:hex, :ssl_verify_fun, "1.1.0"},
   "timex": {:hex, :timex, "2.1.4"},
   "tzdata": {:hex, :tzdata, "0.5.7"},
-  "wallaby": {:hex, :wallaby, "0.4.0"}}
+  "wallaby": {:hex, :wallaby, "0.5.0"}}

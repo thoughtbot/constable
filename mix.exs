@@ -48,27 +48,27 @@ defmodule Constable.Mixfile do
   # Type `mix help deps` for examples and options
   defp deps do
     [
-      {:bamboo, "~> 0.4.0"},
-      {:cors_plug, "~> 0.1.3"},
+      {:bamboo, "~> 0.4"},
+      {:cors_plug, "~> 0.1"},
       {:cowboy, "~> 1.0"},
       {:dialyxir, "~> 0.3", only: [:dev]},
       {:earmark, "~> 0.1.17"},
       {:ecto, "~> 1.1"},
       {:envy, "~> 0.0.1"},
-      {:ex_machina, "~> 0.6.1"},
-      {:exgravatar, "~> 0.2.0"},
-      {:gettext, "~> 0.11.0"},
+      {:ex_machina, "~> 0.6"},
+      {:exgravatar, "~> 0.2"},
+      {:gettext, "~> 0.11"},
       {:good_times, "~> 1.1"},
       {:httpoison, github: "edgurgel/httpoison", override: true},
-      {:oauth2, "~> 0.5.0"},
-      {:pact, "~> 0.1.0"},
-      {:phoenix_ecto, "~> 1.2.0"},
+      {:oauth2, "~> 0.5"},
+      {:pact, "0.1.0"},
+      {:phoenix_ecto, "~> 1.2"},
       {:phoenix_html, "~> 2.4"},
-      {:phoenix, "~> 1.1.4"},
+      {:phoenix, "~> 1.1"},
       {:postgrex, ">= 0.0.0"},
       {:secure_random, "~> 0.1"},
-      {:timex, "~> 2.1.4"},
-      {:wallaby, "~> 0.4.0", only: :test},
+      {:timex, "~> 2.1"},
+      {:wallaby, "~> 0.5", only: :test},
     ]
   end
 

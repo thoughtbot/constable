@@ -1,58 +1,44 @@
 defmodule Constable.UserManagesInterestsTest do
   use Constable.AcceptanceCase
 
+  @unsubscribe_link_css "[data-role=unsubscribe-from-interest]"
+  @subscribe_link_css "[data-role=subscribe-to-interest]"
+  @view_all_interests_css "[data-role=view-all-interests]"
+
   test "user manages interests", %{session: session} do
-    interest_everyone = create(:interest, name: "Everyone")
-    interest_design = create(:interest, name: "Design")
+    create(:interest)
 
     session |> view_interests
+    assert not_subscribed_to_interest?(session)
 
-    assert not_subscribed_to?(session, interest_everyone)
-    assert not_subscribed_to?(session, interest_design)
+    session |> subscribe_to_interest
+    assert subscribed_to_interest?(session)
 
-    session |> subscribe_to(interest_everyone)
-
-    assert subscribed_to?(session, interest_everyone)
-    assert not_subscribed_to?(session, interest_design)
-
-    session |> unsubscribe_from(interest_everyone)
-
-    assert not_subscribed_to?(session, interest_everyone)
-    assert not_subscribed_to?(session, interest_design)
+    session |> unsubscribe_from_interest
+    assert not_subscribed_to_interest?(session)
   end
 
-  defp view_interests(session, user \\ create(:user)) do
+  defp view_interests(session) do
+    user = create(:user)
+
     session
     |> visit(announcement_path(Endpoint, :index, as: user.id))
-    |> click("[data-role=view-all-interests]")
+    |> click(@view_all_interests_css)
   end
 
-  defp subscribed_to?(session, interest) do
-    session
-    |> find_interest(interest)
-    |> has_css?("[data-role=unsubscribe-from-interest]")
+  defp subscribed_to_interest?(session) do
+    session |> has_css?(@unsubscribe_link_css)
   end
 
-  defp not_subscribed_to?(session, interest) do
-    session
-    |> find_interest(interest)
-    |> has_css?("[data-role=subscribe-to-interest]")
+  defp not_subscribed_to_interest?(session) do
+    session |> has_css?(@subscribe_link_css)
   end
 
-  defp subscribe_to(session, interest) do
-    session
-    |> find_interest(interest)
-    |> click("[data-role='subscribe-to-interest']")
+  defp subscribe_to_interest(session) do
+    session |> click(@subscribe_link_css)
   end
 
-  defp unsubscribe_from(session, interest) do
-    session
-    |> find_interest(interest)
-    |> click("[data-role='unsubscribe-from-interest']")
-  end
-
-  defp find_interest(session, interest) do
-    session
-    |> find(".interest-list-item[data-id='#{interest.id}']")
+  defp unsubscribe_from_interest(session) do
+    session |> click(@unsubscribe_link_css)
   end
 end

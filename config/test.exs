@@ -15,4 +15,4 @@ config :constable, Constable.Mailer,
 # Print only warnings and errors during test
 config :logger, level: :warn
 
-config :wallaby, :max_wait_time, 50
+config :wallaby, :max_wait_time, 250

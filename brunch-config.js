@@ -54,7 +54,6 @@ exports.config = {
       "marked",
       "mousetrap",
       "phoenix",
-      "phoenix_html",
       "selectize",
       "textarea-autogrow",
       "turbolinks",
