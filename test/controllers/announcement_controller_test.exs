@@ -1,6 +1,8 @@
 defmodule Constable.AnnouncementControllerTest do
   use Constable.ConnCase
 
+  alias Constable.Announcement
+
   setup do
     {:ok, browser_authenticate}
   end
@@ -42,5 +44,21 @@ defmodule Constable.AnnouncementControllerTest do
     conn = get conn, announcement_path(conn, :show, announcement.id)
 
     assert html_response(conn, :ok) =~ "<h1>Comment</h1>"
+  end
+
+  test "#create splits interests by ,", %{conn: conn} do
+    post conn, announcement_path(conn, :create), announcement: %{
+      title: "Hello world",
+      interests: "everyone, boston",
+      body: "# Hello"
+    }
+
+    interest_names = Repo.one!(Announcement)
+      |> Ecto.assoc(:interests)
+      |> Ecto.Query.select([a], a.name)
+      |> Ecto.Query.order_by([a], a.name)
+      |> Repo.all
+
+    assert interest_names == ["boston", "everyone"]
   end
 end

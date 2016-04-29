@@ -43,6 +43,7 @@ defmodule Constable.AnnouncementController do
 
   def create(conn, %{"announcement" => announcement_params}) do
     interest_names = Map.get(announcement_params, "interests")
+      |> String.split(",")
     announcement_params = announcement_params
       |> Map.delete("interests")
       |> Map.put("user_id", conn.assigns.current_user.id)
