@@ -1,8 +1,18 @@
-<div class="container">
+<div class="super">
+  <nav class="nav-primary nav-settings">
+    <ul>
+      <li class="nav-primary-title">
+        Search Constable
+      </li>
+    </ul>
+  </nav>
+
+  <div class="container search-container">
   <%= form_tag search_path(@conn, :new), method: :get do %>
     <input type="text" name="query" id="query" placeholder="<%= gettext "Search..." %>" autofocus/>
     <%= submit gettext("Search"), id: "submit-search" %>
   <% end %>
-</div>
+  </div>
 
-<%= render Constable.AnnouncementListView, "index.html", conn: @conn, announcements: @announcements %>
+  <%= render Constable.AnnouncementListView, "index.html", conn: @conn, announcements: @announcements %>
+</div>
