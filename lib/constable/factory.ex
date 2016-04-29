@@ -90,10 +90,6 @@ defmodule Constable.Factory do
     interest).announcement
   end
 
-  def with_comment(announcement) do
-    create(:comment, announcement: announcement).announcement
-  end
-
   def with_interest(user, interest \\ create(:interest)) do
     create(:user_interest, user: user, interest: interest).user
   end
