@@ -38,7 +38,7 @@ defmodule Constable.AuthController do
     end
   end
   def browser_callback(conn, %{"error" => error_message}) do
-    Logger.warn("Auth error: #{error_message}")
+    Logger.info("Auth error: #{error_message}")
     conn
     |> put_flash(:error, error_message)
     |> redirect(external: "/")
@@ -60,7 +60,7 @@ defmodule Constable.AuthController do
     end
   end
   def javascript_callback(conn, %{"error" => error_message}) do
-    Logger.warn("Auth error: #{error_message}")
+    Logger.info("Auth error: #{error_message}")
     conn |> redirect(external: "/")
   end
 
@@ -102,7 +102,7 @@ defmodule Constable.AuthController do
       {:ok, user} ->
         user |> add_everyone_interest
       {:error, _changeset} ->
-        Logger.warn("Non-thoughtbot email")
+        Logger.info("Non-thoughtbot email")
         nil
     end
   end
