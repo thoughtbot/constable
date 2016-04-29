@@ -21,9 +21,6 @@ dependencies:
     - mix local.rebar
     - cp .sample.env .env
 
-  post:
-    - node_modules/brunch/bin/brunch build
-
 test:
   override:
     - mix test --warnings-as-errors

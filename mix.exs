@@ -77,7 +77,8 @@ defmodule Constable.Mixfile do
 
   defp aliases do
     [
-      "ecto.reset": ["ecto.drop", "ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"]
+      "ecto.reset": ["ecto.drop", "ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
+      "test": ["cmd node_modules/brunch/bin/brunch build", "test"]
     ]
   end
 end
