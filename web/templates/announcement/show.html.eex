@@ -64,6 +64,6 @@
 
 <script>
   (function() {
-    require("web/static/js/comment-form");
+    require("web/static/js/comment-form").setupForm();
   })()
 </script>

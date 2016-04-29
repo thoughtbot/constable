@@ -3,26 +3,6 @@ import Mousetrap from 'mousetrap';
 
 import socket from './socket'
 
-const resetForm = (form) => form.reset();
-const disableForm = (form) => form.children(':input').attr('disabled', 'disabled');
-const enableForm = (form) => form.children(':input').removeAttr('disabled');
-
-$('.comment-form').on('submit', function submitForm(event) {
-  event.preventDefault();
-  const form = $(this);
-
-  $.ajax({
-    type: 'POST',
-    url: form.attr('action'),
-    data: form.serialize(),
-    beforeSend: () => disableForm(form),
-  })
-  .done(() => {
-    resetForm(form[0]);
-    enableForm(form);
-  });
-});
-
 const channel = socket.channel('live-html', {});
 
 channel.join()
@@ -34,13 +14,35 @@ channel.on('new-comment', payload => {
     .append(payload.comment_html)
 })
 
+const resetForm = (form) => form.reset();
+const disableForm = (form) => form.children(':input').attr('disabled', 'disabled');
+const enableForm = (form) => form.children(':input').removeAttr('disabled');
+
 const SAVE_SHORTCUT = ['mod+enter'];
 
-const $form = $('.comment-form');
-const $body = $form.find('textarea');
+export function setupForm() {
+  $('.comment-form').on('submit', function submitForm(event) {
+    event.preventDefault();
+    const form = $(this);
 
-Mousetrap.bind(SAVE_SHORTCUT, function() {
-  if ($body.val() !== '') {
-    $form.submit();
-  }
-});
+    $.ajax({
+      type: 'POST',
+      url: form.attr('action'),
+      data: form.serialize(),
+      beforeSend: () => disableForm(form),
+    })
+    .done(() => {
+      resetForm(form[0]);
+      enableForm(form);
+    });
+  });
+
+  const $form = $('.comment-form');
+  const $body = $form.find('textarea');
+
+  Mousetrap.bind(SAVE_SHORTCUT, function() {
+    if ($body.val() !== '') {
+      $form.submit();
+    }
+  });
+}

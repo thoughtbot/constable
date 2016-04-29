@@ -4,12 +4,6 @@ import 'selectize';
 
 const DELIMITER = ',';
 
-$(function() {
-  watchTitle();
-  watchBody();
-  setupInterestsSelect();
-});
-
 const watchTitle = function() {
   const title = $('#announcement_title');
 
@@ -76,3 +70,9 @@ const updateMarkdown = function(e) {
     $('[data-role=markdown-preview]').html(markdown);
   }
 };
+
+export function setupForm() {
+  watchTitle();
+  watchBody();
+  setupInterestsSelect();
+}
