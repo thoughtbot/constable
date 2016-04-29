@@ -23,8 +23,7 @@
 
     <hr/>
 
-    <div class="announcements">
-      <%= render Constable.AnnouncementListView, "index.html", conn: @conn, announcements: @interest.announcements %>
-    </div>
   </div>
+
+  <%= render Constable.AnnouncementListView, "index.html", conn: @conn, announcements: @interest.announcements %>
 </div>

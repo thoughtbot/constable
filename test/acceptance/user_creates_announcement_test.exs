@@ -30,7 +30,7 @@ defmodule Constable.UserCreatesAnnouncementTest do
 
   defp click_create_announcement(session) do
     session
-    |> find("input[type=submit]")
+    |> find("[data-role=submit-announcement]")
     |> click
   end
 

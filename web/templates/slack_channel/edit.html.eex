@@ -8,8 +8,8 @@
 
     <div class="current-channel">
       <%= form_for @changeset, interest_slack_channel_path(@conn, :update, @interest), fn f -> %>
-        <%= text_input f, :slack_channel %>
-        <%= submit gettext("Save"), id: "submit-channel-name", class: "button" %>
+        <%= text_input f, :slack_channel, placeholder: gettext("Name of the Slack channel, e.g. #everyone") %>
+        <%= submit gettext("Save Slack Channel"), id: "submit-channel-name", class: "button" %>
       <% end %>
 
       <%= if @interest.slack_channel do %>
@@ -19,7 +19,7 @@
           data: [confirm: gettext("Are you sure?"), role: "remove-channel"],
           class: "button remove-slack-channel"
         ) do %>
-          <%= gettext("Remove Slack Channel") %>
+          <%= gettext("Remove Channel") %>
         <% end %>
       <% end %>
     </div>
