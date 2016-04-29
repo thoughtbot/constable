@@ -1,6 +1,8 @@
 defmodule Constable.AnnouncementController do
   use Constable.Web, :controller
 
+  plug :scrub_params, "announcement" when action == :create
+
   alias Constable.{Announcement, Comment, Interest, Subscription}
   alias Constable.Services.AnnouncementCreator
 
@@ -48,7 +50,7 @@ defmodule Constable.AnnouncementController do
     case AnnouncementCreator.create(announcement_params, interest_names) do
       {:ok, announcement} ->
         redirect(conn, to: announcement_path(conn, :show, announcement.id))
-      {:error, changeset} -> 
+      {:error, changeset} ->
         interests = Repo.all(Interest)
         render(conn, "new.html", changeset: changeset, interests: interests)
     end
