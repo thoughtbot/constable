@@ -14,6 +14,11 @@
 
   color: $dark-gray;
   background-color: $light-gray;
+
+  &:hover {
+    background-color: $light-gray-shade;
+    color: $dark-gray;
+  }
 }
 
 .interests.container {
