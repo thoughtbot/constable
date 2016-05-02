@@ -38,7 +38,7 @@
   </div>
 
   <div class="announcement-body" data-role="body">
-    <%= raw Earmark.to_html(@announcement.body) %>
+    <%= raw Markdown.to_html(@announcement.body) %>
   </div>
 
   <ul class="comments-list">

@@ -37,7 +37,7 @@ defmodule Constable.Mailers.CommentMailerTest do
       }
     ]
 
-    html_comment_body = Earmark.to_html(comment.body)
+    html_comment_body = Markdown.to_html(comment.body)
     assert email.html_body =~ html_comment_body
     assert email.html_body =~ author.name
     assert email.html_body =~ Exgravatar.generate(author.email)
@@ -65,7 +65,7 @@ defmodule Constable.Mailers.CommentMailerTest do
     assert email.from == {from_name, from_email}
     assert email.headers == headers
 
-    html_comment_body = Earmark.to_html(comment.body)
+    html_comment_body = Markdown.to_html(comment.body)
     assert email.html_body =~ html_comment_body
     assert email.html_body =~ author.name
     assert email.html_body =~ Exgravatar.generate(author.email)

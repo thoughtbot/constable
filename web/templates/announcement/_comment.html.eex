@@ -11,6 +11,6 @@
   </div>
 
   <div class="comment-body">
-    <%= raw Earmark.to_html(@comment.body) %>
+    <%= raw Markdown.to_html(@comment.body) %>
   </div>
 </li>

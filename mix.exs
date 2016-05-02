@@ -52,7 +52,7 @@ defmodule Constable.Mixfile do
       {:cors_plug, "~> 0.1"},
       {:cowboy, "~> 1.0"},
       {:dialyxir, "~> 0.3", only: [:dev]},
-      {:earmark, "~> 0.1.17"},
+      {:markdown, github: "devinus/markdown", override: true },
       {:ecto, "~> 1.1"},
       {:envy, "~> 0.0.1"},
       {:ex_machina, "~> 0.6"},
