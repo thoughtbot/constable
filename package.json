@@ -9,6 +9,7 @@
     "bourbon": "^4.2.6",
     "bourbon-neat": "^1.7.2",
     "jquery": "^2.2.0",
+    "jquery-textcomplete": "^0.8.0",
     "marked": "^0.3.5",
     "mousetrap": "^1.5.3",
     "normalize.css": "^4.1.1",

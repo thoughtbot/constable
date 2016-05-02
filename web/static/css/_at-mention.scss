@@ -1,0 +1,51 @@
+@import "jquery.textcomplete";
+
+.at-mention-menu .active,
+.at-mention-menu li:hover {
+  @include linear-gradient(to right, tint($dark-blue, 15%), $dark-blue);
+
+  a {
+    color: white;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+  }
+}
+
+.at-mention-menu {
+  border-radius: $base-border-radius;
+  box-shadow: $base-box-shadow;
+
+  li {
+    border-top: $base-border;
+    cursor: pointer;
+    padding: $small-spacing;
+
+    &.active {
+      border-top: 1px solid shade($dark-blue, 95%);
+    }
+  }
+}
+
+.textcomplete-item {
+  transition: background-color $base-transition-time;
+
+  &.active {
+    &:first-of-type {
+      @include border-top-radius($base-border-radius);
+    }
+
+    &:last-of-type {
+      @include border-bottom-radius($base-border-radius);
+    }
+  }
+
+  a {
+    @include display(flex);
+    @include align-items(center);
+    color: $base-font-color;
+    font-size: $small-font-size;
+  }
+
+  .avatar-rounded {
+    margin-bottom: 0;
+  }
+}

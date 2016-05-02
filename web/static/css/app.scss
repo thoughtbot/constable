@@ -8,12 +8,13 @@
 @import 'header';
 @import 'login';
 
+@import 'announcement';
+@import 'announcement-create';
+@import 'announcement-form';
 @import 'announcements';
 @import 'announcements-interests-nav';
-@import 'announcement';
+@import 'at-mention';
 @import 'comments';
 @import 'interest';
 @import 'search';
 @import 'settings';
-@import 'announcement-create';
-@import 'announcement-form';

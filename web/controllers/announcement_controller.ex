@@ -1,6 +1,8 @@
 defmodule Constable.AnnouncementController do
   use Constable.Web, :controller
 
+  alias Constable.User
+
   plug :scrub_params, "announcement" when action == :create
 
   alias Constable.{Announcement, Comment, Interest, Subscription}
@@ -31,14 +33,19 @@ defmodule Constable.AnnouncementController do
     |> render("show.html",
       announcement: announcement,
       comment: comment,
-      subscription: subscription
+      subscription: subscription,
+      users: Repo.all(User),
     )
   end
 
   def new(conn, _params) do
     changeset = Announcement.changeset(%Announcement{}, :create)
     interests = Repo.all(Interest)
-    render(conn, "new.html", changeset: changeset, interests: interests)
+    render(conn, "new.html", %{
+      changeset: changeset,
+      interests: interests,
+      users: Repo.all(User),
+    })
   end
 
   def create(conn, %{"announcement" => announcement_params}) do
@@ -53,7 +60,11 @@ defmodule Constable.AnnouncementController do
         redirect(conn, to: announcement_path(conn, :show, announcement.id))
       {:error, changeset} ->
         interests = Repo.all(Interest)
-        render(conn, "new.html", changeset: changeset, interests: interests)
+        render(conn, "new.html", %{
+          changeset: changeset,
+          interests: interests,
+          user_json: Repo.all(User),
+        })
     end
   end
 

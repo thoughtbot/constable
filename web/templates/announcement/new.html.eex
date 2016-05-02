@@ -37,5 +37,9 @@
     window.INTERESTS_NAMES = <%= raw json_interests(@interests) %>;
     require('web/static/js/announcement-form').setupForm();
     require('web/static/js/announcement-form-mobile').setupForm();
+    require("web/static/js/user-autocomplete").autocompleteUsers(
+      '#announcement_body',
+      <%= raw user_autocomplete_json(@users) %>
+    );
   })()
 </script>

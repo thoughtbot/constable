@@ -38,7 +38,7 @@
   </div>
 
   <div class="announcement-body" data-role="body">
-    <%= raw Earmark.to_html(@announcement.body) %>
+    <%= raw markdown_with_users(@announcement.body) %>
   </div>
 
   <ul class="comments-list">
@@ -65,5 +65,9 @@
 <script>
   (function() {
     require("web/static/js/comment-form").setupForm();
+    require("web/static/js/user-autocomplete").autocompleteUsers(
+      '.new-comment-textarea',
+      <%= raw user_autocomplete_json(@users) %>
+    );
   })()
 </script>

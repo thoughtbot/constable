@@ -41,6 +41,7 @@ exports.config = {
           bourbonPath,
           "./node_modules/bourbon-neat/app/assets/stylesheets",
           "./node_modules/normalize-css",
+          "./node_modules/jquery-textcomplete/dist/",
         ],
       }
     }
@@ -56,6 +57,7 @@ exports.config = {
     enabled: true,
     whitelist: [
       "jquery",
+      "jquery-textcomplete",
       "marked",
       "mousetrap",
       "normalize.css",
