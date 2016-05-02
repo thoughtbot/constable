@@ -2,6 +2,7 @@ defmodule Constable.EmailReplyController do
   use Constable.Web, :controller
   alias Constable.Services.CommentCreator
   alias Constable.Queries
+  import Constable.EmailReplyParser, only: [remove_original_email: 1]
 
   def create(conn, %{"mandrill_events" => messages}) do
     messages
@@ -32,16 +33,5 @@ defmodule Constable.EmailReplyController do
 
   defp announcement_id_from_email("announcement-" <> key_and_domain) do
     key_and_domain |> String.split("@") |> List.first
-  end
-
-  defp remove_original_email(email_body) do
-    email_body
-    |> String.split("\n")
-    |> Enum.take_while(&is_from_new_email?/1)
-    |> Enum.join("\n")
-  end
-
-  defp is_from_new_email?(line) do
-    !String.contains?(line, "@#{Constable.Env.get("OUTBOUND_EMAIL_DOMAIN")}")
   end
 end
