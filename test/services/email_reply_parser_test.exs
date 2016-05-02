@@ -3,18 +3,18 @@ defmodule Constable.EmailReplyParserTest do
 
   @possible_email_body_formats [
       """
-Sweet. Yay London and Calle!
+      Sweet. Yay London and Calle!
 
-On Fri, Apr 29, 2016 at 5:51 AM, Nick Charlton (Constable) <email@#{Constable.Env.get("OUTBOUND_EMAIL_DOMAIN")}>
-> Old email contents
+      On Fri, Apr 29, 2016 at 5:51 AM, Nick Charlton (Constable) <email@#{Constable.Env.get("OUTBOUND_EMAIL_DOMAIN")}>
+      > Old email contents
       """,
 
       """
-Sweet. Yay London and Calle!
+      Sweet. Yay London and Calle!
 
-On Fri, Apr 29, 2016 at 5:51 AM, Nick Charlton (Constable) <
-email@#{Constable.Env.get("OUTBOUND_EMAIL_DOMAIN")}>
-> Old email contents
+      On Fri, Apr 29, 2016 at 5:51 AM, Nick Charlton (Constable) <
+      email@#{Constable.Env.get("OUTBOUND_EMAIL_DOMAIN")}>
+      > Old email contents
       """
   ]
 
