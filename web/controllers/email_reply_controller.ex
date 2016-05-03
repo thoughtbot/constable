@@ -2,7 +2,7 @@ defmodule Constable.EmailReplyController do
   use Constable.Web, :controller
   alias Constable.Services.CommentCreator
   alias Constable.Queries
-  import Constable.EmailReplyParser, only: [remove_original_email: 1]
+  alias Constable.EmailReplyParser
 
   def create(conn, %{"mandrill_events" => messages}) do
     messages
@@ -23,7 +23,7 @@ defmodule Constable.EmailReplyController do
     %{
       user_id: user_from_email(from).id,
       announcement_id: announcement_id_from_email(to),
-      body: remove_original_email(email_body)
+      body: EmailReplyParser.remove_original_email(email_body)
     }
   end
 
