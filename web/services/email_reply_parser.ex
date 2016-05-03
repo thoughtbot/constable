@@ -8,7 +8,7 @@ defmodule Constable.EmailReplyParser do
   defp remove_quoted_email(body) do
     Enum.reduce(reply_header_formats, body, fn(regex, accum) ->
       match = Regex.split(regex, accum)
-      List.first(match) || ""
+      List.first(match)
     end)
   end
 
