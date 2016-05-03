@@ -1,5 +1,5 @@
 defmodule Constable.EmailReplyParserTest do
-  use Constable.TestWithEcto
+  use ExUnit.Case
 
   @possible_email_body_formats [
       """
