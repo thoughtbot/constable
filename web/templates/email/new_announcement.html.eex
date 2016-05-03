@@ -24,7 +24,7 @@
         <tr>
           <td colspan="2" align="left">
             <p>
-              <%= raw Markdown.to_html(@announcement.body) %>
+              <%= raw Earmark.to_html(@announcement.body) %>
             <p>
           </td>
         </tr>
