@@ -14,7 +14,7 @@ defmodule Constable.EmailReplyParser do
 
   defp reply_header_formats do
     [
-      ~r/\n\>?[[:space:]]*On.*<?\n?.*>?.*\n?wrote:\n?/, # "On Jan 1, Gordon <gordon@thoughtbot.com> wrote:"
+      ~r/\n\>?[[:space:]]*On.*<?\n?.*>?.*\n?wrote:\n?/,
     ]
   end
 
