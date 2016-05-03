@@ -1,29 +1,21 @@
 defmodule Constable.EmailReplyParser do
   def remove_original_email(email) do
     email
-    |> String.split("\n")
     |> remove_quoted_email
-    |> Enum.join("\n")
     |> remove_trailing_newlines
   end
 
-  defp remove_quoted_email(lines) do
-    if Enum.any?(lines, &line_starts_with_email?/1) do
-      lines
-      |> Enum.take_while(&is_from_new_email?/1)
-      |> Enum.drop(-1)
-    else
-      lines
-      |> Enum.take_while(&is_from_new_email?/1)
-    end
+  defp remove_quoted_email(body) do
+    Enum.reduce(reply_header_formats, body, fn(regex, accum) ->
+      match = Regex.split(regex, accum)
+      List.first(match) || ""
+    end)
   end
 
-  defp line_starts_with_email?(line) do
-    Regex.match?(~r/^\w+@#{Constable.Env.get("OUTBOUND_EMAIL_DOMAIN")}/, line)
-  end
-
-  defp is_from_new_email?(line) do
-    !String.contains?(line, "@#{Constable.Env.get("OUTBOUND_EMAIL_DOMAIN")}")
+  defp reply_header_formats do
+    [
+      ~r/\n\>?[[:space:]]*On.*<?\n?.*>?.*\n?wrote:\n?/, # "On Jan 1, Gordon <gordon@thoughtbot.com> wrote:"
+    ]
   end
 
   defp remove_trailing_newlines(body) do

@@ -5,7 +5,7 @@ defmodule Constable.EmailReplyParserTest do
       """
       Sweet. Yay London and Calle!
 
-      On Fri, Apr 29, 2016 at 5:51 AM, Nick Charlton (Constable) <email@#{Constable.Env.get("OUTBOUND_EMAIL_DOMAIN")}>
+      On Fri, Apr 29, 2016 at 5:51 AM, Nick Charlton (Constable) <email@example.com> wrote:
       > Old email contents
       """,
 
@@ -13,7 +13,14 @@ defmodule Constable.EmailReplyParserTest do
       Sweet. Yay London and Calle!
 
       On Fri, Apr 29, 2016 at 5:51 AM, Nick Charlton (Constable) <
-      email@#{Constable.Env.get("OUTBOUND_EMAIL_DOMAIN")}>
+      email@example.com> wrote:
+      > Old email contents
+      """,
+
+      """
+      Sweet. Yay London and Calle!
+
+      On 05/02, Nick Charlton (Constable) wrote:
       > Old email contents
       """
   ]
