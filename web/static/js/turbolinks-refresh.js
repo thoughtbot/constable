@@ -27,7 +27,7 @@ const sendLinkWithAjax = function(link) {
 const refreshPageWithTurbolinks = function() {
   var path = window.location.pathname + window.location.search;
   Turbolinks.clearCache();
-  Turbolinks.visit(path);
+  Turbolinks.visit(path, { action: 'replace' });
 }
 
 const maybeRestoreScrollPosition = function() {

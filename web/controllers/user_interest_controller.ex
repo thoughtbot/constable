@@ -9,7 +9,7 @@ defmodule Constable.UserInterestController do
     UserInterest.changeset(%{user_id: current_user.id, interest_id: interest_id})
     |> Repo.insert!
 
-    redirect conn, to: interest_path(conn, :index)
+    send_resp(conn, :no_content, "")
   end
 
   def delete(conn, %{"interest_id" => interest_id}) do
@@ -17,6 +17,6 @@ defmodule Constable.UserInterestController do
     |> Repo.get_by!(interest_id: interest_id, user_id: current_user(conn).id)
     |> Repo.delete!
 
-    redirect conn, to: interest_path(conn, :index)
+    send_resp(conn, :no_content, "")
   end
 end
