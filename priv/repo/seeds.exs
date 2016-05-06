@@ -3,4 +3,4 @@
 alias Constable.Repo
 import Constable.Factory
 
-Repo.get_by(Constable.Interest, name: "everyone") || create(:interest, name: "everyone")
+Repo.get_by(Constable.Interest, name: "everyone") || insert(:interest, name: "everyone")
