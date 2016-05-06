@@ -1,5 +1,5 @@
 defmodule Mix.Tasks.Constable.SendDailyDigestTest do
-  use Constable.TestWithEcto, async: false
+  use Constable.TestWithEcto, async: true
   use Bamboo.Test
 
   test "sends daily digest to users that want a daily digest" do

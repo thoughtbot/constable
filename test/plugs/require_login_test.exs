@@ -1,5 +1,5 @@
 defmodule Constable.Plugs.RequireLoginTest do
-  use Constable.PlugCase
+  use Constable.PlugCase, async: true
 
   test "user is redirected when current_user is not set" do
     conn = conn() |> run_plug

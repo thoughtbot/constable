@@ -1,5 +1,5 @@
 defmodule Constable.GoogleStrategyTest do
-  use Constable.TestWithEcto, async: false
+  use Constable.TestWithEcto, async: true
 
   test ".tokeninfo_url adds correct headers" do
     client = GoogleStrategy.client("/")

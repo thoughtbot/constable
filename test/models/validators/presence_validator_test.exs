@@ -1,5 +1,5 @@
 defmodule Constable.PresenceValidatorTest do
-  use Constable.ModelCase
+  use Constable.ModelCase, async: true
   import Ecto.Changeset
   import Constable.PresenceValidator
 

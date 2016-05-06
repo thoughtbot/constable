@@ -1,5 +1,5 @@
 defmodule Constable.SessionControllerTest do
-  use Constable.ConnCase
+  use Constable.ConnCase, async: true
 
   setup do
     {:ok, browser_authenticate}

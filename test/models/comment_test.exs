@@ -1,5 +1,5 @@
 defmodule Constable.CommentTest do
-  use Constable.ModelCase
+  use Constable.ModelCase, async: true
   alias Constable.Comment
   import GoodTimes
 

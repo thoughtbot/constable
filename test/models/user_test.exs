@@ -1,5 +1,5 @@
 defmodule Constable.UserTest do
-  use Constable.TestWithEcto
+  use Constable.TestWithEcto, async: true
 
   alias Constable.User
 

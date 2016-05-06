@@ -1,6 +1,6 @@
 defmodule Constable.Api.CommentControllerTest do
   import Ecto.Query
-  use Constable.ConnCase
+  use Constable.ConnCase, async: true
   use Bamboo.Test
   alias Constable.Emails
   alias Constable.Comment

@@ -1,5 +1,5 @@
 defmodule Constable.Api.SubscriptionViewTest do
-  use Constable.ViewCase
+  use Constable.ViewCase, async: true
   alias Constable.Api.SubscriptionView
 
   test "show.json returns correct fields" do

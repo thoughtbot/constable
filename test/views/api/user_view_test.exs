@@ -1,5 +1,5 @@
 defmodule Constable.Api.UserViewTest do
-  use Constable.ViewCase
+  use Constable.ViewCase, async: true
   alias Constable.Api.UserView
 
   test "show.json returns correct fields" do

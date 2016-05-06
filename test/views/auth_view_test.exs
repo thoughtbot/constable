@@ -1,5 +1,5 @@
 defmodule Constable.AuthViewTest do
-  use Constable.ViewCase
+  use Constable.ViewCase, async: true
   alias Constable.AuthView
   alias Constable.Api.UserView
 

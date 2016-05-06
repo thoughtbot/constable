@@ -1,5 +1,5 @@
 defmodule Constable.Api.AnnouncementViewTest do
-  use Constable.ViewCase
+  use Constable.ViewCase, async: true
 
   alias Constable.Api.AnnouncementView
   alias Constable.Api.CommentView

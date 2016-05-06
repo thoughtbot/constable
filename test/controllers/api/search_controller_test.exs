@@ -1,5 +1,5 @@
 defmodule Constable.Api.SearchesControllerTest do
-  use Constable.ConnCase
+  use Constable.ConnCase, async: true
 
   @view Constable.Api.AnnouncementView
 

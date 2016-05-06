@@ -1,5 +1,5 @@
 defmodule Constable.Api.UserControllerTest do
-  use Constable.ConnCase
+  use Constable.ConnCase, async: true
   alias Constable.User
 
   @view Constable.Api.UserView

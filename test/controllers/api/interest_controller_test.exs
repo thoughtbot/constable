@@ -1,5 +1,5 @@
 defmodule Constable.Api.InterestControllerTest do
-  use Constable.ConnCase
+  use Constable.ConnCase, async: true
 
   @view Constable.Api.InterestView
 

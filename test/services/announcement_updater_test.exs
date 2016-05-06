@@ -1,5 +1,5 @@
 defmodule Constable.Services.AnnouncementUpdaterTest do
-  use Constable.TestWithEcto, async: false
+  use Constable.TestWithEcto, async: true
 
   alias Constable.Repo
   alias Constable.Announcement

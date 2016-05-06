@@ -1,5 +1,5 @@
 defmodule Constable.AnnouncementTest do
-  use Constable.ModelCase
+  use Constable.ModelCase, async: true
   alias Constable.Announcement
   import GoodTimes
 

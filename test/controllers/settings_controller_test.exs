@@ -1,5 +1,5 @@
 defmodule Constable.SettingsControllerTest do
-  use Constable.ConnCase
+  use Constable.ConnCase, async: true
 
   alias Constable.User
 

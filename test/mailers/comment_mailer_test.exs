@@ -1,5 +1,5 @@
 defmodule Constable.Mailers.CommentMailerTest do
-  use Constable.TestWithEcto, async: false
+  use Constable.TestWithEcto, async: true
   alias Constable.Emails
 
   test "new comment email" do

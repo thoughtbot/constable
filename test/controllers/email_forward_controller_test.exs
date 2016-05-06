@@ -1,5 +1,5 @@
 defmodule Constable.EmailForwardControllerTest do
-  use Constable.ConnCase
+  use Constable.ConnCase, async: true
   use Bamboo.Test
   alias Constable.Endpoint
   alias Constable.Emails

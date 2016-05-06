@@ -1,5 +1,5 @@
 defmodule Constable.Services.MentionFinderTest do
-  use Constable.TestWithEcto
+  use Constable.TestWithEcto, async: true
 
   alias Constable.Repo
   alias Constable.User

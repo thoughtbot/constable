@@ -1,5 +1,5 @@
 defmodule Constable.DailyDigestTest do
-  use Constable.ModelCase
+  use Constable.ModelCase, async: true
   use Bamboo.Test
   alias Constable.Emails
   alias Constable.DailyDigest

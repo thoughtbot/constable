@@ -1,5 +1,5 @@
 defmodule Constable.EmailsTest do
-  use ExUnit.Case
+  use Constable.ConnCase, async: true
   import Constable.Factory
 
   test "daily_digest" do

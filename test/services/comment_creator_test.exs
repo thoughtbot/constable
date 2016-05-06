@@ -1,5 +1,5 @@
 defmodule Constable.Services.CommentCreatorTest do
-  use Constable.ChannelCase
+  use Constable.ChannelCase, async: true
   use Phoenix.ChannelTest
   use Bamboo.Test
   alias Constable.Emails
