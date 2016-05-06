@@ -10,7 +10,7 @@ defmodule Constable.EmailView do
   end
 
   def unsubscribe_link do
-    unsubscribe_url(Constable.Endpoint, :show, subscription_id_merge_variable)
+    URI.decode unsubscribe_url(Constable.Endpoint, :show, subscription_id_merge_variable)
   end
 
   def author_avatar_url(user) do
