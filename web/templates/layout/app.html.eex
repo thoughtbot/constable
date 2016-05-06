@@ -16,13 +16,6 @@
   <body>
     <div class="page">
       <header class="main-header">
-        <%= if get_flash(@conn, :info) do %>
-          <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
-        <% end %>
-        <%= if get_flash(@conn, :error) do %>
-          <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
-        <% end %>
-
         <%= link "#Constable", to: "/", class: "logo" %>
 
         <ul class="navigation right">
@@ -47,6 +40,17 @@
           </li>
         </ul>
       </header>
+      <%= if get_flash(@conn, :info) do %>
+        <div class="flash flash-info">
+          <%= get_flash(@conn, :info) %>
+        </div>
+      <% end %>
+
+      <%= if get_flash(@conn, :error) do %>
+        <div class="flash flash-error">
+          <%= get_flash(@conn, :error) %>
+        </div>
+      <% end %>
 
       <%= render @view_module, @view_template, assigns %>
     </div>
