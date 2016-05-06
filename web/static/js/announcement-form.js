@@ -8,7 +8,10 @@ const watchTitle = function() {
   const title = $('#announcement_title');
 
   title.on('input', updateTitle);
-  title.val(localStorage.getItem('title'));
+
+  if (title.val() === '') {
+    title.val(localStorage.getItem('title'));
+  }
   title.trigger('input');
 }
 
@@ -16,7 +19,9 @@ const watchBody = function() {
   const body = $('#announcement_body');
 
   body.on('input', updateMarkdown);
-  body.val(localStorage.getItem('markdown'));
+  if (body.val() === '') {
+    body.val(localStorage.getItem('markdown'));
+  }
   body.trigger('input');
 }
 
@@ -24,7 +29,9 @@ const setupInterestsSelect = function() {
   const interests = $('#announcement_interests');
 
   if (interests.lenth !== 0) {
-    interests.val(localStorage.getItem('interests'));
+    if (interests.val() === '') {
+      interests.val(localStorage.getItem('interests'));
+    }
 
     interests.selectize({
       delimiter: DELIMITER,

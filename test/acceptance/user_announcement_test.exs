@@ -1,4 +1,4 @@
-defmodule Constable.UserCreatesAnnouncementTest do
+defmodule Constable.UserAnnouncementTest do
   use Constable.AcceptanceCase
 
   test "user creates an announcement", %{session: session} do
@@ -9,11 +9,36 @@ defmodule Constable.UserCreatesAnnouncementTest do
     |> fill_in("announcement_title", with: "Hello World")
     |> fill_in_interests("everyone")
     |> fill_in("announcement_body", with: "# Hello!")
-    |> click_create_announcement
+    |> click_submit_button
 
     assert has_announcement_title?(session, "Hello World")
     assert has_announcement_body?(session, "Hello")
     assert has_announcement_interest?(session, "everyone")
+  end
+
+  test "user updates an announcement", %{session: session} do
+    user = insert(:user)
+    announcement = insert(:announcement, user: user)
+
+    session
+    |> visit(announcement_path(Endpoint, :show, announcement.id, as: user.id))
+    |> click_edit
+    |> fill_in("announcement_title", with: "Updated")
+    |> fill_in_interests("updated")
+    |> fill_in("announcement_body", with: "# Updated")
+    |> click_submit_button
+
+    assert has_announcement_title?(session, "Updated")
+    assert has_announcement_interest?(session, "updated")
+    assert has_announcement_body?(session, "Updated")
+  end
+
+  defp click_edit(session) do
+    session
+    |> find("[data-role=edit]")
+    |> click
+
+    session
   end
 
   defp fill_in_interests(session, interests) do
@@ -28,7 +53,7 @@ defmodule Constable.UserCreatesAnnouncementTest do
     session
   end
 
-  defp click_create_announcement(session) do
+  defp click_submit_button(session) do
     session
     |> find("[data-role=submit-announcement]")
     |> click

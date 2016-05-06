@@ -35,7 +35,7 @@ defmodule Constable.Router do
   scope "/", Constable do
     pipe_through [:browser, Constable.Plugs.RequireLogin]
 
-    resources "/announcements", AnnouncementController, only: [:index, :show, :new, :create] do
+    resources "/announcements", AnnouncementController, only: [:index, :show, :new, :create, :edit, :update] do
       resources "/comments", CommentController, only: [:create]
       resources "/subscriptions", SubscriptionController, singleton: true, only: [:create, :delete]
     end
