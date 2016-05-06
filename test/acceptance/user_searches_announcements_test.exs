@@ -2,9 +2,9 @@ defmodule Constable.UserSearchesAnnouncementsTest do
   use Constable.AcceptanceCase, async: true
 
   test "user performs search", %{session: session} do
-    matching_announcement = create(:announcement, title: "foobar1")
-    non_matching_announcement = create(:announcement, title: "foobar2")
-    user = create(:user)
+    matching_announcement = insert(:announcement, title: "foobar1")
+    non_matching_announcement = insert(:announcement, title: "foobar2")
+    user = insert(:user)
 
     session
     |> visit(search_path(Endpoint, :new, as: user.id))

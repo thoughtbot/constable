@@ -4,14 +4,14 @@ defmodule Constable.AnnouncementTest do
   import GoodTimes
 
   test "inserting a record sets the last_discussed_at" do
-    announcement = build(:announcement) |> create
+    announcement = build(:announcement) |> insert
 
     assert announcement.last_discussed_at
   end
 
   test "last_discussed_first" do
-    oldest = create(:announcement, last_discussed_at: cast(a_day_ago))
-    newest = create(:announcement, last_discussed_at: cast(now))
+    oldest = insert(:announcement, last_discussed_at: cast(a_day_ago))
+    newest = insert(:announcement, last_discussed_at: cast(now))
 
     announcements = Announcement.last_discussed_first |> Repo.all
 

@@ -6,7 +6,7 @@ defmodule Constable.Services.MentionFinderTest do
   alias Constable.Services.MentionFinder
 
   test "extracts users from text" do
-    create(:user, username: "machoman")
+    insert(:user, username: "machoman")
     body = "Hello @machoman and @hulkamania"
 
     user = Repo.one(User)

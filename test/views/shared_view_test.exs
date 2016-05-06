@@ -3,7 +3,7 @@ defmodule Constable.SharedViewTest do
   alias Constable.SharedView
 
   test "markdown_with_users/1 bolds existing users" do
-    create(:user, username: "joedirt")
+    insert(:user, username: "joedirt")
     markdown = "Hello @joedirt not @forestgump!"
 
     rendered = SharedView.markdown_with_users(markdown)

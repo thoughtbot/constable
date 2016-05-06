@@ -12,7 +12,7 @@
   "earmark": {:hex, :earmark, "0.1.19"},
   "ecto": {:hex, :ecto, "2.0.0-rc.4"},
   "envy": {:hex, :envy, "0.0.2"},
-  "ex_machina": {:hex, :ex_machina, "0.6.1"},
+  "ex_machina": {:git, "https://github.com/thoughtbot/ex_machina.git", "7fdb226caddaefc544300b91bbbece6d946cdb27", []},
   "exgravatar": {:hex, :exgravatar, "0.2.0"},
   "gettext": {:hex, :gettext, "0.11.0"},
   "good_times": {:hex, :good_times, "1.1.1"},

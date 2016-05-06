@@ -3,9 +3,9 @@ defmodule Constable.EmailsTest do
   import Constable.Factory
 
   test "daily_digest" do
-    users = create_pair(:user)
-    interests = create_pair(:interest)
-    announcements = create_pair(:announcement)
+    users = insert_pair(:user)
+    interests = insert_pair(:interest)
+    announcements = insert_pair(:announcement)
 
     email = Constable.Emails.daily_digest(interests, announcements, users)
 

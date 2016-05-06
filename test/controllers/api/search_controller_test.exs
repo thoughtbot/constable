@@ -8,9 +8,9 @@ defmodule Constable.Api.SearchesControllerTest do
   end
 
   test "returns matching announcements", %{conn: conn} do
-    announcement_1 = create(:announcement, title: "foobar1")
-    announcement_2 = create(:announcement, body: "announcement body cool")
-    announcement_3 = create(:announcement, title: "awesome title", body: "cool body")
+    announcement_1 = insert(:announcement, title: "foobar1")
+    announcement_2 = insert(:announcement, body: "announcement body cool")
+    announcement_3 = insert(:announcement, title: "awesome title", body: "cool body")
 
     assert results_for(conn, query: "foobar1") == json_for(announcement_1)
     assert results_for(conn, query: "announcement body") == json_for(announcement_2)

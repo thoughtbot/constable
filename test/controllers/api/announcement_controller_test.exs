@@ -9,7 +9,7 @@ defmodule Constable.Api.AnnouncementControllerTest do
   end
 
   test "#index lists all announcements", %{conn: conn, user: user} do
-    announcements = create_pair(:announcement, user: user)
+    announcements = insert_pair(:announcement, user: user)
 
     conn = get conn, api_announcement_path(conn, :index)
 
@@ -17,7 +17,7 @@ defmodule Constable.Api.AnnouncementControllerTest do
   end
 
   test "#show renders single announcement", %{conn: conn, user: user} do
-    announcement = create(:announcement, user: user)
+    announcement = insert(:announcement, user: user)
 
     conn = get conn, api_announcement_path(conn, :show, announcement.id)
 
@@ -53,7 +53,7 @@ defmodule Constable.Api.AnnouncementControllerTest do
   end
 
   test "#update with valid attributes updates announcement", %{conn: conn, user: user} do
-    announcement = create(:announcement, user: user, title: "Foo")
+    announcement = insert(:announcement, user: user, title: "Foo")
 
     put conn, api_announcement_path(conn, :update, announcement), announcement: %{
       title: "Foobar",
@@ -67,7 +67,7 @@ defmodule Constable.Api.AnnouncementControllerTest do
   end
 
   test "#update with invalid attributes renders errors", %{conn: conn, user: user} do
-    announcement = create(:announcement, user: user)
+    announcement = insert(:announcement, user: user)
 
     conn = put conn, api_announcement_path(conn, :update, announcement), announcement: %{
       title: nil,
@@ -78,8 +78,8 @@ defmodule Constable.Api.AnnouncementControllerTest do
   end
 
   test "#update only creator can update attributes", %{conn: conn} do
-    other_user = create(:user)
-    announcement = create(:announcement, user: other_user)
+    other_user = insert(:user)
+    announcement = insert(:announcement, user: other_user)
 
     conn = put conn,
       api_announcement_path(conn, :update, announcement),
@@ -90,7 +90,7 @@ defmodule Constable.Api.AnnouncementControllerTest do
   end
 
   test "#delete deletes announcement", %{conn: conn, user: user} do
-    announcement = create(:announcement, user: user)
+    announcement = insert(:announcement, user: user)
 
     conn = delete conn, api_announcement_path(conn, :delete, announcement)
 
@@ -99,8 +99,8 @@ defmodule Constable.Api.AnnouncementControllerTest do
   end
 
   test "#delete only owner can delete announcement", %{conn: conn} do
-    other_user = create(:user)
-    announcement = create(:announcement, user: other_user)
+    other_user = insert(:user)
+    announcement = insert(:announcement, user: other_user)
 
     conn = delete conn, api_announcement_path(conn, :delete, announcement)
 

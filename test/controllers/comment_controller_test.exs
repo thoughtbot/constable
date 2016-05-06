@@ -9,7 +9,7 @@ defmodule Constable.CommentControllerTest do
   end
 
   test "#create creates the comment", %{conn: conn, user: user} do
-    announcement = create(:announcement)
+    announcement = insert(:announcement)
 
     post conn, announcement_comment_path(conn, :create, announcement.id), comment: %{
       body: "Foo"
@@ -22,7 +22,7 @@ defmodule Constable.CommentControllerTest do
   end
 
   test "#create redirects back to announcement", %{conn: conn} do
-    announcement = create(:announcement)
+    announcement = insert(:announcement)
 
     conn = post conn, announcement_comment_path(conn, :create, announcement), comment: %{
       body: "Foo"
@@ -32,7 +32,7 @@ defmodule Constable.CommentControllerTest do
   end
 
   test "#create redirects back to the announcement with flash on failure", %{conn: conn} do
-    announcement = create(:announcement)
+    announcement = insert(:announcement)
 
     conn = post conn, announcement_comment_path(conn, :create, announcement), comment: %{
     }

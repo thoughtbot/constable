@@ -2,11 +2,11 @@ defmodule Constable.UserViewsInterestPageTest do
   use Constable.AcceptanceCase
 
   test "user views interest page", %{session: session} do
-    matching_interest = create(:interest, name: "foobar1s")
-    matching_announcement = create(:announcement, title: "foobar1")
+    matching_interest = insert(:interest, name: "foobar1s")
+    matching_announcement = insert(:announcement, title: "foobar1")
       |> tag_with_interest(matching_interest)
-    _non_matching_announcement = create(:announcement, title: "foobar2")
-    user = create(:user)
+    _non_matching_announcement = insert(:announcement, title: "foobar2")
+    user = insert(:user)
 
     session
     |> visit(interest_path(Endpoint, :show, matching_interest, as: user.id))
@@ -16,8 +16,8 @@ defmodule Constable.UserViewsInterestPageTest do
   end
 
   test "user adds the slack channel for an interest", %{session: session} do
-    interest = create(:interest, name: "interest")
-    user = create(:user)
+    interest = insert(:interest, name: "interest")
+    user = insert(:user)
 
     session
     |> visit(interest_path(Endpoint, :show, interest.id, as: user.id))
@@ -29,8 +29,8 @@ defmodule Constable.UserViewsInterestPageTest do
   end
 
   test "user edits an existing slack channel for an interest", %{session: session} do
-    interest = create(:interest, name: "interest", slack_channel: "#channel-name")
-    user = create(:user)
+    interest = insert(:interest, name: "interest", slack_channel: "#channel-name")
+    user = insert(:user)
 
     visit(session, interest_path(Endpoint, :show, interest, as: user.id))
 
@@ -45,8 +45,8 @@ defmodule Constable.UserViewsInterestPageTest do
   end
 
   test "user removes an existing slack channel for an interest", %{session: session} do
-    interest = create(:interest, name: "interest", slack_channel: "#channel-name")
-    user = create(:user)
+    interest = insert(:interest, name: "interest", slack_channel: "#channel-name")
+    user = insert(:user)
 
     session
     |> visit(interest_slack_channel_path(Endpoint, :edit, interest, as: user.id))

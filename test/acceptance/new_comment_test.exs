@@ -3,8 +3,8 @@ defmodule Constable.NewCommentTest do
 
   test "new comments are displayed in real time", %{session: session} do
     {:ok, other_session} = Wallaby.start_session
-    [announcement, other_announcement] = create_pair(:announcement)
-    user = create(:user)
+    [announcement, other_announcement] = insert_pair(:announcement)
+    user = insert(:user)
 
     session
     |> visit(announcement_path(Endpoint, :show, announcement, as: user.id))

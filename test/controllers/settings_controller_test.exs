@@ -14,7 +14,7 @@ defmodule Constable.SettingsControllerTest do
   end
 
   test "#update updates user attributes" do
-    user = create(:user, name: "Joe Dirt", auto_subscribe: true, daily_digest: true)
+    user = insert(:user, name: "Joe Dirt", auto_subscribe: true, daily_digest: true)
     %{conn: conn, user: user} = browser_authenticate(user)
 
     put conn, settings_path(conn, :update), user: %{

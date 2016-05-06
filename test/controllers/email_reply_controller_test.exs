@@ -5,9 +5,9 @@ defmodule Constable.EmailReplyTest do
   alias Constable.Comment
 
   test "adds a comment to announcement and sends an email" do
-    subscriber = create(:user)
-    announcement = create(:announcement) |> with_subscriber(subscriber)
-    comment_author = create(:user)
+    subscriber = insert(:user)
+    announcement = insert(:announcement) |> with_subscriber(subscriber)
+    comment_author = insert(:user)
 
     email_reply_webhook = create_email_reply_webhook(
       from_email: comment_author.email,
@@ -37,8 +37,8 @@ defmodule Constable.EmailReplyTest do
     whole_email_with_quoted_text = """
     #{user_text}\n> On Oct 16, 2015, at 5:05 PM, Paul Smith (Constable) <constable-40@#{Constable.Env.get("OUTBOUND_EMAIL_DOMAIN")}> wrote:\n> \n> \t\n> my text\t\n\n\n
     """
-    comment_author = create(:user)
-    announcement = create(:announcement)
+    comment_author = insert(:user)
+    announcement = insert(:announcement)
     email_reply_webhook = create_email_reply_webhook(
       from_email: comment_author.email,
       text: whole_email_with_quoted_text,

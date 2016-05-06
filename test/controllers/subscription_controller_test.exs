@@ -7,9 +7,9 @@ defmodule Constable.SubscriptionControllerTest do
   setup do
     {:ok, browser_authenticate}
   end
-  
+
   test "#create creates the subscription", %{conn: conn, user: user} do
-    announcement = create(:announcement)
+    announcement = insert(:announcement)
 
     post conn, announcement_subscription_path(conn, :create, announcement.id)
 
@@ -19,8 +19,8 @@ defmodule Constable.SubscriptionControllerTest do
   end
 
   test "#delete deletes  the subscription", %{conn: conn, user: user} do
-    announcement = create(:announcement)
-    subscription = create(:subscription, user: user, announcement: announcement)
+    announcement = insert(:announcement)
+    subscription = insert(:subscription, user: user, announcement: announcement)
 
     delete conn, announcement_subscription_path(conn, :delete, announcement.id)
 

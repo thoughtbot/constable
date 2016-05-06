@@ -8,8 +8,8 @@ defmodule Constable.AnnouncementControllerTest do
   end
 
   test "#index all announcements are shown when query param all is set", %{conn: conn, user: user} do
-    create(:announcement, title: "Awesome", user: user)
-    create(:announcement, title: "Lame", user: user)
+    insert(:announcement, title: "Awesome", user: user)
+    insert(:announcement, title: "Lame", user: user)
 
     conn = get conn, announcement_path(conn, :index, all: true)
 
@@ -18,10 +18,10 @@ defmodule Constable.AnnouncementControllerTest do
   end
 
   test "#index only my announcements are shown by default", %{conn: conn, user: user} do
-    my_interest = create(:interest)
-    create(:user_interest, user: user, interest: my_interest)
-    create(:announcement, title: "Shows up") |> tag_with_interest(my_interest)
-    _announcement_with_no_matching_interest = create(:announcement, title: "Does not show up")
+    my_interest = insert(:interest)
+    insert(:user_interest, user: user, interest: my_interest)
+    insert(:announcement, title: "Shows up") |> tag_with_interest(my_interest)
+    _announcement_with_no_matching_interest = insert(:announcement, title: "Does not show up")
 
     conn = get conn, announcement_path(conn, :index)
 
@@ -30,7 +30,7 @@ defmodule Constable.AnnouncementControllerTest do
   end
 
   test "#show renders markdown as html", %{conn: conn} do
-    announcement = create(:announcement, body: "# Hello")
+    announcement = insert(:announcement, body: "# Hello")
 
     conn = get conn, announcement_path(conn, :show, announcement.id)
 
@@ -38,8 +38,8 @@ defmodule Constable.AnnouncementControllerTest do
   end
 
   test "#show renders comments as html", %{conn: conn} do
-    announcement = create(:announcement)
-    create(:comment, body: "# Comment", announcement: announcement)
+    announcement = insert(:announcement)
+    insert(:comment, body: "# Comment", announcement: announcement)
 
     conn = get conn, announcement_path(conn, :show, announcement.id)
 

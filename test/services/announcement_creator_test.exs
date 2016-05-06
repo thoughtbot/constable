@@ -8,8 +8,8 @@ defmodule Constable.Services.AnnouncementCreatorTest do
   alias Constable.Services.AnnouncementCreator
 
   test "doesn't subscribe creator twice when interested in announcement and autosubscribe is set" do
-    interest = create(:interest)
-    author = create(:user, auto_subscribe: true) |> with_interest(interest)
+    interest = insert(:interest)
+    author = insert(:user, auto_subscribe: true) |> with_interest(interest)
 
     announcement_params = build(:announcement_params, user_id: author.id)
 
@@ -17,8 +17,8 @@ defmodule Constable.Services.AnnouncementCreatorTest do
   end
 
   test "creates an announcement with new and existing interests" do
-    author = create(:user)
-    existing_interest = create(:interest)
+    author = insert(:user)
+    existing_interest = insert(:interest)
     new_interest_name = "foo"
     interest_name_with_hash = "#everyone"
     duplicate_interest = "#foo"
@@ -36,7 +36,7 @@ defmodule Constable.Services.AnnouncementCreatorTest do
   end
 
   test "subscribes the author to the newly created announcement" do
-    author = create(:user)
+    author = insert(:user)
     announcement_params = build(:announcement_params, user_id: author.id)
 
     AnnouncementCreator.create(announcement_params, [])
@@ -49,7 +49,7 @@ defmodule Constable.Services.AnnouncementCreatorTest do
 
   test "does not create blank interests" do
     interest_names = [""]
-    announcement_params = build(:announcement_params, user_id: create(:user).id)
+    announcement_params = build(:announcement_params, user_id: insert(:user).id)
 
     AnnouncementCreator.create(announcement_params, interest_names)
 
@@ -58,12 +58,12 @@ defmodule Constable.Services.AnnouncementCreatorTest do
   end
 
   test "subscribes interested users when autosubscribe is on" do
-    auto_subscribe_user = create(:user, auto_subscribe: true)
-    user = create(:user, auto_subscribe: false)
-    creator = create(:user)
-    interest = create(:interest, name: "foo")
-    create(:user_interest, user: user, interest: interest)
-    create(:user_interest, user: auto_subscribe_user, interest: interest)
+    auto_subscribe_user = insert(:user, auto_subscribe: true)
+    user = insert(:user, auto_subscribe: false)
+    creator = insert(:user)
+    interest = insert(:interest, name: "foo")
+    insert(:user_interest, user: user, interest: interest)
+    insert(:user_interest, user: auto_subscribe_user, interest: interest)
 
     announcement_params = %{
       title: "Title",
@@ -85,9 +85,9 @@ defmodule Constable.Services.AnnouncementCreatorTest do
   end
 
   test "sends announcement email to subscribed users except author" do
-    interest = create(:interest, name: "foo")
-    author = create(:user) |> with_interest(interest)
-    subscribed_user = create(:user) |> with_interest(interest)
+    interest = insert(:interest, name: "foo")
+    author = insert(:user) |> with_interest(interest)
+    subscribed_user = insert(:user) |> with_interest(interest)
 
     announcement_params = %{
       title: "Title",
@@ -102,9 +102,9 @@ defmodule Constable.Services.AnnouncementCreatorTest do
   end
 
   test "sends announcement email to mentioned users" do
-    interest = create(:interest, name: "foo")
-    author = create(:user) |> with_interest(interest)
-    mentioned_user = create(:user, username: "joedirt")
+    interest = insert(:interest, name: "foo")
+    author = insert(:user) |> with_interest(interest)
+    mentioned_user = insert(:user, username: "joedirt")
 
     announcement_params = %{
       title: "Title",

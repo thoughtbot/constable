@@ -3,9 +3,9 @@ defmodule Mix.Tasks.Constable.SendDailyDigestTest do
   use Bamboo.Test
 
   test "sends daily digest to users that want a daily digest" do
-    daily_digest_user = create(:user, daily_digest: true)
-    announcement = create(:announcement, user: daily_digest_user)
-    create(:user, daily_digest: false)
+    daily_digest_user = insert(:user, daily_digest: true)
+    announcement = insert(:announcement, user: daily_digest_user)
+    insert(:user, daily_digest: false)
 
     Mix.Tasks.Constable.SendDailyDigest.run(nil)
 

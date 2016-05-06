@@ -3,8 +3,8 @@ defmodule Constable.Mailers.AnnouncementTest do
   alias Constable.Emails
 
   test "sends markdown formatted email to people subscribed to the interest" do
-    interest = create(:interest)
-    interest_2 = create(:interest)
+    interest = insert(:interest)
+    interest_2 = insert(:interest)
     interested_users = [create_interested_user(interest)]
     announcement = create_announcement_with_interests([interest, interest_2])
 
@@ -32,20 +32,20 @@ defmodule Constable.Mailers.AnnouncementTest do
   end
 
   def create_announcement_with_interests(interests) do
-    create(:announcement)
+    insert(:announcement)
     |> associate_interests_with_announcement(interests)
     |> Repo.preload([:user, interests: :interested_users])
   end
 
   def create_interested_user(interest) do
-    user = create(:user)
-    create(:user_interest, interest: interest, user: user)
+    user = insert(:user)
+    insert(:user_interest, interest: interest, user: user)
     user
   end
 
   def associate_interests_with_announcement(announcement, interests) do
     Enum.each(interests, fn(interest) ->
-      create(:announcement_interest, announcement: announcement, interest: interest)
+      insert(:announcement_interest, announcement: announcement, interest: interest)
     end)
     announcement
   end

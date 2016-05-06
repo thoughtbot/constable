@@ -5,9 +5,9 @@ defmodule Constable.Api.AnnouncementViewTest do
   alias Constable.Api.CommentView
 
   test "show.json returns correct fields" do
-    interest = create(:interest)
-    announcement = create(:announcement) |> tag_with_interest(interest)
-    comment = create(:comment, announcement: announcement)
+    interest = insert(:interest)
+    announcement = insert(:announcement) |> tag_with_interest(interest)
+    comment = insert(:comment, announcement: announcement)
 
     rendered_announcement = render_one(announcement, AnnouncementView, "show.json")
 

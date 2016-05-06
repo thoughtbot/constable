@@ -55,7 +55,7 @@ defmodule Constable.Mixfile do
       {:earmark, "~> 0.1.17"},
       {:ecto, "~> 2.0.0-rc"},
       {:envy, "~> 0.0.1"},
-      {:ex_machina, "~> 0.6"},
+      {:ex_machina, "~> 1.0.0-beta.1", github: "thoughtbot/ex_machina"},
       {:exgravatar, "~> 0.2"},
       {:gettext, "~> 0.11"},
       {:good_times, "~> 1.1"},

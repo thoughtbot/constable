@@ -3,11 +3,11 @@ defmodule Constable.Mailers.CommentMailerTest do
   alias Constable.Emails
 
   test "new comment email" do
-    author = create(:user)
-    user = create(:user)
-    announcement = create(:announcement, user: author)
-    subscription = create(:subscription, user: user, announcement: announcement)
-    comment = create(:comment, user: author, announcement: announcement)
+    author = insert(:user)
+    user = insert(:user)
+    announcement = insert(:announcement, user: author)
+    subscription = insert(:subscription, user: user, announcement: announcement)
+    comment = insert(:comment, user: author, announcement: announcement)
     users = [author, user]
 
     email = Emails.new_comment(comment, users)
@@ -46,10 +46,10 @@ defmodule Constable.Mailers.CommentMailerTest do
   end
 
   test "new mention in a comment" do
-    author = create(:user)
-    user = create(:user)
-    announcement = create(:announcement, user: author)
-    comment = create(:comment, user: author, announcement: announcement)
+    author = insert(:user)
+    user = insert(:user)
+    announcement = insert(:announcement, user: author)
+    comment = insert(:comment, user: author, announcement: announcement)
     users = [author, user]
 
     email = Emails.new_comment_mention(comment, users)

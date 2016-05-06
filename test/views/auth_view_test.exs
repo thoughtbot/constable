@@ -4,7 +4,7 @@ defmodule Constable.AuthViewTest do
   alias Constable.Api.UserView
 
   test "show.json returns correct fields" do
-    user = create(:user)
+    user = insert(:user)
 
     rendered_user = render_one(user, AuthView, "show.json", as: :user)
     user_view_json = render_one(user, UserView, "show.json")

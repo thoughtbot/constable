@@ -1,8 +1,8 @@
 defmodule Constable.UserCreatesAnnouncementTest do
-  use Constable.AcceptanceCase, async: true
+  use Constable.AcceptanceCase
 
   test "user creates an announcement", %{session: session} do
-    user = create(:user)
+    user = insert(:user)
 
     session
     |> visit(announcement_path(Endpoint, :new, as: user.id))

@@ -9,10 +9,10 @@ defmodule Constable.Api.SubscriptionControllerTest do
   end
 
   test "#index shows all current users subscriptions", %{conn: conn, user: user} do
-    other_user = create(:user)
-    subscription_1 = create(:subscription, user: user)
-    subscription_2 = create(:subscription, user: user)
-    create(:subscription, user: other_user)
+    other_user = insert(:user)
+    subscription_1 = insert(:subscription, user: user)
+    subscription_2 = insert(:subscription, user: user)
+    insert(:subscription, user: other_user)
 
     conn = get conn, api_subscription_path(conn, :index)
 
@@ -21,7 +21,7 @@ defmodule Constable.Api.SubscriptionControllerTest do
   end
 
   test "#create subscribes the current user to an announcement", %{conn: conn, user: user} do
-    announcement = create(:announcement)
+    announcement = insert(:announcement)
     post conn, api_subscription_path(conn, :create), subscription: %{
       announcement_id: announcement.id
     }
@@ -32,7 +32,7 @@ defmodule Constable.Api.SubscriptionControllerTest do
   end
 
   test "#delete destroys subscription", %{conn: conn, user: user} do
-    subscription = create(:subscription, user: user)
+    subscription = insert(:subscription, user: user)
 
     conn = delete conn, api_subscription_path(conn, :delete, subscription.id)
 
@@ -40,8 +40,8 @@ defmodule Constable.Api.SubscriptionControllerTest do
   end
 
   test "#delete can only destroys current users subscriptions", %{conn: conn} do
-    other_user = create(:user)
-    subscription = create(:subscription, user: other_user)
+    other_user = insert(:user)
+    subscription = insert(:subscription, user: other_user)
 
     conn = delete conn, api_subscription_path(conn, :delete, subscription.id)
 

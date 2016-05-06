@@ -3,7 +3,7 @@ defmodule Constable.RepoTest do
   alias Constable.Announcement
 
   test "Repo.count/1 return the count of all models" do
-    create_pair(:announcement)
+    insert_pair(:announcement)
 
     assert Repo.count(Announcement) == 2
   end

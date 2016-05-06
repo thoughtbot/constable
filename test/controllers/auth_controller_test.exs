@@ -84,7 +84,7 @@ defmodule AuthControllerTest do
   test "callback redirects to success URI with existing user token" do
     Pact.override(self, "token_retriever", FakeTokenRetriever)
     Pact.override(self, "request_with_access_token", FakeRequestWithAccessToken)
-    create(:user, email: @oauth_email_address)
+    insert(:user, email: @oauth_email_address)
 
     conn =
       request_authorization("foo.com")
@@ -151,7 +151,7 @@ defmodule AuthControllerTest do
   end
 
   defp create_everyone_interest do
-    create(:interest, name: "everyone")
+    insert(:interest, name: "everyone")
   end
 
   defp request_authorization(redirect_uri) do

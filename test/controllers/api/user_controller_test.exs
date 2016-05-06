@@ -31,7 +31,7 @@ defmodule Constable.Api.UserControllerTest do
   end
 
   test "#index returns all users", %{conn: conn, user: user} do
-    other_user = create(:user)
+    other_user = insert(:user)
 
     conn = get conn, api_user_path(conn, :index)
 
@@ -40,7 +40,7 @@ defmodule Constable.Api.UserControllerTest do
   end
 
   test "#show returns user", %{conn: conn} do
-    user = create(:user)
+    user = insert(:user)
 
     conn = get conn, api_user_path(conn, :show, user.id)
 

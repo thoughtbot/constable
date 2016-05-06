@@ -1,12 +1,12 @@
 defmodule Constable.UserManagesInterestsTest do
-  use Constable.AcceptanceCase
+  use Constable.AcceptanceCase, async: true
 
   @unsubscribe_link_css "[data-role=unsubscribe-from-interest]"
   @subscribe_link_css "[data-role=subscribe-to-interest]"
   @view_all_interests_css "[data-role=view-all-interests]"
 
   test "user manages interests", %{session: session} do
-    create(:interest)
+    insert(:interest)
 
     session |> view_interests
     assert not_subscribed_to_interest?(session)
@@ -19,7 +19,7 @@ defmodule Constable.UserManagesInterestsTest do
   end
 
   defp view_interests(session) do
-    user = create(:user)
+    user = insert(:user)
 
     session
     |> visit(announcement_path(Endpoint, :index, as: user.id))

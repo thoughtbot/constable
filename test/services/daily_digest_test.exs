@@ -5,9 +5,9 @@ defmodule Constable.DailyDigestTest do
   alias Constable.DailyDigest
 
   test "doesn't send if there are no new records since the time" do
-    _old_announcement = create(:announcement, inserted_at: yesterday)
-    _old_interest = create(:interest, inserted_at: yesterday)
-    users = [create(:user)]
+    _old_announcement = insert(:announcement, inserted_at: yesterday)
+    _old_interest = insert(:interest, inserted_at: yesterday)
+    users = [insert(:user)]
 
     DailyDigest.send_email(users, yesterday)
 
@@ -15,11 +15,11 @@ defmodule Constable.DailyDigestTest do
   end
 
   test "includes interests and announcements since the passed in time" do
-    users = [create(:user)]
-    _old_interest = create(:interest, inserted_at: yesterday)
-    new_interest = create(:interest, inserted_at: today)
-    _old_announcement = create(:announcement, inserted_at: yesterday)
-    new_announcement = create(:announcement, inserted_at: today)
+    users = [insert(:user)]
+    _old_interest = insert(:interest, inserted_at: yesterday)
+    new_interest = insert(:interest, inserted_at: today)
+    _old_announcement = insert(:announcement, inserted_at: yesterday)
+    new_announcement = insert(:announcement, inserted_at: today)
 
     DailyDigest.send_email(users, yesterday)
 
@@ -27,9 +27,9 @@ defmodule Constable.DailyDigestTest do
   end
 
   test "sends if there are only new announcements" do
-    new_announcement = create(:announcement, inserted_at: today)
-    _old_interest = create(:interest, inserted_at: yesterday)
-    users = [create(:user)]
+    new_announcement = insert(:announcement, inserted_at: today)
+    _old_interest = insert(:interest, inserted_at: yesterday)
+    users = [insert(:user)]
 
     DailyDigest.send_email(users, yesterday)
 
@@ -37,9 +37,9 @@ defmodule Constable.DailyDigestTest do
   end
 
   test "sends if there are only new interests" do
-    _old_announcement = create(:announcement, inserted_at: yesterday)
-    new_interest = create(:interest, inserted_at: today)
-    users = [create(:user)]
+    _old_announcement = insert(:announcement, inserted_at: yesterday)
+    new_interest = insert(:interest, inserted_at: today)
+    users = [insert(:user)]
 
     DailyDigest.send_email(users, yesterday)
 

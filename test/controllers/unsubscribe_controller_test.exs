@@ -5,7 +5,7 @@ defmodule Constable.UsubscribeController.Test do
   alias Constable.Subscription
 
   test "#show deletes subscription and shows a page" do
-    subscription = create(:subscription)
+    subscription = insert(:subscription)
 
     conn = get conn(), unsubscribe_path(conn, :show, subscription.token)
 

@@ -3,7 +3,7 @@ defmodule Constable.Api.CommentViewTest do
   alias Constable.Api.CommentView
 
   test "show.json returns correct fields" do
-    comment = create(:comment)
+    comment = insert(:comment)
 
     rendered_comment = render_one(comment, CommentView, "show.json")
 

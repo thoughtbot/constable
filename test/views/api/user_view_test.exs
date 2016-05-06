@@ -3,7 +3,7 @@ defmodule Constable.Api.UserViewTest do
   alias Constable.Api.UserView
 
   test "show.json returns correct fields" do
-    user = create(:user)
+    user = insert(:user)
       |> with_interest
       |> with_subscription
       |> Repo.preload([:user_interests, :subscriptions])

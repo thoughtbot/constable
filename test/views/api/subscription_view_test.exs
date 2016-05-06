@@ -3,7 +3,7 @@ defmodule Constable.Api.SubscriptionViewTest do
   alias Constable.Api.SubscriptionView
 
   test "show.json returns correct fields" do
-    subscription = create(:subscription)
+    subscription = insert(:subscription)
 
     rendered_subscription = render_one(subscription, SubscriptionView, "show.json")
 

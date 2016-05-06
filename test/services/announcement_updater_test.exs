@@ -6,11 +6,11 @@ defmodule Constable.Services.AnnouncementUpdaterTest do
   alias Constable.Services.AnnouncementUpdater
 
   test "updates an announcement and its interests" do
-    user = create(:user)
-    announcement = create(:announcement, user: user)
-    interest = create(:interest, name: "old")
+    user = insert(:user)
+    announcement = insert(:announcement, user: user)
+    interest = insert(:interest, name: "old")
 
-    create(:announcement_interest,
+    insert(:announcement_interest,
       announcement: announcement,
       interest: interest,
     )

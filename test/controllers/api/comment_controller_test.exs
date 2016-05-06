@@ -10,8 +10,8 @@ defmodule Constable.Api.CommentControllerTest do
   end
 
   test "#create creates a comment for user and announcement", %{conn: conn, user: user} do
-    announcement = create(:announcement)
-    subscribed_user = create(:user) |> with_subscription(announcement)
+    announcement = insert(:announcement)
+    subscribed_user = insert(:user) |> with_subscription(announcement)
 
     conn = post conn, api_comment_path(conn, :create), comment: %{
       body: "Foo",

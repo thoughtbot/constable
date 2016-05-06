@@ -12,14 +12,14 @@ defmodule Constable.CommentTest do
   end
 
   defp create_announcement_last_discussed(time_ago) do
-    create(:announcement, last_discussed_at: Ecto.DateTime.cast!(time_ago))
+    insert(:announcement, last_discussed_at: Ecto.DateTime.cast!(time_ago))
   end
 
   defp insert_comment_on_announcement(announcement) do
     comment_params = %{
       announcement_id: announcement.id,
       body: "Anything",
-      user_id: create(:user).id
+      user_id: insert(:user).id
     }
 
     Comment.changeset(:create, comment_params)

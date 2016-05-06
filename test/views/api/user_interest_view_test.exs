@@ -3,7 +3,7 @@ defmodule Constable.Api.UserInterestViewTest do
   alias Constable.Api.UserInterestView
 
   test "show.json returns correct fields" do
-    user_interest = create(:user_interest)
+    user_interest = insert(:user_interest)
 
     rendered_user_interest = render_one(user_interest, UserInterestView, "show.json")
 
