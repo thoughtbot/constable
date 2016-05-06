@@ -76,7 +76,7 @@ defmodule Constable.Services.AnnouncementCreator do
 
   defp find_interested_users(announcement) do
     announcement
-    |> Repo.preload([:interested_users])
+    |> Repo.preload(:interested_users)
     |> Map.get(:interested_users)
   end
 

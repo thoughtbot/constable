@@ -44,9 +44,12 @@ defmodule Constable.Api.AnnouncementControllerTest do
   end
 
   test "#create with invalid attributes renders errors", %{conn: conn} do
-    conn = post conn, api_announcement_path(conn, :create), announcement: %{}, interest_names: %{}
+    conn = post conn,
+      api_announcement_path(conn, :create),
+      announcement: %{},
+      interest_names: %{}
 
-     assert %{"errors" => _} = json_response(conn, 422)
+    assert %{"errors" => _} = json_response(conn, 422)
   end
 
   test "#update with valid attributes updates announcement", %{conn: conn, user: user} do

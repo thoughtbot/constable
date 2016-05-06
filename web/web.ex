@@ -39,7 +39,7 @@ defmodule Constable.Web do
 
       import Constable.Router.Helpers
       import Ecto.Query
-      import Ecto.Model
+      import Ecto.Schema
       import Constable.Gettext
 
       alias Constable.Repo
@@ -56,7 +56,8 @@ defmodule Constable.Web do
 
   def model do
     quote do
-      use Ecto.Model
+      use Ecto.Schema
+      import Ecto.Changeset
       import Constable.PresenceValidator
       import Ecto.Query
     end

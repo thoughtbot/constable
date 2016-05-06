@@ -4,7 +4,7 @@ defmodule Constable.Repo.Migrations.GenerateSubscriptionTokens do
   alias Constable.Repo
 
   defmodule Subscription do
-    use Ecto.Model
+    use Ecto.Schema
 
     schema "subscriptions" do
       field :token

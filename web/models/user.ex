@@ -1,5 +1,5 @@
 defmodule Constable.User do
-  use Ecto.Model
+  use Constable.Web, :model
   alias Constable.UserInterest
   alias Constable.Subscription
 
@@ -25,7 +25,7 @@ defmodule Constable.User do
     timestamps
   end
 
-  def changeset(user, params \\ :empty) do
+  def changeset(user, params \\ %{}) do
     user
     |> cast(params, ~w(), ~w(auto_subscribe daily_digest name))
     |> validate_length(:name, min: 3)

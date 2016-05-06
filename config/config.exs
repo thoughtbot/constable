@@ -16,6 +16,8 @@ config :constable, Constable.Endpoint,
     name: Constable.PubSub,
     adapter: Phoenix.PubSub.PG2]
 
+config :constable, ecto_repos: [Constable.Repo]
+
 # Configures Elixir's Logger
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",

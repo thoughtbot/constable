@@ -1,5 +1,5 @@
 defmodule Constable.UserInterest do
-  use Ecto.Model
+  use Constable.Web, :model
   alias Constable.User
   alias Constable.Interest
 

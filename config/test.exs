@@ -9,6 +9,8 @@ config :constable, Constable.Repo,
   hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox
 
+config :constable, :sql_sandbox, true
+
 config :constable, Constable.Mailer,
   adapter: Bamboo.TestAdapter
 

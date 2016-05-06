@@ -53,7 +53,7 @@ defmodule Constable.Mixfile do
       {:cowboy, "~> 1.0"},
       {:dialyxir, "~> 0.3", only: [:dev]},
       {:earmark, "~> 0.1.17"},
-      {:ecto, "~> 1.1"},
+      {:ecto, "~> 2.0.0-rc"},
       {:envy, "~> 0.0.1"},
       {:ex_machina, "~> 0.6"},
       {:exgravatar, "~> 0.2"},
@@ -62,7 +62,7 @@ defmodule Constable.Mixfile do
       {:httpoison, github: "edgurgel/httpoison", override: true},
       {:oauth2, "~> 0.5"},
       {:pact, "0.1.0"},
-      {:phoenix_ecto, "~> 1.2"},
+      {:phoenix_ecto, "~> 3.0.0-rc"},
       {:phoenix_html, "~> 2.4"},
       {:phoenix, "~> 1.1"},
       {:postgrex, ">= 0.0.0"},
@@ -78,7 +78,7 @@ defmodule Constable.Mixfile do
   defp aliases do
     [
       "ecto.reset": ["ecto.drop", "ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
-      "test": ["cmd node_modules/brunch/bin/brunch build", "test"]
+      "test": ["cmd node_modules/brunch/bin/brunch build", "ecto.create --quiet", "ecto.migrate", "test"]
     ]
   end
 end

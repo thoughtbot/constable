@@ -26,14 +26,15 @@ defmodule Constable.Mailers.AnnouncementTest do
     assert email.html_body =~ html_announcement_body
     assert email.html_body =~ author.name
     assert email.html_body =~ Exgravatar.generate(author.email)
-    assert email.html_body =~ "##{interest.name}, ##{interest_2.name}"
+    assert email.html_body =~ interest.name
+    assert email.html_body =~ interest_2.name
     assert email.text_body =~ announcement.body
   end
 
   def create_announcement_with_interests(interests) do
     create(:announcement)
     |> associate_interests_with_announcement(interests)
-    |> Repo.preload([:user, :interested_users])
+    |> Repo.preload([:user, interests: :interested_users])
   end
 
   def create_interested_user(interest) do

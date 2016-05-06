@@ -1,5 +1,5 @@
 defmodule Constable.Subscription do
-  use Ecto.Model
+  use Constable.Web, :model
   alias Constable.Announcement
   alias Constable.User
 

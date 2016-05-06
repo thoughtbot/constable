@@ -26,10 +26,10 @@ defmodule Constable.ErrorHelpers do
     #
     #     dngettext "errors", "1 file", "%{count} files", count
     #
-    Gettext.dngettext(Async.Gettext, "errors", msg, msg, opts[:count], opts)
-  end
-
-  def translate_error(msg) do
-    Gettext.dgettext(Async.Gettext, "errors", msg)
+    if count = opts[:count] do
+      Gettext.dngettext(Constable.Gettext, "errors", msg, msg, count, opts)
+    else
+      Gettext.dgettext(Constable.Gettext, "errors", msg, opts)
+    end
   end
 end

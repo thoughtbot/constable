@@ -8,8 +8,7 @@ defmodule Constable.Announcement do
   schema "announcements" do
     field :title
     field :body
-    field :last_discussed_at, Ecto.DateTime
-    @ecto_autogenerate_insert {:last_discussed_at, Ecto.DateTime, [:sec]}
+    field :last_discussed_at, Ecto.DateTime, autogenerate: true
     timestamps
 
     belongs_to :user, User
@@ -17,7 +16,7 @@ defmodule Constable.Announcement do
     has_many :subscriptions, Subscription, on_delete: :delete_all
     has_many :announcements_interests, AnnouncementInterest, on_delete: :delete_all
     has_many :interests, through: [:announcements_interests, :interest]
-    has_many :interested_users, through: [:interests, :interested_users]
+    has_many :interested_users, through: [:announcements_interests, :interest, :interested_users]
   end
 
   def changeset(announcement, context, params \\ %{})

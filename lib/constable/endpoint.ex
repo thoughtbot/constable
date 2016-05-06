@@ -3,6 +3,10 @@ defmodule Constable.Endpoint do
 
   socket "/ws", Constable.UserSocket
 
+  if Application.get_env(:constable, :sql_sandbox) do
+    plug Phoenix.Ecto.SQL.Sandbox
+  end
+
   plug Plug.Static,
     at: "/", from: :constable
 

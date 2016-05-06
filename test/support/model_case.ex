@@ -15,15 +15,16 @@ defmodule Constable.ModelCase do
     quote do
       # Alias the data repository and import query/model functions
       alias Constable.Repo
-      import Ecto.Model
       import Ecto.Query, only: [from: 2]
       import Constable.Factory
     end
   end
 
   setup tags do
+    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Constable.Repo)
+
     unless tags[:async] do
-      Ecto.Adapters.SQL.restart_test_transaction(Constable.Repo, [])
+      Ecto.Adapters.SQL.Sandbox.mode(Constable.Repo, {:shared, self()})
     end
 
     :ok

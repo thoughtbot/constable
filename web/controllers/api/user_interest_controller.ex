@@ -45,6 +45,6 @@ defmodule Constable.Api.UserInterestController do
   end
 
   defp user_interests_for(user) do
-    Repo.all assoc(user, :user_interests)
+    Repo.all Ecto.assoc(user, :user_interests)
   end
 end

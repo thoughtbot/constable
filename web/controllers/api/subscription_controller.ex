@@ -39,6 +39,6 @@ defmodule Constable.Api.SubscriptionController do
   end
 
   defp subscriptions_for(user) do
-    Repo.all assoc(user, :subscriptions)
+    Repo.all Ecto.assoc(user, :subscriptions)
   end
 end

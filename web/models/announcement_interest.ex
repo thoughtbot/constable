@@ -1,5 +1,5 @@
 defmodule Constable.AnnouncementInterest do
-  use Ecto.Model
+  use Ecto.Schema
   alias Constable.Announcement
   alias Constable.Interest
 
