@@ -1,10 +1,16 @@
 defmodule Constable.Plugs.RequireLoginTest do
-  use Constable.PlugCase, async: true
+  use Constable.ConnCase, async: true
 
   test "user is redirected when current_user is not set" do
-    conn = conn() |> run_plug
+    conn = conn() |> with_session |> run_plug
 
     assert redirected_to(conn) == "/"
+  end
+
+  test "the original request path is stored on the session" do
+    conn = conn(:get, "/foo") |> with_session |> run_plug
+
+    assert get_session(conn, :original_request_path) == "/foo"
   end
 
   test "user passes through when current_user is set" do

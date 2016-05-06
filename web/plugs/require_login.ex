@@ -13,7 +13,16 @@ defmodule Constable.Plugs.RequireLogin do
 
   defp redirect_to_login(conn) do
     conn
+    |> maybe_store_request_path
     |> Phoenix.Controller.redirect(to: "/")
     |> halt
+  end
+
+  defp maybe_store_request_path(conn) do
+    if conn.method == "GET" do
+      conn |> put_session(:original_request_path, conn.request_path)
+    else
+      conn
+    end
   end
 end
