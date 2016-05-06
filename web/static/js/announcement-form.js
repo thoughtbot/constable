@@ -71,8 +71,17 @@ const updateMarkdown = function(e) {
   }
 };
 
+const clearLocalStorageOnSubmit = function() {
+  $('[data-role=announcement-form]').on('submit', function() {
+    localStorage.removeItem('title');
+    localStorage.removeItem('interests');
+    localStorage.removeItem('markdown');
+  });
+};
+
 export function setupForm() {
   watchTitle();
   watchBody();
   setupInterestsSelect();
+  clearLocalStorageOnSubmit();
 }

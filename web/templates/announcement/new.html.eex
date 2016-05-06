@@ -1,4 +1,7 @@
-<%= form_for @changeset, announcement_path(@conn, :create), [class: "flex-container"], fn(f) -> %>
+<%= form_for @changeset,
+  announcement_path(@conn, :create),
+  [class: "flex-container", data: [role: "announcement-form"]],
+  fn(f) -> %>
   <nav class="header-tags">
     <div class="header-tag header-tag-markdown active">
       <%= gettext("Markdown") %>
