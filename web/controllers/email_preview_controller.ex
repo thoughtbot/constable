@@ -5,7 +5,11 @@ defmodule Constable.EmailPreviewController do
   alias Constable.Emails
 
   def show(conn, %{"email_name" => email_name}) do
-    html(conn, email_body(email_name))
+    {:error, body} = Repo.transaction fn ->
+      email_body(email_name) |> Repo.rollback
+    end
+
+    html(conn, body)
   end
 
   defp email_body(email_name) do
@@ -17,11 +21,11 @@ defmodule Constable.EmailPreviewController do
   end
 
   defp email_for(:new_comment) do
-    Emails.new_comment(build(:comment), [])
+    Emails.new_comment(insert(:comment), [])
   end
 
   defp email_for(:new_comment_mention) do
-    Emails.new_comment_mention(build(:comment), [])
+    Emails.new_comment_mention(insert(:comment), [])
   end
 
   defp email_for(:new_announcement_mention) do
@@ -30,8 +34,8 @@ defmodule Constable.EmailPreviewController do
 
   defp email_for(:daily_digest) do
     Emails.daily_digest(
-      build_pair(:interest),
-      build_pair(:announcement),
+      insert_pair(:interest),
+      insert_pair(:announcement),
       []
     )
   end
@@ -48,6 +52,6 @@ defmodule Constable.EmailPreviewController do
   end
 
   defp announcement do
-    build(:announcement) |> Map.put(:interests, build_pair(:interest))
+    insert(:announcement, interests: insert_pair(:interest))
   end
 end

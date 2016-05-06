@@ -12,10 +12,9 @@
     </table>
   </td>
   <td align="right">
-    <%= link to: announcement_url(Constable.Endpoint, :show, @announcement) do %>
-      <span style="color: <%= red %>; font-size: 14px;">
-        <%= gettext("View on #Constable") %>
-      </span>
+    <%= link to: announcement_url(Constable.Endpoint, :show, @announcement),
+      style: "color: #{red}; font-size: 14px;" do %>
+      <%= gettext("View on #Constable") %>
     <% end %>
   </td>
 </tr>

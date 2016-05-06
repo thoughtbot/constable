@@ -1,9 +1,7 @@
 <tr>
   <td colspan="2" height="125" align="center">
-    <%= link to: unsubscribe_link do %>
-      <span style="color: <%= light_gray %>; font-size: 13px;">
-        <%= gettext("Unsubscribe from emails") %>
-      </span>
+    <%= link to: unsubscribe_link, style: "color: #{light_gray}; font-size: 13px;" do %>
+      <%= gettext("Unsubscribe from emails") %>
     <% end %>
   </td>
 </tr>
