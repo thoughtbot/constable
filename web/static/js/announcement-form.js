@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import marked from 'marked';
+import { markedWithSyntax } from './syntax-highlighting';
 import 'selectize';
 
 const DELIMITER = ',';
@@ -65,8 +65,7 @@ const updateMarkdown = function(e) {
     $('[data-role=markdown-preview]').html('Your rendered markdown goes here');
   } else {
     $('[data-role=markdown-preview]').removeClass('preview');
-
-    const markdown = marked(value);
+    const markdown = markedWithSyntax(value);
     $('[data-role=markdown-preview]').html(markdown);
   }
 };

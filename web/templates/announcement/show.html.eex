@@ -68,6 +68,7 @@
     require("web/static/js/user-autocomplete").autocompleteUsers(
       '.new-comment-textarea',
       <%= raw user_autocomplete_json(@users) %>
-    );
+      );
+    require("web/static/js/syntax-highlighting").highlightSyntax('.comments-list');
   })()
 </script>
