@@ -15,7 +15,8 @@ config :constable, Constable.Endpoint,
   url: [scheme: "https", host: System.get_env("HOST"), port: System.get_env("URL_PORT")],
   http: [port: {:system, "PORT"}, compress: true],
   force_ssl: [rewrite_on: [:x_forwarded_proto], host: System.get_env("HOST")],
-  secret_key_base: System.get_env("SECRET_KEY_BASE")
+  secret_key_base: System.get_env("SECRET_KEY_BASE"),
+  cache_static_manifest: "priv/static/manifest.json"
 
 config :constable, Constable.Repo,
   url: System.get_env("DATABASE_URL")

@@ -8,7 +8,9 @@ defmodule Constable.Endpoint do
   end
 
   plug Plug.Static,
-    at: "/", from: :constable
+    at: "/", from: :constable,
+    gzip: true,
+    only: ~w(css fonts images js favicon.ico)
 
   plug Plug.Logger
 
@@ -29,9 +31,7 @@ defmodule Constable.Endpoint do
   plug Plug.Session,
     store: :cookie,
     key: "_constable_key",
-    signing_salt: "/CEisxlR",
-    encryption_salt: "W5B5Vc1E"
+    signing_salt: "/CEisxlR"
 
-  plug CORSPlug
   plug Constable.Router
 end
