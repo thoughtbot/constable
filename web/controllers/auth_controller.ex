@@ -11,7 +11,7 @@ defmodule Constable.AuthController do
     UserInterest
   }
 
-  @one_year_from_now 365 * 24 * 60 * 60 * 1000
+  @one_year_in_seconds 365 * 24 * 60 * 60
 
   def index(conn, %{"browser" => "true"}) do
     conn
@@ -129,6 +129,6 @@ defmodule Constable.AuthController do
 
   defp set_user_id_cookie(conn, user) do
     signed_user_id = UserIdentifier.sign_user_id(conn, user.id)
-    conn |> Plug.Conn.put_resp_cookie("user_id", signed_user_id, max_age: @one_year_from_now)
+    conn |> Plug.Conn.put_resp_cookie("user_id", signed_user_id, max_age: @one_year_in_seconds)
   end
 end
