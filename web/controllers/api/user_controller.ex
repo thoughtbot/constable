@@ -19,7 +19,7 @@ defmodule Constable.Api.UserController do
   end
 
   def index(conn, _params) do
-    users = Repo.all(User)
+    users = all_users_ordered_by_name
 
     render(conn, "index.json", users: users)
   end
@@ -45,5 +45,9 @@ defmodule Constable.Api.UserController do
         |> put_status(:unprocessable_entity)
         |> render(Constable.ChangesetView, "error.json", changeset: changeset)
     end
+  end
+
+  defp all_users_ordered_by_name do
+    Repo.all User.ordered_by_name
   end
 end

@@ -31,12 +31,12 @@ defmodule Constable.Api.UserControllerTest do
   end
 
   test "#index returns all users", %{conn: conn, user: user} do
-    other_user = insert(:user)
+    other_user = insert(:user, name: "Aaron")
 
     conn = get conn, api_user_path(conn, :index)
 
     ids = fetch_json_ids("users", conn)
-    assert ids == [user.id, other_user.id]
+    assert ids == [other_user.id, user.id]
   end
 
   test "#show returns user", %{conn: conn} do

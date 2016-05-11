@@ -44,6 +44,10 @@ defmodule Constable.User do
     interest.id in Enum.map(user.interests, &(&1.id))
   end
 
+  def ordered_by_name(query \\ __MODULE__) do
+    query |> order_by(asc: :name)
+  end
+
   defp require_thoughtbot_email(changeset) do
     changeset
     |> validate_change(:email, fn(:email, value) ->
