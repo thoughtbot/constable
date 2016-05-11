@@ -5,7 +5,7 @@ defmodule Constable.EmailsTest do
   test "daily_digest" do
     users = insert_pair(:user)
     interests = insert_pair(:interest)
-    announcements = insert_pair(:announcement)
+    announcements = insert_pair(:announcement) |> Repo.preload(:interests)
 
     email = Constable.Emails.daily_digest(interests, announcements, users)
 

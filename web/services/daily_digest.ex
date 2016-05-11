@@ -32,6 +32,6 @@ defmodule Constable.DailyDigest do
 
   defp announcements_since(time) do
     Repo.all(from i in Announcement, where: i.inserted_at > ^time)
-    |> Repo.preload(:user)
+    |> Repo.preload([:user, :interests])
   end
 end

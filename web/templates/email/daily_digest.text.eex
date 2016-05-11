@@ -12,8 +12,7 @@
 
 <%= for announcement <- @announcements do %>
   <%= announcement.title %> - <%= announcement_url(Constable.Endpoint, :show, announcement) %>
-  <%= gettext("posted by") %> <%= announcement.user.name %>
-
+  <%= gettext("posted by") %> <%= announcement.user.name %> <%= gettext("in") %> #<%= Enum.join(announcement.interests, ", #") %>
 <% end %>
 
 <%= gettext("View Interests and Announcements on Constable") %>

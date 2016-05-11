@@ -20,6 +20,7 @@ defmodule Constable.DailyDigestTest do
     new_interest = insert(:interest, inserted_at: today)
     _old_announcement = insert(:announcement, inserted_at: yesterday)
     new_announcement = insert(:announcement, inserted_at: today)
+      |> Repo.preload(:interests)
 
     DailyDigest.send_email(users, yesterday)
 
@@ -27,7 +28,7 @@ defmodule Constable.DailyDigestTest do
   end
 
   test "sends if there are only new announcements" do
-    new_announcement = insert(:announcement, inserted_at: today)
+    new_announcement = insert(:announcement, inserted_at: today) |> Repo.preload(:interests)
     _old_interest = insert(:interest, inserted_at: yesterday)
     users = [insert(:user)]
 
