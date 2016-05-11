@@ -17,4 +17,4 @@
 <% end %>
 
 <%= gettext("View Interests and Announcements on Constable") %>
-<%= announcement_path(Constable.Endpoint, :index) %>
+<%= announcement_url(Constable.Endpoint, :index) %>
