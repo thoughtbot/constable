@@ -40,17 +40,7 @@
           </li>
         </ul>
       </header>
-      <%= if get_flash(@conn, :info) do %>
-        <div class="flash flash-info">
-          <%= get_flash(@conn, :info) %>
-        </div>
-      <% end %>
-
-      <%= if get_flash(@conn, :error) do %>
-        <div class="flash flash-error">
-          <%= get_flash(@conn, :error) %>
-        </div>
-      <% end %>
+      <%= render "_flashes.html", conn: @conn %>
 
       <%= render @view_module, @view_template, assigns %>
     </div>

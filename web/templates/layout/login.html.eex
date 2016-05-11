@@ -12,6 +12,8 @@
   </head>
 
   <body>
+    <%= render "_flashes.html", conn: @conn %>
+
     <div class="login-page">
       <%= render @view_module, @view_template, assigns %>
     </div>
