@@ -2,11 +2,16 @@ defmodule Constable.AuthController do
   use Constable.Web, :controller
   require Logger
 
-  alias Constable.Interest
-  alias Constable.User
-  alias Constable.UserInterest
-  alias Constable.Repo
-  alias Constable.Queries
+  alias Constable.{
+    Interest,
+    Queries,
+    Repo,
+    User,
+    UserIdentifier,
+    UserInterest
+  }
+
+  @one_year_from_now 365 * 24 * 60 * 60 * 1000
 
   def index(conn, %{"browser" => "true"}) do
     conn
@@ -27,13 +32,13 @@ defmodule Constable.AuthController do
     %{"email" => email, "name" => name} = get_userinfo(token)
 
     case find_or_insert_user(email, name) do
-      nil -> 
+      nil ->
         conn
         |> put_flash(:error, gettext("You must sign up with a thoughtbot email address"))
         |> redirect(external: "/")
       user ->
         conn
-        |> put_session(:user_id, user.id)
+        |> set_user_id_cookie(user)
         |> redirect(external: session_path(conn, :new))
     end
   end
@@ -120,5 +125,10 @@ defmodule Constable.AuthController do
 
   defp redirect_after_success_uri(conn, token) do
     "#{get_session(conn, :redirect_after_success_uri)}/#{token}"
+  end
+
+  defp set_user_id_cookie(conn, user) do
+    signed_user_id = UserIdentifier.sign_user_id(conn, user.id)
+    conn |> Plug.Conn.put_resp_cookie("user_id", signed_user_id, max_age: @one_year_from_now)
   end
 end

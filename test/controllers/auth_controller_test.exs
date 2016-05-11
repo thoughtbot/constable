@@ -1,7 +1,6 @@
 defmodule AuthControllerTest do
   use Constable.ConnCase, async: true
-  alias Constable.User
-  alias Constable.UserInterest
+  alias Constable.{User, UserIdentifier, UserInterest}
 
   @google_authorize_url "https://accounts.google.com/o/oauth2/auth"
   @oauth_email_address "fake@thoughtbot.com"
@@ -147,7 +146,14 @@ defmodule AuthControllerTest do
       |> get("/auth/browser_callback", code: "foo")
 
     user = Repo.one(User)
-    assert get_session(conn, :user_id) == user.id
+    assert user_id_cookie_is_saved?(conn, user)
+  end
+
+  defp user_id_cookie_is_saved?(conn, user) do
+    case UserIdentifier.verify_signed_user_id(conn) do
+      {:ok, user_id} -> user_id == user.id
+      {:error, _} -> false
+    end
   end
 
   defp create_everyone_interest do
