@@ -1,4 +1,10 @@
 defmodule Constable.Interest do
+  defimpl Phoenix.Param do
+    def to_param(%{name: name}) do
+      "#{name}"
+    end
+  end
+
   use Constable.Web, :model
   alias Constable.{Announcement, AnnouncementInterest, UserInterest}
 
@@ -18,6 +24,7 @@ defmodule Constable.Interest do
     |> cast(params, ~w(name), ~w(slack_channel))
     |> validate_presence(:name)
     |> update_change(:name, &String.replace(&1, "#", ""))
+    |> update_change(:name, &String.replace(&1, " ", "-"))
     |> update_change(:name, &String.downcase/1)
     |> unique_constraint(:name)
   end

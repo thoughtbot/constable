@@ -15,4 +15,13 @@ defmodule Constable.InterestControllerTest do
     assert html_response(conn, :ok) =~ "Awesome"
     refute html_response(conn, :ok) =~ "Nope"
   end
+
+  test "works with legacy ids for the param", %{conn: conn} do
+    interest = insert(:interest)
+    insert(:announcement, title: "Awesome") |> tag_with_interest(interest)
+
+    conn = get conn, interest_path(conn, :show, interest.id)
+
+    assert html_response(conn, :ok) =~ "Awesome"
+  end
 end

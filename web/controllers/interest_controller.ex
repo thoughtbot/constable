@@ -10,13 +10,20 @@ defmodule Constable.InterestController do
     |> render("index.html")
   end
 
-  def show(conn, %{"id" => id}) do
-    interest = Repo.get!(Interest, id)
+  def show(conn, %{"param" => param}) do
+    interest = get_interest_by_id_or_name(param)
 
     conn
     |> assign(:announcements, sorted_announcements(interest))
     |> assign(:interest, interest)
     |> render("show.html")
+  end
+
+  defp get_interest_by_id_or_name(param) do
+    case Integer.parse(param) do
+      :error -> Repo.get_by!(Interest, name: param)
+      {id, _} -> Repo.get!(Interest, id)
+    end
   end
 
   defp preload_interests(user) do

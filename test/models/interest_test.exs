@@ -7,4 +7,10 @@ defmodule Constable.InterestTest do
     assert changeset.valid?
     assert changeset.changes.name == "everyone"
   end
+
+  test "replaces spaces in the interest name with dashes" do
+    changeset = Interest.changeset(%{name: "this is an interest"})
+    assert changeset.valid?
+    assert changeset.changes.name == "this-is-an-interest"
+  end
 end

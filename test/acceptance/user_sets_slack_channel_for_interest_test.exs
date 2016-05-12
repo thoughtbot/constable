@@ -6,7 +6,7 @@ defmodule Constable.UserSetsSlackChannelForInterestTest do
     user = insert(:user)
 
     session
-    |> visit(interest_path(Endpoint, :show, interest.id, as: user.id))
+    |> visit(interest_path(Endpoint, :show, interest, as: user.id))
     |> click_edit_interest
     |> fill_in("interest_slack_channel", with: "#channel-name")
     |> click_submit
