@@ -35,7 +35,8 @@ defmodule Constable.EmailPreviewController do
   defp email_for(:daily_digest) do
     Emails.daily_digest(
       insert_pair(:interest),
-      insert_pair(:announcement),
+      insert_pair(:announcement)
+       |> Repo.preload(:interests),
       []
     )
   end
