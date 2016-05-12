@@ -3,7 +3,7 @@ defmodule Constable.User do
   alias Constable.UserInterest
   alias Constable.Subscription
 
-  defimpl Bamboo.Formatter, for: __MODULE__ do
+  defimpl Bamboo.Formatter do
     def format_email_address(user, _opts) do
       {user.name, user.email}
     end
