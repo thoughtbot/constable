@@ -1,19 +1,5 @@
-defmodule Constable.UserViewsInterestPageTest do
+defmodule Constable.UserSetsSlackChannelForInterestTest do
   use Constable.AcceptanceCase
-
-  test "user views interest page", %{session: session} do
-    matching_interest = insert(:interest, name: "foobar1s")
-    matching_announcement = insert(:announcement, title: "foobar1")
-      |> tag_with_interest(matching_interest)
-    _non_matching_announcement = insert(:announcement, title: "foobar2")
-    user = insert(:user)
-
-    session
-    |> visit(interest_path(Endpoint, :show, matching_interest, as: user.id))
-
-    assert has_announcement_text?(session, matching_announcement.title)
-    assert find(session, ".announcement-list", count: 1)
-  end
 
   test "user adds the slack channel for an interest", %{session: session} do
     interest = insert(:interest, name: "interest")
@@ -59,12 +45,6 @@ defmodule Constable.UserViewsInterestPageTest do
   defp click_remove_slack_channel(session) do
     session
     |> click("a[data-role=remove-channel]")
-  end
-
-  defp has_announcement_text?(session, announcment_title) do
-    session
-    |> find("h1[data-role=title]")
-    |> has_text?(announcment_title)
   end
 
   defp click_edit_interest(session) do
