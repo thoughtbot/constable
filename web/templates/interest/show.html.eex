@@ -25,5 +25,5 @@
 
   </div>
 
-  <%= render Constable.AnnouncementListView, "index.html", conn: @conn, announcements: @interest.announcements %>
+  <%= render Constable.AnnouncementListView, "index.html", conn: @conn, announcements: @announcements %>
 </div>

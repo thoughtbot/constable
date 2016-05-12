@@ -4,13 +4,13 @@ defmodule Constable.SlackChannelController do
   alias Constable.Interest
 
   def edit(conn, %{"interest_id" => id}) do
-    interest = Repo.get!(Interest.with_announcements, id)
+    interest = Repo.get!(Interest, id)
     changeset = Interest.update_channel_changeset(interest, interest.slack_channel)
     render conn, "edit.html", interest: interest, changeset: changeset
   end
 
   def update(conn, %{"interest_id" => id, "interest" => %{"slack_channel" => channel}}) do
-    interest = Repo.get!(Interest.with_announcements, id)
+    interest = Repo.get!(Interest, id)
     case Repo.update(Interest.update_channel_changeset(interest, channel)) do
       {:ok, interest} ->
         redirect conn, to: interest_path(conn, :show, interest)

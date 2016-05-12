@@ -5,6 +5,7 @@ defmodule Constable.SearchController do
 
   def new(conn, %{"query" => search_terms}) do
     announcements = Announcement.search(search_terms)
+      |> Announcement.last_discussed_first
       |> Announcement.with_announcement_list_assocs
       |> Repo.all
     render conn, "new.html", announcements: announcements

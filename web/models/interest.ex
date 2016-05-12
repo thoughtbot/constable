@@ -22,11 +22,6 @@ defmodule Constable.Interest do
     |> unique_constraint(:name)
   end
 
-  def with_announcements(query \\ __MODULE__) do
-    from interest in query,
-      preload: [announcements: ^Announcement.with_announcement_list_assocs]
-  end
-
   def update_channel_changeset(interest, channel_name) do
     interest
     |> cast(%{slack_channel: channel_name}, ~w(slack_channel), [])
