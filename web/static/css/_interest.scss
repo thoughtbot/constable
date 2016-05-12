@@ -42,6 +42,10 @@
     &::before {
       content: "#";
     }
+    a {
+      color: $dark-gray;
+      text-decoration: underline;
+    }
   }
 
   a.subscribe, a.unsubscribe {
