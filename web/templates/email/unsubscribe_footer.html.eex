@@ -3,5 +3,11 @@
     <%= link to: unsubscribe_link, style: "color: #{light_gray}; font-size: 13px;" do %>
       <%= gettext("Unsubscribe from emails") %>
     <% end %>
+
+    <br/>
+
+    <%= link to: notification_settings_link, style: "color: #{light_gray}; font-size: 13px" do %>
+      <%= gettext("Manage your notification settings") %>
+    <% end %>
   </td>
 </tr>
