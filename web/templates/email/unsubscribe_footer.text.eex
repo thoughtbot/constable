@@ -1,5 +1,5 @@
 ---
 
-<%= gettext("Unsubscribe:") %> <%= unsubscribe_link %>
+<%= gettext("Unsubscribe from this thread:") %> <%= unsubscribe_link %>
 
 <%= gettext("Manage your notification settings:") %> <%= notification_settings_link %>
