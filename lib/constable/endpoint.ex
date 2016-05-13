@@ -17,6 +17,8 @@ defmodule Constable.Endpoint do
   # Code reloading will only work if the :code_reloader key of
   # the :phoenix application is set to true in your config file.
   if code_reloading? do
+    socket "/phoenix/live_reload/socket", Phoenix.LiveReloader.Socket
+    plug Phoenix.LiveReloader
     plug Phoenix.CodeReloader
   end
 
