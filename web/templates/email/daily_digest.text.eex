@@ -17,5 +17,3 @@
 
 <%= gettext("View Interests and Announcements on Constable") %>
 <%= announcement_url(Constable.Endpoint, :index) %>
-
-<%= render "unsubscribe_footer.text" %>
