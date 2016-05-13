@@ -1,4 +1,3 @@
-import $ from "jquery";
 import refreshWithTurbolinks from "./turbolinks-refresh";
 
 $(document).on("click", "a[data-submit=parent], a[data-turbolinks=refresh]", function(event) {

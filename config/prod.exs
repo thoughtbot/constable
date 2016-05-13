@@ -24,6 +24,8 @@ config :constable, Constable.Endpoint,
   code_reloader: false,
   cache_static_manifest: "priv/static/manifest.json"
 
+config :constable, :shubox_script_url, System.get_env("SHUBOX_SCRIPT_URL")
+
 config :constable, Constable.Repo,
   url: System.get_env("DATABASE_URL")
 

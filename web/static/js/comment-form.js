@@ -1,4 +1,3 @@
-import $ from 'jquery'
 import Mousetrap from 'mousetrap';
 
 import socket from './socket'

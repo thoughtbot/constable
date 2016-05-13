@@ -1,4 +1,3 @@
-import $ from 'jquery';
 import { markedWithSyntax } from './syntax-highlighting';
 import 'selectize';
 

@@ -1,5 +1,3 @@
-import $ from "jquery";
-
 const refreshWithTurbolinks = function(link) {
   saveScrollPosition()
   sendLinkWithAjax(link)

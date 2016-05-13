@@ -40,6 +40,9 @@
     "SECRET_KEY_BASE": {
       "generator": "secret"
     },
+    "SHUBOX_SCRIPT_URL": {
+      "required": true
+    },
     "SLACK_WEBHOOK_URL": {
       "required": true
     },

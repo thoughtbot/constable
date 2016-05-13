@@ -57,6 +57,10 @@ exports.config = {
     styles: {
       "normalize.css": ['normalize.css']
     },
+    globals: {
+      $: 'jquery',
+      jQuery: 'jquery'
+    },
     whitelist: [
       "highlight.js",
       "jquery",

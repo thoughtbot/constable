@@ -11,6 +11,8 @@ config :constable, Constable.Repo,
 
 config :constable, :sql_sandbox, true
 
+config :constable, :shubox_script_url, "http://localhost/testing123.js"
+
 config :constable, Constable.Mailer,
   adapter: Bamboo.TestAdapter
 

@@ -2,6 +2,7 @@ use Mix.Config
 
 config :constable, Constable.Endpoint,
   http: [port: System.get_env("PORT") || 4000],
+  url: [host: "localhost"],
   debug_errors: true,
   code_reloader: true,
   check_origin: false,
@@ -21,6 +22,8 @@ config :constable, Constable.Repo,
 
 config :constable, Constable.Mailer,
   adapter: Bamboo.LocalAdapter
+
+config :constable, :shubox_script_url, "http://shubox.io/x/a7c92ded.js"
 
 config :honeybadger, :environment_name, :dev
 

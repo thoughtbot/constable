@@ -1,4 +1,3 @@
-import $ from 'jquery';
 import 'jquery-textcomplete';
 
 const AT_REGEX = /(^|\s)@(\w*)$/;

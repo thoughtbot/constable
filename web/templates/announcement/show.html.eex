@@ -65,6 +65,7 @@
 <script>
   (function() {
     require("web/static/js/comment-form").setupForm();
+    require('web/static/js/textarea-image-uploader').setupImageUploader('#comment_body');
     require("web/static/js/user-autocomplete").autocompleteUsers(
       '.new-comment-textarea',
       <%= raw user_autocomplete_json(@users) %>

@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
     <script>window.userToken = "<%= @current_user.token %>";</script>
     <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
+    <script src="<%= Application.fetch_env!(:constable, :shubox_script_url) %>"></script>
   </head>
 
   <body>

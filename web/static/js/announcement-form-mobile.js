@@ -1,5 +1,3 @@
-import $ from 'jquery';
-
 export function setupForm() {
   const markdownHeader = $('.header-tag-markdown');
   const previewHeader = $('.header-tag-preview');
