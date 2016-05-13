@@ -24,8 +24,8 @@ defmodule Constable.EmailsTest do
       assert email.text_body =~ announcement.title
 
       for interest <- announcement.interests do
-        assert email.html_body =~ announcement.interest
-        assert email.text_body =~ announcement.interest
+        assert email.html_body =~ interest.name
+        assert email.text_body =~ interest.name
       end
     end
   end

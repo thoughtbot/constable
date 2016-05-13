@@ -6,7 +6,7 @@ defmodule Constable.Interest do
   end
 
   use Constable.Web, :model
-  alias Constable.{Announcement, AnnouncementInterest, UserInterest}
+  alias Constable.{AnnouncementInterest, UserInterest}
 
   schema "interests" do
     field :name
