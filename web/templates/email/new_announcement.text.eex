@@ -1,3 +1,5 @@
 <%= @announcement.body %>
 
 <%= announcement_url(Constable.Endpoint, :show, @announcement) %>
+
+<%= render "unsubscribe_footer.text" %>

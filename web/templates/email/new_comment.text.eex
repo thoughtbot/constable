@@ -2,4 +2,4 @@
 
 <%= announcement_url(Constable.Endpoint, :show, @comment.announcement) %>
 
-<%= gettext("Unsubscribe:") %> <%= unsubscribe_link %>
+<%= render "unsubscribe_footer.text" %>

@@ -1,0 +1,3 @@
+---
+
+<%= gettext("Unsubscribe:") %> <%= unsubscribe_link %>
