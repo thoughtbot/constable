@@ -40,7 +40,6 @@ exports.config = {
         includePaths: [
           bourbonPath,
           "./node_modules/bourbon-neat/app/assets/stylesheets",
-          "./node_modules/normalize-css",
           "./node_modules/jquery-textcomplete/dist/",
         ],
       }
@@ -55,7 +54,11 @@ exports.config = {
 
   npm: {
     enabled: true,
+    styles: {
+      "normalize.css": ['normalize.css']
+    },
     whitelist: [
+      "highlight.js",
       "jquery",
       "jquery-textcomplete",
       "marked",
