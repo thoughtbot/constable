@@ -13,6 +13,10 @@ defmodule Constable.EmailView do
     URI.decode unsubscribe_url(Constable.Endpoint, :show, subscription_id_merge_variable)
   end
 
+  def notification_settings_link do
+    settings_url(Constable.Endpoint, :show)
+  end
+
   def author_avatar_url(user) do
     Exgravatar.generate(user.email)
   end
