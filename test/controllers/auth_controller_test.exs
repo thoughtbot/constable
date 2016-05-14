@@ -40,7 +40,7 @@ defmodule AuthControllerTest do
   defmodule FakeTokenInfoGoogleStrategy do
     @oauth_email_address "fake@thoughtbot.com"
 
-    def get_tokeninfo!(_id_token) do
+    def get_tokeninfo!(_redirect_uri, _id_token) do
       %{"email" => @oauth_email_address, "name" => "John Doe"}
     end
   end
@@ -48,7 +48,7 @@ defmodule AuthControllerTest do
   defmodule NonThoughtbotTokenInfoGoogleStrategy do
     @oauth_email_address "fake@example.com"
 
-    def get_tokeninfo!(_id_token) do
+    def get_tokeninfo!(_redirect_uri, _id_token) do
       %{"email" => @oauth_email_address, "name" => "John Doe"}
     end
   end

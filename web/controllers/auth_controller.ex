@@ -93,7 +93,7 @@ defmodule Constable.AuthController do
   end
 
   defp get_tokeninfo!(id_token) do
-    google_strategy.get_tokeninfo!(id_token)
+    google_strategy.get_tokeninfo!(nil, id_token)
   end
 
   defp find_or_insert_user(email, name) do
