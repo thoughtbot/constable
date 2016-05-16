@@ -18,6 +18,17 @@ defmodule Constable.UserManagesInterestsTest do
     assert not_subscribed_to_interest?(session)
   end
 
+  test "user subscribes to an interest from interest page", %{session: session} do
+    user = insert(:user)
+    interest = insert(:interest)
+    session |> visit(interest_path(Endpoint, :show, interest, as: user.id))
+
+    assert not_subscribed_to_interest?(session)
+    session |> subscribe_to_interest
+
+    assert subscribed_to_interest?(session)
+  end
+
   defp view_interests(session) do
     user = insert(:user)
 

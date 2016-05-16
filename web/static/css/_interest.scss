@@ -34,6 +34,10 @@
   margin: $base-spacing*.5 0 0;
   padding: 0;
 
+  .interest.container & {
+    border-bottom: 0;
+  }
+
   h3 {
     line-height: inherit;
     margin: 0;

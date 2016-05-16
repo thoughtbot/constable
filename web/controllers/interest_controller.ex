@@ -14,6 +14,7 @@ defmodule Constable.InterestController do
     interest = get_interest_by_id_or_name(param)
 
     conn
+    |> assign(:current_user, preload_interests(conn.assigns.current_user))
     |> assign(:announcements, sorted_announcements(interest))
     |> assign(:interest, interest)
     |> render("show.html")

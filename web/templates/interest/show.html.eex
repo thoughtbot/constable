@@ -1,6 +1,9 @@
 <div class="page-interest">
   <div class="interest container">
-    <h1><%= @interest.name %></h1>
+    <div class="interest-list-item">
+      <h1><%= @interest.name %></h1>
+      <%= render Constable.InterestView, "subscription.html", conn: @conn, interest: @interest, current_user: @current_user %>
+    </div>
 
     <div class="current-channel">
       <%= link to: interest_slack_channel_path(@conn, :edit, @interest), data: [role: "edit-interest"] do %>

@@ -5,21 +5,7 @@
     <%= for interest <- @interests do %>
       <li class="interest-list-item">
         <h3><%= link interest.name, to: interest_path(@conn, :show, interest) %></h3>
-        <%= if interested_in?(@current_user, interest) do %>
-          <%= link to: interest_user_interest_path(@conn, :delete, interest),
-                method: :delete,
-                class: "unsubscribe",
-                data: [turbolinks: "refresh", role: "unsubscribe-from-interest"] do %>
-                <span><%= gettext("Unsubscribe") %></span>
-          <% end %>
-        <% else %>
-          <%= link to: interest_user_interest_path(@conn, :create, interest),
-                method: :post,
-                class: "subscribe",
-                data: [turbolinks: "refresh", role: "subscribe-to-interest"] do %>
-                <span><%= gettext("Subscribe") %></span>
-          <% end %>
-        <% end %>
+        <%= render Constable.InterestView, "subscription.html", conn: @conn, interest: interest, current_user: @current_user %>
       </li>
     <% end %>
   </ul>
