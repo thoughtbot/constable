@@ -1,3 +1,5 @@
+Announced to <%= interest_names(@announcement) %>
+
 <%= @announcement.body %>
 
 <%= announcement_url(Constable.Endpoint, :show, @announcement) %>

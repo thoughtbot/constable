@@ -53,6 +53,8 @@ defmodule Constable.EmailPreviewController do
   end
 
   defp announcement do
-    insert(:announcement, interests: insert_pair(:interest))
+    insert(:announcement)
+    |> tag_with_interest(insert(:interest))
+    |> tag_with_interest(insert(:interest))
   end
 end

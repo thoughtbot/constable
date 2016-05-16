@@ -21,6 +21,26 @@ defmodule Constable.EmailView do
     Exgravatar.generate(user.email)
   end
 
+  def interest_links(announcement) do
+    announcement
+    |> Map.get(:interests)
+    |> Enum.map(&make_link/1)
+    |> Enum.join(", ")
+  end
+
+  def interest_names(announcement) do
+    announcement
+    |> Map.get(:interests)
+    |> Enum.map(&("##{&1.name}"))
+    |> Enum.join(", ")
+  end
+
+  defp make_link(interest) do
+    "##{interest.name}"
+    |> link(to: interest_url(Constable.Endpoint, :show, interest), style: "color: #{light_gray};")
+    |> safe_to_string
+  end
+
   defp subscription_id_merge_variable do
     "{{subscription_id}}"
   end

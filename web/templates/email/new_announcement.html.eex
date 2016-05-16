@@ -15,7 +15,7 @@
         </tr>
         <tr style="font-size: 14px; color: <%= light_gray %>;">
           <td align="left" colspan="2">
-            Announced to <%= @interests %>
+            Announced to <%= raw interest_links(@announcement) %>
           </td>
         </tr>
         <tr>

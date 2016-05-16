@@ -36,6 +36,7 @@ defmodule Constable.Emails do
   end
 
   def new_announcement(announcement, recipients) do
+    announcement = announcement |> Repo.preload([:user, :interests])
     new_email(to: recipients)
     |> subject(announcement.title)
     |> from_author(announcement.user)
@@ -45,7 +46,6 @@ defmodule Constable.Emails do
     |> tag("new-announcement")
     |> render(:new_announcement, %{
       announcement: announcement,
-      interests: interest_names(announcement),
       author: announcement.user
     })
   end
@@ -90,7 +90,6 @@ defmodule Constable.Emails do
     |> put_header("Message-ID", announcement_message_id(announcement))
     |> render(:new_announcement,
       announcement: announcement,
-      interests: interest_names(announcement),
       author: announcement.user
     )
   end
@@ -146,14 +145,6 @@ defmodule Constable.Emails do
 
   defp from_author(email, user) do
     from(email, {"#{user.name} (Constable)", from_email_address})
-  end
-
-  defp interest_names(announcement) do
-    announcement
-    |> Repo.preload(:interests)
-    |> Map.get(:interests)
-    |> Enum.map(&("##{&1.name}"))
-    |> Enum.join(", ")
   end
 
   defp from_email_address do
