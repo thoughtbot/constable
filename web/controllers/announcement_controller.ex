@@ -76,7 +76,7 @@ defmodule Constable.AnnouncementController do
       case AnnouncementUpdater.update(announcement, announcement_params, interest_names) do
         {:ok, announcement} ->
           redirect(conn, to: announcement_path(conn, :show, announcement.id))
-        {:error, changeset} ->
+        {:error, _changeset} ->
           render_form(conn, "edit", announcement)
       end
     else
