@@ -35,6 +35,40 @@ defmodule Constable.EmailView do
     |> Enum.join(", ")
   end
 
+  def unique_commenters(comments) do
+    Enum.map(comments, fn(c) -> c.user end)
+    |> Enum.uniq
+  end
+
+  def unique_commenter_names(users) do
+    users
+    |> Enum.uniq
+    |> Enum.map(fn(user) -> user.name end)
+  end
+
+  def discussed_announcements(comments) do
+    Enum.map(comments, fn(c) -> c.announcement end)
+    |> Enum.uniq
+  end
+
+  def new_comment_count_text(comments, announcement) do
+    ngettext(
+      "%{count} comment",
+      "%{count} comments",
+      Enum.count(new_comments(comments, announcement))
+    )
+  end
+
+  def unique_commenters_list(comments) do
+    gettext(" by ")
+    <>
+    Enum.join(unique_commenter_names(unique_commenters(comments)), ", ")
+  end
+
+  defp new_comments(comments, announcement) do
+    Enum.filter(comments, fn(c) -> c.announcement_id == announcement.id end)
+  end
+
   defp make_link(interest) do
     "##{interest.name}"
     |> link(to: interest_url(Constable.Endpoint, :show, interest), style: "color: #{light_gray};")

@@ -7,7 +7,7 @@ defmodule Constable.EmailsTest do
     interests = insert_pair(:interest)
     announcements = [insert_announcement_with_interests, insert_announcement_with_interests]
 
-    email = Constable.Emails.daily_digest(interests, announcements, users)
+    email = Constable.Emails.daily_digest(interests, announcements, [], users)
 
     assert email.subject == "Daily Digest"
     assert email.to == users
@@ -35,7 +35,7 @@ defmodule Constable.EmailsTest do
   end
 
   defp posted_by_html(username, announcement) do
-    "posted by <strong>#{username}</strong> in #{interest_names(announcement)}"
+    "posted by <strong>#{username}</strong> in #{interest_links(announcement)}"
   end
 
   defp posted_by_text(username, announcement) do
@@ -47,5 +47,18 @@ defmodule Constable.EmailsTest do
     |> Map.get(:interests)
     |> Enum.map(&("##{&1.name}"))
     |> Enum.join(", ")
+  end
+
+  def interest_links(announcement) do
+    announcement
+    |> Map.get(:interests)
+    |> Enum.map(&make_link/1)
+    |> Enum.join(", ")
+  end
+
+  defp make_link(interest) do
+    "##{interest.name}"
+    |> link(to: interest_url(Constable.Endpoint, :show, interest), style: "color: #aeaeae;")
+    |> safe_to_string
   end
 end

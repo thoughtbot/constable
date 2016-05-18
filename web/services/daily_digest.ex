@@ -3,6 +3,7 @@ defmodule Constable.DailyDigest do
   require Logger
   alias Constable.Repo
   alias Constable.Announcement
+  alias Constable.Comment
   alias Constable.Interest
   alias Constable.Mailer
   alias Constable.Emails
@@ -19,11 +20,13 @@ defmodule Constable.DailyDigest do
   end
 
   defp daily_digest_email(time, users) do
-    Emails.daily_digest(interests_since(time), announcements_since(time), users)
+    Emails.daily_digest(interests_since(time), announcements_since(time), comments_since(time), users)
   end
 
   defp new_items_since?(time) do
-    !Enum.empty?(announcements_since(time)) || !Enum.empty?(interests_since(time))
+    !Enum.empty?(announcements_since(time))
+    || !Enum.empty?(interests_since(time))
+    || !Enum.empty?(comments_since(time))
   end
 
   defp interests_since(time) do
@@ -33,5 +36,10 @@ defmodule Constable.DailyDigest do
   defp announcements_since(time) do
     Repo.all(from i in Announcement, where: i.inserted_at > ^time)
     |> Repo.preload([:user, :interests])
+  end
+
+  defp comments_since(time) do
+    Repo.all(from i in Comment, where: i.inserted_at > ^time)
+    |> Repo.preload([:announcement, :user])
   end
 end

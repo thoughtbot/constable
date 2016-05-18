@@ -11,7 +11,7 @@ defmodule Constable.DailyDigestTest do
 
     DailyDigest.send_email(users, yesterday)
 
-    assert_no_emails_sent
+    assert_no_emails_delivered
   end
 
   test "includes interests and announcements since the passed in time" do
@@ -24,7 +24,7 @@ defmodule Constable.DailyDigestTest do
 
     DailyDigest.send_email(users, yesterday)
 
-    assert_delivered_email Emails.daily_digest([new_interest], [new_announcement], users)
+    assert_delivered_email Emails.daily_digest([new_interest], [new_announcement], [], users)
   end
 
   test "sends if there are only new announcements" do
@@ -34,7 +34,7 @@ defmodule Constable.DailyDigestTest do
 
     DailyDigest.send_email(users, yesterday)
 
-    assert_delivered_email Emails.daily_digest([], [new_announcement], users)
+    assert_delivered_email Emails.daily_digest([], [new_announcement], [], users)
   end
 
   test "sends if there are only new interests" do
@@ -44,7 +44,17 @@ defmodule Constable.DailyDigestTest do
 
     DailyDigest.send_email(users, yesterday)
 
-    assert_delivered_email Emails.daily_digest([new_interest], [], users)
+    assert_delivered_email Emails.daily_digest([new_interest], [], [], users)
+  end
+
+  test "sends if there are only new comments" do
+    old_announcement = insert(:announcement, inserted_at: yesterday) |> Repo.preload(:interests)
+    new_comment = insert(:comment, announcement: old_announcement, inserted_at: today)
+    users = [insert(:user)]
+
+    DailyDigest.send_email(users, yesterday)
+
+    assert_delivered_email Emails.daily_digest([], [], [new_comment], users)
   end
 
   def today do

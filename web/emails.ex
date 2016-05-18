@@ -94,14 +94,15 @@ defmodule Constable.Emails do
     )
   end
 
-  def daily_digest(interests, announcements, recipients) do
+  def daily_digest(interests, announcements, comments, recipients) do
     new_email(to: recipients)
     |> subject("Daily Digest")
     |> from({"Constable (thoughtbot)", "constable@#{outbound_domain}"})
     |> tag("daily-digest")
     |> render(:daily_digest,
       interests: interests,
-      announcements: announcements
+      announcements: announcements,
+      comments: comments
     )
   end
 

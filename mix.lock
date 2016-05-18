@@ -1,4 +1,4 @@
-%{"bamboo": {:hex, :bamboo, "0.4.2", "1145a05e5e52ac170a3cc703a16425bbf4f058bf7a782b7905dac694f767ebb2", [:mix], [{:poison, ">= 1.5.0", [hex: :poison, optional: false]}, {:plug, "~> 1.0", [hex: :plug, optional: false]}, {:httpoison, "~> 0.8", [hex: :httpoison, optional: false]}]},
+%{"bamboo": {:git, "https://github.com/thoughtbot/bamboo.git", "79749dcba616e42db71ce99ee517d2a399facce4", []},
   "certifi": {:hex, :certifi, "0.4.0", "a7966efb868b179023618d29a407548f70c52466bf1849b9e8ebd0e34b7ea11f", [:rebar3], []},
   "combine": {:hex, :combine, "0.7.0"},
   "connection": {:hex, :connection, "1.0.2", "f4a06dd3ecae4141aa66f94ce92ea4c4b8753069472814932f1cadbc3078ab80", [:mix], []},

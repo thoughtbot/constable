@@ -33,9 +33,16 @@ defmodule Constable.EmailPreviewController do
   end
 
   defp email_for(:daily_digest) do
+    announcement_with_comments = insert_announcement_with_interests
+    user_1 = insert(:user, name: "User 1")
+    user_2 = insert(:user, name: "User 2")
+
     Emails.daily_digest(
       insert_pair(:interest),
       [insert_announcement_with_interests, insert_announcement_with_interests],
+      [insert(:comment, user: user_1, announcement: announcement_with_comments),
+       insert(:comment, user: user_2, announcement: announcement_with_comments),
+       insert(:comment, user: user_2, announcement: announcement_with_comments)],
       []
     )
   end

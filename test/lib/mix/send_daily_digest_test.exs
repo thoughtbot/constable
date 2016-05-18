@@ -12,6 +12,7 @@ defmodule Mix.Tasks.Constable.SendDailyDigestTest do
     assert_delivered_email Constable.Emails.daily_digest(
       [],
       [announcement],
+      [],
       [daily_digest_user]
     )
   end
