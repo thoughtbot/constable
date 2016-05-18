@@ -25,15 +25,13 @@ defmodule Constable.Services.AnnouncementInterestAssociator do
   end
 
   defp associate_interests_with_announcement(interests, announcement) do
-    Enum.each(interests, fn(interest) ->
+    Enum.map(interests, fn(interest) ->
       %AnnouncementInterest{
         interest_id: interest.id,
         announcement_id: announcement.id
       }
       |> Repo.insert!
     end)
-
-    announcement
   end
 
   defp blank_interest?(" " <> rest), do: blank_interest?(rest)

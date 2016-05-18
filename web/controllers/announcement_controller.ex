@@ -3,6 +3,7 @@ defmodule Constable.AnnouncementController do
 
   alias Constable.User
   alias Constable.Services.AnnouncementUpdater
+  alias Constable.AnnouncementForm
 
   plug :scrub_params, "announcement" when action == :create
 
@@ -58,21 +59,50 @@ defmodule Constable.AnnouncementController do
   end
 
   def create(conn, %{"announcement" => announcement_params}) do
-    {interest_names, announcement_params} = extract_interest_names(announcement_params)
-    announcement_params = announcement_params
-      |> Map.put("user_id", conn.assigns.current_user.id)
+    changeset = Constable.AnnouncementForm.changeset(announcement_params)
 
-    case AnnouncementCreator.create(announcement_params, interest_names) do
-      {:ok, announcement} ->
-        redirect(conn, to: announcement_path(conn, :show, announcement.id))
-      {:error, changeset} ->
-        interests = Repo.all(Interest)
-        render(conn, "new.html", %{
-          changeset: changeset,
-          interests: interests,
-          user_json: Repo.all(User),
-        })
+    if changeset.valid? do
+      multi = AnnouncementForm.create(changeset, conn.assigns.current_user)
+      case Repo.transaction(multi) do
+        {:ok, %{announcement: announcement}} ->
+          redirect(conn, to: announcement_path(conn, :show, announcement.id))
+        {:error, _failure, _changes} ->
+          interests = Repo.all(Interest)
+          users = Repo.all(User)
+
+          conn
+          |> put_flash(:error, gettext("Something went wrong"))
+          |> render("new.html", %{
+            changeset: changeset,
+            interests: interests,
+            user_json: users,
+          })
+      end
+    else
+      interests = Repo.all(Interest)
+      users = Repo.all(User)
+
+      render(conn, "new.html", %{
+        changeset: changeset,
+        interests: interests,
+        user_json: users,
+      })
     end
+    # {interest_names, announcement_params} = extract_interest_names(announcement_params)
+    # announcement_params = announcement_params
+    #   |> Map.put("user_id", conn.assigns.current_user.id)
+
+    # case AnnouncementCreator.create(announcement_params, interest_names) do
+    #   {:ok, announcement} ->
+    #     redirect(conn, to: announcement_path(conn, :show, announcement.id))
+    #   {:error, changeset} ->
+    #     interests = Repo.all(Interest)
+    #     render(conn, "new.html", %{
+    #       changeset: changeset,
+    #       interests: interests,
+    #       user_json: Repo.all(User),
+    #     })
+    # end
   end
 
   def edit(conn, %{"id" => id}) do
