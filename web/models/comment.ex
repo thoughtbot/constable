@@ -12,16 +12,20 @@ defmodule Constable.Comment do
   end
 
   def changeset(model \\ %__MODULE__{}, :create, params) do
-    model
-    |> cast(params, ~w(announcement_id user_id body), [])
-    |> set_last_discussed_at
+    changeset(model, :create, params, Ecto.DateTime.utc)
   end
 
-  defp set_last_discussed_at(changeset) do
+  def changeset(model, :create, params, last_discussed_at) do
+    model
+    |> cast(params, ~w(announcement_id user_id body), [])
+    |> set_last_discussed_at(last_discussed_at)
+  end
+
+  defp set_last_discussed_at(changeset, last_discussed_at) do
     prepare_changes changeset, fn(changeset) ->
       Announcement
       |> where(id: ^get_field(changeset, :announcement_id))
-      |> changeset.repo.update_all(set: [last_discussed_at: Ecto.DateTime.utc])
+      |> changeset.repo.update_all(set: [last_discussed_at: last_discussed_at])
 
       changeset
     end
