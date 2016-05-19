@@ -45,8 +45,7 @@
   },
   "addons": [
     "heroku-postgresql",
-    "scheduler",
-    "ssl"
+    "scheduler"
   ],
   "buildpacks": [
     {
