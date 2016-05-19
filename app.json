@@ -1,0 +1,59 @@
+{
+  "name": "constable",
+  "description": "Constable Heroku review app config",
+  "scripts": {
+  },
+  "env": {
+    "ADMIN_EMAILS": {
+      "required": true
+    },
+    "BUILDPACK_URL": {
+      "required": true
+    },
+    "CLIENT_ID": {
+      "required": true
+    },
+    "CLIENT_SECRET": {
+      "generator": "secret"
+    },
+    "INBOUND_EMAIL_DOMAIN": {
+      "required": true
+    },
+    "MANDRILL_KEY": {
+      "required": true
+    },
+    "MIX_ENV": {
+      "required": true
+    },
+    "OUTBOUND_EMAIL_DOMAIN": {
+      "required": true
+    },
+    "SECRET_KEY_BASE": {
+      "required": true
+    },
+    "SLACK_WEBHOOK_URL": {
+      "required": true
+    },
+    "URL_PORT": {
+      "required": true
+    }
+  },
+  "formation": {
+    "web": {
+      "quantity": 1
+    }
+  },
+  "addons": [
+    "heroku-postgresql",
+    "scheduler",
+    "ssl"
+  ],
+  "buildpacks": [
+    {
+      "url": "https://github.com/HashNuke/heroku-buildpack-elixir"
+    },
+    {
+      "url": "https://github.com/gjaldon/phoenix-static-buildpack"
+    }
+  ]
+}
