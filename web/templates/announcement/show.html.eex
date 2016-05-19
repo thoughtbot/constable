@@ -27,11 +27,6 @@
 
   <h1 data-role="title">
     <%= @announcement.title %>
-    <%= if @announcement.user_id == @current_user.id do %>
-      <small>
-        <%= link "edit", to: announcement_path(@conn, :edit, @announcement), data: [role: "edit"] %>
-      </small>
-    <% end %>
   </h1>
 
   <div class="announcement-posted-by">
