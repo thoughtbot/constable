@@ -82,3 +82,9 @@ folder has a few the best examples.
 
 1. If you have not run `bin/setup` yet, run it to add the correct git remotes.
 2. Run `bin/deploy (staging|production)`
+
+## Review Apps
+
+Constable is setup with support for [Heroku Review Apps](https://devcenter.heroku.com/articles/github-integration-review-apps).
+
+Google enforce a whitelist of OAuth redirect URLs, so for review apps we redirect the OAuth flow through [thoughtbot/constable-oauth-redirector](https://github.com/thoughtbot/constable-oauth-redirector) which then redirects back to the correct review app. This is configured with the `OAUTH_REDIRECT_OVERRIDE` environment variable.

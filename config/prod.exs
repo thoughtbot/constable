@@ -11,6 +11,11 @@ use Mix.Config
 # Where those two env variables point to a file on
 # disk for the key and cert.
 
+heroku_app_name = System.get_env("HEROKU_APP_NAME")
+if heroku_app_name && heroku_app_name =~ ~r/\Aconstable-api-staging-pr/ do
+  System.put_env("HOST", "#{heroku_app_name}.herokuapp.com")
+end
+
 config :constable, Constable.Endpoint,
   url: [scheme: "https", host: System.get_env("HOST"), port: System.get_env("URL_PORT")],
   http: [port: {:system, "PORT"}, compress: true],

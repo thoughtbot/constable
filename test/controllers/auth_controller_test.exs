@@ -53,7 +53,29 @@ defmodule AuthControllerTest do
     end
   end
 
+  defmodule IgnoreEnvRedirectStrategy do
+    def redirect_uri(original_redirect_uri) do
+      original_redirect_uri
+    end
+
+    def state_param(_) do
+      nil
+    end
+  end
+
+  defmodule EnvOverrideRedirectStrategy do
+    def redirect_uri(_) do
+      "https://constable-oauth-redirector.herokuapp.com/auth"
+    end
+
+    def state_param(original_redirect) do
+      original_redirect
+    end
+  end
+
   test "index redirects to google with the correct redirect URI" do
+    Pact.override(self, "oauth_redirect_strategy", IgnoreEnvRedirectStrategy)
+
     conn = get(conn, "/auth", redirect_uri: "foo.com")
 
     auth_uri = google_auth_uri(
@@ -61,6 +83,22 @@ defmodule AuthControllerTest do
       redirect_uri: auth_url(conn, :javascript_callback),
       response_type: "code",
       scope: "email"
+    )
+    assert redirected_to(conn) =~ auth_uri
+    assert get_session(conn, :redirect_after_success_uri) == "foo.com"
+  end
+
+  test "index redirects to google with the correct override redirect URI" do
+    Pact.override(self, "oauth_redirect_strategy", EnvOverrideRedirectStrategy)
+
+    conn = get(conn, "/auth", redirect_uri: "foo.com")
+
+    auth_uri = google_auth_uri(
+      client_id: Constable.Env.get("CLIENT_ID"),
+      redirect_uri: "https://constable-oauth-redirector.herokuapp.com/auth",
+      response_type: "code",
+      scope: "email",
+      state: auth_url(conn, :javascript_callback),
     )
     assert redirected_to(conn) =~ auth_uri
     assert get_session(conn, :redirect_after_success_uri) == "foo.com"

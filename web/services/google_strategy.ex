@@ -9,13 +9,14 @@ defmodule GoogleStrategy do
       authorize_url: "https://accounts.google.com/o/oauth2/auth",
       token_url: "https://www.googleapis.com/oauth2/v3/token",
       site: "https://www.googleapis.com",
-      redirect_uri: redirect_uri,
+      redirect_uri: Pact.get("oauth_redirect_strategy").redirect_uri(redirect_uri),
     ])
   end
 
   def authorize_url!(redirect_uri) do
     client(redirect_uri)
     |> put_param(:scope, "email")
+    |> maybe_add_redirect_uri_state(redirect_uri)
     |> OAuth2.Client.authorize_url!([])
   end
 
@@ -70,5 +71,14 @@ defmodule GoogleStrategy do
   defp to_url(client, endpoint) do
     url = endpoint <> "?" <> URI.encode_query(client.params)
     {client, url}
+  end
+
+  defp maybe_add_redirect_uri_state(client, original_redirect_uri) do
+    state_param = Pact.get("oauth_redirect_strategy").state_param(original_redirect_uri)
+    if state_param do
+      put_param(client, :state, state_param)
+    else
+      client
+    end
   end
 end

@@ -2,6 +2,7 @@
   "name": "constable",
   "description": "Constable Heroku review app config",
   "scripts": {
+    "postdeploy": "mix ecto.migrate"
   },
   "env": {
     "ADMIN_EMAILS": {
@@ -14,7 +15,10 @@
       "required": true
     },
     "CLIENT_SECRET": {
-      "generator": "secret"
+      "required": true
+    },
+    "HEROKU_APP_NAME": {
+      "required": true
     },
     "INBOUND_EMAIL_DOMAIN": {
       "required": true
@@ -25,11 +29,12 @@
     "MIX_ENV": {
       "required": true
     },
+    "OAUTH_REDIRECT_OVERRIDE": "https://constable-oauth-redirector.herokuapp.com/auth",
     "OUTBOUND_EMAIL_DOMAIN": {
       "required": true
     },
     "SECRET_KEY_BASE": {
-      "required": true
+      "generator": "secret"
     },
     "SLACK_WEBHOOK_URL": {
       "required": true
