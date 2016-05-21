@@ -93,21 +93,6 @@ defmodule Constable.AnnouncementController do
         user_json: users,
       })
     end
-    # {interest_names, announcement_params} = extract_interest_names(announcement_params)
-    # announcement_params = announcement_params
-    #   |> Map.put("user_id", conn.assigns.current_user.id)
-
-    # case AnnouncementCreator.create(announcement_params, interest_names) do
-    #   {:ok, announcement} ->
-    #     redirect(conn, to: announcement_path(conn, :show, announcement.id))
-    #   {:error, changeset} ->
-    #     interests = Repo.all(Interest)
-    #     render(conn, "new.html", %{
-    #       changeset: changeset,
-    #       interests: interests,
-    #       user_json: Repo.all(User),
-    #     })
-    # end
   end
 
   def edit(conn, %{"id" => id}) do
