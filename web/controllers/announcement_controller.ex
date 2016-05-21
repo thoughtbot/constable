@@ -2,7 +2,8 @@ defmodule Constable.AnnouncementController do
   use Constable.Web, :controller
 
   alias Constable.User
-  alias Constable.Services.AnnouncementUpdater
+  alias Constable.Services.AnnouncementSubscriber
+  alias Constable.Services.SlackHook
   alias Constable.AnnouncementForm
 
   plug :scrub_params, "announcement" when action == :create
@@ -65,6 +66,10 @@ defmodule Constable.AnnouncementController do
       multi = AnnouncementForm.create(changeset, conn.assigns.current_user)
       case Repo.transaction(multi) do
         {:ok, %{announcement: announcement}} ->
+          announcement
+          |> AnnouncementSubscriber.subscribe_users
+          |> SlackHook.new_announcement
+
           redirect(conn, to: announcement_path(conn, :show, announcement.id))
         {:error, _failure, _changes} ->
           interests = Repo.all(Interest)

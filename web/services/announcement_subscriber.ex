@@ -1,6 +1,5 @@
 defmodule Constable.Services.AnnouncementCreator do
   import Ecto.Query
-
   alias Constable.Repo
   alias Constable.Announcement
   alias Constable.Subscription
@@ -9,26 +8,12 @@ defmodule Constable.Services.AnnouncementCreator do
 
   alias Constable.Services.AnnouncementInterestAssociator
   alias Constable.Services.MentionFinder
-  alias Constable.Services.SlackHook
 
-  def create(params, interest_names) do
-    changeset = Announcement.changeset(%Announcement{}, :create, params)
-    case Repo.insert(changeset) do
-      {:ok, announcement} ->
-        announcement
-        |> add_interests(interest_names)
-        |> Repo.preload(:user)
-        |> subscribe_author
-        |> email_and_subscribe_users
-        |> SlackHook.new_announcement
-
-        {:ok, announcement}
-      error -> error
-    end
-  end
-
-  defp add_interests(announcement, interest_names) do
-    AnnouncementInterestAssociator.add_interests(announcement, interest_names)
+  def subscribe_users(announcement) do
+    announcement
+    |> Repo.preload(:user)
+    |> subscribe_author
+    |> email_and_subscribe_users
   end
 
   defp subscribe_author(announcement) do

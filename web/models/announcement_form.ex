@@ -28,8 +28,6 @@ defmodule Constable.AnnouncementForm do
       interests = AnnouncementInterestAssociator.add_interests(announcement, interest_names)
       {:ok, interests}
     end)
-    |> Ecto.Multi.run(:subscribe_author, &subscribe_author/1)
-    |> Ecto.Multi.run(:email_and_subscribe_users, &email_and_subscribe_users/1)
   end
 
   def announcement_params(changeset) do
@@ -43,31 +41,5 @@ defmodule Constable.AnnouncementForm do
     |> Ecto.Changeset.apply_changes
     |> Map.get(:interests)
     |> String.split(",")
-  end
-
-  defp subscribe_author(%{announcement: announcement}) do
-    author = Constable.Repo.one(assoc(announcement, :user)
-    subscribe_user(author)
-  end
-
-  defp email_and_subscribe_users(%{announcement: announcement}) do
-    mentioned_users = find_mentioned_users(announcement)
-    interested_users = find_interested_users(announcement) -- mentioned_users
-  end
-
-  defp email_users(announcement, users) do
-    users = filter_author(announcement.user_id, users)
-
-    Emails.new_announcement(announcement, users) |> Mailer.deliver_later
-    announcement
-  end
-
-  defp subscribe_user(announcement, user_id) do
-    params = %{
-      user_id: user_id,
-      announcement_id: announcement.id
-    }
-
-    Repo.get_by(Subscription, params) || insert_subscription(params)
   end
 end
