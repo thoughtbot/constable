@@ -2,8 +2,10 @@ defmodule Constable.Api.AnnouncementController do
   use Constable.Web, :controller
 
   alias Constable.Announcement
-  alias Constable.Services.AnnouncementCreator
+  alias Constable.AnnouncementForm
+  alias Constable.Services.AnnouncementSubscriber
   alias Constable.Services.AnnouncementUpdater
+  alias Constable.Services.SlackHook
   alias Constable.Api.AnnouncementView
 
   plug :scrub_params, "announcement" when action in [:create, :update]
@@ -18,12 +20,12 @@ defmodule Constable.Api.AnnouncementController do
     current_user = current_user(conn)
     announcement_params = announcement_params
       |> Map.put("user_id", current_user.id)
-      |> Map.put("interests", interest_names)
+      |> Map.put("interests", interest_names |> Enum.join(","))
 
-    changeset = Constable.AnnouncementForm.changeset(announcement_params)
+    changeset = AnnouncementForm.changeset(announcement_params)
 
     if changeset.valid? do
-      multi = AnnouncementForm.create(changeset, conn.assigns.current_user)
+      multi = AnnouncementForm.create(changeset, current_user)
       case Repo.transaction(multi) do
         {:ok, %{announcement: announcement}} ->
           announcement

@@ -61,7 +61,7 @@ defmodule Constable.AnnouncementController do
   end
 
   def create(conn, %{"announcement" => announcement_params}) do
-    changeset = Constable.AnnouncementForm.changeset(announcement_params)
+    changeset = AnnouncementForm.changeset(announcement_params)
 
     if changeset.valid? do
       multi = AnnouncementForm.create(changeset, conn.assigns.current_user)
