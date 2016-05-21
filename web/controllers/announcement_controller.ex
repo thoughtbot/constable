@@ -3,6 +3,7 @@ defmodule Constable.AnnouncementController do
 
   alias Constable.User
   alias Constable.Services.AnnouncementSubscriber
+  alias Constable.Services.AnnouncementUpdater
   alias Constable.Services.SlackHook
   alias Constable.AnnouncementForm
 
