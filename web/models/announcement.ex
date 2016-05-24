@@ -5,6 +5,8 @@ defmodule Constable.Announcement do
   alias Constable.Subscription
   alias Constable.AnnouncementInterest
 
+  @announcements_on_each_page 30
+
   schema "announcements" do
     field :title
     field :body
@@ -41,6 +43,12 @@ defmodule Constable.Announcement do
       comments: ^newest_comments_first,
       comments: :user
     ]
+  end
+
+  def paginate(query, page, size \\ @announcements_on_each_page) do
+    from query,
+      limit: ^size,
+      offset: ^((page-1) * size)
   end
 
   def search(query \\ __MODULE__, search_term) do

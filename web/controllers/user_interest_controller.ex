@@ -3,7 +3,7 @@ defmodule Constable.UserInterestController do
 
   alias Constable.{Interest, UserInterest}
 
-  def create(conn, %{"interest_param" => interest_name}) do
+  def create(conn, %{"interest_id_or_name" => interest_name}) do
     interest = find_interest(interest_name)
     current_user = current_user(conn)
 
@@ -13,7 +13,7 @@ defmodule Constable.UserInterestController do
     send_resp(conn, :no_content, "")
   end
 
-  def delete(conn, %{"interest_param" => interest_name}) do
+  def delete(conn, %{"interest_id_or_name" => interest_name}) do
     interest = find_interest(interest_name)
 
     UserInterest

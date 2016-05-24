@@ -40,11 +40,11 @@ defmodule Constable.Router do
       resources "/subscriptions", SubscriptionController, singleton: true, only: [:create, :delete]
     end
     resources "/settings", SettingsController, singleton: true, only: [:show, :update]
-    resources "/interests", InterestController, only: [:index, :show], param: "param" do
+    resources "/interests", InterestController, only: [:index, :show], param: "id_or_name" do
       resources "/slack_channel", SlackChannelController, singleton: true, only: [:edit, :update, :delete]
       resources "/user_interest", UserInterestController, singleton: true, only: [:create, :delete]
     end
-    get "/search", SearchController, :new
+    resources "/search", SearchController, singleton: true, only: [:new, :show]
   end
 
   if Mix.env == :dev do
