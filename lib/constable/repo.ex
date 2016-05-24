@@ -4,6 +4,8 @@ defmodule Constable.Repo do
     otp_app: :constable,
     adapter: Ecto.Adapters.Postgres
 
+  use Scrivener, page_size: 30
+
   def count(query) do
     __MODULE__.all(from record in query, select: count(record.id))
     |> List.first

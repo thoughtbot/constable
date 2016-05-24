@@ -69,6 +69,7 @@ defmodule Constable.Mixfile do
       {:phoenix, "~> 1.1"},
       {:postgrex, ">= 0.0.0"},
       {:secure_random, "~> 0.1"},
+      {:scrivener_ecto, git: "https://github.com/drewolson/scrivener_ecto"},
       {:wallaby, "~> 0.5", only: :test},
     ]
   end

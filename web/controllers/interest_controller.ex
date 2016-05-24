@@ -10,12 +10,14 @@ defmodule Constable.InterestController do
     |> render("index.html")
   end
 
-  def show(conn, %{"param" => param}) do
-    interest = get_interest_by_id_or_name(param)
+  def show(conn, params) do
+    interest = get_interest_by_id_or_name(params["id_or_name"])
+    interest_page = sorted_announcements(interest) |> Repo.paginate(params)
 
     conn
     |> assign(:current_user, preload_interests(conn.assigns.current_user))
-    |> assign(:announcements, sorted_announcements(interest))
+    |> assign(:announcements, interest_page.entries)
+    |> assign(:interest_page, interest_page)
     |> assign(:interest, interest)
     |> render("show.html")
   end
@@ -39,6 +41,5 @@ defmodule Constable.InterestController do
     Ecto.assoc(interest, :announcements)
     |> Announcement.last_discussed_first
     |> Announcement.with_announcement_list_assocs
-    |> Repo.all
   end
 end

@@ -37,6 +37,14 @@ defmodule Constable.SharedView do
     |> Earmark.to_html
   end
 
+  def on_first_page?(page) do
+    page.page_number == 1
+  end
+
+  def on_last_page?(page) do
+    page.total_pages == page.page_number
+  end
+
   defp bold_usernames(users, text) do
     Enum.reduce(users, text, fn(user, text) ->
       String.replace(text, "@#{user.username}", "**@#{user.username}**")
