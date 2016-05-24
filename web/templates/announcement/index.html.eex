@@ -33,9 +33,11 @@
         </li>
       <% end %>
 
-      <li class="page-prev">
-        <%= link gettext("OLDER"), to: announcement_path(@conn, :index, all: @show_all, page: (@page_number + 1)) %>
-      </li>
+      <%= if length(@announcements) > 30 do %>
+        <li class="page-prev">
+          <%= link gettext("OLDER"), to: announcement_path(@conn, :index, all: @show_all, page: (@page_number + 1)) %>
+        </li>
+      <% end %>
     </ul>
   </div>
 </div>
