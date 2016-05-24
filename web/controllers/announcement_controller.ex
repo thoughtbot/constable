@@ -9,15 +9,19 @@ defmodule Constable.AnnouncementController do
   alias Constable.{Announcement, Comment, Interest, Subscription}
   alias Constable.Services.AnnouncementCreator
 
-  def index(conn, %{"all" => "true"}) do
+  def index(conn, %{"all" => "true"} = params) do
     conn
-    |> assign(:announcements, all_announcements)
+    |> assign(:announcements, all_announcements(page_number(params["page"])))
+    |> assign(:page_number, page_number(params["page"]))
+    |> assign(:show_all, true)
     |> assign(:current_user, preload_interests(conn.assigns.current_user))
     |> render("index.html")
   end
-  def index(conn, _params) do
+  def index(conn, params) do
     conn
-    |> assign(:announcements, my_announcements(conn))
+    |> assign(:announcements, my_announcements(conn, page_number(params["page"])))
+    |> assign(:page_number, page_number(params["page"]))
+    |> assign(:show_all, false)
     |> assign(:current_user, preload_interests(conn.assigns.current_user))
     |> render("index.html")
   end
@@ -107,17 +111,19 @@ defmodule Constable.AnnouncementController do
     {interest_names, announcement_params}
   end
 
-  defp my_announcements(conn) do
+  defp my_announcements(conn, page) do
     conn.assigns.current_user
     |> Ecto.assoc(:interesting_announcements)
     |> Announcement.with_announcement_list_assocs
     |> Announcement.last_discussed_first
+    |> Announcement.paginate(page)
     |> Repo.all
   end
 
-  defp all_announcements do
+  defp all_announcements(page) do
     Announcement.with_announcement_list_assocs
     |> Announcement.last_discussed_first
+    |> Announcement.paginate(page)
     |> Repo.all
   end
 

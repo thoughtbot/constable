@@ -8,11 +8,27 @@
   </nav>
 
   <div class="container search-container">
-  <%= form_tag search_path(@conn, :new), method: :get do %>
+  <%= form_tag search_path(@conn, :show), method: :get do %>
     <input type="text" name="query" id="query" placeholder="<%= gettext "Search..." %>" autofocus/>
     <%= submit gettext("Search"), id: "submit-search" %>
   <% end %>
   </div>
 
   <%= render Constable.AnnouncementListView, "index.html", conn: @conn, announcements: @announcements %>
+
+  <%= if length(@announcements) > 0 do %>
+    <div class="pagination">
+      <ul>
+        <%= if @page_number > 1 do %>
+          <li class="page-next">
+            <%= link gettext("NEWER"), to: search_path(@conn, :show, query: @query, page: (@page_number - 1)) %>
+          </li>
+        <% end %>
+
+        <li class="page-prev">
+          <%= link gettext("OLDER"), to: search_path(@conn, :show, query: @query, page: (@page_number + 1)) %>
+        </li>
+      </ul>
+    </div>
+  <% end %>
 </div>

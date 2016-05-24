@@ -51,6 +51,13 @@ defmodule Constable.Web do
       def current_user(conn) do
         conn.assigns[:current_user]
       end
+
+      def page_number(page_param) do
+        case Integer.parse(page_param || "") do
+          :error -> 1
+          {page, _} -> page
+        end
+      end
     end
   end
 

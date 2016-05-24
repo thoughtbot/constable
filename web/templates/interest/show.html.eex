@@ -29,4 +29,18 @@
   </div>
 
   <%= render Constable.AnnouncementListView, "index.html", conn: @conn, announcements: @announcements %>
+
+  <div class="pagination">
+    <ul>
+      <%= if @page_number > 1 do %>
+        <li class="page-next">
+          <%= link gettext("NEWER"), to: interest_path(@conn, :show, @interest, page: (@page_number - 1)) %>
+        </li>
+      <% end %>
+
+      <li class="page-prev">
+        <%= link gettext("OLDER"), to: interest_path(@conn, :show, @interest, page: (@page_number + 1)) %>
+      </li>
+    </ul>
+  </div>
 </div>
