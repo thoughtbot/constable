@@ -22,6 +22,8 @@ config :constable, Constable.Repo,
 config :constable, Constable.Mailer,
   adapter: Bamboo.LocalAdapter
 
+config :honeybadger, :environment_name, :dev
+
 # Do not include metadata nor timestamps in development logs
 config :logger, :console, format: "[$level] $message\n"
 

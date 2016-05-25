@@ -18,6 +18,7 @@
   "gettext": {:hex, :gettext, "0.11.0", "80c1dd42d270482418fa158ec5ba073d2980e3718bacad86f3d4ad71d5667679", [:mix], []},
   "good_times": {:hex, :good_times, "1.1.1", "7faa76021165e97143b4d933800a886b7675903c80535aa616fc42b8860a47d2", [:mix], []},
   "hackney": {:hex, :hackney, "1.6.0", "8d1e9440c9edf23bf5e5e2fe0c71de03eb265103b72901337394c840eec679ac", [:rebar3], [{:ssl_verify_fun, "1.1.0", [hex: :ssl_verify_fun, optional: false]}, {:mimerl, "1.0.2", [hex: :mimerl, optional: false]}, {:metrics, "1.0.1", [hex: :metrics, optional: false]}, {:idna, "1.2.0", [hex: :idna, optional: false]}, {:certifi, "0.4.0", [hex: :certifi, optional: false]}]},
+  "honeybadger": {:hex, :honeybadger, "0.5.0", "fa181715993ebaa4af583c5b7a4a433fdc1224e044bc70a266c1b5de63cb20a6", [:mix], [{:poison, ">= 1.4.0 and < 3.0.0", [hex: :poison, optional: false]}, {:plug, ">= 0.13.0 and < 2.0.0", [hex: :plug, optional: false]}, {:httpoison, "~> 0.7", [hex: :httpoison, optional: false]}]},
   "httpoison": {:git, "https://github.com/edgurgel/httpoison.git", "674e678ce56ff4cfb83c6cef48e6c6370b708589", []},
   "idna": {:hex, :idna, "1.2.0", "ac62ee99da068f43c50dc69acf700e03a62a348360126260e87f2b54eced86b2", [:rebar3], []},
   "metrics": {:hex, :metrics, "1.0.1", "25f094dea2cda98213cecc3aeff09e940299d950904393b2a29d191c346a8486", [:rebar3], []},

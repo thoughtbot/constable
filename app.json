@@ -20,6 +20,10 @@
     "HEROKU_APP_NAME": {
       "required": true
     },
+    "HONEYBADGER_API_KEY": {
+      "required": true
+    },
+    "HONEYBADGER_ENV": "review",
     "INBOUND_EMAIL_DOMAIN": {
       "required": true
     },

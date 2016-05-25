@@ -31,6 +31,8 @@ config :constable, Constable.Mailer,
   adapter: Bamboo.MandrillAdapter,
   api_key: System.get_env("MANDRILL_KEY")
 
+config :honeybadger, :environment_name, System.get_env("HONEYBADGER_ENV")
+
 # Do not pring debug messages in production
 config :logger, level: :info
 

@@ -1,5 +1,6 @@
 defmodule Constable.Router do
   use Phoenix.Router
+  use Honeybadger.Plug
 
   pipeline :browser do
     plug :accepts, ~w(html)

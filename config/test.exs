@@ -14,6 +14,8 @@ config :constable, :sql_sandbox, true
 config :constable, Constable.Mailer,
   adapter: Bamboo.TestAdapter
 
+config :honeybadger, :environment_name, :test
+
 # Print only warnings and errors during test
 config :logger, level: :warn
 
