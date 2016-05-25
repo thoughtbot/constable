@@ -28,4 +28,8 @@
       <%= submit gettext("Save") %>
     <% end %>
   </div>
+
+  <div class='container settings-options'>
+    <%= link "Logout of Constable", to: session_path(@conn, :delete), method: :delete, class: "button" %>
+  </div>
 </div>

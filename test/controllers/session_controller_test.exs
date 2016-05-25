@@ -16,4 +16,11 @@ defmodule Constable.SessionControllerTest do
 
     assert html_response(conn, :ok) =~ "Sign in"
   end
+
+  test "delete logs user out and redirects to home" do
+    conn = delete conn, session_path(conn, :delete)
+
+    assert redirected_to(conn) == home_path(conn, :index)
+    refute conn.cookies["user_id"]
+  end
 end

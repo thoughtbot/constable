@@ -10,4 +10,14 @@ defmodule Constable.SessionController do
       |> render("new.html")
     end
   end
+
+  def delete(conn, _params) do
+    conn
+    |> logout_user
+    |> redirect(to: home_path(conn, :index))
+  end
+
+  defp logout_user(conn) do
+    delete_resp_cookie(conn, "user_id")
+  end
 end

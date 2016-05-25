@@ -25,7 +25,7 @@ defmodule Constable.Router do
   scope "/", Constable do
     pipe_through :browser
 
-    resources "/session", SessionController, only: [:new], singleton: true
+    resources "/session", SessionController, only: [:new, :delete], singleton: true
 
     resources "/unsubscribe", UnsubscribeController, only: [:show]
 
