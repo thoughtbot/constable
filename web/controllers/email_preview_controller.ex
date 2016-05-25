@@ -17,7 +17,7 @@ defmodule Constable.EmailPreviewController do
   end
 
   defp email_for(:new_announcement) do
-    Emails.new_announcement(announcement, [])
+    Emails.new_announcement(insert_announcement_with_interests, [])
   end
 
   defp email_for(:new_comment) do
@@ -29,14 +29,13 @@ defmodule Constable.EmailPreviewController do
   end
 
   defp email_for(:new_announcement_mention) do
-    Emails.new_announcement_mention(announcement, [])
+    Emails.new_announcement_mention(insert_announcement_with_interests, [])
   end
 
   defp email_for(:daily_digest) do
     Emails.daily_digest(
       insert_pair(:interest),
-      insert_pair(:announcement)
-       |> Repo.preload(:interests),
+      [insert_announcement_with_interests, insert_announcement_with_interests],
       []
     )
   end
@@ -52,9 +51,10 @@ defmodule Constable.EmailPreviewController do
     }
   end
 
-  defp announcement do
+  defp insert_announcement_with_interests do
     insert(:announcement)
     |> tag_with_interest(insert(:interest))
     |> tag_with_interest(insert(:interest))
+    |> Repo.preload(:interests)
   end
 end

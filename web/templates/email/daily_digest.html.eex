@@ -127,7 +127,7 @@
                   <%= for announcement <- @announcements do %>
                     <li>
                       <%= link announcement.title, to: announcement_url(Constable.Endpoint, :show, announcement), style: "color: #{red}" %>
-                      <%= gettext("posted by") %> <strong><%= announcement.user.name %></strong> <%= gettext("in") %> #<%= Enum.join(announcement.interests, ", #") %>
+                      <%= gettext("posted by") %> <strong><%= announcement.user.name %></strong> <%= gettext("in") %> <%= interest_names(announcement) %>
                     </li>
                   <% end %>
                 </ul>
