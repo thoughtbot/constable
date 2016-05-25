@@ -25,7 +25,8 @@ defmodule Constable.Router do
   scope "/", Constable do
     pipe_through :browser
 
-    get "/", SessionController, :new
+    resources "/session", SessionController, only: [:new], singleton: true
+
     resources "/unsubscribe", UnsubscribeController, only: [:show]
 
     if Mix.env == :dev do
@@ -35,6 +36,8 @@ defmodule Constable.Router do
 
   scope "/", Constable do
     pipe_through [:browser, Constable.Plugs.RequireLogin]
+
+    get "/", HomeController, :index
 
     resources "/announcements", AnnouncementController, only: [:index, :show, :new, :create, :edit, :update] do
       resources "/comments", CommentController, only: [:create]

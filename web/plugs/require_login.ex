@@ -14,7 +14,7 @@ defmodule Constable.Plugs.RequireLogin do
   defp redirect_to_login(conn) do
     conn
     |> maybe_store_request_path
-    |> Phoenix.Controller.redirect(to: "/")
+    |> Phoenix.Controller.redirect(to: "/session/new")
     |> halt
   end
 

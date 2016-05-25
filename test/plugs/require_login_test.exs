@@ -4,7 +4,7 @@ defmodule Constable.Plugs.RequireLoginTest do
   test "user is redirected when current_user is not set" do
     conn = conn() |> with_session |> run_plug
 
-    assert redirected_to(conn) == "/"
+    assert redirected_to(conn) == "/session/new"
   end
 
   test "the original request path is stored on the session" do
