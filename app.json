@@ -2,7 +2,7 @@
   "name": "constable",
   "description": "Constable Heroku review app config",
   "scripts": {
-    "postdeploy": "mix ecto.migrate"
+    "postdeploy": "mix ecto.migrate && mix run priv/repo/seeds.exs"
   },
   "env": {
     "ADMIN_EMAILS": {
