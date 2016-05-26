@@ -5,24 +5,25 @@ defmodule Constable.CommentTest do
 
   test "when a comment is inserted, it updates the announcement last_discussed_at" do
     announcement = create_announcement_last_discussed(a_week_ago)
+    now = Ecto.DateTime.utc
 
-    comment = insert_comment_on_announcement(announcement)
+    comment = insert_comment_on_announcement(announcement, now)
 
-    assert comment.announcement.last_discussed_at == comment.inserted_at
+    assert comment.announcement.last_discussed_at == now
   end
 
   defp create_announcement_last_discussed(time_ago) do
     insert(:announcement, last_discussed_at: Ecto.DateTime.cast!(time_ago))
   end
 
-  defp insert_comment_on_announcement(announcement) do
+  defp insert_comment_on_announcement(announcement, last_discussed_at) do
     comment_params = %{
       announcement_id: announcement.id,
       body: "Anything",
       user_id: insert(:user).id
     }
 
-    Comment.changeset(:create, comment_params)
+    Comment.changeset(%Comment{}, :create, comment_params, last_discussed_at)
     |> Repo.insert!
     |> Repo.preload(:announcement)
   end
