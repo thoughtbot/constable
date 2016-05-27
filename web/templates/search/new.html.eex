@@ -21,18 +21,20 @@
       announcements: @announcements
     %>
 
-    <div class="pagination-section">
-      <%= if !on_first_page?(@search_page) do %>
-        <li class="page-next">
-          <%= link gettext("NEWER"), to: search_path(@conn, :show, query: @query, page: (@search_page.page_number - 1)) %>
-        </li>
-      <% end %>
+    <div class="pagination">
+      <ul>
+        <%= if !on_first_page?(@search_page) do %>
+          <li class="page-next">
+            <%= link gettext("NEWER"), to: search_path(@conn, :show, query: @query, page: (@search_page.page_number - 1)) %>
+          </li>
+        <% end %>
 
-      <%= if !on_last_page?(@search_page) do %>
-        <li class="page-prev">
-          <%= link gettext("OLDER"), to: search_path(@conn, :show, query: @query, page: (@search_page.page_number + 1)) %>
-        </li>
-      <% end %>
+        <%= if !on_last_page?(@search_page) do %>
+          <li class="page-prev">
+            <%= link gettext("OLDER"), to: search_path(@conn, :show, query: @query, page: (@search_page.page_number + 1)) %>
+          </li>
+        <% end %>
+      </ul>
     </div>
   <% end %>
 </div>
