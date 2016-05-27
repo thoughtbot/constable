@@ -34,10 +34,18 @@
   section {
     margin-bottom: $base-spacing;
   }
+}
 
-  .comment-time {
-    font-size: $small-font-size - 2px;
-    margin-bottom: 0;
+.comment-time {
+  font-size: $small-font-size - 2px;
+  margin-bottom: 0;
+
+  a {
+    color: inherit;
+
+    &:hover {
+      text-decoration: underline;
+    }
   }
 }
 

@@ -1,4 +1,4 @@
-<li class="comment">
+<li class="comment" id="comment-<%= @comment.id %>">
   <div class="comment-information">
     <div class="author-information">
       <img class="avatar-rounded" src="<%= gravatar @comment.user %>">
@@ -6,7 +6,9 @@
     </div>
 
     <time class="comment-time">
-      <%= time_ago_in_words @comment.inserted_at %>
+      <a href="#comment-<%= @comment.id %>">
+        <%= time_ago_in_words @comment.inserted_at %>
+      </a>
     </time>
   </div>
 

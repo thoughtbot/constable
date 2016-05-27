@@ -77,6 +77,13 @@ defmodule Constable.EmailView do
     |> Enum.join(", ")
   end
 
+  def announcement_url_for_footer(announcement, nil) do
+    Constable.Router.Helpers.announcement_url(Constable.Endpoint, :show, announcement)
+  end
+  def announcement_url_for_footer(announcement, comment) do
+    announcement_url_for_footer(announcement, nil) <> "#comment-#{comment.id}"
+  end
+
   defp new_comments(comments, announcement) do
     Enum.filter(comments, fn(c) -> c.announcement_id == announcement.id end)
   end

@@ -31,7 +31,7 @@
         <tr>
           <td colspan="2" height="35"></td>
         </tr>
-        <%= render "author_footer.html", author: @author, announcement: @announcement %>
+        <%= render "author_footer.html", author: @author, announcement: @announcement, comment: nil %>
         <%= render "unsubscribe_footer.html" %>
         <tr>
           <td colspan="2" height="45"></td>

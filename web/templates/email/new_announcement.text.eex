@@ -2,6 +2,7 @@ Announced to <%= interest_names(@announcement) %>
 
 <%= @announcement.body %>
 
-<%= announcement_url(Constable.Endpoint, :show, @announcement) %>
+<%= announcement_url_for_footer(@announcement, nil) %>
 
 <%= render "unsubscribe_footer.text" %>
+
