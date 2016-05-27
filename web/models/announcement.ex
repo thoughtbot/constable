@@ -35,8 +35,8 @@ defmodule Constable.Announcement do
 
   def with_announcement_list_assocs(query \\ __MODULE__) do
     from q in query, preload: [
-      :interests,
       :user,
+      interests: ^Interest.ordered_by_name,
       comments: ^newest_comments_first,
       comments: :user
     ]
