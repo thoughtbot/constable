@@ -40,9 +40,14 @@ defmodule Constable.EmailView do
     |> Enum.uniq
   end
 
-  def unique_commenter_names(users) do
-    users
+  def unique_commenters(announcement, comments) do
+    Enum.filter(comments, fn(c) -> c.announcement_id == announcement.id end)
+    |> Enum.map(fn(c) -> c.user end)
     |> Enum.uniq
+  end
+
+  def commenter_names(users) do
+    users
     |> Enum.map(fn(user) -> user.name end)
   end
 
@@ -59,10 +64,17 @@ defmodule Constable.EmailView do
     )
   end
 
-  def unique_commenters_list(comments) do
-    gettext(" by ")
+  def commenters_list_text(announcement, comments) do
+    gettext("by ")
     <>
-    Enum.join(unique_commenter_names(unique_commenters(comments)), ", ")
+    comma_separated_commenter_list(announcement, comments)
+  end
+
+  defp comma_separated_commenter_list(announcement, comments) do
+    announcement
+    |> unique_commenters(comments)
+    |> commenter_names
+    |> Enum.join(", ")
   end
 
   defp new_comments(comments, announcement) do

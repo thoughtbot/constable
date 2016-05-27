@@ -5,9 +5,12 @@ defmodule Constable.EmailsTest do
   test "daily_digest" do
     users = insert_pair(:user)
     interests = insert_pair(:interest)
+    [comment_1, comment_2] = insert_pair(:comment, announcement: insert(:announcement))
+    comment_3 = insert(:comment, announcement: insert(:announcement))
+    comments = [comment_1, comment_2, comment_3]
     announcements = [insert_announcement_with_interests, insert_announcement_with_interests]
 
-    email = Constable.Emails.daily_digest(interests, announcements, [], users)
+    email = Constable.Emails.daily_digest(interests, announcements, comments, users)
 
     assert email.subject == "Daily Digest"
     assert email.to == users
@@ -25,6 +28,10 @@ defmodule Constable.EmailsTest do
       assert email.html_body =~ posted_by_html(announcement.user.name, announcement)
       assert email.text_body =~ posted_by_text(announcement.user.name, announcement)
     end
+    assert email.html_body =~ "2 comments by #{comment_1.user.name}, #{comment_2.user.name}"
+    assert email.text_body =~ "2 comments by #{comment_1.user.name}, #{comment_2.user.name}"
+    assert email.html_body =~ "1 comment by #{comment_3.user.name}"
+    assert email.text_body =~ "1 comment by #{comment_3.user.name}"
   end
 
   defp insert_announcement_with_interests do

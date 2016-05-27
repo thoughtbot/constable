@@ -20,7 +20,7 @@
 
 <%= for announcement <- discussed_announcements(@comments) do %>
   <%= announcement.title %> - <%= announcement_url(Constable.Endpoint, :show, announcement) %>
-  <%= new_comment_count_text(@comments, announcement) %> <%= unique_commenters_list(@comments) %>
+  <%= new_comment_count_text(@comments, announcement) %> <%= commenters_list_text(announcement, @comments) %>
 <% end %>
 
 <%= gettext("View Interests and Announcements on Constable") %>

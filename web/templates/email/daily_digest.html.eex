@@ -159,7 +159,7 @@
                 <%= for announcement <- discussed_announcements(@comments) do %>
                   <div class="left-padded">
                     <h4><%= link announcement.title, to: announcement_url(Constable.Endpoint, :show, announcement), style: "color: #{red}" %></h4>
-                    <%= new_comment_count_text(@comments, announcement) %> <%= unique_commenters_list(@comments) %>
+                    <%= new_comment_count_text(@comments, announcement) %> <%= commenters_list_text(announcement, @comments) %>
                   </div>
                 <% end %>
 
