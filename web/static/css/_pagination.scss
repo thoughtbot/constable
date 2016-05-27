@@ -13,6 +13,8 @@
   $pagination-color: $base-font-color;
 
   text-align: center;
+  margin-top: 30px;
+  margin-bottom: 40px;
 
   ul {
     display: inline;
@@ -27,12 +29,6 @@
 
     ul li {
       display: none;
-
-      &:nth-child(1),
-      &:nth-child(2),
-      &:nth-child(3) {
-        display: inline;
-      }
 
       @include media($large-screen) {
         display: inline;

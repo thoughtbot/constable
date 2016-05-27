@@ -25,6 +25,10 @@
       content: "";
     }
   }
+
+  &:last-child {
+    border-bottom: none;
+  }
 }
 
 .commenters {
