@@ -26,7 +26,13 @@ fi
 echo "Removing previous build artifacts"
 rm -rf deps _build
 
-# Set up phoenix
+# Set up Elixir and Phoenix
+if ! command -v mix >/dev/null; then
+  echo "It looks like you don't have Elixir installed."
+  echo "See http://elixir-lang.org/install.html for instructions."
+  exit 1
+fi
+
 echo "Installing dependencies and compiling"
 mix local.hex --force
 mix deps.get
