@@ -8,6 +8,12 @@ defmodule Constable.EmailHelper do
         %{
           name: "subscription_id",
           content: subscription_token_for(announcement, user)
+        },
+        %{
+          name: "UNSUB",
+          content: Constable.EmailView.unsubscribe_link(
+            subscription_token_for(announcement, user)
+          )
         }
       ]
     }

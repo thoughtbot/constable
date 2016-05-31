@@ -9,8 +9,8 @@ defmodule Constable.EmailView do
     "#aeaeae"
   end
 
-  def unsubscribe_link do
-    URI.decode unsubscribe_url(Constable.Endpoint, :show, subscription_id_merge_variable)
+  def unsubscribe_link(token \\ subscription_id_merge_variable) do
+    URI.decode unsubscribe_url(Constable.Endpoint, :show, token)
   end
 
   def notification_settings_link do

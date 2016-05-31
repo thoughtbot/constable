@@ -18,8 +18,7 @@ defmodule Constable.Mailers.CommentMailerTest do
     from_email = "announcements@#{Constable.Env.get("OUTBOUND_EMAIL_DOMAIN")}"
     headers = %{
       "In-Reply-To" => "<announcement-#{announcement.id}@#{Constable.Env.get("OUTBOUND_EMAIL_DOMAIN")}>",
-      "Reply-To" => "<announcement-#{announcement.id}@#{Constable.Env.get("INBOUND_EMAIL_DOMAIN")}>",
-      "List-Unsubscribe" => Constable.EmailView.unsubscribe_link
+      "Reply-To" => "<announcement-#{announcement.id}@#{Constable.Env.get("INBOUND_EMAIL_DOMAIN")}>"
     }
     assert email.to == users
     assert email.subject == subject
