@@ -26,15 +26,7 @@ defmodule Constable.Mailers.CommentMailerTest do
     assert email.headers == headers
     assert email.private.message_params.merge_language == "handlebars"
     assert email.private.message_params.merge_vars == [
-      %{
-        rcpt: user.email,
-        vars: [
-          %{
-            name: "subscription_id",
-            content: subscription.token
-          }
-        ]
-      }
+      merge_vars_for(user, subscription.announcement)
     ]
 
     html_comment_body = Earmark.to_html(comment.body)
