@@ -1,6 +1,7 @@
 defmodule Constable.Mailers.AnnouncementTest do
   use Constable.TestWithEcto, async: false
   import Constable.Router.Helpers
+  import Constable.EmailHelper
   alias Constable.Emails
 
   test "sends a correctly formatted email to a list of users" do

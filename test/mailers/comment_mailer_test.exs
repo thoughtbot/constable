@@ -1,5 +1,6 @@
 defmodule Constable.Mailers.CommentMailerTest do
   use Constable.TestWithEcto, async: true
+  import Constable.EmailHelper
   alias Constable.Emails
 
   test "new comment email" do
