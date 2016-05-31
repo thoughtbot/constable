@@ -12,17 +12,18 @@ defmodule Constable.TestWithEcto do
           vars: [
             %{
               name: "subscription_id",
-              content: subscription_for(announcement, user).token
+              content: subscription_token_for(announcement, user)
             }
           ]
         }
       end
 
-      defp subscription_for(announcement, user) do
+      defp subscription_token_for(announcement, user) do
         announcement
         |> Repo.preload(:subscriptions)
         |> Map.get(:subscriptions)
         |> Enum.find(fn(sub) -> sub.user_id == user.id end)
+        |> Map.fetch!(:token)
       end
     end
   end
