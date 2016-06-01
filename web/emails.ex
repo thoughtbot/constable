@@ -42,6 +42,7 @@ defmodule Constable.Emails do
     |> from_author(announcement.user)
     |> put_header("Reply-To", announcement_email_address(announcement))
     |> put_header("Message-ID", announcement_message_id(announcement))
+    |> put_header("List-Unsubscribe", Constable.EmailView.unsubscribe_link)
     |> add_unsubscribe_vars(announcement.id)
     |> tag("new-announcement")
     |> render(:new_announcement, %{
