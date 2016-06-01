@@ -34,6 +34,8 @@ defmodule Constable.Mailers.AnnouncementTest do
     assert email.html_body =~ interest_1.name
     assert email.html_body =~ interest_2.name
     assert email.text_body =~ announcement.body
+    assert email.html_body =~ "Unsubscribe"
+    assert email.text_body =~ "Unsubscribe"
     assert email_contains_interest_link(email, interest_1)
     assert email_contains_interest_link(email, interest_2)
     assert email.text_body =~ interest_1.name
@@ -56,6 +58,8 @@ defmodule Constable.Mailers.AnnouncementTest do
       "#{announcement.user.name} (Constable)",
       "announcements@#{Constable.Env.get("OUTBOUND_EMAIL_DOMAIN")}"
     }
+    refute email.html_body =~ "Unsubscribe"
+    refute email.text_body =~ "Unsubscribe"
   end
 
   defp email_contains_interest_link(email, interest) do

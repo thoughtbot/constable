@@ -45,6 +45,7 @@ defmodule Constable.Emails do
     |> add_unsubscribe_vars(announcement.id)
     |> tag("new-announcement")
     |> render(:new_announcement, %{
+      unsubscribeable: true,
       announcement: announcement,
       author: announcement.user
     })
@@ -59,6 +60,7 @@ defmodule Constable.Emails do
     |> tag("new-comment")
     |> add_unsubscribe_vars(comment.announcement_id)
     |> render(:new_comment, %{
+      unsubscribeable: true,
       announcement: announcement,
       comment: comment,
       author: comment.user
@@ -72,8 +74,8 @@ defmodule Constable.Emails do
     |> from_author(comment.user)
     |> put_reply_headers(announcement)
     |> tag("new-comment-mention")
-    |> add_unsubscribe_vars(comment.announcement_id)
     |> render(:new_comment, %{
+      unsubscribeable: false,
       announcement: announcement,
       comment: comment,
       author: comment.user
@@ -89,6 +91,7 @@ defmodule Constable.Emails do
     |> put_header("Reply-To", announcement_email_address(announcement))
     |> put_header("Message-ID", announcement_message_id(announcement))
     |> render(:new_announcement,
+      unsubscribeable: false,
       announcement: announcement,
       author: announcement.user
     )

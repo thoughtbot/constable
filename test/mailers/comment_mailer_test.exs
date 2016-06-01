@@ -33,8 +33,10 @@ defmodule Constable.Mailers.CommentMailerTest do
     assert email.html_body =~ html_comment_body
     assert email.html_body =~ author.name
     assert email.html_body =~ Exgravatar.generate(author.email)
+    assert email.html_body =~ "Unsubscribe"
 
     assert email.text_body =~ comment.body
+    assert email.text_body =~ "Unsubscribe"
   end
 
   test "new mention in a comment" do
@@ -61,7 +63,9 @@ defmodule Constable.Mailers.CommentMailerTest do
     assert email.html_body =~ html_comment_body
     assert email.html_body =~ author.name
     assert email.html_body =~ Exgravatar.generate(author.email)
+    refute email.html_body =~ "Unsubscribe"
 
     assert email.text_body =~ comment.body
+    refute email.text_body =~ "Unsubscribe"
   end
 end
