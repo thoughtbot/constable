@@ -113,10 +113,10 @@ defmodule Constable.Emails do
   defp add_unsubscribe_vars(email, announcement_id) do
     email
     |> put_param(:merge_language, "handlebars")
-    |> put_param(:merge_vars, unsubscribe_vars(email.to, announcement_id))
+    |> unsubscribe_vars(email.to, announcement_id)
   end
 
-  defp unsubscribe_vars(recipients, announcement_id) do
+  defp unsubscribe_vars(email, recipients, announcement_id) do
     Enum.map(recipients, fn(recipient) ->
       subscription = Repo.get_by(Subscription,
         announcement_id: announcement_id,
@@ -125,26 +125,27 @@ defmodule Constable.Emails do
 
       case subscription do
         nil -> nil
-        subscription -> subscription_merge_var(recipient, subscription)
+        subscription ->
+          put_param(email, "X-MC-MergeVars", {"_rcpt": recipient.email, "subscription_id": subscription.token})
       end
-    end) |> Enum.reject(&is_nil/1)
+    end
   end
 
-  defp subscription_merge_var(recipient, subscription) do
-    %{
-      rcpt: recipient.email,
-      vars: [
-        %{
-          name: "subscription_id",
-          content: subscription.token
-        },
-        %{
-          name: "UNSUB",
-          content: Constable.EmailView.unsubscribe_link(subscription.token)
-        }
-      ]
-    }
-  end
+  # defp subscription_merge_var(recipient, subscription) do
+  #   %{
+  #     rcpt: recipient.email,
+  #     vars: [
+  #       %{
+  #         name: "subscription_id",
+  #         content: subscription.token
+  #       },
+  #       %{
+  #         name: "UNSUB",
+  #         content: Constable.EmailView.unsubscribe_link(subscription.token)
+  #       }
+  #     ]
+  #   }
+  # end
 
   defp put_reply_headers(email, announcement) do
     email
