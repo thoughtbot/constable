@@ -1,0 +1,1 @@
+<%= ngettext("1 person is", "%{count} people are", @recipient_count) %> subscribed to these interests.

@@ -7,7 +7,10 @@ defmodule Constable.Repo do
   use Scrivener, page_size: 30
 
   def count(query) do
-    __MODULE__.all(from record in query, select: count(record.id))
-    |> List.first
+    one!(from record in query, select: count(record.id))
+  end
+
+  def count_distinct(query) do
+    one!(from record in query, select: count(record.id, :distinct))
   end
 end

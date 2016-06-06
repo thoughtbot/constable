@@ -15,6 +15,9 @@
     <div class="announcement-form">
       <%= text_input f, :title, placeholder: gettext("What are you announcing?") %>
 
+      <section class="recipients-preview">
+        Please select interests:
+      </section>
       <%= text_input :announcement, :interests, placeholder: gettext("Interests") %>
 
       <%= textarea f, :body, placeholder: gettext("Write markdown here. You can @mention specific people to notify them") %>
@@ -45,7 +48,7 @@
     require('web/static/js/announcement-form').setupForm();
     require('web/static/js/announcement-form-mobile').setupForm();
     require('web/static/js/textarea-image-uploader').setupImageUploader('#announcement_body');
-    require("web/static/js/user-autocomplete").autocompleteUsers(
+    require('web/static/js/user-autocomplete').autocompleteUsers(
       '#announcement_body',
       <%= raw user_autocomplete_json(@users) %>
     );

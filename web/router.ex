@@ -49,6 +49,7 @@ defmodule Constable.Router do
       resources "/user_interest", UserInterestController, singleton: true, only: [:create, :delete]
     end
     resources "/search", SearchController, singleton: true, only: [:show, :new]
+    resources "/recipients_preview", RecipientsPreviewController, singleton: true, only: [:show]
   end
 
   if Mix.env == :dev do

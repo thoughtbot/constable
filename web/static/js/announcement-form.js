@@ -1,4 +1,5 @@
 import { markedWithSyntax } from './syntax-highlighting';
+import { updateRecipientsPreview } from './recipients-preview';
 import 'selectize';
 
 const DELIMITER = ',';
@@ -27,9 +28,11 @@ const watchBody = function() {
 const setupInterestsSelect = function() {
   const interests = $('#announcement_interests');
 
-  if (interests.lenth !== 0) {
+  if (interests.length !== 0) {
     if (interests.val() === '') {
-      interests.val(localStorage.getItem('interests'));
+      const localStorageValue = localStorage.getItem('interests');
+      interests.val(localStorageValue);
+      updateRecipientsPreview(localStorageValue);
     }
 
     interests.selectize({
@@ -44,6 +47,7 @@ const setupInterestsSelect = function() {
       options: window.INTERESTS_NAMES,
       onChange: function(value) {
         localStorage.setItem('interests', value);
+        updateRecipientsPreview(value);
       },
     });
   }
