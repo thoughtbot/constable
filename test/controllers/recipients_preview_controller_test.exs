@@ -19,7 +19,7 @@ defmodule Constable.RecipientsPreviewControllerTest do
 
   defp recipient_preview_html_for(conn, interests: interests) do
     json_result_for(conn, interests: interests)
-    |> Map.fetch! "recipients_preview_html"
+    |> Map.fetch!("recipients_preview_html")
   end
 
   defp json_result_for(conn, interests: interests) do
