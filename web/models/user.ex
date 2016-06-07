@@ -18,6 +18,7 @@ defmodule Constable.User do
     field :daily_digest, :boolean, default: true
     field :active, :boolean, default: true
 
+    has_many :comments, Constable.Comment
     has_many :user_interests, UserInterest, on_delete: :delete_all
     has_many :interests, through: [:user_interests, :interest]
     has_many :interesting_announcements, through: [:interests, :announcements]

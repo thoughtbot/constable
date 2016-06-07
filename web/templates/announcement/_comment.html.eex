@@ -5,11 +5,19 @@
       <h4 class="author"><%= @comment.user.name %></h4>
     </div>
 
-    <time class="comment-time">
-      <a href="#comment-<%= @comment.id %>">
-        <%= time_ago_in_words @comment.inserted_at %>
-      </a>
-    </time>
+    <div>
+      <time class="comment-time">
+        <a href="#comment-<%= @comment.id %>">
+          <%= time_ago_in_words @comment.inserted_at %>
+        </a>
+
+      </time>
+      <%= if @comment.user_id == @current_user.id do %>
+        <%= link to: announcement_comment_path(Constable.Endpoint, :edit, @comment.announcement_id, @comment), class: "edit-comment", data: [role: "edit-comment"] do %>
+          <%= gettext "(edit)" %>
+        <% end %>
+      <% end %>
+    </div>
   </div>
 
   <div class="comment-body">

@@ -13,7 +13,7 @@ defmodule Constable.UserSocket do
 
   def connect(%{"token" => token}, socket) do
     if user = user_with_token(token) do
-      socket = assign(socket, :current_user_id, user.id)
+      socket = assign(socket, :current_user, user)
       {:ok, socket}
     else
       {:error, "Unauthorized"}

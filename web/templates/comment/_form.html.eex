@@ -1,0 +1,10 @@
+<%= form_for @comment_changeset, @path, [class: "comment-form"], fn(f) -> %>
+  <%= textarea f,
+    :body,
+    class: "comment-textarea mousetrap uploadable-input",
+    placeholder: gettext("Your markdown formatted comment here"),
+    required: true
+  %>
+
+  <%= submit @submit_text, id: "submit-comment" %>
+<% end %>
