@@ -5,23 +5,23 @@ defmodule Constable.RecipientsPreviewController do
   alias Constable.User
 
   def show(conn, params) do
-    recipient_count = interested_user_count(params["interests"])
+    interest_names = params["interests"] |> String.split(",", trim: true)
 
     conn
     |> put_status(200)
-    |> render("show.json", recipient_count: recipient_count)
+    |> render("show.json",
+      interest_names: interest_names,
+      interested_user_names: interested_user_names(interest_names)
+    )
   end
 
-  defp interested_user_count(comma_separated_interest_names) do
-    comma_separated_interest_names
-    |> String.split(",")
-    |> count_interested_users
-  end
-
-  defp count_interested_users(interest_names) do
+  defp interested_user_names(interest_names) do
     query = from u in User,
+              distinct: true,
               join: i in assoc(u, :interests),
+              order_by: u.name,
+              select: u.name,
               where: i.name in ^interest_names
-    Repo.count_distinct(query)
+    Repo.all(query)
   end
 end

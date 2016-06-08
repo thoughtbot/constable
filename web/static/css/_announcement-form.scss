@@ -9,3 +9,14 @@
     margin-top: 0;
   }
 }
+
+.recipients-preview .interested-user-names {
+  display: none;
+
+  color: $medium-gray;
+  font-size: $small-font-size;
+}
+
+.recipients-preview.show-interested-user-names .interested-user-names {
+  display: block;
+}

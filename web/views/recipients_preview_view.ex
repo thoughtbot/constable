@@ -1,15 +1,15 @@
 defmodule Constable.RecipientsPreviewView do
   use Constable.Web, :view
 
-  def render("show.json", %{recipient_count: recipient_count}) do
-    %{ recipients_preview_html: recipients_preview_html(recipient_count) }
+  def render("show.json", assigns) do
+    %{ recipients_preview_html: render_recipients_preview_html(assigns) }
   end
 
-  defp recipients_preview_html(recipient_count) do
+  defp render_recipients_preview_html(assigns) do
     Phoenix.View.render_to_string(
       Constable.RecipientsPreviewView,
       "recipients_preview.html",
-      recipient_count: recipient_count
+      assigns
     )
   end
 end

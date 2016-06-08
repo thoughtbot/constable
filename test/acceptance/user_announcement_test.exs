@@ -16,6 +16,20 @@ defmodule Constable.UserAnnouncementTest do
     assert has_announcement_interest?(session, "everyone")
   end
 
+  test "user previews who will receive an announcement", %{session: session} do
+    elixir_interest = insert(:interest, name: "elixir")
+    _uninterested_user = insert(:user)
+    _interested_user = insert(:user, name: "Paul") |> with_interest(elixir_interest)
+    current_user = insert(:user, name: "Blake") |> with_interest(elixir_interest)
+
+    session
+    |> visit(announcement_path(Endpoint, :new, as: current_user.id))
+    |> fill_in_interests("elixir")
+    |> click_link("2 people are subscribed")
+
+    assert has_recipient_preview?(session, "Blake, Paul")
+  end
+
   @tag :pending
   test "user updates an announcement", %{session: session} do
     user = insert(:user)
@@ -70,5 +84,9 @@ defmodule Constable.UserAnnouncementTest do
 
   defp has_announcement_interest?(session, text) do
     session |> find("[data-role=interests]") |> has_text?(text)
+  end
+
+  defp has_recipient_preview?(session, user_names) do
+    session |> find(".interested-user-names") |> has_text?(user_names)
   end
 end

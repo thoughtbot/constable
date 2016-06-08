@@ -1,1 +1,26 @@
-<%= ngettext("1 person is", "%{count} people are", @recipient_count) %> subscribed to these interests.
+<%= if length(@interested_user_names) > 0 do %>
+  <a class="toggle-interested-user-names" href="#">
+    <%= ngettext("1 person is", "%{count} people are", length(@interested_user_names)) %>
+    subscribed
+  </a>
+  to these interests.
+<% else %>
+  <%= if length(@interest_names) > 0 do %>
+    No one is subscribed to these interests.
+  <% else %>
+    Please select interests:
+  <% end %>
+<% end %>
+
+<div class="interested-user-names">
+  <%= Enum.join(@interested_user_names, ", ") %>
+</div>
+
+<script>
+  $(function() {
+    $('.toggle-interested-user-names').click(function(event) {
+      event.preventDefault();
+      $('.recipients-preview').toggleClass('show-interested-user-names');
+    });
+  });
+</script>
