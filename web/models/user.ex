@@ -16,6 +16,7 @@ defmodule Constable.User do
     field :username
     field :auto_subscribe, :boolean, default: true
     field :daily_digest, :boolean, default: true
+    field :active, :boolean, default: true
 
     has_many :user_interests, UserInterest, on_delete: :delete_all
     has_many :interests, through: [:user_interests, :interest]
@@ -46,6 +47,10 @@ defmodule Constable.User do
 
   def ordered_by_name(query \\ __MODULE__) do
     query |> order_by(asc: :name)
+  end
+
+  def active(query \\ __MODULE__) do
+    query |> where(active: true)
   end
 
   defp require_thoughtbot_email(changeset) do

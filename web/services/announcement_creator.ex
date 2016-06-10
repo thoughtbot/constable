@@ -1,4 +1,6 @@
 defmodule Constable.Services.AnnouncementCreator do
+  import Ecto.Query
+
   alias Constable.Repo
   alias Constable.Announcement
   alias Constable.Subscription
@@ -75,9 +77,9 @@ defmodule Constable.Services.AnnouncementCreator do
   end
 
   defp find_interested_users(announcement) do
-    announcement
-    |> Repo.preload(:interested_users)
-    |> Map.get(:interested_users)
+    Ecto.assoc(announcement, :interested_users)
+    |> where([u1], u1.active == true)
+    |> Repo.all
   end
 
   def find_mentioned_users(announcement) do

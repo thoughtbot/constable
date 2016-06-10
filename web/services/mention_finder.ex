@@ -7,7 +7,7 @@ defmodule Constable.Services.MentionFinder do
   def find_users(text) do
     Regex.scan(@mention_regex, text)
     |> Enum.map(fn ([_, username]) -> username end)
-    |> Enum.map(&(Repo.get_by(User, username: &1)))
+    |> Enum.map(&(Repo.get_by(User.active, username: &1)))
     |> Enum.reject(&is_nil/1)
   end
 end

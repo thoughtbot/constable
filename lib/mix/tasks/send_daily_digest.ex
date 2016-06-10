@@ -8,7 +8,7 @@ defmodule Mix.Tasks.Constable.SendDailyDigest do
 
   def run(_) do
     Mix.Task.run "app.start"
-    users = Repo.all(from u in User, where: u.daily_digest == true)
+    users = Repo.all(from u in User.active, where: u.daily_digest == true)
     user_emails = for user <- users do
       user.email
     end

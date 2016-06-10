@@ -26,7 +26,7 @@ defmodule Constable.Plugs.ApiAuth do
 
   def find_user_from_token(nil), do: nil
   def find_user_from_token(token) do
-    Repo.get_by(User, token: token)
+    Repo.get_by(User.active, token: token)
   end
 
   def unauthorized(conn) do

@@ -49,7 +49,7 @@ defmodule Constable.AnnouncementController do
       announcement: announcement,
       comment: comment,
       subscription: subscription,
-      users: Repo.all(User),
+      users: Repo.all(User.active),
     )
   end
 
@@ -103,7 +103,7 @@ defmodule Constable.AnnouncementController do
   defp render_form(conn, action, announcement) do
     changeset = Announcement.changeset(announcement, :create)
     interests = Repo.all(Interest)
-    users = Repo.all(User)
+    users = Repo.all(User.active)
 
     render(conn, action, %{
       changeset: changeset,
