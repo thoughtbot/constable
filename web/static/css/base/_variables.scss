@@ -30,6 +30,7 @@ $light-gray: #eaeaeb;
 $dark-gray: #454f52;
 $medium-gray: #999;
 $seafoam: #4cbd9c;
+$white: #fff;
 
 $light-gray-shade: shade($light-gray, 20%);
 $lightest-gray: lighten($light-gray, 7%);
@@ -58,6 +59,7 @@ $base-timing: ease;
 
 // Z-indeces
 $base-z-index: 0;
+$z-index-subscribed-tooltip: 2;
 $z-index-interests-overlay: 1;
 $z-index-interests-select: 2;
 

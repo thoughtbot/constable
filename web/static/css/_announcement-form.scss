@@ -10,13 +10,20 @@
   }
 }
 
-.recipients-preview .interested-user-names {
-  display: none;
+.recipients-preview {
+  position: relative;
 
-  color: $medium-gray;
-  font-size: $small-font-size;
-}
-
-.recipients-preview.show-interested-user-names .interested-user-names {
-  display: block;
+  .interested-user-names {
+    @include position(absolute, 24px null null null);
+    background-color: $white;
+    border-radius: $base-border-radius;
+    border: $base-border;
+    box-shadow: 0 0 16px rgba($light-gray, 0.6);
+    color: $dark-gray;
+    display: none;
+    font-size: $small-font-size;
+    padding: $small-spacing;
+    width: 600px;
+    z-index: $z-index-subscribed-tooltip;
+  }
 }
