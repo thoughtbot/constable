@@ -49,7 +49,7 @@ defmodule Constable.Announcement do
     search_term = search_term |> prepare_for_tsquery
 
     from(a in query,
-      where: fragment("to_tsvector('english', ?) || to_tsvector('english', ?) @@ to_tsquery('english', ?)",
+      where: fragment("to_tsvector('english', ?) || to_tsvector('english', ?) @@ plainto_tsquery('english', ?)",
         a.title,
         a.body,
         ^search_term
