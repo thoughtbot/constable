@@ -1,0 +1,16 @@
+$progress-bar-height: 5px;
+
+.uploadable-input {
+  display: block;
+  background-position: top left;
+  background-repeat: no-repeat;
+  background-image: url('../images/upload-progress-bar-background.png');
+  background-size: 0 $progress-bar-height;
+
+  @for $i from 1 through 99 {
+    $percentage: $i;
+    &[data-shubox-progress='#{$percentage}'] {
+      background-size: ($percentage * 1%) $progress-bar-height;
+    }
+  }
+}

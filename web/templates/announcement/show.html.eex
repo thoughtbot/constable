@@ -51,7 +51,7 @@
       <%= form_for @comment, announcement_comment_path(@conn, :create, @announcement), [class: "comment-form"], fn(f) -> %>
         <%= textarea f,
           :body,
-          class: "new-comment-textarea mousetrap",
+          class: "new-comment-textarea mousetrap uploadable-input",
           placeholder: gettext("Your markdown formatted comment here"),
           required: true
         %>
