@@ -12,7 +12,6 @@ defmodule Constable.HubValidatorTest do
 
     active_user = Repo.get_by(User, email: "joe@dirt.com")
     inactive_user = Repo.get_by(User, email: "invalid@dirt.com")
-    ralph = Repo.get_by(User, email: "ralph@thoughtbot.com")
 
     assert active_user.active
     refute inactive_user.active
