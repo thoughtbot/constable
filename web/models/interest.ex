@@ -6,17 +6,15 @@ defmodule Constable.Interest do
   end
 
   use Constable.Web, :model
-  alias Constable.{AnnouncementInterest, UserInterest}
+  alias Constable.{Announcement, User}
 
   schema "interests" do
     field :name
     field :slack_channel
     timestamps
 
-    has_many :announcements_interests, AnnouncementInterest, on_delete: :delete_all
-    has_many :announcements, through: [:announcements_interests, :announcement]
-    has_many :users_interests, UserInterest, on_delete: :delete_all
-    has_many :interested_users, through: [:users_interests, :user]
+    many_to_many :announcements, Announcement, join_through: "announcements_interests"
+    many_to_many :users, User, join_through: "users_interests"
   end
 
   def changeset(interest \\ %__MODULE__{}, params) do

@@ -3,7 +3,7 @@ defmodule Constable.Announcement do
   alias Constable.Comment
   alias Constable.User
   alias Constable.Subscription
-  alias Constable.AnnouncementInterest
+  alias Constable.Interest
 
   schema "announcements" do
     field :title
@@ -14,9 +14,8 @@ defmodule Constable.Announcement do
     belongs_to :user, User
     has_many :comments, Comment, on_delete: :delete_all
     has_many :subscriptions, Subscription, on_delete: :delete_all
-    has_many :announcements_interests, AnnouncementInterest, on_delete: :delete_all
-    has_many :interests, through: [:announcements_interests, :interest]
-    has_many :interested_users, through: [:announcements_interests, :interest, :interested_users]
+    many_to_many :interests, Interest, join_through: "announcements_interests"
+    has_many :interested_users, through: [:interests, :users]
   end
 
   def changeset(announcement, context, params \\ %{})
