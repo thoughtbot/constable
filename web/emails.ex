@@ -43,8 +43,10 @@ defmodule Constable.Emails do
     |> put_header("Reply-To", announcement_email_address(announcement))
     |> put_header("Message-ID", announcement_message_id(announcement))
     |> put_header("List-Unsubscribe", Constable.EmailView.unsubscribe_link)
+    |> add_unsubscribe_vars(announcement.id)
     |> tag("new-announcement")
     |> render(:new_announcement, %{
+      unsubscribeable: true,
       announcement: announcement,
       author: announcement.user
     })
@@ -56,10 +58,10 @@ defmodule Constable.Emails do
     |> subject("Re: #{announcement.title}")
     |> from_author(comment.user)
     |> put_reply_headers(announcement)
-    |> put_header("List-Unsubscribe", Constable.EmailView.unsubscribe_link)
     |> tag("new-comment")
-    |> add_unsubscribe_vars(comment)
+    |> add_unsubscribe_vars(comment.announcement_id)
     |> render(:new_comment, %{
+      unsubscribeable: true,
       announcement: announcement,
       comment: comment,
       author: comment.user
@@ -74,6 +76,7 @@ defmodule Constable.Emails do
     |> put_reply_headers(announcement)
     |> tag("new-comment-mention")
     |> render(:new_comment, %{
+      unsubscribeable: false,
       announcement: announcement,
       comment: comment,
       author: comment.user
@@ -89,6 +92,7 @@ defmodule Constable.Emails do
     |> put_header("Reply-To", announcement_email_address(announcement))
     |> put_header("Message-ID", announcement_message_id(announcement))
     |> render(:new_announcement,
+      unsubscribeable: false,
       announcement: announcement,
       author: announcement.user
     )
@@ -106,37 +110,42 @@ defmodule Constable.Emails do
     )
   end
 
-  defp add_unsubscribe_vars(email, comment) do
+  defp add_unsubscribe_vars(email, announcement_id) do
     email
     |> put_param(:merge_language, "handlebars")
-    |> put_param(:merge_vars, unsubscribe_vars(email.to, comment))
+    |> unsubscribe_vars(email.to, announcement_id)
   end
 
-  defp unsubscribe_vars(recipients, comment) do
+  defp unsubscribe_vars(email, recipients, announcement_id) do
     Enum.map(recipients, fn(recipient) ->
       subscription = Repo.get_by(Subscription,
-        announcement_id: comment.announcement_id,
+        announcement_id: announcement_id,
         user_id: recipient.id,
       )
 
       case subscription do
         nil -> nil
-        subscription -> subscription_merge_var(recipient, subscription)
+        subscription ->
+          put_param(email, "X-MC-MergeVars", {"_rcpt": recipient.email, "subscription_id": subscription.token})
       end
-    end) |> Enum.reject(&is_nil/1)
+    end
   end
 
-  defp subscription_merge_var(recipient, subscription) do
-    %{
-      rcpt: recipient.email,
-      vars: [
-        %{
-          name: "subscription_id",
-          content: subscription.token
-        }
-      ]
-    }
-  end
+  # defp subscription_merge_var(recipient, subscription) do
+  #   %{
+  #     rcpt: recipient.email,
+  #     vars: [
+  #       %{
+  #         name: "subscription_id",
+  #         content: subscription.token
+  #       },
+  #       %{
+  #         name: "UNSUB",
+  #         content: Constable.EmailView.unsubscribe_link(subscription.token)
+  #       }
+  #     ]
+  #   }
+  # end
 
   defp put_reply_headers(email, announcement) do
     email

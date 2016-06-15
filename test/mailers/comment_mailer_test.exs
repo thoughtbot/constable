@@ -1,5 +1,6 @@
 defmodule Constable.Mailers.CommentMailerTest do
   use Constable.TestWithEcto, async: true
+  import Constable.EmailHelper
   alias Constable.Emails
 
   test "new comment email" do
@@ -17,8 +18,7 @@ defmodule Constable.Mailers.CommentMailerTest do
     from_email = "announcements@#{Constable.Env.get("OUTBOUND_EMAIL_DOMAIN")}"
     headers = %{
       "In-Reply-To" => "<announcement-#{announcement.id}@#{Constable.Env.get("OUTBOUND_EMAIL_DOMAIN")}>",
-      "Reply-To" => "<announcement-#{announcement.id}@#{Constable.Env.get("INBOUND_EMAIL_DOMAIN")}>",
-      "List-Unsubscribe" => Constable.EmailView.unsubscribe_link
+      "Reply-To" => "<announcement-#{announcement.id}@#{Constable.Env.get("INBOUND_EMAIL_DOMAIN")}>"
     }
     assert email.to == users
     assert email.subject == subject
@@ -26,23 +26,17 @@ defmodule Constable.Mailers.CommentMailerTest do
     assert email.headers == headers
     assert email.private.message_params.merge_language == "handlebars"
     assert email.private.message_params.merge_vars == [
-      %{
-        rcpt: user.email,
-        vars: [
-          %{
-            name: "subscription_id",
-            content: subscription.token
-          }
-        ]
-      }
+      merge_vars_for(user, subscription.announcement)
     ]
 
     html_comment_body = Earmark.to_html(comment.body)
     assert email.html_body =~ html_comment_body
     assert email.html_body =~ author.name
     assert email.html_body =~ Exgravatar.generate(author.email)
+    assert email.html_body =~ "Unsubscribe"
 
     assert email.text_body =~ comment.body
+    assert email.text_body =~ "Unsubscribe"
   end
 
   test "new mention in a comment" do
@@ -69,7 +63,9 @@ defmodule Constable.Mailers.CommentMailerTest do
     assert email.html_body =~ html_comment_body
     assert email.html_body =~ author.name
     assert email.html_body =~ Exgravatar.generate(author.email)
+    refute email.html_body =~ "Unsubscribe"
 
     assert email.text_body =~ comment.body
+    refute email.text_body =~ "Unsubscribe"
   end
 end

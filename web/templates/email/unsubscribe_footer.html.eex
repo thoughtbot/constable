@@ -2,13 +2,15 @@
   <td colspan="2" height="45"></td>
 </tr>
 
-<tr>
-  <td colspan="2" align="center">
-    <%= link to: unsubscribe_link, style: "text-decoration: none; color: #{light_gray}; font-size: 13px;" do %>
-      <%= gettext("Unsubscribe from this thread") %>
-    <% end %>
-  </td>
-</tr>
+<%= if @unsubscribeable do %>
+  <tr>
+    <td colspan="2" align="center">
+      <%= link to: unsubscribe_link, style: "text-decoration: none; color: #{light_gray}; font-size: 13px;" do %>
+        <%= gettext("Unsubscribe from this thread") %>
+      <% end %>
+    </td>
+  </tr>
+<% end %>
 
 <tr>
   <td colspan="2" height="10"></td>
