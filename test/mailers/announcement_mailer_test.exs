@@ -19,7 +19,6 @@ defmodule Constable.Mailers.AnnouncementTest do
     headers = %{
       "Message-ID" => "<announcement-#{announcement.id}@#{Constable.Env.get("OUTBOUND_EMAIL_DOMAIN")}>",
       "Reply-To" => "<announcement-#{announcement.id}@#{Constable.Env.get("INBOUND_EMAIL_DOMAIN")}>",
-      "List-Unsubscribe" => Constable.EmailView.unsubscribe_link
     }
     html_announcement_body = Earmark.to_html(announcement.body)
     assert email.to == users
