@@ -15,6 +15,11 @@
         </tr>
         <tr>
           <td colspan="2" align="left">
+            <%= if @mentioner do %>
+              <p>
+              <%= gettext("You were mentioned by") %> <%= @mentioner.name %>:
+              </p>
+            <% end %>
             <p>
               <%= raw Earmark.to_html(@comment.body) %>
             <p>

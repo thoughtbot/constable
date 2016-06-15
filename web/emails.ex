@@ -49,7 +49,7 @@ defmodule Constable.Emails do
     })
   end
 
-  def new_comment(comment, recipients) do
+  def new_comment(comment, recipients, mentioner \\ nil) do
     announcement = comment.announcement
     new_email(to: recipients)
     |> subject("Re: #{announcement.title}")
@@ -60,22 +60,13 @@ defmodule Constable.Emails do
     |> render(:new_comment, %{
       announcement: announcement,
       comment: comment,
-      author: comment.user
+      author: comment.user,
+      mentioner: mentioner
     })
   end
 
   def new_comment_mention(comment, recipients) do
-    announcement = comment.announcement
-    new_email(to: recipients)
-    |> subject("You were mentioned in: #{announcement.title}")
-    |> from_author(comment.user)
-    |> put_reply_headers(announcement)
-    |> tag("new-comment-mention")
-    |> render(:new_comment, %{
-      announcement: announcement,
-      comment: comment,
-      author: comment.user
-    })
+    new_comment(comment, recipients, comment.user)
   end
 
   def new_announcement_mention(announcement, recipients) do
