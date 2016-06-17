@@ -3,6 +3,8 @@ defmodule Constable.User do
   alias Constable.UserInterest
   alias Constable.Subscription
 
+  @permitted_email_domain Application.fetch_env!(:constable, :permitted_email_domain)
+
   defimpl Bamboo.Formatter do
     def format_email_address(user, _opts) do
       {user.name, user.email}
@@ -37,7 +39,7 @@ defmodule Constable.User do
     user
     |> cast(params, ~w(email name))
     |> validate_required(:email)
-    |> require_thoughtbot_email
+    |> require_permitted_email_domain
     |> generate_token
     |> generate_username
     |> ensure_name_is_set
@@ -59,12 +61,12 @@ defmodule Constable.User do
     from u in __MODULE__, where: u.email == ^email
   end
 
-  defp require_thoughtbot_email(changeset) do
+  defp require_permitted_email_domain(changeset) do
     changeset
     |> validate_change(:email, fn(:email, value) ->
       case String.split(value, "@") do
-        [_, "thoughtbot.com"] -> []
-        _ -> [email: "must be a member of thoughtbot"]
+        [_, @permitted_email_domain] -> []
+        _ -> [email: "must be a member of #{@permitted_email_domain}"]
       end
     end)
   end
