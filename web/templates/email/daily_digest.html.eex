@@ -128,41 +128,46 @@
             <tr>
               <td width='40'></td>
               <td align='left'>
-                <h4><%= gettext("Recently added interests") %></h4>
+                <%= unless Enum.empty?(@interests) do %>
+                  <h4><%= gettext("Recently added interests") %></h4>
 
-                <%= for interest <- @interests do %>
-                  <div class="interest left-padded">
-                    <%= link "##{interest.name}", to: interest_url(Constable.Endpoint, :show, interest), style: "color: #{red}" %>
-                  </div>
-                <% end %>
-
-                <h4><%= gettext("Recently added announcements") %></h4><!-- Change to h4 to match interests -->
-
-                <%= for announcement <- @announcements do %>
-                  <div class="left-padded">
-                    <h4><%= link announcement.title, to: announcement_url(Constable.Endpoint, :show, announcement), style: "color: #{red}" %></h4>
-                    <%= gettext("posted by") %> <strong><%= announcement.user.name %></strong> <%= gettext("in") %> <%= raw interest_links(announcement) %>
-                  </div>
-                <% end %>
-
-                <h4>
-                  <%= ngettext("%{count} announcement was discussed", "%{count} announcements were discussed", length(discussed_announcements(@comments))) %>
-                  <%= ngettext("by %{count} person", "by %{count} people", length(unique_commenters(@comments))) %>
-                </h4>
-
-                <div class="left-padded">
-                  <%= for commenter <- unique_commenters(@comments) do %>
-                    <img src="<%= author_avatar_url(commenter) %>" class="avatar-rounded">
+                  <%= for interest <- @interests do %>
+                    <div class="interest left-padded">
+                      <%= link "##{interest.name}", to: interest_url(Constable.Endpoint, :show, interest), style: "color: #{red}" %>
+                    </div>
                   <% end %>
-                </div>
-
-                <%= for announcement <- discussed_announcements(@comments) do %>
-                  <div class="left-padded">
-                    <h4><%= link announcement.title, to: announcement_url(Constable.Endpoint, :show, announcement), style: "color: #{red}" %></h4>
-                    <%= new_comment_count_text(@comments, announcement) %> <%= commenters_list_text(announcement, @comments) %>
-                  </div>
                 <% end %>
 
+                <%= unless Enum.empty?(@announcements) do %>
+                  <h4><%= gettext("Recently added announcements") %></h4><!-- Change to h4 to match interests -->
+
+                  <%= for announcement <- @announcements do %>
+                    <div class="left-padded">
+                      <h4><%= link announcement.title, to: announcement_url(Constable.Endpoint, :show, announcement), style: "color: #{red}" %></h4>
+                      <%= gettext("posted by") %> <strong><%= announcement.user.name %></strong> <%= gettext("in") %> <%= raw interest_links(announcement) %>
+                    </div>
+                  <% end %>
+                <% end %>
+
+                <%= unless Enum.empty?(@comments) do %>
+                  <h4>
+                    <%= ngettext("%{count} announcement was discussed", "%{count} announcements were discussed", length(discussed_announcements(@comments))) %>
+                    <%= ngettext("by %{count} person", "by %{count} people", length(unique_commenters(@comments))) %>
+                  </h4>
+
+                  <div class="left-padded">
+                    <%= for commenter <- unique_commenters(@comments) do %>
+                      <img src="<%= author_avatar_url(commenter) %>" class="avatar-rounded">
+                    <% end %>
+                  </div>
+
+                  <%= for announcement <- discussed_announcements(@comments) do %>
+                    <div class="left-padded">
+                      <h4><%= link announcement.title, to: announcement_url(Constable.Endpoint, :show, announcement), style: "color: #{red}" %></h4>
+                      <%= new_comment_count_text(@comments, announcement) %> <%= commenters_list_text(announcement, @comments) %>
+                    </div>
+                  <% end %>
+                <% end %>
               </td>
               <td width='40'></td>
             </tr>

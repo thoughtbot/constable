@@ -1,5 +1,6 @@
 <%= gettext("# Daily digest of new Interests and Announcements") %>
 
+<%= unless Enum.empty?(@interests) do %>
 <%= gettext("Recently added interests") %>
 -------------
 
@@ -7,6 +8,8 @@
   #<%= interest.name %> - <%= interest_url(Constable.Endpoint, :show, interest) %>
 <% end %>
 
+<% end %>
+<%= unless Enum.empty?(@announcements) do %>
 <%= gettext("Recently added announcements") %>
 -----------------
 
@@ -15,6 +18,8 @@
   <%= gettext("posted by") %> <%= announcement.user.name %> <%= gettext("in") %> <%= interest_names(announcement) %>
 <% end %>
 
+<% end %>
+<%= unless Enum.empty?(@comments) do %>
 <%= ngettext("%{count} announcement was discussed", "%{count} announcements were discussed", length(discussed_announcements(@comments))) %>
 <%= ngettext("by %{count} person", "by %{count} people", length(unique_commenters(@comments))) %>
 
@@ -23,5 +28,6 @@
   <%= new_comment_count_text(@comments, announcement) %> <%= commenters_list_text(announcement, @comments) %>
 <% end %>
 
+<% end %>
 <%= gettext("View Interests and Announcements on Constable") %>
 <%= announcement_url(Constable.Endpoint, :index) %>
