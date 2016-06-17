@@ -42,6 +42,7 @@
         </ul>
       </header>
       <%= render "_flashes.html", conn: @conn %>
+      <%= render "_analytics.html" %>
 
       <%= render @view_module, @view_template, assigns %>
     </div>
