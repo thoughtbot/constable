@@ -42,9 +42,7 @@
         </ul>
       </header>
       <%= render "_flashes.html", conn: @conn %>
-      <% if System.get_env("SEGMENT_KEY") do %>
-        <%= render "_analytics.html" %>
-      <% end %>
+      <%= render "_analytics.html" %>
 
       <%= render @view_module, @view_template, assigns %>
     </div>
