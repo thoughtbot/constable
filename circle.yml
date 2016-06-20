@@ -1,5 +1,7 @@
 machine:
   environment:
+    CLIENT_ID: "fake"
+    CLIENT_SECRET: "fake"
     PATH: "$HOME/.asdf/bin:$HOME/.asdf/shims:$PATH"
   pre:
     - sudo curl --output /usr/local/bin/phantomjs https://s3.amazonaws.com/circle-downloads/phantomjs-2.1.1

@@ -1,6 +1,6 @@
 # Constable
 
-Constable is a Phoenix app for posting announcements and having discussions. 
+Constable is a Phoenix app for posting announcements and having discussions.
 To learn more about Phoenix, check out [Programming Phoenix](https://pragprog.com/book/phoenix/programming-phoenix)
 
 ## Starting the Console
@@ -24,19 +24,12 @@ installation page] and the [Phantomjs page].
 
 ### Configure Your Local Environment
 
-1. Run:
+Run:
 
   ```sh
   # Will grab all Elixir and NPM dependencies and then setup the database
   bin/setup
   ```
-
-2. Get necessary env variables:
-
-  Go to [`constable-api-staging`], click "Reveal Config Vars" and copy/paste the
-  `CLIENT_ID` and `CLIENT_SECRET` into your `.env` file.
-
-[`constable-api-staging`]: https://dashboard-preview.heroku.com/apps/constable-api-staging/settings
 
 ### Starting the Phoenix Server
 

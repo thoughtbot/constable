@@ -58,6 +58,8 @@ if [ -z "$CI" ]; then
 
   heroku join --app constable-api-production || true
   heroku git:remote -r production -a constable-api-production || true
-fi
 
-echo "\nNow see the Constable README for instructions on setting up your .env variables"
+  if ! grep -E -q 'CLIENT_ID |CLIENT_SECRET' .env; then
+    heroku config --shell --remote staging | grep -E 'CLIENT_ID|CLIENT_SECRET' >> .env
+  fi
+fi
