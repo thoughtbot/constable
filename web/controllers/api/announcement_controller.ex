@@ -2,8 +2,10 @@ defmodule Constable.Api.AnnouncementController do
   use Constable.Web, :controller
 
   alias Constable.Announcement
-  alias Constable.Services.AnnouncementCreator
+  alias Constable.AnnouncementForm
+  alias Constable.Services.AnnouncementSubscriber
   alias Constable.Services.AnnouncementUpdater
+  alias Constable.Services.SlackHook
   alias Constable.Api.AnnouncementView
 
   plug :scrub_params, "announcement" when action in [:create, :update]
@@ -16,22 +18,28 @@ defmodule Constable.Api.AnnouncementController do
   def create(conn,
       %{"announcement" => announcement_params, "interest_names" => interest_names}) do
     current_user = current_user(conn)
-    announcement_params = Map.put(announcement_params, "user_id", current_user.id)
+    announcement_params = announcement_params
+      |> Map.put("user_id", current_user.id)
+      |> Map.put("interests", interest_names |> Enum.join(","))
 
-    case AnnouncementCreator.create(announcement_params, interest_names) do
-      {:ok, announcement} ->
-        Constable.Endpoint.broadcast!(
-          "update",
-          "announcement:add", 
-          AnnouncementView.render("show.json", %{announcement: announcement})
-        )
-        conn
-        |> put_status(:created)
-        |> render("show.json", announcement: announcement)
-      {:error, changeset} ->
+    changeset = AnnouncementForm.changeset(announcement_params)
+
+    if changeset.valid? do
+      multi = AnnouncementForm.create(changeset, current_user)
+      case Repo.transaction(multi) do
+        {:ok, %{announcement: announcement}} ->
+          conn
+          |> put_status(:created)
+          |> render("show.json", announcement: announcement)
+      {:error, _failure, _changes} ->
         conn
         |> put_status(:unprocessable_entity)
         |> render(Constable.ChangesetView, "error.json", changeset: changeset)
+      end
+    else
+      conn
+      |> put_status(:unprocessable_entity)
+      |> render(Constable.ChangesetView, "error.json", changeset: changeset)
     end
   end
   def create(conn, _params), do: send_resp(conn, 422, "")

@@ -13,22 +13,27 @@ defmodule Constable.Services.AnnouncementCreator do
 
   def create(params, interest_names) do
     changeset = Announcement.changeset(%Announcement{}, :create, params)
+
     case Repo.insert(changeset) do
       {:ok, announcement} ->
-        announcement
-        |> add_interests(interest_names)
-        |> Repo.preload(:user)
-        |> subscribe_author
-        |> email_and_subscribe_users
-        |> SlackHook.new_announcement
-
+        announcement |> after_create(interest_names)
         {:ok, announcement}
       error -> error
     end
   end
 
+  def after_create(announcement, interest_names) do
+    announcement
+      |> add_interests(interest_names)
+      |> Repo.preload(:user)
+      |> subscribe_author
+      |> email_and_subscribe_users
+      |> SlackHook.new_announcement
+  end
+
   defp add_interests(announcement, interest_names) do
     AnnouncementInterestAssociator.add_interests(announcement, interest_names)
+    announcement
   end
 
   defp subscribe_author(announcement) do
