@@ -48,14 +48,14 @@ defmodule Constable.Mixfile do
   # Type `mix help deps` for examples and options
   defp deps do
     [
-      {:bamboo, "~> 0.5", github: "thoughtbot/bamboo"},
+      {:bamboo, "~> 0.6", github: "thoughtbot/bamboo"},
       {:cors_plug, "~> 0.1"},
       {:cowboy, "~> 1.0"},
       {:dialyxir, "~> 0.3", only: [:dev]},
       {:earmark, "~> 0.1.17"},
       {:ecto, "~> 2.0"},
       {:envy, "~> 0.0.1"},
-      {:ex_machina, "~> 1.0.0-beta.1", github: "thoughtbot/ex_machina"},
+      {:ex_machina, "~> 1.0"},
       {:exgravatar, "~> 0.2"},
       {:gettext, "~> 0.11"},
       {:good_times, "~> 1.1"},
@@ -63,7 +63,7 @@ defmodule Constable.Mixfile do
       {:httpoison, github: "edgurgel/httpoison", override: true},
       {:oauth2, "~> 0.5"},
       {:pact, "0.1.0"},
-      {:phoenix_ecto, "~> 3.0.0-rc"},
+      {:phoenix_ecto, "~> 3.0.0"},
       {:phoenix_live_reload, "~> 1.0.5"},
       {:phoenix_html, "~> 2.4"},
       {:phoenix, "~> 1.1"},
