@@ -1,7 +1,9 @@
 defmodule Constable.AnnouncementForm do
   use Ecto.Schema
 
-  alias Constable.Announcement
+  @primary_key {:id, :id, autogenerate: false}
+
+  alias Constable.{Announcement, Repo}
   alias Constable.Services.AnnouncementCreator
   alias Constable.Services.AnnouncementInterestAssociator
 
@@ -11,9 +13,24 @@ defmodule Constable.AnnouncementForm do
     field :interests
   end
 
-  def changeset(params) do
-    IO.inspect params
-    %__MODULE__{}
+  def changeset_from(announcement) do
+    interest_names = announcement
+      |> Repo.preload(:interests)
+      |> Map.get(:interests)
+      |> Enum.map(&(&1.name))
+      |> Enum.join(",")
+
+    struct = %__MODULE__{id: announcement.id}
+      |> Map.put(:__meta__, %{state: :loaded})
+      |> changeset(
+        title: announcement.title,
+        body: announcement.body,
+        interests: interest_names,
+      )
+  end
+
+  def changeset(struct \\ %__MODULE__{}, params) do
+    struct
     |> Ecto.Changeset.cast(params, ~w(title body interests))
     |> Ecto.Changeset.validate_required(~w(title body interests)a)
   end

@@ -119,15 +119,7 @@ defmodule Constable.AnnouncementController do
 
   defp render_form(conn, action, announcement) do
     changeset = if announcement.id do
-      interest_names = announcement
-        |> Repo.preload(:interests)
-        |> Map.get(:interests)
-        |> Enum.map(&(&1.name))
-      changeset = AnnouncementForm.changeset(%{
-        title: announcement.title,
-        body: announcement.body,
-        interests: interest_names,
-      })
+      changeset = AnnouncementForm.changeset_from(announcement)
     else
       AnnouncementForm.changeset(%{})
     end
