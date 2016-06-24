@@ -29,12 +29,12 @@ defmodule Constable.UserTest do
 
   test "create_changeset validates email ends with thoughtbot.com" do
     changeset = User.create_changeset(%User{}, %{
-      email: "bcardella@dockyard.com",
+      email: "foo@bar.com",
       name: "Foo Bar"
     })
 
     refute changeset.valid?
-    assert changeset.errors[:email] == "must be a member of thoughtbot"
+    assert changeset.errors[:email] == {"must be a member of thoughtbot", []}
   end
 
   test "create_changeset sets name from username only if the name is blank" do
