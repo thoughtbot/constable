@@ -1,6 +1,6 @@
 <%= form_for @changeset,
   @path,
-  [class: "flex-container", data: [role: "announcement-form"]],
+  [class: "flex-container", data: [role: "announcement-form"], as: "announcement"],
   fn(f) -> %>
   <nav class="header-tags">
     <div class="header-tag header-tag-markdown active">
@@ -14,11 +14,10 @@
   <div class="col-markdown announcement-create active">
     <div class="announcement-form">
       <%= text_input f, :title, placeholder: gettext("What are you announcing?") %>
-
       <section class="recipients-preview">
         Please select interests:
       </section>
-      <%= text_input :announcement, :interests, placeholder: gettext("Interests") %>
+      <%= text_input f, :interests, placeholder: gettext("Interests") %>
 
       <%= textarea f,
         :body,

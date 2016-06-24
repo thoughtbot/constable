@@ -2,6 +2,7 @@ defmodule Constable.AnnouncementForm do
   use Ecto.Schema
 
   alias Constable.Announcement
+  alias Constable.Services.AnnouncementCreator
   alias Constable.Services.AnnouncementInterestAssociator
 
   embedded_schema do
@@ -11,6 +12,7 @@ defmodule Constable.AnnouncementForm do
   end
 
   def changeset(params) do
+    IO.inspect params
     %__MODULE__{}
     |> Ecto.Changeset.cast(params, ~w(title body interests))
     |> Ecto.Changeset.validate_required(~w(title body interests)a)
@@ -24,9 +26,9 @@ defmodule Constable.AnnouncementForm do
 
     Ecto.Multi.new
     |> Ecto.Multi.insert(:announcement, announcement_changeset)
-    |> Ecto.Multi.run(:insert_interests, fn(%{announcement: announcement}) ->
-      interests = AnnouncementInterestAssociator.add_interests(announcement, interest_names)
-      {:ok, interests}
+    |> Ecto.Multi.run(:after_create, fn(%{announcement: announcement}) ->
+      AnnouncementCreator.after_create(announcement, interest_names)
+      {:ok, nil}
     end)
   end
 

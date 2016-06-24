@@ -81,7 +81,7 @@ defmodule Constable.AnnouncementController do
           |> render("new.html", %{
             changeset: changeset,
             interests: interests,
-            user_json: users,
+            users: users,
           })
       end
     else
@@ -91,7 +91,7 @@ defmodule Constable.AnnouncementController do
       render(conn, "new.html", %{
         changeset: changeset,
         interests: interests,
-        user_json: users,
+        users: users,
       })
     end
   end
@@ -122,7 +122,20 @@ defmodule Constable.AnnouncementController do
   end
 
   defp render_form(conn, action, announcement) do
-    changeset = Announcement.changeset(announcement, :create)
+    changeset = if announcement.id do
+      interest_names = announcement
+        |> Repo.preload(:interests)
+        |> Map.get(:interests)
+        |> Enum.map(&(&1.name))
+      changeset = AnnouncementForm.changeset(%{
+        title: announcement.title,
+        body: announcement.body,
+        interests: interest_names,
+      })
+    else
+      AnnouncementForm.changeset(%{})
+    end
+
     interests = Repo.all(Interest)
     users = Repo.all(User.active)
 
