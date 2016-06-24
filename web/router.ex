@@ -25,6 +25,10 @@ defmodule Constable.Router do
 
     resources "/unsubscribe", UnsubscribeController, only: [:show]
 
+    scope "/v2", as: :v2 do
+      resources "/unsubscribe", V2.UnsubscribeController, only: [:show]
+    end
+
     if Mix.env == :dev do
       get "/emails/:email_name", EmailPreviewController, :show
     end
