@@ -1,7 +1,7 @@
 defmodule Constable.EmailReplyController do
   use Constable.Web, :controller
   alias Constable.Services.CommentCreator
-  alias Constable.Queries
+  alias Constable.User
   alias Constable.EmailReplyParser
 
   def create(conn, %{"mandrill_events" => messages}) do
@@ -28,7 +28,7 @@ defmodule Constable.EmailReplyController do
   end
 
   defp user_from_email(email_address) do
-    Queries.User.with_email(email_address) |> Repo.one
+    User.with_email(email_address) |> Repo.one
   end
 
   defp announcement_id_from_email("announcement-" <> key_and_domain) do

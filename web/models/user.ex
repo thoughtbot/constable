@@ -53,6 +53,10 @@ defmodule Constable.User do
     query |> where(active: true)
   end
 
+  def with_email(email) do
+    from u in __MODULE__, where: u.email == ^email
+  end
+
   defp require_thoughtbot_email(changeset) do
     changeset
     |> validate_change(:email, fn(:email, value) ->

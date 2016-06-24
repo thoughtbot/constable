@@ -4,7 +4,6 @@ defmodule Constable.AuthController do
 
   alias Constable.{
     Interest,
-    Queries,
     Repo,
     User,
     UserIdentifier,
@@ -97,7 +96,7 @@ defmodule Constable.AuthController do
   end
 
   defp find_or_insert_user(email, name) do
-    Repo.one(Queries.User.with_email(email)) || insert_new_user(email, name)
+    Repo.one(User.with_email(email)) || insert_new_user(email, name)
   end
 
   defp insert_new_user(email, name) do

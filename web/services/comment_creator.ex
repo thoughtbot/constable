@@ -1,9 +1,9 @@
 defmodule Constable.Services.CommentCreator do
   alias Constable.Api.CommentView
   alias Constable.Comment
-  alias Constable.Queries
   alias Constable.Repo
   alias Constable.Services.MentionFinder
+  alias Constable.Subscription
   alias Constable.Emails
   alias Constable.Mailer
 
@@ -38,7 +38,7 @@ defmodule Constable.Services.CommentCreator do
   end
 
   defp find_subscribed_users(announcement_id) do
-    Repo.all(Queries.Subscription.for_announcement(announcement_id))
+    Repo.all(Subscription.for_announcement(announcement_id))
     |> Enum.map(fn (subscription) -> subscription.user end)
   end
 
