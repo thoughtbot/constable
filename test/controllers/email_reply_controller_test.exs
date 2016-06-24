@@ -8,6 +8,7 @@ defmodule Constable.EmailReplyTest do
     subscriber = insert(:user)
     announcement = insert(:announcement) |> with_subscriber(subscriber)
     comment_author = insert(:user)
+    conn = build_conn()
 
     email_reply_webhook = create_email_reply_webhook(
       from_email: comment_author.email,
@@ -44,6 +45,7 @@ defmodule Constable.EmailReplyTest do
       text: whole_email_with_quoted_text,
       email: "announcement-#{announcement.id}@foo.com"
     )
+    conn = build_conn()
 
     post(conn, "/email_replies", email_reply_webhook)
 

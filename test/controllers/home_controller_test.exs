@@ -12,9 +12,9 @@ defmodule Constable.HomeControllerTest do
   end
 
   test "redirects to the original request path and removes it from the session" do
-    conn = conn(:get, "/")
+    conn = build_conn(:get, "/")
       |> assign(:current_user, build(:user))
-      |> with_session(original_request_path: search_path(conn, :new))
+      |> with_session(original_request_path: search_path(build_conn(), :new))
       |> Constable.Router.call(Constable.Router.init([]))
 
     assert redirected_to(conn) == search_path(conn, :new)

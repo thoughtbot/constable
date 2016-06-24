@@ -3,7 +3,7 @@ defmodule Constable.Plugs.ApiAuthTest do
 
   test "active user is assigned to current_user assigns on conn" do
     user = insert(:user, active: true)
-    conn = conn()
+    conn = build_conn()
       |> bypass_through
       |> put_req_header("authorization", user.token)
       |> run_plug
@@ -13,7 +13,7 @@ defmodule Constable.Plugs.ApiAuthTest do
 
   test "inactive user is not assigned to current_user assigns on conn" do
     user = insert(:user, active: false)
-    conn = conn()
+    conn = build_conn()
       |> bypass_through
       |> put_req_header("authorization", user.token)
       |> run_plug

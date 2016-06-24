@@ -4,13 +4,13 @@ defmodule Constable.ConnTestHelper do
   import Plug.Conn
 
   def browser_authenticate(user \\ insert(:user)) do
-    conn = conn()
+    conn = build_conn()
     |> assign(:current_user, user)
     %{conn: conn, user: user}
   end
 
   def api_authenticate(user \\ insert(:user)) do
-    conn = conn()
+    conn = build_conn()
     |> put_req_header("accept", "application/json")
     |> put_req_header("authorization", user.token)
     %{conn: conn, user: user}

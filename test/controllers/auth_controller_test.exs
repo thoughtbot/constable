@@ -76,7 +76,7 @@ defmodule AuthControllerTest do
   test "index redirects to google with the correct redirect URI" do
     Pact.override(self, "oauth_redirect_strategy", IgnoreEnvRedirectStrategy)
 
-    conn = get(conn, "/auth", redirect_uri: "foo.com")
+    conn = get(build_conn, "/auth", redirect_uri: "foo.com")
 
     auth_uri = google_auth_uri(
       client_id: Constable.Env.get("CLIENT_ID"),
@@ -91,7 +91,7 @@ defmodule AuthControllerTest do
   test "index redirects to google with the correct override redirect URI" do
     Pact.override(self, "oauth_redirect_strategy", EnvOverrideRedirectStrategy)
 
-    conn = get(conn, "/auth", redirect_uri: "foo.com")
+    conn = get(build_conn, "/auth", redirect_uri: "foo.com")
 
     auth_uri = google_auth_uri(
       client_id: Constable.Env.get("CLIENT_ID"),
@@ -132,7 +132,7 @@ defmodule AuthControllerTest do
   end
 
   test "callback redirects to the root path when there is an error" do
-    conn = get(conn, "/auth/javascript_callback", error: "Foo")
+    conn = get(build_conn, "/auth/javascript_callback", error: "Foo")
 
     assert redirected_to(conn) =~  "/"
   end
@@ -154,6 +154,7 @@ defmodule AuthControllerTest do
     create_everyone_interest
     auth_params = %{"idToken" => "token"}
     Pact.override(self, :google_strategy, FakeTokenInfoGoogleStrategy)
+    conn = build_conn
 
     conn = post conn, auth_path(conn, :mobile_callback), auth_params
 
@@ -166,6 +167,7 @@ defmodule AuthControllerTest do
     create_everyone_interest
     auth_params = %{"idToken" => "token"}
     Pact.override(self, :google_strategy, NonThoughtbotTokenInfoGoogleStrategy)
+    conn = build_conn
 
     conn = post conn, auth_path(conn, :mobile_callback), auth_params
 
@@ -199,7 +201,7 @@ defmodule AuthControllerTest do
   end
 
   defp request_authorization(redirect_uri) do
-    get(conn, "/auth", redirect_uri: redirect_uri)
+    get(build_conn, "/auth", redirect_uri: redirect_uri)
   end
 
   defp google_auth_uri(params) do
