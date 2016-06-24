@@ -19,17 +19,12 @@ defmodule Constable.Web do
       import Constable.ErrorHelpers
       import Constable.Gettext
       import Constable.SharedView
+      import Constable.EnumHelper
 
       use Phoenix.HTML
       use Phoenix.View, root: "web/templates"
 
       alias Constable.Repo
-
-      def pluck(enumerable, property) do
-        Enum.map(enumerable, fn(object) ->
-          Map.get(object, property)
-        end)
-      end
     end
   end
 
@@ -41,16 +36,9 @@ defmodule Constable.Web do
       import Ecto.Query
       import Ecto.Schema
       import Constable.Gettext
+      import Constable.ControllerHelper
 
       alias Constable.Repo
-
-      def unauthorized(conn) do
-        send_resp(conn, 401, "")
-      end
-
-      def current_user(conn) do
-        conn.assigns[:current_user]
-      end
     end
   end
 
