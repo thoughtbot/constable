@@ -8,20 +8,12 @@ const watchTitle = function() {
   const title = $('#announcement_title');
 
   title.on('input', updateTitle);
-
-  if (title.val() === '') {
-    title.val(localStorage.getItem('title'));
-  }
   title.trigger('input');
 }
 
 const watchBody = function() {
   const body = $('#announcement_body');
-
   body.on('input', updateMarkdown);
-  if (body.val() === '') {
-    body.val(localStorage.getItem('markdown'));
-  }
   body.trigger('input');
 }
 
@@ -29,12 +21,6 @@ const setupInterestsSelect = function() {
   const interests = $('#announcement_interests');
 
   if (interests.length !== 0) {
-    if (interests.val() === '') {
-      const localStorageValue = localStorage.getItem('interests');
-      interests.val(localStorageValue);
-      updateRecipientsPreview(localStorageValue);
-    }
-
     interests.selectize({
       delimiter: DELIMITER,
       persist: false,
@@ -46,7 +32,6 @@ const setupInterestsSelect = function() {
       searchField: 'name',
       options: window.INTERESTS_NAMES,
       onChange: function(value) {
-        localStorage.setItem('interests', value);
         updateRecipientsPreview(value);
       },
     });
@@ -55,7 +40,6 @@ const setupInterestsSelect = function() {
 
 const updateTitle = function(e) {
   const value = e.target.value;
-  localStorage.setItem('title', value);
 
   if (value === '') {
     $('[data-role=title-preview]').addClass('preview');
@@ -68,7 +52,6 @@ const updateTitle = function(e) {
 
 const updateMarkdown = function(e) {
   const value = e.target.value;
-  localStorage.setItem('markdown', value);
 
   if (value === '') {
     $('[data-role=markdown-preview]').addClass('preview');
@@ -80,17 +63,8 @@ const updateMarkdown = function(e) {
   }
 };
 
-const clearLocalStorageOnSubmit = function() {
-  $('[data-role=announcement-form]').on('submit', function() {
-    localStorage.removeItem('title');
-    localStorage.removeItem('interests');
-    localStorage.removeItem('markdown');
-  });
-};
-
 export function setupForm() {
   watchTitle();
   watchBody();
   setupInterestsSelect();
-  clearLocalStorageOnSubmit();
 }

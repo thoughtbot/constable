@@ -22,11 +22,11 @@ defmodule Constable.AnnouncementForm do
 
     struct = %__MODULE__{id: announcement.id}
       |> Map.put(:__meta__, %{state: :loaded})
-      |> changeset(
+      |> changeset(%{
         title: announcement.title,
         body: announcement.body,
         interests: interest_names,
-      )
+      })
   end
 
   def changeset(struct \\ %__MODULE__{}, params) do

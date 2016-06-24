@@ -5,3 +5,9 @@
   interests: @interests,
   users: @users
 %>
+
+<script>
+  (function() {
+    require('web/static/js/new-announcement-form').setupForm();
+  })()
+</script>
