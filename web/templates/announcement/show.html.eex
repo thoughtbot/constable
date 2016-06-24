@@ -43,33 +43,21 @@
 
   <ul class="comments-list">
     <%= for comment <- @announcement.comments do %>
-      <%= render "_comment.html", comment: comment %>
+      <%= render "_comment.html", comment: comment, conn: @conn, current_user: @current_user %>
     <% end %>
   </ul>
 
   <div class="comment-new">
-      <%= form_for @comment, announcement_comment_path(@conn, :create, @announcement), [class: "comment-form"], fn(f) -> %>
-        <%= textarea f,
-          :body,
-          class: "new-comment-textarea mousetrap uploadable-input",
-          placeholder: gettext("Your markdown formatted comment here"),
-          required: true
-        %>
-
-        <%= submit gettext("Post Comment"), id: "submit-comment" %>
-      <% end %>
-    </div>
+    <%= Constable.CommentView.render "_form.html",
+      comment_changeset: @comment_changeset,
+      path: announcement_comment_path(@conn, :create, @announcement),
+      submit_text: gettext("Post Comment") %>
   </div>
 </div>
 
 <script>
   (function() {
-    require("web/static/js/comment-form").setupForm();
-    require('web/static/js/textarea-image-uploader').setupImageUploader('#comment_body');
-    require("web/static/js/user-autocomplete").autocompleteUsers(
-      '.new-comment-textarea',
-      <%= raw user_autocomplete_json(@users) %>
-      );
+    require("web/static/js/comment-form").setupNewForm(<%= raw user_autocomplete_json(@users) %>);
     require("web/static/js/syntax-highlighting").highlightSyntax('.comments-list');
   })()
 </script>

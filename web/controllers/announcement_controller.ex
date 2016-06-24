@@ -47,7 +47,7 @@ defmodule Constable.AnnouncementController do
     conn
     |> render("show.html",
       announcement: announcement,
-      comment: comment,
+      comment_changeset: comment,
       subscription: subscription,
       users: Repo.all(User.active),
     )

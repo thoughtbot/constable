@@ -21,6 +21,11 @@ defmodule Constable.Comment do
     |> set_last_discussed_at(last_discussed_at)
   end
 
+  def update_changeset(model, params) do
+    model
+    |> cast(params, ~w(body), [])
+  end
+
   defp set_last_discussed_at(changeset, last_discussed_at) do
     prepare_changes changeset, fn(changeset) ->
       Announcement

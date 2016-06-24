@@ -39,4 +39,30 @@ defmodule Constable.CommentControllerTest do
 
     assert Phoenix.ConnTest.get_flash(conn, :error) =~ "invalid"
   end
+
+  test "#update updates the comments if the current user is the author", %{conn: conn, user: user} do
+    comment = insert(:comment, body: "not updated", user: user)
+
+    conn = put conn, announcement_comment_path(conn, :update, comment.announcement, comment), comment: %{
+      body: "updated body"
+    }
+
+    assert Repo.get_by!(Comment, body: "updated body")
+    assert redirected_to(conn) == comment_on_announcement_page(conn, comment)
+  end
+
+  defp comment_on_announcement_page(conn, comment) do
+    announcement_path(conn, :show, comment.announcement) <> "#comment-#{comment.id}"
+  end
+
+  test "#update does nothing if current user isn't the author", %{conn: conn} do
+    another_user = insert(:user)
+    comment = insert(:comment, body: "not updated", user: another_user)
+
+    assert_error_sent :not_found, fn ->
+      put conn, announcement_comment_path(conn, :update, comment.announcement, comment), comment: %{
+        body: "updated body"
+      }
+    end
+  end
 end

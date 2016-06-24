@@ -55,13 +55,8 @@ defmodule Constable.Services.CommentCreator do
       "live-html",
       "new-comment",
       %{
-        announcement_id: comment.announcement_id,
-        comment_html: render_comment_html(comment)
+        comment: comment,
       }
     )
-  end
-
-  defp render_comment_html(comment) do
-    Phoenix.View.render_to_string(Constable.AnnouncementView, "_comment.html", comment: comment)
   end
 end

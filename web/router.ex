@@ -40,7 +40,7 @@ defmodule Constable.Router do
     get "/", HomeController, :index
 
     resources "/announcements", AnnouncementController, only: [:index, :show, :new, :create, :edit, :update] do
-      resources "/comments", CommentController, only: [:create]
+      resources "/comments", CommentController, only: [:create, :edit, :update]
       resources "/subscriptions", SubscriptionController, singleton: true, only: [:create, :delete]
     end
     resources "/settings", SettingsController, singleton: true, only: [:show, :update]

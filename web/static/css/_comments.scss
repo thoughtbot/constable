@@ -3,6 +3,12 @@
   display: flex;
 }
 
+.edit-comment {
+  font-size: 13px;
+  color: 999;
+  margin-left: 5px;
+}
+
 .comment-loading {
   @include animation(loading-spinner 0.6s infinite linear);
   @include border-style(solid);
@@ -64,7 +70,7 @@
   margin-bottom: $small-spacing;
 }
 
-.comment-new {
+.comment-new, .comment-edit {
   background-color: lighten($light-gray, 5%);
   border-top: $base-border;
   margin-bottom: 0;
@@ -75,7 +81,7 @@
   }
 }
 
-.new-comment-textarea {
+.comment-textarea {
   font-family: monospace;
   font-size: $base-font-size - 3px;
   margin-bottom: $small-spacing;
