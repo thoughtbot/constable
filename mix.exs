@@ -53,7 +53,7 @@ defmodule Constable.Mixfile do
       {:cowboy, "~> 1.0"},
       {:dialyxir, "~> 0.3", only: [:dev]},
       {:earmark, "~> 0.1.17"},
-      {:ecto, "~> 2.0.0-rc"},
+      {:ecto, "~> 2.0"},
       {:envy, "~> 0.0.1"},
       {:ex_machina, "~> 1.0.0-beta.1", github: "thoughtbot/ex_machina"},
       {:exgravatar, "~> 0.2"},
