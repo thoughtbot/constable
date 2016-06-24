@@ -11,12 +11,7 @@ defmodule Constable.ViewCase do
       alias Constable.SubscriptionView
       alias Constable.UserInterestView
       alias Constable.CommentView
-
-      def ids_from(enumerable) do
-        Enum.map(enumerable, fn(object) ->
-          Map.get(object, :id)
-        end)
-      end
+      import Constable.ViewCaseHelper
     end
   end
 
