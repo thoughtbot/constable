@@ -83,6 +83,14 @@ redirects back to the correct review app. This is configured with the
 [Heroku Review Apps]: https://devcenter.heroku.com/articles/github-integration-review-apps
 [Constable oauth redirector]: https://github.com/thoughtbot/constable-oauth-redirector
 
+## License
+
+Constable is Copyright (c) 2015-2016 Blake Williams, Paul Smith, and thoughtbot,
+inc. It is free software, and may be redistributed under the AGPL license
+detailed in the [LICENSE] file.
+
+[LICENSE]: /LICENSE
+
 ## About thoughtbot
 
 ![thoughtbot](https://thoughtbot.com/logo.png)
