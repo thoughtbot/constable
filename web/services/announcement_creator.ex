@@ -33,6 +33,7 @@ defmodule Constable.Services.AnnouncementCreator do
 
   defp add_interests(announcement, interest_names) do
     AnnouncementInterestAssociator.add_interests(announcement, interest_names)
+    announcement
   end
 
   defp subscribe_author(announcement) do

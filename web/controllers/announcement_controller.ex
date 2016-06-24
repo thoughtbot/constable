@@ -52,7 +52,7 @@ defmodule Constable.AnnouncementController do
       announcement: announcement,
       comment: comment,
       subscription: subscription,
-      users: Repo.all(User.active),
+      users: Repo.all(User),
     )
   end
 
@@ -67,10 +67,6 @@ defmodule Constable.AnnouncementController do
       multi = AnnouncementForm.create(changeset, conn.assigns.current_user)
       case Repo.transaction(multi) do
         {:ok, %{announcement: announcement}} ->
-          announcement
-          |> AnnouncementSubscriber.subscribe_users
-          |> SlackHook.new_announcement
-
           redirect(conn, to: announcement_path(conn, :show, announcement.id))
         {:error, _failure, _changes} ->
           interests = Repo.all(Interest)
@@ -111,7 +107,7 @@ defmodule Constable.AnnouncementController do
       case AnnouncementUpdater.update(announcement, announcement_params, interest_names) do
         {:ok, announcement} ->
           redirect(conn, to: announcement_path(conn, :show, announcement.id))
-        {:error, _changeset} ->
+        {:error, changeset} ->
           render_form(conn, "edit", announcement)
       end
     else
@@ -137,7 +133,7 @@ defmodule Constable.AnnouncementController do
     end
 
     interests = Repo.all(Interest)
-    users = Repo.all(User.active)
+    users = Repo.all(User)
 
     render(conn, action, %{
       changeset: changeset,

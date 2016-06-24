@@ -28,10 +28,6 @@ defmodule Constable.Api.AnnouncementController do
       multi = AnnouncementForm.create(changeset, current_user)
       case Repo.transaction(multi) do
         {:ok, %{announcement: announcement}} ->
-          announcement
-          |> AnnouncementSubscriber.subscribe_users
-          |> SlackHook.new_announcement
-
           conn
           |> put_status(:created)
           |> render("show.json", announcement: announcement)
