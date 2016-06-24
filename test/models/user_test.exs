@@ -34,7 +34,7 @@ defmodule Constable.UserTest do
     })
 
     refute changeset.valid?
-    assert changeset.errors[:email] == "must be a member of thoughtbot"
+    assert changeset.errors[:email] == {"must be a member of thoughtbot", []}
   end
 
   test "create_changeset sets name from username only if the name is blank" do
