@@ -5,8 +5,6 @@ defmodule Constable.CommentController do
   alias Constable.Comment
   alias Constable.Services.CommentCreator
 
-  plug :scrub_params, "comment" when action in [:create, :update]
-
   def create(conn, %{"announcement_id" => announcement_id, "comment" => comment_params}) do
     comment_params = comment_params
       |> Map.put("user_id", conn.assigns.current_user.id)

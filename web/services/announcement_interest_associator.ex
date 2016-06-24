@@ -45,7 +45,7 @@ defmodule Constable.Services.AnnouncementInterestAssociator do
 
     Constable.Endpoint.broadcast!(
       "update",
-      "interest:add", 
+      "interest:add",
       InterestView.render("show.json", %{interest: interest})
     )
 

@@ -29,13 +29,14 @@ defmodule Constable.User do
 
   def changeset(user, params \\ %{}) do
     user
-    |> cast(params, ~w(), ~w(auto_subscribe daily_digest name))
+    |> cast(params, ~w(auto_subscribe daily_digest name))
     |> validate_length(:name, min: 3)
   end
 
   def create_changeset(user \\ %__MODULE__{}, params) do
     user
-    |> cast(params, ~w(email), ~w(name))
+    |> cast(params, ~w(email name))
+    |> validate_required(:email)
     |> require_thoughtbot_email
     |> generate_token
     |> generate_username
@@ -74,8 +75,8 @@ defmodule Constable.User do
   end
 
   defp generate_username(changeset) do
-    email = get_change(changeset, :email)
-    if email do
+    if changeset.valid? do
+      email = get_change(changeset, :email)
       [username, _] = String.split(email, "@")
       put_change changeset, :username, username
     else

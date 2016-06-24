@@ -4,8 +4,6 @@ defmodule Constable.AnnouncementController do
   alias Constable.User
   alias Constable.Services.AnnouncementUpdater
 
-  plug :scrub_params, "announcement" when action == :create
-
   alias Constable.{Announcement, Comment, Interest, Subscription}
   alias Constable.Services.AnnouncementCreator
 

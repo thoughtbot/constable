@@ -3,8 +3,6 @@ defmodule Constable.Api.CommentController do
 
   alias Constable.Services.CommentCreator
 
-  plug :scrub_params, "comment" when action in [:create]
-
   def create(conn, %{"comment" => params}) do
     current_user = current_user(conn)
     params = Map.put(params, "user_id", current_user.id)

@@ -6,8 +6,6 @@ defmodule Constable.Api.AnnouncementController do
   alias Constable.Services.AnnouncementUpdater
   alias Constable.Api.AnnouncementView
 
-  plug :scrub_params, "announcement" when action in [:create, :update]
-
   def index(conn, _params) do
     announcements = Repo.all(Announcement)
     render(conn, "index.json", announcements: announcements)
@@ -22,7 +20,7 @@ defmodule Constable.Api.AnnouncementController do
       {:ok, announcement} ->
         Constable.Endpoint.broadcast!(
           "update",
-          "announcement:add", 
+          "announcement:add",
           AnnouncementView.render("show.json", %{announcement: announcement})
         )
         conn
@@ -54,7 +52,7 @@ defmodule Constable.Api.AnnouncementController do
         {:ok, announcement} ->
           Constable.Endpoint.broadcast!(
             "update",
-            "announcement:update", 
+            "announcement:update",
             AnnouncementView.render("show.json", %{announcement: announcement})
           )
           render(conn, "show.json", announcement: announcement)

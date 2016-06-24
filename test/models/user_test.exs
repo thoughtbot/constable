@@ -38,11 +38,11 @@ defmodule Constable.UserTest do
   end
 
   test "create_changeset sets name from username only if the name is blank" do
-    changeset = User.create_changeset(%User{}, %{email: "foo@bar.com", name: "Real Name"})
-    assert changeset.changes.name == "Real Name"
+    changeset = User.create_changeset(%User{}, %{email: "foo@thoughtbot.com", name: "Real Name"})
+    assert changeset.changes[:name] == "Real Name"
 
     username = "foobar"
-    changeset = User.create_changeset(%User{}, %{email: username <> "@foo.com"})
-    assert changeset.changes.name == username
+    changeset = User.create_changeset(%User{}, %{email: username <> "@thoughtbot.com"})
+    assert changeset.changes[:name] == username
   end
 end

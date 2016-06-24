@@ -17,7 +17,8 @@ defmodule Constable.Comment do
 
   def changeset(model, :create, params, last_discussed_at) do
     model
-    |> cast(params, ~w(announcement_id user_id body), [])
+    |> cast(params, ~w(announcement_id user_id body))
+    |> validate_required(:body)
     |> set_last_discussed_at(last_discussed_at)
   end
 

@@ -12,7 +12,7 @@ defmodule Constable.UserInterest do
 
   def changeset(user_interest \\ %__MODULE__{}, params) do
     user_interest
-    |> cast(params, ~w(user_id interest_id), [])
+    |> cast(params, ~w(user_id interest_id))
     |> unique_constraint(:user_id, name: :users_interests_interest_id_user_id_index)
     |> unique_constraint(:interest_id, name: :users_interests_interest_id_user_id_index)
   end
