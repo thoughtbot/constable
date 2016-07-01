@@ -19,7 +19,7 @@ a.nav-settings-back {
 
   &::before {
     @include position(absolute, 25% null null -12px);
-    @include triangle(12px, $subdued-subhead-color, left);
+    @include triangle(12px, $medium-gray, left);
     content: "";
     margin-right: $small-spacing;
     transition: $base-transition-time;

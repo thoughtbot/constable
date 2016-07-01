@@ -21,21 +21,26 @@
 
         <ul class="navigation right">
           <li>
-            <%= link to: search_path(@conn, :new), class: "button button-square", data: [role: "search"] do %>
-              <span class="icon-search">
+            <%= form_tag search_path(@conn, :show), method: :get do %>
+              <input
+                class="header-search-input"
+                name="query"
+                placeholder="Search announcements..."
+                type="text"
+                value="<%= @conn.params["query"] %>"
+              />
             <% end %>
           </li>
           <li>
-            <%= link "",
-              to: announcement_path(@conn, :new),
-              class: "button button-square button-create-new"
-            %>
+            <%= link to: announcement_path(@conn, :new), class: "button button-small button-secondary button-icon" do %>
+              <img src="/images/icon-plus-white.svg" />
+            <% end %>
           </li>
           <li>
             <%= link to: settings_path(@conn, :show), class: "settings-gravatar" do %>
               <img
                 src="<%= gravatar(@conn.assigns.current_user) %>"
-                class="current-user-gravatar button-square"
+                class="current-user-gravatar"
               />
             <% end %>
           </li>

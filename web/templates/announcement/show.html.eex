@@ -29,12 +29,10 @@
     <%= @announcement.title %>
   </h1>
 
-  <div class="announcement-posted-by">
+  <div class="announcement-metadata">
     <img src="<%= gravatar @announcement.user %>" class="avatar-rounded"/>
-    <span class="author"><%= @announcement.user.name %></span>
-    <time>
-      <%= time_ago_in_words(@announcement.inserted_at) %>
-    </time>
+    <h4 class="author"><%= @announcement.user.name %></h4>
+    <time><%= time_ago_in_words(@announcement.inserted_at) %></time>
   </div>
 
   <div class="announcement-body" data-role="body">

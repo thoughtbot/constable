@@ -1,3 +1,7 @@
+.search-results-header {
+  margin-top: $base-spacing;
+}
+
 .announcements {
   list-style-type: none;
 }
@@ -6,8 +10,12 @@
   @include padding($base-spacing null);
   border-bottom: $base-border;
 
-  span {
-    color: $subdued-subhead-color;
+  h1 {
+    margin-bottom: 0;
+  }
+
+  .announcement-metadata {
+    margin-bottom: 0;
   }
 
   .interest {
@@ -28,6 +36,44 @@
 
   &:last-child {
     border-bottom: none;
+  }
+}
+
+.announcement-metadata {
+  @include margin(null null $base-spacing);
+  color: $medium-gray;
+
+  .author {
+    display: inline;
+    color: $base-font-color;
+  }
+
+  .avatar-rounded {
+    @include position(relative, 4px null null null);
+    margin-right: 0;
+  }
+}
+
+.announcement-interest {
+  color: $base-font-color;
+  display: inline-flex;
+
+  &::after {
+    content: ",\00a0";
+    display: inline-block;
+    text-decoration: none;
+  }
+
+  &::before {
+    content: "#"
+  }
+
+  &:last-of-type:after {
+    content: "";
+  }
+
+  .announcement & {
+    font-size: $small-font-size;
   }
 }
 

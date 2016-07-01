@@ -1,5 +1,6 @@
 .button,
 #{$all-buttons} {
+  -webkit-font-smoothing: antialiased;
   appearance: none;
   background-color: $action-color;
   border: 0;
@@ -9,10 +10,10 @@
   display: inline-block;
   font-family: $base-font-family;
   font-size: $base-font-size;
-  -webkit-font-smoothing: antialiased;
   font-weight: $bold-weight;
   line-height: 1;
   padding: $small-spacing $base-spacing;
+  text-align: center;
   text-decoration: none;
   transition: background-color $base-duration $base-timing;
   user-select: none;
@@ -35,8 +36,21 @@
   }
 }
 
-.button-square {
-  @include size(28px);
+.button-secondary {
+  background-color: $dark-gray;
+}
+
+.button-small {
+  @include padding($tiny-spacing $small-spacing);
+  height: $button-small-height;
+  font-size: $small-font-size;
+  min-width: 60px;
+}
+
+.button-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .subscription {
@@ -63,22 +77,18 @@
       }
 
       background-color: transparent;
-      color: $red;
+      color: $action-color;
     }
 
     &-subscribe {
       &::after {
-        background: {
-          image: url("../images/subscribe-icon.svg");
-        }
+        background-image: url("../images/subscribe-icon.svg");
       }
     }
 
     &-unsubscribe {
       &::after {
-        background: {
-          image: url("../images/unsubscribe-icon.svg");
-        }
+        background-image: url("../images/unsubscribe-icon.svg");
       }
     }
   }

@@ -22,24 +22,19 @@ h6 {
 h1 {
   font-size: $large-font-size;
   font-weight: $bold-weight;
-  margin-bottom: 0;
-}
-
-time {
-  font-weight: normal;
-  color: $medium-gray;
 }
 
 h4 {
-  font-weight: normal;
+  -webkit-font-smoothing: subpixel-antialiased;
   font-size: $base-font-size;
+  font-weight: $bold-weight;
   margin-bottom: 0;
 }
 
 
 blockquote,
 p {
-  @include margin(0 null $base-spacing null);
+  @include margin(0 null $small-spacing null);
 }
 
 a {

@@ -48,19 +48,13 @@
 }
 
 .avatar-rounded {
-  @include position(relative, 1px null null null);
-  @include size(20px);
+  @include size($rounded-avatar-size);
   border-radius: 50%;
-  margin-right: $tiny-spacing;
+  margin-right: $tiny-spacing / 2;
 }
 
 .author-information {
   @extend %align-center-flex;
-
-  .author {
-    -webkit-font-smoothing: subpixel-antialiased;
-    font-weight: $bold-weight;
-  }
 }
 
 .comment-information {

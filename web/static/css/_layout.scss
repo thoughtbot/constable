@@ -11,7 +11,7 @@ body,
 
 .container {
   margin: 0 auto;
-  max-width: 580px;
+  max-width: 620px;
   width: 80%;
 
   @include media($small-screen) {

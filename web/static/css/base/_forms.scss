@@ -57,17 +57,13 @@ select[multiple=multiple] {
   }
 
   &:focus {
-    border-color: shade($base-border-color, 20%);
+    border-color: shade($base-border-color, 40%);
     outline: none;
   }
 
   &:disabled {
-    background-color: shade($base-background-color, 5%);
+    background-color: $medium-gray;
     cursor: not-allowed;
-
-    &:hover {
-      border: $base-border;
-    }
   }
 }
 

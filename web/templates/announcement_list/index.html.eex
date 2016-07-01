@@ -5,19 +5,20 @@
         <h1 data-role="title"><%= announcement.title %></h1>
       <% end %>
 
-      <span>
+      <div class="announcement-metadata">
         <%= gettext "announced" %>
         <time>
           <%= time_ago_in_words(announcement.inserted_at) %>
         </time>
         to
-      </span>
-
-      <%= for interest <- announcement.interests do %>
-        <%= link to: interest_path(@conn, :show, interest) do %>
-          <span class="interest"><%= interest.name %></span>
+        <span class="announcement-interests">
+        <%= for interest <- announcement.interests do %>
+          <%= link to: interest_path(@conn, :show, interest), class: "announcement-interest" do %>
+            <%= interest.name %>
+          <% end %>
         <% end %>
-      <% end %>
+        </span>
+      </div>
 
       <div class="commenters">
         <%= for gravatar <- user_gravatars(announcement) do %>

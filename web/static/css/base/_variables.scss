@@ -3,7 +3,7 @@ $base-font-family: 'hk_groteskregular', 'Helvetica';
 $heading-font-family: $base-font-family;
 
 // Font Sizes
-$large-font-size: 26px;
+$large-font-size: 24px;
 $base-font-size: 16px;
 $small-font-size: 14px;
 
@@ -15,25 +15,26 @@ $base-line-height: 1.8;
 $heading-line-height: 1.2;
 
 // Other Sizes
+$button-small-height: 36px;
 $base-border-radius: 4px;
 $base-spacing: 30px;
 $large-spacing: $base-spacing * 2;
 $small-spacing: $base-spacing / 2;
 $tiny-spacing: $small-spacing / 2;
 $base-z-index: 0;
+$rounded-avatar-size: 20px;
 
 // Colors
 $red: #ed3e44;
 $dark-blue: #2e303a;
-$light-gray: #eaeaeb;
-$dark-gray: #454f52;
+$light-gray: #E3E3E3;
+$dark-gray: #545559;
 $medium-gray: #999;
 $seafoam: #4cbd9c;
 $white: #fff;
 
 $light-gray-shade: shade($light-gray, 20%);
 $lightest-gray: lighten($light-gray, 7%);
-$subdued-subhead-color: darken($light-gray, 40%);
 $autocomplete-hover-color: darken($light-gray, 5%);
 
 // Font Colors
@@ -45,11 +46,11 @@ $base-border-color: $light-gray;
 $base-border: 1px solid $base-border-color;
 
 // Background Colors
-$base-background-color: #fff;
+$base-background-color: #fcfcfc;
 $secondary-background-color: tint($base-border-color, 75%);
 
 // Forms
-$form-box-shadow: inset 0 1px 3px rgba(#000, 0.06);
+$form-box-shadow: inset 0 1px 1px rgba($dark-blue, 0.1);
 $form-box-shadow-focus: $form-box-shadow, 0 0 5px adjust-color($action-color, $lightness: -5%, $alpha: -0.3);
 
 // Animations
