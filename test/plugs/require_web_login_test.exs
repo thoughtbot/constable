@@ -1,4 +1,4 @@
-defmodule Constable.Plugs.RequireLoginTest do
+defmodule Constable.Plugs.RequireWebLoginTest do
   use Constable.ConnCase, async: true
 
   test "user is redirected when current_user is not set" do
@@ -28,6 +28,6 @@ defmodule Constable.Plugs.RequireLoginTest do
   end
 
   defp run_plug(conn) do
-    conn |> Constable.Plugs.RequireLogin.call(%{})
+    conn |> Constable.Plugs.RequireWebLogin.call(%{})
   end
 end

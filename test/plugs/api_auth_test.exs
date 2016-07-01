@@ -1,4 +1,4 @@
-defmodule Constable.Plugs.ApiAuthTest do
+defmodule Constable.Plugs.RequireApiLoginTest do
   use Constable.ConnCase
 
   test "active user is assigned to current_user assigns on conn" do
@@ -22,6 +22,6 @@ defmodule Constable.Plugs.ApiAuthTest do
   end
 
   defp run_plug(conn) do
-    conn |> Constable.Plugs.ApiAuth.call(%{})
+    conn |> Constable.Plugs.RequireApiLogin.call(%{})
   end
 end

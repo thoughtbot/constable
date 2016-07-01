@@ -1,4 +1,4 @@
-defmodule Constable.Plugs.RequireLogin do
+defmodule Constable.Plugs.RequireWebLogin do
   import Plug.Conn
 
   def init(opts), do: opts

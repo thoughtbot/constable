@@ -14,10 +14,6 @@ defmodule Constable.Router do
     plug Constable.Plugs.FetchCurrentUser
   end
 
-  pipeline :authenticated do
-    plug Constable.Plugs.ApiAuth
-  end
-
   pipeline :api do
     plug :accepts, ~w(json)
   end
@@ -35,7 +31,7 @@ defmodule Constable.Router do
   end
 
   scope "/", Constable do
-    pipe_through [:browser, Constable.Plugs.RequireLogin]
+    pipe_through [:browser, Constable.Plugs.RequireWebLogin]
 
     get "/", HomeController, :index
 
@@ -78,7 +74,7 @@ defmodule Constable.Router do
   end
 
   scope "/api", as: :api, alias: Constable.Api do
-    pipe_through [:api, :authenticated]
+    pipe_through [:api, Constable.Plugs.RequireApiLogin]
 
     resources "/announcements", AnnouncementController
     resources "/comments", CommentController, only: [:create]

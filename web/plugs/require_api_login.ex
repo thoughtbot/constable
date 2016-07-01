@@ -1,4 +1,4 @@
-defmodule Constable.Plugs.ApiAuth do
+defmodule Constable.Plugs.RequireApiLogin do
   import Plug.Conn
 
   alias Constable.Repo
