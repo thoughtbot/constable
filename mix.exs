@@ -4,7 +4,7 @@ defmodule Constable.Mixfile do
   def project do
     [app: :constable,
      version: "0.0.1",
-     elixir: "~> 1.2",
+     elixir: "~> 1.3",
      elixirc_paths: elixirc_paths(Mix.env),
      compilers: [:phoenix, :gettext] ++ Mix.compilers,
      build_embedded: Mix.env == :prod,
@@ -52,7 +52,7 @@ defmodule Constable.Mixfile do
       {:cors_plug, "~> 0.1"},
       {:cowboy, "~> 1.0"},
       {:dialyxir, "~> 0.3", only: [:dev]},
-      {:earmark, "~> 0.1.17"},
+      {:earmark, github: "pragdave/earmark"},
       {:ecto, "~> 2.0"},
       {:envy, "~> 0.0.1"},
       {:ex_machina, "~> 1.0"},

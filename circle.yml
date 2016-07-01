@@ -20,9 +20,10 @@ dependencies:
     - erlang_version=$(awk '/erlang/ { print $2 }' .tool-versions) && asdf install erlang ${erlang_version}
     - elixir_version=$(awk '/elixir/ { print $2 }' .tool-versions) && asdf install elixir ${elixir_version}
     - yes | mix deps.get
-    - mix local.rebar
     - cp .sample.env .env
 
 test:
   override:
-    - mix test --warnings-as-errors
+    - mix deps.compile
+    - mix compile --warnings-as-errors
+    - mix test

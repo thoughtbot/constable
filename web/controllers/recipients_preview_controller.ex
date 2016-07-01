@@ -1,7 +1,6 @@
 defmodule Constable.RecipientsPreviewController do
   use Constable.Web, :controller
 
-  alias Constable.Interest
   alias Constable.User
 
   def show(conn, params) do

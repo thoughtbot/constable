@@ -9,7 +9,7 @@
   "decimal": {:hex, :decimal, "1.1.2", "79a769d4657b2d537b51ef3c02d29ab7141d2b486b516c109642d453ee08e00c", [:mix], []},
   "dialyxir": {:hex, :dialyxir, "0.3.3", "2f8bb8ab4e17acf4086cae847bd385c0f89296d3e3448dc304c26bfbe4b46cb4", [:mix], []},
   "dialyze": {:hex, :dialyze, "0.2.1", "9fb71767f96649020d769db7cbd7290059daff23707d6e851e206b1fdfa92f9d", [:mix], []},
-  "earmark": {:hex, :earmark, "0.1.19", "ffec54f520a11b711532c23d8a52b75a74c09697062d10613fa2dbdf8a9db36e", [:mix], []},
+  "earmark": {:git, "https://github.com/pragdave/earmark.git", "b44d4817aa2b4047b07f91d633ae83ed27c695ed", []},
   "ecto": {:hex, :ecto, "2.0.1", "cf97a4d353e14af3d3cc3b4452cfbd18b3aeee1fb4075475efeccec3853444a9", [:mix], [{:poison, "~> 1.5 or ~> 2.0", [hex: :poison, optional: true]}, {:sbroker, "~> 1.0-beta", [hex: :sbroker, optional: true]}, {:mariaex, "~> 0.7.7", [hex: :mariaex, optional: true]}, {:postgrex, "~> 0.11.2", [hex: :postgrex, optional: true]}, {:db_connection, "~> 1.0-rc.2", [hex: :db_connection, optional: true]}, {:decimal, "~> 1.0", [hex: :decimal, optional: false]}, {:poolboy, "~> 1.5", [hex: :poolboy, optional: false]}]},
   "envy": {:hex, :envy, "0.0.2", "278045cf7a7c7d46bd607e9cd6632b7d3fc71ddaa9c26bf364ec11af961b313b", [:mix], []},
   "ex_machina": {:hex, :ex_machina, "1.0.0", "0c70c6da21adacee4ffc41e8e85a3a1c463736b7693408fa4f196c34ad7f5333", [:mix], [{:ecto, "~> 2.0", [hex: :ecto, optional: true]}]},
@@ -19,7 +19,7 @@
   "good_times": {:hex, :good_times, "1.1.1", "7faa76021165e97143b4d933800a886b7675903c80535aa616fc42b8860a47d2", [:mix], []},
   "hackney": {:hex, :hackney, "1.6.0", "8d1e9440c9edf23bf5e5e2fe0c71de03eb265103b72901337394c840eec679ac", [:rebar3], [{:ssl_verify_fun, "1.1.0", [hex: :ssl_verify_fun, optional: false]}, {:mimerl, "1.0.2", [hex: :mimerl, optional: false]}, {:metrics, "1.0.1", [hex: :metrics, optional: false]}, {:idna, "1.2.0", [hex: :idna, optional: false]}, {:certifi, "0.4.0", [hex: :certifi, optional: false]}]},
   "honeybadger": {:hex, :honeybadger, "0.5.0", "fa181715993ebaa4af583c5b7a4a433fdc1224e044bc70a266c1b5de63cb20a6", [:mix], [{:poison, ">= 1.4.0 and < 3.0.0", [hex: :poison, optional: false]}, {:plug, ">= 0.13.0 and < 2.0.0", [hex: :plug, optional: false]}, {:httpoison, "~> 0.7", [hex: :httpoison, optional: false]}]},
-  "httpoison": {:git, "https://github.com/edgurgel/httpoison.git", "674e678ce56ff4cfb83c6cef48e6c6370b708589", []},
+  "httpoison": {:git, "https://github.com/edgurgel/httpoison.git", "c601e0920c9fa26e333b51750c6bf43725537c0f", []},
   "idna": {:hex, :idna, "1.2.0", "ac62ee99da068f43c50dc69acf700e03a62a348360126260e87f2b54eced86b2", [:rebar3], []},
   "metrics": {:hex, :metrics, "1.0.1", "25f094dea2cda98213cecc3aeff09e940299d950904393b2a29d191c346a8486", [:rebar3], []},
   "mimerl": {:hex, :mimerl, "1.0.2", "993f9b0e084083405ed8252b99460c4f0563e41729ab42d9074fd5e52439be88", [:rebar3], []},
@@ -41,4 +41,4 @@
   "secure_random": {:hex, :secure_random, "0.2.0", "d5458ab5613410439c21a2fdbc52e98e6c96338f3ea25d08220c30cfc55f1238", [:mix], []},
   "ssl_verify_fun": {:hex, :ssl_verify_fun, "1.1.0", "edee20847c42e379bf91261db474ffbe373f8acb56e9079acb6038d4e0bf414f", [:rebar, :make], []},
   "tzdata": {:hex, :tzdata, "0.5.7"},
-  "wallaby": {:hex, :wallaby, "0.5.0", "e317372dc3ecca13646af7934fda3009ebd1c7053ddf4b7857f9d9af6ed28362", [:mix], [{:poolboy, "~> 1.5", [hex: :poolboy, optional: false]}, {:poison, ">= 1.4.0", [hex: :poison, optional: false]}, {:httpoison, "~> 0.8", [hex: :httpoison, optional: false]}, {:dialyze, "~> 0.2.0", [hex: :dialyze, optional: false]}]}}
+  "wallaby": {:hex, :wallaby, "0.6.0", "b026915c218fc6b6fbea45099c3e7cf9b05ce8346244a05db133b6b457947add", [:mix], [{:dialyze, "~> 0.2.0", [hex: :dialyze, optional: false]}, {:poolboy, "~> 1.5", [hex: :poolboy, optional: false]}, {:poison, ">= 1.4.0", [hex: :poison, optional: false]}, {:httpoison, "~> 0.8", [hex: :httpoison, optional: false]}]}}
