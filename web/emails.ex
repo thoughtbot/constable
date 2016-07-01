@@ -42,6 +42,7 @@ defmodule Constable.Emails do
     |> from_author(announcement.user)
     |> put_header("Reply-To", announcement_email_address(announcement))
     |> put_header("Message-ID", announcement_message_id(announcement))
+    |> put_param("inline_css", true)
     |> tag("new-announcement")
     |> add_unsubscribe_vars(announcement)
     |> render(:new_announcement, %{
@@ -56,6 +57,7 @@ defmodule Constable.Emails do
     |> subject("Re: #{announcement.title}")
     |> from_author(comment.user)
     |> put_reply_headers(announcement)
+    |> put_param("inline_css", true)
     |> tag("new-comment")
     |> add_unsubscribe_vars(announcement)
     |> render(:new_comment, %{
@@ -76,6 +78,7 @@ defmodule Constable.Emails do
     |> subject("You were mentioned in: #{announcement.title}")
     |> from_author(announcement.user)
     |> tag("new-announcement-mention")
+    |> put_param("inline_css", true)
     |> put_header("Reply-To", announcement_email_address(announcement))
     |> put_header("Message-ID", announcement_message_id(announcement))
     |> render(:new_announcement,

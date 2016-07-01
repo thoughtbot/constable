@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <title>Constable announcement</title>
     <%= raw render("styles.html") %>
@@ -9,7 +9,7 @@
 
   <body leftmargin="0" marginwidth="0" marginheight="0" offset="0" topmargin="0" style="padding: 0 40px;">
     <center>
-      <table border="0" cellpadding="0" cellspacing="0" class="flex-size" style="color: #454f52; font-family: Helvetica, Tahoma, sans-serif; font-size: 16px; line-height: 1.5;" width="600">
+      <table border="0" cellpadding="0" cellspacing="0" class="flex-size body" style="color: #454f52; font-family: Helvetica, Tahoma, sans-serif; font-size: 16px; line-height: 1.5;" width="600">
         <tr>
           <td colspan="2" height="35"></td>
         </tr>
@@ -25,12 +25,14 @@
           <td colspan="2" align="left">
             <p>
               <%= raw Constable.Markdown.to_html(@announcement.body) %>
-            <p>
+            </p>
           </td>
         </tr>
         <tr>
           <td colspan="2" height="35"></td>
         </tr>
+      </table>
+      <table border="0" cellpadding="0" cellspacing="0" class="flex-size" style="color: #454f52; font-family: Helvetica, Tahoma, sans-serif; font-size: 16px; line-height: 1.5;" width="600">
         <%= render "author_footer.html", author: @author, announcement: @announcement, comment: nil %>
         <%= render "unsubscribe_footer.html" %>
         <tr>
