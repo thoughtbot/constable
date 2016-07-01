@@ -43,6 +43,7 @@ defmodule Constable.Emails do
     |> put_header("Reply-To", announcement_email_address(announcement))
     |> put_header("Message-ID", announcement_message_id(announcement))
     |> tag("new-announcement")
+    |> add_unsubscribe_vars(announcement)
     |> render(:new_announcement, %{
       announcement: announcement,
       author: announcement.user
@@ -56,7 +57,7 @@ defmodule Constable.Emails do
     |> from_author(comment.user)
     |> put_reply_headers(announcement)
     |> tag("new-comment")
-    |> add_unsubscribe_vars(comment)
+    |> add_unsubscribe_vars(announcement)
     |> render(:new_comment, %{
       announcement: announcement,
       comment: comment,
@@ -95,16 +96,16 @@ defmodule Constable.Emails do
     )
   end
 
-  defp add_unsubscribe_vars(email, comment) do
+  defp add_unsubscribe_vars(email, announcement) do
     email
     |> put_param(:merge_language, "handlebars")
-    |> put_param(:merge_vars, unsubscribe_vars(email.to, comment))
+    |> put_param(:merge_vars, unsubscribe_vars(email.to, announcement))
   end
 
-  defp unsubscribe_vars(recipients, comment) do
+  defp unsubscribe_vars(recipients, announcement) do
     Enum.map(recipients, fn(recipient) ->
       subscription = Repo.get_by(Subscription,
-        announcement_id: comment.announcement_id,
+        announcement_id: announcement.id,
         user_id: recipient.id,
       )
 
