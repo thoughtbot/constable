@@ -4,16 +4,20 @@ defmodule Constable.Mailers.AnnouncementTest do
   alias Constable.Emails
 
   test "sends a correctly formatted email to a list of users" do
-    users = insert_pair(:user)
+    author = insert(:user)
+    user = insert(:user)
+    users = [author, user]
+
     [interest_1, interest_2] = insert_pair(:interest)
-    announcement = insert(:announcement)
+    announcement = insert(:announcement, user: author)
       |> tag_with_interest(interest_1)
       |> tag_with_interest(interest_2)
       |> Repo.preload(:interests)
 
+    subscription = insert(:subscription, user: user, announcement: announcement)
+
     email = Emails.new_announcement(announcement, users)
 
-    author = announcement.user
     from_name = "#{author.name} (Constable)"
     from_email = "announcements@#{Constable.Env.get("OUTBOUND_EMAIL_DOMAIN")}"
     headers = %{
@@ -25,6 +29,18 @@ defmodule Constable.Mailers.AnnouncementTest do
     assert email.subject == announcement.title
     assert email.from == {from_name, from_email}
     assert email.headers == headers
+    assert email.private.message_params.merge_language == "handlebars"
+    assert email.private.message_params.merge_vars == [
+      %{
+        rcpt: user.email,
+        vars: [
+          %{
+            name: "subscription_id",
+            content: subscription.token
+          }
+        ]
+      }
+    ]
     assert email.html_body =~ html_announcement_body
     assert email.html_body =~ author.name
     assert email.html_body =~ Exgravatar.generate(author.email)
