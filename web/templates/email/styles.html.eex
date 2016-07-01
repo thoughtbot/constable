@@ -12,7 +12,15 @@
     margin-bottom: .5em; !important;
   }
 
-  @media (max-width: 600px) {
+  /* Contains content images */
+
+  .body img {
+    height:auto !important;
+    max-width: 600px !important;
+    width: 100% !important;
+  }
+
+  @media only screen and (max-width: 600px) {
 
     /* Typography */
 
@@ -42,10 +50,5 @@
       width: 100% !important;
     }
 
-    /* Contains content images */
-
-    .flex-size img {
-      max-width: 100% !important;
-    }
   }
 </style>
