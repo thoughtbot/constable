@@ -44,6 +44,7 @@
 
   .button {
     padding: 0;
+    font-size: $small-font-size;
 
     &-subscribe,
     &-unsubscribe {
@@ -55,10 +56,10 @@
         }
         content: "";
         display: inline-block;
-        margin-left: $tiny-spacing;
+        margin-left: 3px;
         vertical-align: middle;
         position: relative;
-        top: -2px;
+        top: -1px;
       }
 
       background-color: transparent;
