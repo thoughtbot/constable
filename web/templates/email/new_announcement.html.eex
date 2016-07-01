@@ -9,32 +9,40 @@
 
   <body leftmargin="0" marginwidth="0" marginheight="0" offset="0" topmargin="0" style="padding: 0 40px;">
     <center>
-      <table border="0" cellpadding="0" cellspacing="0" class="flex-size" style="color: #454f52; font-family: Helvetica, Tahoma, sans-serif; font-size: 16px; line-height: 1.5;" width="600">
+      <table border="0" cellspacing="0" width="100%">
         <tr>
-          <td colspan="2" height="35"></td>
-        </tr>
-        <tr style="font-size: 14px; color: <%= light_gray %>;">
-          <td align="left" colspan="2">
-            Announced to <%= raw interest_links(@announcement) %>
+          <td></td>
+          <td width="600">
+            <table border="0" cellpadding="0" cellspacing="0" class="flex-size" style="color: #454f52; font-family: Helvetica, Tahoma, sans-serif; font-size: 16px; line-height: 1.5;" width="100%">
+              <tr>
+                <td colspan="2" height="35"></td>
+              </tr>
+              <tr style="font-size: 14px; color: <%= light_gray %>;">
+                <td align="left" colspan="2">
+                  Announced to <%= raw interest_links(@announcement) %>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="2" height="20"></td>
+              </tr>
+              <tr>
+                <td colspan="2" align="left">
+                  <p>
+                  <%= raw Earmark.to_html(@announcement.body) %>
+                  <p>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="2" height="35"></td>
+              </tr>
+              <%= render "author_footer.html", author: @author, announcement: @announcement, comment: nil %>
+              <%= render "unsubscribe_footer.html" %>
+              <tr>
+                <td colspan="2" height="45"></td>
+              </tr>
+            </table>
           </td>
-        </tr>
-        <tr>
-          <td colspan="2" height="20"></td>
-        </tr>
-        <tr>
-          <td colspan="2" align="left">
-            <p>
-              <%= raw Earmark.to_html(@announcement.body) %>
-            <p>
-          </td>
-        </tr>
-        <tr>
-          <td colspan="2" height="35"></td>
-        </tr>
-        <%= render "author_footer.html", author: @author, announcement: @announcement, comment: nil %>
-        <%= render "unsubscribe_footer.html" %>
-        <tr>
-          <td colspan="2" height="45"></td>
+          <td></td>
         </tr>
       </table>
     </center>
