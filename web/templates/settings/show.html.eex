@@ -1,25 +1,55 @@
-<div class='container settings-options'>
-  <%= form_for @changeset, settings_path(@conn, :update), fn(f) -> %>
-    <div class='field'>
-      <label>Your name:</label>
-      <%= text_input f, :name %>
-    </div>
-    <div class='field'>
-      <label>
-        <%= checkbox f, :auto_subscribe %>
-        Automatically subscribe me to announcements with interests I'm subscribed to. (more email)
-      </label>
-    </div>
-    <div class='field'>
-      <label>
-        <%= checkbox f, :daily_digest %>
-        Send me daily digest emails about what's new on Constable.
-      </label>
-    </div>
-    <%= submit gettext("Save") %>
-  <% end %>
-</div>
+<div class="modal-container">
+  <div class="modal-overlay"></div>
+  <div class="modal">
+    <header>
+      <h2>Profile and Settings</h2>
+      <a href="#" class="modal-close">
+        <img src="../images/icon-close.svg" />
+      </a>
+    </header>
 
-<div class='container settings-options'>
-  <%= link "Logout of Constable", to: session_path(@conn, :delete), method: :delete, class: "button" %>
+    <%= form_for @changeset, settings_path(@conn, :update), [class: "settings-form"], fn(f) -> %>
+      <div class="modal-body">
+        <div class='field'>
+          <label>Your name:</label>
+          <%= text_input f, :name %>
+          <%= error_tag f, :name %>
+        </div>
+        <div class='field'>
+          <label class="switch-container">
+            <div class="onoffswitch">
+              <%= checkbox f, :auto_subscribe, class: "onoffswitch-checkbox" %>
+              <label class="onoffswitch-label" for="user_auto_subscribe">
+                <span class="onoffswitch-inner"></span>
+                <span class="onoffswitch-switch"></span>
+              </label>
+            </div>
+          Subscribe to me to announcements I’m interested in.
+          </label>
+        </div>
+        <div class='field'>
+          <label class="switch-container">
+            <div class="onoffswitch">
+              <%= checkbox f, :daily_digest, class: "onoffswitch-checkbox" %>
+              <label class="onoffswitch-label" for="user_daily_digest">
+                <span class="onoffswitch-inner"></span>
+                <span class="onoffswitch-switch"></span>
+              </label>
+            </div>
+          Send me daily digest emails about what's new on Constable.
+          </label>
+        </div>
+      </div>
+
+      <footer>
+        <%# <%= link "Logout of Constable", to: session_path(@conn, :delete), method: :delete %1> %>
+        <%= submit gettext("Save") %>
+      </footer>
+    <% end %>
+  </div>
+
+
+  <script>
+    require('web/static/js/settings-form-modal').default();
+  </script>
 </div>

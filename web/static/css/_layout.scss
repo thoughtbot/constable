@@ -1,5 +1,9 @@
 body {
   margin: 0;
+
+  &.fixed {
+    overflow: hidden;
+  }
 }
 
 html,

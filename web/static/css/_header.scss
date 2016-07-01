@@ -1,7 +1,7 @@
 .main-header {
   align-items: center;
   background-color: $lightest-gray;
-  border-bottom: 1px solid darken($lightest-gray, 4%);
+  border-bottom: $base-border;
   display: flex;
   justify-content: space-between;
   padding: $base-spacing;

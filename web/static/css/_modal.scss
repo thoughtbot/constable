@@ -1,0 +1,60 @@
+.modal {
+  background-color: $white;
+  border-radius: 10px;
+  border: $base-border;
+  box-shadow: 0 0 22px 0 rgba(0, 0, 0 , 0.1);
+  position: relative;
+  z-index: $z-index-modal;
+  width: 600px;
+
+  .modal-body {
+    padding: $base-spacing;
+  }
+
+  .modal-close {
+    @include size(40px);
+    align-items: center;
+    background-color: $lightest-gray;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    transition: background-color ease-in 0.15s;
+
+    &:hover {
+      background-color: darken($lightest-gray, 3%);
+    }
+  }
+
+  header, footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+
+  header {
+    @include padding($base-spacing $base-spacing null $base-spacing);
+  }
+
+  footer {
+    border-top: $base-border;
+    padding: $base-spacing;
+  }
+
+  input[type="text"] {
+    width: 50%;
+  }
+}
+
+.modal-container {
+  @include size(100%);
+  @include position(absolute, 0 0 0 0);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-overlay {
+  @include size(100%);
+  @include position(absolute, 0 0 0 0);
+  background-color: rgba(255, 255, 255, 0.5);
+}

@@ -37,7 +37,7 @@
             <% end %>
           </li>
           <li>
-            <%= link to: settings_path(@conn, :show), class: "settings-gravatar" do %>
+            <%= link to: settings_path(@conn, :show), class: "settings-gravatar remote-append" do %>
               <img
                 src="<%= gravatar(@conn.assigns.current_user) %>"
                 class="current-user-gravatar"

@@ -7,8 +7,7 @@ select {
 }
 
 label {
-  font-weight: $bold-weight;
-  margin-bottom: $tiny-spacing;
+  font-weight: normal;
 
   &.required::after {
     content: "*";
@@ -29,7 +28,7 @@ select[multiple=multiple] {
   font-family: $base-font-family;
   font-size: $base-font-size;
   margin-bottom: $small-spacing;
-  padding: $base-spacing / 3;
+  padding: $tiny-spacing;
   transition: border-color $base-duration $base-timing;
   width: 100%;
 
@@ -83,16 +82,6 @@ input[type="search"] {
   appearance: none;
 }
 
-input[type="checkbox"],
-input[type="radio"] {
-  display: inline;
-  margin-right: $small-spacing / 2;
-
-  + label {
-    display: inline-block;
-  }
-}
-
 input[type="file"] {
   margin-bottom: $small-spacing;
   width: 100%;
@@ -102,4 +91,13 @@ select {
   margin-bottom: $base-spacing;
   max-width: 100%;
   width: auto;
+}
+
+.switch-container {
+  display: flex;
+  align-items: center;
+}
+
+.field {
+  margin-bottom: $base-spacing;
 }

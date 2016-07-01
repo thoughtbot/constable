@@ -5,7 +5,7 @@ defmodule Constable.SettingsController do
 
   def show(conn, _params) do
     changeset = User.settings_changeset(conn.assigns.current_user)
-    render conn, "show.html", changeset: changeset
+    render conn, "show.html", changeset: changeset, layout: false
   end
 
   def update(conn, %{"user" => user_params}) do
@@ -13,11 +13,14 @@ defmodule Constable.SettingsController do
 
     case Repo.update(changeset) do
       {:ok, _user} ->
-        render conn, "show.html", changeset: changeset
+        conn
+        |> put_flash(:success, "YES!")
+        |> render "show.html", changeset: changeset, layout: false
       {:error, changeset} ->
         conn
+        |> put_status(:unprocessable_entity)
         |> put_flash(:error, gettext("Something went wrong!"))
-        |> render("show.html", changeset: changeset)
+        |> render("show.html", changeset: changeset, layout: false)
     end
   end
 end
