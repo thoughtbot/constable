@@ -15,14 +15,15 @@ start the console in staging or production.
 To set up your development environment, there are a few steps you'll need to
 follow.
 
-### Install Elixir and PhantomJS
+### Install Required Dependencies
 
-If you're on OS X and using Homebrew, run `brew install elixir` and `brew
-install phantomjs`. Otherwise, follow the instructions on the [Elixir
-installation page] and the [PhantomJS page].
+If you're on OS X and using Homebrew, run `brew install elixir phantomjs node`.
+Otherwise, follow the instructions on the [Elixir installation page], the
+[PhantomJS page], and the [Node downloads page].
 
 [Elixir installation page]: http://elixir-lang.org/install.html
 [PhantomJS page]: http://phantomjs.org/download.html
+[node downloads page]: https://nodejs.org/en/download/
 
 ### Configure Your Local Environment
 
