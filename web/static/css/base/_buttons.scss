@@ -57,12 +57,12 @@
         display: inline-block;
         margin-left: $tiny-spacing;
         vertical-align: middle;
+        position: relative;
+        top: -2px;
       }
 
       background-color: transparent;
       color: $red;
-      font-size: $small-font-size;
-      font-weight: normal;
     }
 
     &-subscribe {

@@ -1,15 +1,23 @@
 @font-face {
-  font-family: "Calibre";
-  font-weight: 500;
-  src: url("/fonts/CalibreWeb-Semibold.eot");
-  src: url("/fonts/CalibreWeb-Semibold.eot?#iefix") format("embedded-opentype"),
-       url("/fonts/CalibreWeb-Semibold.woff") format("woff")
+    font-family: 'hk_groteskbold';
+    src: url('/fonts/hkgrotesk-bold-webfont.woff2') format('woff2'),
+         url('/fonts/hkgrotesk-bold-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
 }
 
 @font-face {
-  font-family: "Calibre";
-  font-weight: normal;
-  src: url("/fonts/CalibreWeb-Regular.eot");
-  src: url("/fonts/CalibreWeb-Regular.eot?#iefix") format("embedded-opentype"),
-       url("/fonts/CalibreWeb-Regular.woff") format("woff")
+    font-family: 'hk_groteskitalic';
+    src: url('/fonts/hkgrotesk-italic-webfont.woff2') format('woff2'),
+         url('/fonts/hkgrotesk-italic-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'hk_groteskregular';
+    src: url('/fonts/hkgrotesk-regular-webfont.woff2') format('woff2'),
+         url('/fonts/hkgrotesk-regular-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
 }
