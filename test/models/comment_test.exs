@@ -23,7 +23,7 @@ defmodule Constable.CommentTest do
       user_id: insert(:user).id
     }
 
-    Comment.changeset(%Comment{}, :create, comment_params, last_discussed_at)
+    Comment.create_changeset(%Comment{}, comment_params, last_discussed_at)
     |> Repo.insert!
     |> Repo.preload(:announcement)
   end

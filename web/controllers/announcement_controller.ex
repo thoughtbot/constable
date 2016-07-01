@@ -36,7 +36,7 @@ defmodule Constable.AnnouncementController do
 
   def show(conn, %{"id" => id}) do
     announcement = Repo.get!(Announcement.with_announcement_list_assocs, id)
-    comment = Comment.changeset(:create, %{})
+    comment = Comment.create_changeset(%{})
     subscription = Repo.get_by(Subscription,
       announcement_id: announcement.id,
       user_id: conn.assigns.current_user.id

@@ -8,7 +8,7 @@ defmodule Constable.Services.CommentCreator do
   alias Constable.Mailer
 
   def create(params) do
-    changeset = Comment.changeset(:create, params)
+    changeset = Comment.create_changeset(params)
 
     case Repo.insert(changeset) do
       {:ok, comment} ->

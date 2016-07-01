@@ -11,11 +11,11 @@ defmodule Constable.Comment do
     timestamps
   end
 
-  def changeset(model \\ %__MODULE__{}, :create, params) do
-    changeset(model, :create, params, Ecto.DateTime.utc)
+  def create_changeset(model \\ %__MODULE__{}, params) do
+    create_changeset(model, params, Ecto.DateTime.utc)
   end
 
-  def changeset(model, :create, params, last_discussed_at) do
+  def create_changeset(model, params, last_discussed_at) do
     model
     |> cast(params, ~w(announcement_id user_id body))
     |> validate_required(:body)
