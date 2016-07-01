@@ -33,7 +33,7 @@ defmodule Constable.Api.UserController do
 
   def update(conn, %{"user" => params}) do
     current_user = current_user(conn)
-    changeset = User.changeset(current_user, params)
+    changeset = User.settings_changeset(current_user, params)
 
     case Repo.update(changeset) do
       {:ok, user} ->

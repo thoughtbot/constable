@@ -4,12 +4,12 @@ defmodule Constable.SettingsController do
   alias Constable.User
 
   def show(conn, _params) do
-    changeset = User.changeset(conn.assigns.current_user)
+    changeset = User.settings_changeset(conn.assigns.current_user)
     render conn, "show.html", changeset: changeset
   end
 
   def update(conn, %{"user" => user_params}) do
-    changeset = User.changeset(conn.assigns.current_user, user_params)
+    changeset = User.settings_changeset(conn.assigns.current_user, user_params)
 
     case Repo.update(changeset) do
       {:ok, _user} ->

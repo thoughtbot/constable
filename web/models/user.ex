@@ -27,7 +27,7 @@ defmodule Constable.User do
     timestamps
   end
 
-  def changeset(user, params \\ %{}) do
+  def settings_changeset(user, params \\ %{}) do
     user
     |> cast(params, ~w(auto_subscribe daily_digest name))
     |> validate_length(:name, min: 3)

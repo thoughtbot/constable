@@ -3,8 +3,8 @@ defmodule Constable.UserTest do
 
   alias Constable.User
 
-  test "changeset validates length of name" do
-    changeset = User.changeset(%User{}, %{name: "ab"})
+  test "settings_changeset validates length of name" do
+    changeset = User.settings_changeset(%User{}, %{name: "ab"})
 
     refute changeset.valid?
     assert changeset.errors[:name]
