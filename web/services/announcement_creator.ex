@@ -12,7 +12,7 @@ defmodule Constable.Services.AnnouncementCreator do
   alias Constable.Services.SlackHook
 
   def create(params, interest_names) do
-    changeset = Announcement.changeset(%Announcement{}, :create, params)
+    changeset = Announcement.create_changeset(%Announcement{}, params)
     case Repo.insert(changeset) do
       {:ok, announcement} ->
         announcement

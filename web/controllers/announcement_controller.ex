@@ -99,7 +99,7 @@ defmodule Constable.AnnouncementController do
   end
 
   defp render_form(conn, action, announcement) do
-    changeset = Announcement.changeset(announcement, :create)
+    changeset = Announcement.create_changeset(announcement, %{})
     interests = Repo.all(Interest)
     users = Repo.all(User.active)
 

@@ -7,7 +7,7 @@ defmodule Constable.Services.AnnouncementUpdater do
   alias Constable.Repo
 
   def update(announcement, params, interest_names) do
-    changeset = Announcement.changeset(announcement, :update, params)
+    changeset = Announcement.update_changeset(announcement, params)
 
     case Repo.update(changeset) do
       {:ok, announcement} ->

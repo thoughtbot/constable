@@ -19,14 +19,13 @@ defmodule Constable.Announcement do
     has_many :interested_users, through: [:interests, :users]
   end
 
-  def changeset(announcement, context, params \\ %{})
-  def changeset(announcement, :update, params) do
+  def update_changeset(announcement, params) do
     announcement
     |> cast(params, ~w(title body))
     |> validate_required([:title, :body])
   end
 
-  def changeset(announcement, :create, params) do
+  def create_changeset(announcement, params) do
     announcement
     |> cast(params, ~w(title body user_id))
     |> validate_required([:title, :body])
