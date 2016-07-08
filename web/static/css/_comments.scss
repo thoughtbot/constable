@@ -23,7 +23,7 @@
 }
 
 .comments-list {
-  border-top: 3px solid $light-gray;
+  border-top: 5px solid $light-gray;
   list-style-type: none;
   margin-top: $base-spacing;
   padding-top: $base-spacing;
@@ -34,8 +34,7 @@
 }
 
 .comment {
-  @include margin($small-spacing null null $base-spacing);
-  @include padding($small-spacing null);
+  @include padding($base-spacing null);
   border-bottom: $base-border;
 
   &:first-child {
@@ -49,16 +48,17 @@
 }
 
 .avatar-rounded {
+  @include position(relative, 1px null null null);
   @include size(20px);
   border-radius: 50%;
-  margin-right: 0.3rem;
+  margin-right: $tiny-spacing;
 }
 
 .author-information {
   @extend %align-center-flex;
 
   .author {
-    font-size: $small-font-size;
+    -webkit-font-smoothing: subpixel-antialiased;
     font-weight: $bold-weight;
   }
 }
@@ -66,14 +66,12 @@
 .comment-information {
   @extend %align-center-flex;
   justify-content: space-between;
-  margin-bottom: $small-spacing;
+  margin-bottom: $tiny-spacing / 2;
 }
 
 .comment-new, .comment-edit {
-  background-color: lighten($light-gray, 5%);
   border-top: $base-border;
-  margin-bottom: 0;
-  padding: $large-spacing $base-spacing;
+  padding-top: $base-spacing;
 
   input[type="submit"] {
     width: 100%;
@@ -81,14 +79,6 @@
 }
 
 .comment-textarea {
-  font-family: monospace;
-  font-size: $base-font-size - 3px;
   margin-bottom: $small-spacing;
-  min-height: 120px;
-  width: 100%;
-
-  &:focus {
-    background-color: lighten($light-gray, 7%);
-    border-color: darken($light-gray, 5%);
-  }
+  min-height: 150px;
 }
