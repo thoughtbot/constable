@@ -65,11 +65,12 @@ defmodule Constable.Mixfile do
       {:pact, "0.1.0"},
       {:phoenix_ecto, "~> 3.0.0"},
       {:phoenix_live_reload, "~> 1.0.5"},
-      {:phoenix_html, "~> 2.4"},
       {:phoenix, "~> 1.1"},
+      {:phoenix_html, "~> 2.4"},
       {:postgrex, ">= 0.0.0"},
-      {:secure_random, "~> 0.1"},
+      {:quick_alias, "~> 0.1.0"},
       {:scrivener_ecto, git: "https://github.com/drewolson/scrivener_ecto"},
+      {:secure_random, "~> 0.1"},
       {:wallaby, "~> 0.5", only: :test},
     ]
   end
