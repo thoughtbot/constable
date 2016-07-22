@@ -1,0 +1,23 @@
+.user-activations {
+  margin-top: $base-spacing;
+}
+
+.user-activations__user {
+  align-items:center;
+  border-bottom: 1px solid $light-gray;
+  display: flex;
+  margin-bottom: $tiny-spacing;
+  padding-bottom: $tiny-spacing;
+
+  .meta {
+    align-items:center;
+    display: flex;
+    flex: 1;
+  }
+
+  .gravatar {
+    @include size(40px);
+    border-radius: 50%;
+    margin-right: $tiny-spacing;
+  }
+}

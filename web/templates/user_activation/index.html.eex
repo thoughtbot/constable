@@ -1,0 +1,17 @@
+<div class="user-activations container">
+  <%= for user <- @users do %>
+    <div class="user-activations__user">
+      <div class="meta">
+        <img class="gravatar" src="<%= gravatar(user) %>"/>
+        <%= user.name %>
+      </div>
+      <%= link to: user_activation_path(@conn, :update, user), method: :put do %>
+        <%= if user.active do %>
+          Deactivate
+        <% else %>
+          Activate
+        <% end %>
+      <% end %>
+    </div>
+  <% end %>
+</div>
