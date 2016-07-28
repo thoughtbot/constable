@@ -34,6 +34,7 @@ defmodule Constable do
     Pact.put(:daily_digest, Constable.DailyDigest)
     Pact.put(:google_strategy, GoogleStrategy)
     Pact.put(:oauth_redirect_strategy, OAuthRedirectStrategy)
+    Pact.put(:subscription_token, Constable.Services.SubscriptionToken)
   end
 
   # Tell Phoenix to update the endpoint configuration

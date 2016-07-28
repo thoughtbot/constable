@@ -8,8 +8,8 @@ defmodule Constable.V2.UsubscribeController.Test do
   test "#show deletes subscription and shows a page" do
     user = insert(:user)
     announcement = insert(:announcement)
-    insert(:subscription, announcement: announcement, user: user)
-    token = SubscriptionToken.encode(user, announcement)
+    subscription = insert(:subscription, announcement: announcement, user: user)
+    token = SubscriptionToken.encode(subscription)
     conn = build_conn()
 
     conn = get conn, v2_unsubscribe_path(conn, :show, token)
@@ -21,7 +21,9 @@ defmodule Constable.V2.UsubscribeController.Test do
   test "#show shows the announcement index if no subscription exists" do
     user = insert(:user)
     announcement = insert(:announcement)
-    token = SubscriptionToken.encode(user, announcement)
+    subscription = insert(:subscription, announcement: announcement, user: user)
+    token = SubscriptionToken.encode(subscription)
+    Repo.delete(subscription)
     conn = build_conn()
 
     conn = get conn, v2_unsubscribe_path(conn, :show, token)

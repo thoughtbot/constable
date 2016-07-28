@@ -5,11 +5,17 @@ defmodule Constable.Api.CommentControllerTest do
   alias Constable.Emails
   alias Constable.Comment
 
+  defmodule FakeSubscriptionToken do
+    def encode(_subscription), do: "fake_subscription_token"
+  end
+
   setup do
     {:ok, api_authenticate}
   end
 
   test "#create creates a comment for user and announcement", %{conn: conn, user: user} do
+    Pact.override(self, :subscription_token, FakeSubscriptionToken)
+
     announcement = insert(:announcement)
     subscribed_user = insert(:user) |> with_subscription(announcement)
 

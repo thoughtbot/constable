@@ -4,7 +4,13 @@ defmodule Constable.EmailReplyTest do
   alias Constable.Emails
   alias Constable.Comment
 
+  defmodule FakeSubscriptionToken do
+    def encode(_subscription), do: "fake_subscription_token"
+  end
+
   test "adds a comment to announcement and sends an email" do
+    Pact.override(self, :subscription_token, FakeSubscriptionToken)
+
     subscriber = insert(:user)
     announcement = insert(:announcement) |> with_subscriber(subscriber)
     comment_author = insert(:user)

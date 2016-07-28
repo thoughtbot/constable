@@ -12,8 +12,8 @@ defmodule Constable.Services.SubscriptionToken do
     end
   end
 
-  def encode(user, announcement) do
-    data = %{"user_id" => user.id, "announcement_id" => announcement.id}
+  def encode(subscription) do
+    data = %{"user_id" => subscription.user_id, "announcement_id" => subscription.announcement_id}
     Phoenix.Token.sign(@token_context, @token_salt, data |> Poison.encode!)
   end
 end

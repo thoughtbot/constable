@@ -122,10 +122,14 @@ defmodule Constable.Emails do
       vars: [
         %{
           name: "subscription_id",
-          content: subscription.token
+          content: subscription_token(subscription)
         }
       ]
     }
+  end
+
+  defp subscription_token(subscription) do
+    Pact.get(:subscription_token).encode(subscription)
   end
 
   defp put_reply_headers(email, announcement) do

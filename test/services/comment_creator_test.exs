@@ -7,6 +7,14 @@ defmodule Constable.Services.CommentCreatorTest do
   alias Constable.Comment
   alias Constable.Services.CommentCreator
 
+  defmodule FakeSubscriptionToken do
+    def encode(_subscription), do: "fake_subscription_token"
+  end
+
+  setup do
+    Pact.override(self, :subscription_token, FakeSubscriptionToken)
+  end
+
   test "creates a comment" do
     announcement = insert(:announcement)
 

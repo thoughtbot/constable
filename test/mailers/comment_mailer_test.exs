@@ -2,11 +2,19 @@ defmodule Constable.Mailers.CommentMailerTest do
   use Constable.TestWithEcto, async: true
   alias Constable.Emails
 
+  defmodule FakeSubscriptionToken do
+    def encode(_subscription), do: "fake_subscription_token"
+  end
+
+  setup do
+    Pact.override(self, :subscription_token, FakeSubscriptionToken)
+  end
+
   test "new comment email" do
     author = insert(:user)
     user = insert(:user)
     announcement = insert(:announcement, user: author)
-    subscription = insert(:subscription, user: user, announcement: announcement)
+    insert(:subscription, user: user, announcement: announcement)
     comment = insert(:comment, user: author, announcement: announcement)
     users = [author, user]
 
@@ -30,7 +38,7 @@ defmodule Constable.Mailers.CommentMailerTest do
         vars: [
           %{
             name: "subscription_id",
-            content: subscription.token
+            content: "fake_subscription_token",
           }
         ]
       }

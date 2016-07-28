@@ -3,7 +3,13 @@ defmodule Constable.Mailers.AnnouncementTest do
   import Constable.Router.Helpers
   alias Constable.Emails
 
+  defmodule FakeSubscriptionToken do
+    def encode(_subscription), do: "fake_subscription_token"
+  end
+
   test "sends a correctly formatted email to a list of users" do
+    Pact.override(self, :subscription_token, FakeSubscriptionToken)
+
     author = insert(:user)
     user = insert(:user)
     users = [author, user]
@@ -14,7 +20,7 @@ defmodule Constable.Mailers.AnnouncementTest do
       |> tag_with_interest(interest_2)
       |> Repo.preload(:interests)
 
-    subscription = insert(:subscription, user: user, announcement: announcement)
+    insert(:subscription, user: user, announcement: announcement)
 
     email = Emails.new_announcement(announcement, users)
 
@@ -36,7 +42,7 @@ defmodule Constable.Mailers.AnnouncementTest do
         vars: [
           %{
             name: "subscription_id",
-            content: subscription.token
+            content: "fake_subscription_token"
           }
         ]
       }
