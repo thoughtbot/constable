@@ -25,19 +25,14 @@
 
   <%= render Constable.AnnouncementListView, "index.html", conn: @conn, announcements: @announcements %>
 
-  <div class="pagination">
-    <ul>
+    <div class="container pagination">
       <%= if !on_first_page?(@index_page) do %>
-        <li class="page-next">
-          <%= link gettext("NEWER"), to: announcement_path(@conn, :index, all: @show_all, page: (@index_page.page_number - 1)) %>
-        </li>
+        <%= link gettext(""), to: announcement_path(@conn, :index, all: @show_all, page: (@index_page.page_number - 1)), class: "page-previous button button-wire" %>
       <% end %>
 
       <%= if !on_last_page?(@index_page) do %>
-        <li class="page-prev">
-          <%= link gettext("OLDER"), to: announcement_path(@conn, :index, all: @show_all, page: (@index_page.page_number + 1)) %>
-        </li>
+        <%= link gettext(""), to: announcement_path(@conn, :index, all: @show_all, page: (@index_page.page_number + 1)), class: "page-next button button-wire" %>
       <% end %>
-    </ul>
+    </div>
   </div>
 </div>

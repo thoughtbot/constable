@@ -1,59 +1,30 @@
 .pagination {
-  $base-border-color: gainsboro !default;
-  $base-border-radius: 3px !default;
-  $base-spacing: 1.5em !default;
-  $action-color: #477DCA !default;
-  $dark-gray: #333 !default;
-  $large-screen: 53.75em !default;
-  $base-font-color: $dark-gray !default;
-  $pagination-border-color: $base-border-color;
-  $pagination-border: 1px solid $pagination-border-color;
-  $pagination-background: lighten($pagination-border-color, 10);
-  $pagination-hover-background: lighten($pagination-background, 5);
-  $pagination-color: $base-font-color;
+  @include margin($base-spacing null);
+  align-items: center;
+  display: flex;
+  justify-content: center;
 
-  text-align: center;
-  margin-top: 30px;
-  margin-bottom: 40px;
+  .button {
+    @include margin(null $small-spacing);
+    background-color: transparent;
+    border: $base-border;
 
-  ul {
-    display: inline;
-    margin: 0;
-    padding: 0;
-    text-align: center;
-
-    li {
-      display: inline;
-      list-style: none;
+    &:hover {
+      border-color: shade($base-border-color, 20%);
     }
+  }
 
-    ul li {
-      display: none;
+  .page-next,
+  .page-previous {
+    background-position: center center;
+    background-repeat: no-repeat;
+  }
 
-      @include media($large-screen) {
-        display: inline;
-      }
-    }
+  .page-next {
+    background-image: url("/images/pagination-arrow-next.svg");
+  }
 
-    li a {
-      background: $pagination-background;
-      border-radius: $base-border-radius;
-      border: $pagination-border;
-      color: $pagination-color;
-      outline: none;
-      padding: ($base-spacing / 4) ($gutter / 2);
-      text-decoration: none;
-      transition: all 0.2s ease-in-out;
-
-      &:hover,
-      &:focus {
-        background: $pagination-hover-background;
-        color: $action-color;
-      }
-
-      &:active {
-        background: $pagination-background;
-      }
-    }
+  .page-previous {
+    background-image: url("/images/pagination-arrow-previous.svg");
   }
 }
