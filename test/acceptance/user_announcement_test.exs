@@ -48,6 +48,21 @@ defmodule Constable.UserAnnouncementTest do
     assert has_announcement_body?(session, "Updated")
   end
 
+  test "user edits an announcement and interests are kept", %{session: session} do
+    user = insert(:user)
+    elixir_interest = insert(:interest, name: "elixir")
+    announcement = insert(:announcement, user: user) |> tag_with_interest(elixir_interest)
+
+    session
+    |> visit(announcement_path(Endpoint, :edit, announcement.id, as: user.id))
+    |> fill_in("announcement_title", with: "Updated title")
+    |> fill_in("announcement_body", with: "# Updated")
+    |> click_submit_button
+
+    assert has_announcement_title?(session, "Updated title")
+    assert has_announcement_interest?(session, "elixir")
+  end
+
   defp click_edit(session) do
     session
     |> find("[data-role=edit]")

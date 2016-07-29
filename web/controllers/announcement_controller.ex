@@ -74,7 +74,7 @@ defmodule Constable.AnnouncementController do
   end
 
   def edit(conn, %{"id" => id}) do
-    announcement = Repo.get!(Announcement, id)
+    announcement = Repo.get!(Announcement, id) |> Repo.preload([:interests])
     render_form(conn, "edit.html", announcement)
   end
 
