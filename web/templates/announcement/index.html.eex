@@ -1,19 +1,15 @@
 <div class="announcements">
-  <nav class="nav-primary">
-    <ul class="container">
-      <li>
-        <%= link gettext("All announcements"),
-          to: announcement_path(@conn, :index, all: true),
-          class: class_for("all", @conn)
-        %>
-      </li>
-      <li>
-        <%= link gettext("Your interests"),
-          to: announcement_path(@conn, :index),
-          class: class_for("mine", @conn)
-        %>
-      </li>
-    </ul>
+  <nav class="segmented-control">
+    <div class="container">
+      <%= link gettext("All announcements"),
+        to: announcement_path(@conn, :index, all: true),
+        class: class_for("all", @conn)
+      %>
+      <%= link gettext("Your interests"),
+        to: announcement_path(@conn, :index),
+        class: class_for("mine", @conn)
+      %>
+    </div>
   </nav>
 
   <p class="interests-message container">

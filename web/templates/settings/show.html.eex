@@ -1,35 +1,25 @@
-<div class='super'>
-  <nav class='nav-primary nav-settings'>
-    <ul>
-      <li class='nav-primary-title'>
-        Your settings
-      </li>
-    </ul>
-  </nav>
+<div class='container settings-options'>
+  <%= form_for @changeset, settings_path(@conn, :update), fn(f) -> %>
+    <div class='field'>
+      <label>Your name:</label>
+      <%= text_input f, :name %>
+    </div>
+    <div class='field'>
+      <label>
+        <%= checkbox f, :auto_subscribe %>
+        Automatically subscribe me to announcements with interests I'm subscribed to. (more email)
+      </label>
+    </div>
+    <div class='field'>
+      <label>
+        <%= checkbox f, :daily_digest %>
+        Send me daily digest emails about what's new on Constable.
+      </label>
+    </div>
+    <%= submit gettext("Save") %>
+  <% end %>
+</div>
 
-  <div class='container settings-options'>
-    <%= form_for @changeset, settings_path(@conn, :update), fn(f) -> %>
-      <div class='field'>
-        <label>Your name:</label>
-        <%= text_input f, :name %>
-      </div>
-      <div class='field'>
-        <label>
-          <%= checkbox f, :auto_subscribe %>
-          Automatically subscribe me to announcements with interests I'm subscribed to. (more email)
-        </label>
-      </div>
-      <div class='field'>
-        <label>
-          <%= checkbox f, :daily_digest %>
-          Send me daily digest emails about what's new on Constable.
-        </label>
-      </div>
-      <%= submit gettext("Save") %>
-    <% end %>
-  </div>
-
-  <div class='container settings-options'>
-    <%= link "Logout of Constable", to: session_path(@conn, :delete), method: :delete, class: "button" %>
-  </div>
+<div class='container settings-options'>
+  <%= link "Logout of Constable", to: session_path(@conn, :delete), method: :delete, class: "button" %>
 </div>

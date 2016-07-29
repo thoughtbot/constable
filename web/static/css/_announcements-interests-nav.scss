@@ -1,4 +1,4 @@
-.nav-primary {
+.segmented-control {
   border-bottom: $base-border;
   font-size: $small-font-size;
 
@@ -6,11 +6,19 @@
     padding: 0;
   }
 
+  .container {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+  }
+
   a {
     border-bottom: 1px solid transparent;
     color: $medium-gray;
     padding: $tiny-spacing;
+    text-align: center;
     transform: translateY(1px);
+    width: 100%;
 
     &:hover,
     &:active {
@@ -20,21 +28,6 @@
     &.selected {
       border-color: $dark-blue;
     }
-  }
-
-  ul {
-    align-items: center;
-    display: flex;
-    justify-content: center;
-    list-style-type: none;
-
-    li {
-      display: inline-flex;
-    }
-  }
-
-  .container {
-    align-items: center;
   }
 
   .selected {
