@@ -25,7 +25,7 @@ defmodule Constable.UserUnsubscribesTest do
   defp has_unsubscribed_flash_message?(session) do
     session
     |> find(".flash")
-    |> has_text?("You've been unsubscribed")
+    |> has_text?("unsubscribed")
   end
 
   defp has_announcement_title?(session, text) do

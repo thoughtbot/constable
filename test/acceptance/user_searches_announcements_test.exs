@@ -7,18 +7,19 @@ defmodule Constable.UserSearchesAnnouncementsTest do
     user = insert(:user)
 
     session
-    |> visit(search_path(Endpoint, :new, as: user.id))
+    |> visit(announcement_path(Endpoint, :new, as: user.id))
     |> fill_in("query", with: matching_announcement.title)
-    |> click_search_button
+    |> submit_search
 
     assert has_announcement_text?(session, matching_announcement.title)
     refute has_announcement_text?(session, non_matching_announcement.title)
   end
 
-  defp click_search_button(session) do
+  defp submit_search(session) do
     session
-    |> find("#submit-search")
-    |> click
+    |> execute_script("$('.header-search-input').parent().trigger('submit')")
+
+    session
   end
 
   defp has_announcement_text?(session, announcment_title) do
