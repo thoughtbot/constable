@@ -4,6 +4,7 @@ body {
   font-family: $base-font-family;
   font-feature-settings: "kern", "liga", "pnum";
   font-size: $base-font-size;
+  font-weight: normal;
   line-height: $base-line-height;
 }
 
@@ -15,20 +16,29 @@ h5,
 h6 {
   font-family: $heading-font-family;
   font-size: $base-font-size;
+  font-weight: normal;
   line-height: $heading-line-height;
   margin: 0 0 $small-spacing;
 }
 
+h1,
+h4 {
+  font-family: $medium-font-family;
+}
+
 h1 {
   font-size: $large-font-size;
-  font-weight: $bold-weight;
 }
 
 h4 {
-  -webkit-font-smoothing: subpixel-antialiased;
   font-size: $base-font-size;
-  font-weight: $bold-weight;
   margin-bottom: 0;
+}
+
+b,
+strong {
+  font-family: $bold-font-family;
+  font-weight: normal;
 }
 
 
@@ -45,7 +55,7 @@ a {
   &:active,
   &:focus,
   &:hover {
-    color: shade($action-color, 25%);
+    text-decoration: underline;
   }
 }
 

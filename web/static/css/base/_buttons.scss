@@ -8,9 +8,8 @@
   color: #fff;
   cursor: pointer;
   display: inline-block;
-  font-family: $base-font-family;
+  font-family: $bold-font-family;
   font-size: $base-font-size;
-  font-weight: $bold-weight;
   line-height: 1;
   padding: $small-spacing $base-spacing;
   text-align: center;
@@ -42,42 +41,40 @@
 
 .button-small {
   @include padding($tiny-spacing $small-spacing);
-  height: $button-small-height;
   font-size: $small-font-size;
+  height: $button-small-height;
   min-width: 60px;
 }
 
 .button-icon {
+  align-items: center;
   display: flex;
   justify-content: center;
-  align-items: center;
 }
 
 .subscription {
-  transition: all 0.3s ease-out;
+  transition: all 0.25s ease-out;
 
   .button {
-    padding: 0;
+    background-color: transparent;
+    color: $action-color;
     font-size: $small-font-size;
+    padding: 0;
 
     &-subscribe,
     &-unsubscribe {
       &::after {
-        @include size(24px);
-        background: {
-          position: center center;
-          repeat: no-repeat;
-        }
+        @include size(26px);
+        @include position(relative, -1px -3px null null);
+        background-size: 100%;
         content: "";
         display: inline-block;
-        margin-left: 3px;
         vertical-align: middle;
-        position: relative;
-        top: -1px;
       }
+    }
 
-      background-color: transparent;
-      color: $action-color;
+    &:hover {
+      text-decoration: none;
     }
 
     &-subscribe {

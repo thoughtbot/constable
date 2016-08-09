@@ -10,9 +10,8 @@
   }
 
   code {
-    background-color: lighten($dark-blue, 77%);
-    font-size: $small-font-size - 1;
-    padding: 2px;
+    background-color: $lightest-gray;
+    padding: 1px;
   }
 
   &.loading {
@@ -35,13 +34,10 @@
 .comment-time {
   font-size: $small-font-size - 2px;
   margin-bottom: 0;
+  color: $medium-gray;
 
   a {
     color: inherit;
-
-    &:hover {
-      text-decoration: underline;
-    }
   }
 }
 
@@ -57,8 +53,8 @@
   h2,
   h3,
   h4 {
-    font-weight: 500;
-    margin-bottom: $small-spacing;
+    @include margin($base-spacing null $small-spacing null);
+    font-family: $medium-font-family;
   }
 
   h1 {

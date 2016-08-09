@@ -73,10 +73,10 @@ select[multiple=multiple] {
 
 textarea {
   border: $base-border;
-  color: $base-font-color;
   padding: $small-spacing;
+  color: $base-font-color;
   resize: vertical;
-  font-size: $base-font-size;
+  line-height: 1.6;
 }
 
 input[type="search"] {
