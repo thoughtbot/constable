@@ -1,14 +1,13 @@
 .flash {
   text-align: center;
   padding: $small-spacing;
+  color: $white;
 }
 
 .flash-error {
-  color: #fff;
   background-color: $action-color;
 }
 
 .flash-info {
-  color: #fff;
   background-color: $seafoam;
 }
