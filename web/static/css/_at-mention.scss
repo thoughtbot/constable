@@ -1,26 +1,24 @@
 @import "jquery.textcomplete";
 
-.at-mention-menu .active,
-.at-mention-menu li:hover {
-  @include linear-gradient(to right, tint($dark-blue, 15%), $dark-blue);
-
-  a {
-    color: white;
-    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
-  }
-}
-
 .at-mention-menu {
+  border: none;
   border-radius: $base-border-radius;
   box-shadow: $base-box-shadow;
 
   li {
     border-top: $base-border;
     cursor: pointer;
-    padding: $small-spacing;
+    padding: $tiny-spacing $small-spacing;
 
-    &.active {
-      border-top: 1px solid shade($dark-blue, 95%);
+    &.active,
+    &:hover {
+      background-color: $dark-gray;
+      border-color: transparent;
+
+      a {
+        color: $white;
+        text-decoration: none;
+      }
     }
   }
 }

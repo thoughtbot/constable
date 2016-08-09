@@ -56,7 +56,7 @@ select[multiple=multiple] {
   }
 
   &:focus {
-    border-color: shade($base-border-color, 40%);
+    border-color: shade($base-border-color, 30%);
     outline: none;
   }
 
