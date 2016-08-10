@@ -4,93 +4,109 @@ import 'selectize';
 
 const DELIMITER = ',';
 
-const watchTitle = function() {
-  const title = $('#announcement_title');
+export default class {
+  constructor() {
+    this._form = $('[data-role=announcement-form]');
+    this._isEditing = !!this._form.data('id');
 
-  title.on('input', updateTitle);
-
-  if (title.val() === '') {
-    title.val(localStorage.getItem('title'));
+    this.watchTitle();
+    this.watchBody();
+    this.setupInterestsSelect();
+    this.clearLocalStorageOnSubmit();
   }
-  title.trigger('input');
-}
 
-const watchBody = function() {
-  const body = $('#announcement_body');
+  watchTitle() {
+    const title = $('#announcement_title');
 
-  body.on('input', updateMarkdown);
-  if (body.val() === '') {
-    body.val(localStorage.getItem('markdown'));
+    title.on('input', this._updateTitle.bind(this));
+
+    if (!this._isEditing && title.val() === '') {
+      title.val(localStorage.getItem('title'));
+    }
+    title.trigger('input');
   }
-  body.trigger('input');
-}
 
-const setupInterestsSelect = function() {
-  const interests = $('#announcement_interests');
+  _updateTitle(e) {
+    const value = e.target.value;
 
-  if (interests.length !== 0) {
-    if (interests.val() === '') {
-      const localStorageValue = localStorage.getItem('interests');
-      interests.val(localStorageValue);
-      updateRecipientsPreview(localStorageValue);
+    if (!this._isEditing) {
+      localStorage.setItem('title', value);
     }
 
-    interests.selectize({
-      delimiter: DELIMITER,
-      persist: false,
-      create: function(name) {
-        return { name };
-      },
-      valueField: 'name',
-      labelField: 'name',
-      searchField: 'name',
-      options: window.INTERESTS_NAMES,
-      onChange: function(value) {
-        localStorage.setItem('interests', value);
-        updateRecipientsPreview(value);
-      },
-    });
+    if (value === '') {
+      $('[data-role=title-preview]').addClass('preview');
+      $('[data-role=title-preview]').html('Title Preview');
+    } else {
+      $('[data-role=title-preview]').removeClass('preview');
+      $('[data-role=title-preview]').html(value);
+    }
+  };
+
+  watchBody() {
+    const body = $('#announcement_body');
+
+    body.on('input', this._updateMarkdown.bind(this));
+    if (!this._isEditing && body.val() === '') {
+      body.val(localStorage.getItem('markdown'));
+    }
+
+    body.trigger('input');
   }
-}
 
-const updateTitle = function(e) {
-  const value = e.target.value;
-  localStorage.setItem('title', value);
+  _updateMarkdown(e) {
+    const value = e.target.value;
 
-  if (value === '') {
-    $('[data-role=title-preview]').addClass('preview');
-    $('[data-role=title-preview]').html('Title Preview');
-  } else {
-    $('[data-role=title-preview]').removeClass('preview');
-    $('[data-role=title-preview]').html(value);
+    if (!this._isEditing) {
+      localStorage.setItem('markdown', value);
+    }
+
+    if (value === '') {
+      $('[data-role=markdown-preview]').addClass('preview');
+      $('[data-role=markdown-preview]').html('Your rendered markdown goes here');
+    } else {
+      $('[data-role=markdown-preview]').removeClass('preview');
+      const markdown = markedWithSyntax(value);
+      $('[data-role=markdown-preview]').html(markdown);
+    }
+  };
+
+  setupInterestsSelect() {
+    const interests = $('#announcement_interests');
+
+    if (interests.length !== 0) {
+      if (interests.val() === '') {
+        const localStorageValue = localStorage.getItem('interests');
+        interests.val(localStorageValue);
+        updateRecipientsPreview(localStorageValue);
+      }
+
+      interests.selectize({
+        delimiter: DELIMITER,
+        persist: false,
+        create: function(name) {
+          return { name };
+        },
+        valueField: 'name',
+        labelField: 'name',
+        searchField: 'name',
+        options: window.INTERESTS_NAMES,
+        onChange: (value) => {
+          if (!this._isEditing) {
+            localStorage.setItem('interests', value);
+          }
+          updateRecipientsPreview(value);
+        },
+      });
+    }
   }
-};
 
-const updateMarkdown = function(e) {
-  const value = e.target.value;
-  localStorage.setItem('markdown', value);
-
-  if (value === '') {
-    $('[data-role=markdown-preview]').addClass('preview');
-    $('[data-role=markdown-preview]').html('Your rendered markdown goes here');
-  } else {
-    $('[data-role=markdown-preview]').removeClass('preview');
-    const markdown = markedWithSyntax(value);
-    $('[data-role=markdown-preview]').html(markdown);
-  }
-};
-
-const clearLocalStorageOnSubmit = function() {
-  $('[data-role=announcement-form]').on('submit', function() {
-    localStorage.removeItem('title');
-    localStorage.removeItem('interests');
-    localStorage.removeItem('markdown');
-  });
-};
-
-export function setupForm() {
-  watchTitle();
-  watchBody();
-  setupInterestsSelect();
-  clearLocalStorageOnSubmit();
+  clearLocalStorageOnSubmit() {
+    if (!this._isEditing) {
+      $('[data-role=announcement-form]').on('submit', function() {
+        localStorage.removeItem('title');
+        localStorage.removeItem('interests');
+        localStorage.removeItem('markdown');
+      });
+    }
+  };
 }

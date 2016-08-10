@@ -1,6 +1,6 @@
 <%= form_for @changeset,
   @path,
-  [class: "flex-container", data: [role: "announcement-form"]],
+  [class: "flex-container", data: [role: "announcement-form", id: @changeset.data.id]],
   fn(f) -> %>
   <nav class="header-tags">
     <div class="header-tag header-tag-markdown active">
@@ -49,7 +49,8 @@
 <script>
   (function() {
     window.INTERESTS_NAMES = <%= raw json_interests(@interests) %>;
-    require('web/static/js/announcement-form').setupForm();
+    var AnnouncementForm = require('web/static/js/announcement-form').default;
+    new AnnouncementForm();
     require('web/static/js/announcement-form-mobile').setupForm();
     require('web/static/js/textarea-image-uploader').setupImageUploader('#announcement_body');
     require('web/static/js/user-autocomplete').autocompleteUsers(
