@@ -41,9 +41,9 @@ defmodule Constable.Services.AnnouncementCreator do
     interested_users = find_interested_users(announcement) -- mentioned_users
 
     announcement
+    |> subscribe_users(interested_users)
     |> email_users(interested_users)
     |> email_mentioned_users(mentioned_users)
-    |> subscribe_users(interested_users)
   end
 
   defp email_users(announcement, users) do
