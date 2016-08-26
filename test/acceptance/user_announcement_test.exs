@@ -30,7 +30,6 @@ defmodule Constable.UserAnnouncementTest do
     assert has_recipient_preview?(session, "Blake, Paul")
   end
 
-  @tag :pending
   test "user updates an announcement", %{session: session} do
     user = insert(:user)
     announcement = insert(:announcement, user: user)
