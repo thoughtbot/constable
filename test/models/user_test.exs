@@ -27,14 +27,14 @@ defmodule Constable.UserTest do
     assert String.length(changeset.changes.token) == 43
   end
 
-  test "create_changeset validates email ends with thoughtbot.com" do
+  test "create_changeset validates email is for permitted domain" do
     changeset = User.create_changeset(%User{}, %{
-      email: "bcardella@dockyard.com",
+      email: "user@not_permitted.com",
       name: "Foo Bar"
     })
 
     refute changeset.valid?
-    assert changeset.errors[:email] == {"must be a member of thoughtbot", []}
+    assert changeset.errors[:email] == {"must be a member of thoughtbot.com", []}
   end
 
   test "create_changeset sets name from username only if the name is blank" do
