@@ -24,7 +24,8 @@ defmodule Constable.Api.AnnouncementView do
       updated_at: announcement.updated_at,
       user_id: announcement.user_id,
       comments: render_many(announcement.comments, CommentView, "comment.json"),
-      interest_ids: pluck(announcement.interests, :id)
+      interest_ids: pluck(announcement.interests, :id),
+      url: Constable.Router.Helpers.announcement_url(Constable.Endpoint, :show, announcement)
     }
   end
 end

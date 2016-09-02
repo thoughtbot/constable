@@ -21,6 +21,7 @@ defmodule Constable.Api.AnnouncementViewTest do
         user_id: announcement.user_id,
         comments: render_many([comment], CommentView, "comment.json"),
         interest_ids: [interest.id],
+        url: "http://localhost:4001/announcements/#{announcement.id}",
       }
     }
   end
