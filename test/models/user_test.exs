@@ -29,7 +29,7 @@ defmodule Constable.UserTest do
 
   test "create_changeset validates email is for permitted domain" do
     changeset = User.create_changeset(%User{}, %{
-      email: "user@domain.com",
+      email: "user@not_permitted.com",
       name: "Foo Bar"
     })
 
