@@ -21,7 +21,7 @@
               </p>
             <% end %>
             <p>
-              <%= raw Earmark.to_html(@comment.body) %>
+              <%= raw Constable.Markdown.to_html(@comment.body) %>
             <p>
           </td>
         </tr>

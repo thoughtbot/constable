@@ -34,7 +34,7 @@ defmodule Constable.SharedView do
     markdown
     |> MentionFinder.find_users
     |> bold_usernames(markdown)
-    |> Earmark.to_html
+    |> Constable.Markdown.to_html
   end
 
   def on_first_page?(page) do

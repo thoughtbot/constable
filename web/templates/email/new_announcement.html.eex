@@ -24,7 +24,7 @@
         <tr>
           <td colspan="2" align="left">
             <p>
-              <%= raw Earmark.to_html(@announcement.body) %>
+              <%= raw Constable.Markdown.to_html(@announcement.body) %>
             <p>
           </td>
         </tr>
