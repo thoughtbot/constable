@@ -15,6 +15,10 @@
   text-decoration: none;
   font-family: $medium-font-family;
   color: $dark-blue;
+
+  &:hover {
+    text-decoration: none;
+  }
 }
 
 .navigation {

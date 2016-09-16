@@ -23,6 +23,7 @@
     &:hover,
     &:active {
       color: $dark-blue;
+      text-decoration: none;
     }
 
     &.selected {
