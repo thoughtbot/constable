@@ -24,7 +24,9 @@ config :logger, :console,
   metadata: [:request_id]
 
 # To sign in, users must have an email in this domain
-config :constable, :permitted_email_domain, "thoughtbot.com"
+config :constable,
+  :permitted_email_domain,
+  System.get_env("PERMITTED_EMAIL_DOMAIN") || "thoughtbot.com"
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
