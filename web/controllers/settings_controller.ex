@@ -15,7 +15,7 @@ defmodule Constable.SettingsController do
       {:ok, _user} ->
         conn
         |> put_flash(:success, "YES!")
-        |> render "show.html", changeset: changeset, layout: false
+        |> render("show.html", changeset: changeset, layout: false)
       {:error, changeset} ->
         conn
         |> put_status(:unprocessable_entity)
