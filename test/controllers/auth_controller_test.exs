@@ -172,7 +172,7 @@ defmodule AuthControllerTest do
     conn = post conn, auth_path(conn, :mobile_callback), auth_params
 
     assert json_response(conn, 403)
-    assert json_response(conn, 403)["error"] == "Non-thoughtbot email"
+    assert json_response(conn, 403)["error"] == "must sign up with a thoughtbot.com email"
   end
 
   test "browser_callback sets user_id on session when successful" do
