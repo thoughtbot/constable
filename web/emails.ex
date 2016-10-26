@@ -1,7 +1,6 @@
 defmodule Constable.Emails do
   use Bamboo.Phoenix, view: Constable.EmailView
 
-  import Bamboo.Email
   import Bamboo.MandrillHelper
   alias Constable.Repo
   alias Constable.Subscription
