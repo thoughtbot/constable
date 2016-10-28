@@ -1,8 +1,8 @@
-<%= gettext("# Daily digest of new Interests and Announcements") %>
+<%= gettext("# Daily digest of new Interests and Announcements\n") %>
 
 <%= unless Enum.empty?(@interests) do %>
 <%= gettext("Recently added interests") %>
--------------
+-----------------
 
 <%= for interest <- @interests do %>
   #<%= interest.name %> - <%= interest_url(Constable.Endpoint, :show, interest) %>
@@ -10,22 +10,24 @@
 
 <% end %>
 <%= unless Enum.empty?(@announcements) do %>
-<%= gettext("Recently added announcements") %>
+<%= gettext("Recently added announcements\n") %>
 -----------------
 
 <%= for announcement <- @announcements do %>
   <%= announcement.title %> - <%= announcement_url(Constable.Endpoint, :show, announcement) %>
   <%= gettext("posted by") %> <%= announcement.user.name %> <%= gettext("in") %> <%= interest_names(announcement) %>
+  <%= "\n" %>
 <% end %>
 
 <% end %>
 <%= unless Enum.empty?(@comments) do %>
-<%= ngettext("%{count} announcement was discussed", "%{count} announcements were discussed", length(discussed_announcements(@comments))) %>
+<%= ngettext("%{count} announcement was discussed ", "%{count} announcements were discussed ", length(discussed_announcements(@comments))) %>
 <%= ngettext("by %{count} person", "by %{count} people", length(unique_commenters(@comments))) %>
 
 <%= for announcement <- discussed_announcements(@comments) do %>
   <%= announcement.title %> - <%= announcement_url(Constable.Endpoint, :show, announcement) %>
   <%= new_comment_count_text(@comments, announcement) %> <%= commenters_list_text(announcement, @comments) %>
+  <%= "\n" %>
 <% end %>
 
 <% end %>
