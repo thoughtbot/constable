@@ -3,7 +3,9 @@ defmodule AuthControllerTest do
   alias Constable.{User, UserIdentifier, UserInterest}
 
   @google_authorize_url "https://accounts.google.com/o/oauth2/auth"
-  @oauth_email_address "fake@thoughtbot.com"
+  @permitted_email_domain Application.fetch_env!(:constable, :permitted_email_domain)
+ 
+  def valid_email_address, do: "fake@#{@permitted_email_domain}"
 
   defmodule FakeTokenRetriever do
     def get_token!(_conn, _code, _token_params) do
@@ -12,12 +14,10 @@ defmodule AuthControllerTest do
   end
 
   defmodule FakeRequestWithAccessToken do
-    @oauth_email_address "fake@thoughtbot.com"
-
     def get!(_token, _path) do
       %OAuth2.Response{
         body: %{
-          "email" => @oauth_email_address,
+          "email" => AuthControllerTest.valid_email_address,
           "name" => "Gumbo McGee"
         }
       }
@@ -25,12 +25,10 @@ defmodule AuthControllerTest do
   end
 
   defmodule NonThoughtbotRequestWithAccessToken do
-    @oauth_email_address "fake@example.com"
-
     def get!(_token, _path) do
       %OAuth2.Response{
         body: %{
-          "email" => @oauth_email_address,
+          "email" => "fake@not_permitted.com",
           "name" => "Gumbo McGee"
         }
       }
@@ -38,18 +36,14 @@ defmodule AuthControllerTest do
   end
 
   defmodule FakeTokenInfoGoogleStrategy do
-    @oauth_email_address "fake@thoughtbot.com"
-
     def get_tokeninfo!(_redirect_uri, _id_token) do
-      %{"email" => @oauth_email_address, "name" => "John Doe"}
+      %{"email" => AuthControllerTest.valid_email_address, "name" => "John Doe"}
     end
   end
 
   defmodule NonThoughtbotTokenInfoGoogleStrategy do
-    @oauth_email_address "fake@example.com"
-
     def get_tokeninfo!(_redirect_uri, _id_token) do
-      %{"email" => @oauth_email_address, "name" => "John Doe"}
+      %{"email" => "fake@not_permitted.com", "name" => "John Doe"}
     end
   end
 
@@ -121,7 +115,7 @@ defmodule AuthControllerTest do
   test "callback redirects to success URI with existing user token" do
     Pact.override(self, "token_retriever", FakeTokenRetriever)
     Pact.override(self, "request_with_access_token", FakeRequestWithAccessToken)
-    insert(:user, email: @oauth_email_address)
+    insert(:user, email: valid_email_address)
 
     conn =
       request_authorization("foo.com")
