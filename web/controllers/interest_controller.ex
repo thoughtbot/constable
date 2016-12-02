@@ -7,6 +7,7 @@ defmodule Constable.InterestController do
     conn
     |> assign(:current_user, preload_interests(conn.assigns.current_user))
     |> assign(:interests, all_interests)
+    |> page_title("Interests")
     |> render("index.html")
   end
 
@@ -19,6 +20,7 @@ defmodule Constable.InterestController do
     |> assign(:announcements, interest_page.entries)
     |> assign(:interest_page, interest_page)
     |> assign(:interest, interest)
+    |> page_title("#" <> interest.name)
     |> render("show.html")
   end
 

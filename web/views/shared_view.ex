@@ -3,6 +3,14 @@ defmodule Constable.SharedView do
 
   alias Constable.Services.MentionFinder
 
+  def title(%{page_title: title}) do
+    "- #{title}"
+  end
+
+  def title(_my_assigns) do
+    ""
+  end
+
   def gravatar(user) do
     Exgravatar.generate(user.email, %{}, true)
   end
