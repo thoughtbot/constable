@@ -7,7 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Constable</title>
+    <title>Constable <%= title(assigns) %></title>
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
     <script>window.userToken = "<%= @current_user.token %>";</script>
     <script src="<%= static_path(@conn, "/js/app.js") %>"></script>

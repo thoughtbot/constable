@@ -10,6 +10,7 @@ defmodule Constable.SearchController do
     |> assign(:announcements, announcements.entries)
     |> assign(:search_page, announcements)
     |> assign(:query, params["query"])
+    |> page_title("Results for '#{params["query"]}'")
     |> render("new.html")
   end
 

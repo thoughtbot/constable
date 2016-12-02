@@ -15,6 +15,7 @@ defmodule Constable.AnnouncementController do
     |> assign(:show_all, true)
     |> assign(:current_user, preload_interests(conn.assigns.current_user))
     |> assign(:index_page, index_page)
+    |> page_title("Announcements")
     |> render("index.html")
   end
 
@@ -31,6 +32,7 @@ defmodule Constable.AnnouncementController do
     |> assign(:show_all, false)
     |> assign(:current_user, preload_interests(conn.assigns.current_user))
     |> assign(:index_page, index_page)
+    |> page_title("Announcements")
     |> render("index.html")
   end
 
@@ -48,11 +50,14 @@ defmodule Constable.AnnouncementController do
       comment_changeset: comment,
       subscription: subscription,
       users: Repo.all(User.active),
+      page_title: announcement.title,
     )
   end
 
   def new(conn, _params) do
-    render_form(conn, "new.html", %Announcement{})
+    conn
+    |> page_title("New Announcement")
+    |> render_form("new.html", %Announcement{})
   end
 
   def create(conn, %{"announcement" => announcement_params}) do
@@ -68,14 +73,18 @@ defmodule Constable.AnnouncementController do
         render(conn, "new.html", %{
           changeset: changeset,
           interests: interests,
-          user_json: Repo.all(User),
+          users: Repo.all(User),
+          page_title: "New Announcement"
         })
     end
   end
 
   def edit(conn, %{"id" => id}) do
     announcement = Repo.get!(Announcement, id) |> Repo.preload([:interests])
-    render_form(conn, "edit.html", announcement)
+
+    conn
+    |> page_title("Edit Announcement")
+    |> render_form("edit.html", announcement)
   end
 
   def update(conn, %{"id" => id, "announcement" => announcement_params}) do
