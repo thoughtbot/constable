@@ -24,13 +24,18 @@ defmodule Constable.Api.SearchesControllerTest do
 
   test "returns matching announcements that don't have the excluded interest", %{conn: conn} do
     lame = insert(:interest, name: "lame")
+    other = insert(:interest, name: "other")
     announcement_1 = insert(:announcement, title: "foobar1") |> tag_with_interest(lame)
     announcement_2 = insert(:announcement, body: "announcement body cool")
+      |> tag_with_interest(other)
     announcement_3 = insert(:announcement, title: "awesome title", body: "cool body")
+      |> tag_with_interest(lame)
+      |> tag_with_interest(other)
 
     assert results_for(conn, query: "foobar1", exclude: ["lame"]) == json_for([])
     assert results_for(conn, query: "announcement body", exclude: ["lame"]) == json_for(announcement_2)
-    assert results_for(conn, query: "awesome title cool body", exclude: []) == json_for(announcement_3)
+    assert results_for(conn, query: "announcement body", exclude: []) == json_for(announcement_2)
+    assert results_for(conn, query: "cool body", exclude: ["lame"]) == json_for([])
   end
 
   defp results_for(conn, query: search_term) do

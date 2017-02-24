@@ -47,9 +47,14 @@ defmodule Constable.Announcement do
   def search(query \\ __MODULE__, search_term, exclude_interests: excludes) do
     search_term = search_term |> prepare_for_tsquery
 
+    if Enum.empty?(excludes) do
+      excludes = [""]
+    end
+
     from(a in query,
       full_join: i in assoc(a, :interests),
-      where: not i.name in ^excludes or is_nil(i.name),
+      group_by: a.id,
+      having: fragment("NOT ARRAY_AGG(?) @> ?", i.name, ^excludes),
       where: fragment("to_tsvector('english', ?) || to_tsvector('english', ?) @@ plainto_tsquery('english', ?)",
         a.title,
         a.body,
