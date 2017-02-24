@@ -65,6 +65,7 @@
 
 .comment-new, .comment-edit {
   border-top: $base-border;
+  margin-bottom: $base-spacing;
   padding-top: $base-spacing;
 
   input[type="submit"] {
