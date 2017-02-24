@@ -1,6 +1,6 @@
 defmodule Constable.Time do
   def now do
-    Ecto.DateTime.utc
+    DateTime.utc_now
   end
 
   def yesterday do
@@ -8,11 +8,10 @@ defmodule Constable.Time do
   end
 
   def days_ago(count) do
-    # Date.now |> Date.shift(days: -count) |> to_ecto
-    GoodTimes.days_ago(count) |> to_ecto
+    GoodTimes.days_ago(count) |> cast!
   end
 
-  def to_ecto(date) do
-    date |> Ecto.DateTime.cast!
+  def cast!(time) do
+    time |> NaiveDateTime.from_erl! |> DateTime.from_naive!("Etc/UTC")
   end
 end

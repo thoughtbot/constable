@@ -12,7 +12,7 @@ defmodule Constable.Comment do
   end
 
   def create_changeset(model \\ %__MODULE__{}, params) do
-    create_changeset(model, params, Ecto.DateTime.utc)
+    create_changeset(model, params, DateTime.utc_now)
   end
 
   def create_changeset(model, params, last_discussed_at) do

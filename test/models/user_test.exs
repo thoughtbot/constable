@@ -27,7 +27,7 @@ defmodule Constable.UserTest do
 
     assert changeset.valid?
     assert changeset.changes.username == "foo"
-    assert String.length(changeset.changes.token) == 43
+    assert String.length(changeset.changes.token) == 60
   end
 
   test "create_changeset validates email is for permitted domain" do

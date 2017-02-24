@@ -9,7 +9,7 @@ defmodule Constable.Announcement do
   schema "announcements" do
     field :title
     field :body
-    field :last_discussed_at, Ecto.DateTime, autogenerate: true
+    field :last_discussed_at, :utc_datetime, autogenerate: {DateTime, :utc_now, []}
     timestamps
 
     belongs_to :user, User

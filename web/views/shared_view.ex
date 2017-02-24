@@ -16,7 +16,7 @@ defmodule Constable.SharedView do
   end
 
   def time_ago_in_words(time) do
-    ts = Ecto.DateTime.to_erl(time) |> :calendar.datetime_to_gregorian_seconds
+    ts = NaiveDateTime.to_erl(time) |> :calendar.datetime_to_gregorian_seconds
     diff = :calendar.datetime_to_gregorian_seconds(:calendar.universal_time) - ts
     rel_from_now(:calendar.seconds_to_daystime(diff))
   end

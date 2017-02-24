@@ -10,8 +10,8 @@ defmodule Constable.AnnouncementTest do
   end
 
   test "last_discussed_first" do
-    oldest = insert(:announcement, last_discussed_at: cast(a_day_ago))
-    newest = insert(:announcement, last_discussed_at: cast(now))
+    oldest = insert(:announcement, last_discussed_at: Constable.Time.days_ago(1))
+    newest = insert(:announcement, last_discussed_at: Constable.Time.now)
 
     announcements = Announcement.last_discussed_first |> Repo.all
 
@@ -31,9 +31,5 @@ defmodule Constable.AnnouncementTest do
 
     assert announcement.interests |> List.first == interest_a
     assert announcement.interests |> List.last  == interest_b
-  end
-
-  defp cast(erlang_date_time) do
-    Ecto.DateTime.cast!(erlang_date_time)
   end
 end

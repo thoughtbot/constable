@@ -49,17 +49,17 @@ defmodule Constable.Mixfile do
   defp deps do
     [
       {:bamboo, "~> 0.7"},
-      {:cors_plug, "~> 0.1"},
+      {:cors_plug, "~> 1.2"},
       {:cowboy, "~> 1.0"},
       {:dialyxir, "~> 0.3", only: [:dev]},
       {:earmark, github: "pragdave/earmark"},
-      {:ecto, "~> 2.0"},
+      {:ecto, "~> 2.1"},
       {:envy, "~> 0.0.1"},
-      {:ex_machina, "~> 1.0"},
+      {:ex_machina, "~> 1.0", github: "thoughtbot/ex_machina"},
       {:exgravatar, "~> 0.2"},
       {:gettext, "~> 0.11"},
       {:good_times, "~> 1.1"},
-      {:honeybadger, "~> 0.1"},
+      {:honeybadger, "~> 0.6"},
       {:html_sanitize_ex, "~> 1.0.0"},
       {:httpoison, github: "edgurgel/httpoison", override: true},
       {:oauth2, "~> 0.5"},
@@ -72,7 +72,7 @@ defmodule Constable.Mixfile do
       {:quick_alias, "~> 0.1.0"},
       {:scrivener_ecto, "~> 1.1"},
       {:secure_random, "~> 0.1"},
-      {:wallaby, "~> 0.5", only: :test},
+      {:wallaby, "~> 0.6", only: :test},
     ]
   end
 
