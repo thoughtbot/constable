@@ -35,7 +35,7 @@ defmodule Constable.Api.SearchesControllerTest do
     assert results_for(conn, query: "foobar1", exclude: ["lame"]) == json_for([])
     assert results_for(conn, query: "announcement body", exclude: ["lame"]) == json_for(announcement_2)
     assert results_for(conn, query: "announcement body", exclude: []) == json_for(announcement_2)
-    assert results_for(conn, query: "cool body", exclude: ["lame"]) == json_for([])
+    assert results_for(conn, query: "cool body", exclude: ["lame"]) == json_for(announcement_2)
   end
 
   defp results_for(conn, query: search_term) do

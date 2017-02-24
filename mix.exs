@@ -70,7 +70,7 @@ defmodule Constable.Mixfile do
       {:phoenix_html, "~> 2.4"},
       {:postgrex, ">= 0.0.0"},
       {:quick_alias, "~> 0.1.0"},
-      {:scrivener_ecto, git: "https://github.com/drewolson/scrivener_ecto"},
+      {:scrivener_ecto, "~> 1.1"},
       {:secure_random, "~> 0.1"},
       {:wallaby, "~> 0.5", only: :test},
     ]
