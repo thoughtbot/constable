@@ -4,7 +4,7 @@ defmodule Constable.UserActivationControllerTest do
   alias Constable.{Repo, User}
 
   setup do
-    {:ok, browser_authenticate}
+    {:ok, browser_authenticate()}
   end
 
   test "GET index renders deactivate button when user is active", %{conn: conn} do

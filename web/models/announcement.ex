@@ -10,7 +10,7 @@ defmodule Constable.Announcement do
     field :title
     field :body
     field :last_discussed_at, :utc_datetime, autogenerate: {DateTime, :utc_now, []}
-    timestamps
+    timestamps()
 
     belongs_to :user, User
     has_many :comments, Comment, on_delete: :delete_all
@@ -39,7 +39,7 @@ defmodule Constable.Announcement do
     from q in query, preload: [
       :user,
       interests: ^Interest.ordered_by_name,
-      comments: ^newest_comments_first,
+      comments: ^newest_comments_first(),
       comments: :user
     ]
   end
@@ -47,8 +47,10 @@ defmodule Constable.Announcement do
   def search(query \\ __MODULE__, search_term, exclude_interests: excludes) do
     search_term = search_term |> prepare_for_tsquery
 
-    if Enum.empty?(excludes) do
-      excludes = [""]
+    excludes = if Enum.empty?(excludes) do
+      [""]
+    else
+      excludes
     end
 
     from(a in query,

@@ -2,7 +2,7 @@ defmodule Constable.SessionControllerTest do
   use Constable.ConnCase, async: true
 
   setup do
-    {:ok, browser_authenticate}
+    {:ok, browser_authenticate()}
   end
 
   test "when authenticated redirect to home", %{conn: conn} do
@@ -12,7 +12,7 @@ defmodule Constable.SessionControllerTest do
   end
 
   test "when not authenticated render login" do
-    conn = build_conn
+    conn = build_conn()
 
     conn = get conn, session_path(conn, :new)
 

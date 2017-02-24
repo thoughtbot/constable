@@ -12,7 +12,7 @@ defmodule Constable.Interest do
   schema "interests" do
     field :name
     field :slack_channel
-    timestamps
+    timestamps()
 
     many_to_many :announcements, Announcement, join_through: AnnouncementInterest
     many_to_many :users, User, join_through: UserInterest

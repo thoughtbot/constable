@@ -8,7 +8,7 @@ defmodule Constable.Comment do
 
     belongs_to :user, User
     belongs_to :announcement, Announcement
-    timestamps
+    timestamps()
   end
 
   def create_changeset(model \\ %__MODULE__{}, params) do
@@ -24,7 +24,8 @@ defmodule Constable.Comment do
 
   def update_changeset(model, params) do
     model
-    |> cast(params, ~w(body), [])
+    |> cast(params, ~w(body))
+    |> validate_required(:body)
   end
 
   defp set_last_discussed_at(changeset, last_discussed_at) do

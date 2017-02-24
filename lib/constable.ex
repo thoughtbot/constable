@@ -10,7 +10,7 @@ defmodule Constable do
       Envy.auto_load
     end
 
-    setup_dependencies
+    setup_dependencies()
 
     children = [
       # Start the endpoint when the application starts

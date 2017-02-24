@@ -5,7 +5,7 @@ defmodule Constable.Api.AnnouncementControllerTest do
   @view Constable.Api.AnnouncementView
 
   setup do
-    {:ok, api_authenticate}
+    {:ok, api_authenticate()}
   end
 
   test "#index lists all announcements", %{conn: conn, user: user} do

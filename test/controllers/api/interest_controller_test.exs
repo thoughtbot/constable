@@ -4,7 +4,7 @@ defmodule Constable.Api.InterestControllerTest do
   @view Constable.Api.InterestView
 
   setup do
-    {:ok, api_authenticate}
+    {:ok, api_authenticate()}
   end
 
   test "#index displays all interests", %{conn: conn} do

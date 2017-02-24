@@ -6,7 +6,7 @@ defmodule Constable.Repo.Migrations.CreateAnnouncementsInterests do
       add :announcement_id, references(:announcement)
       add :interest_id, references(:interests)
 
-      timestamps
+      timestamps()
     end
 
     create index(

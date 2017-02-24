@@ -9,9 +9,9 @@ defmodule Constable.Mixfile do
      compilers: [:phoenix, :gettext] ++ Mix.compilers,
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
-     dialyzer: dialyzer_settings,
-     aliases: aliases,
-     deps: deps]
+     dialyzer: dialyzer_settings(),
+     aliases: aliases(),
+     deps: deps()]
   end
 
   defp dialyzer_settings do
@@ -27,7 +27,7 @@ defmodule Constable.Mixfile do
   # Type `mix help compile.app` for more information
   def application do
     [mod: {Constable, []},
-     applications: app_list]
+     applications: app_list()]
   end
 
   defp app_list, do: [

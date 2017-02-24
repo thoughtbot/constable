@@ -8,7 +8,7 @@ defmodule Constable.AnnouncementController do
   alias Constable.Services.AnnouncementCreator
 
   def index(conn, %{"all" => "true"} = params) do
-    index_page = all_announcements |> Repo.paginate(params)
+    index_page = all_announcements() |> Repo.paginate(params)
 
     conn
     |> assign(:announcements, index_page.entries)

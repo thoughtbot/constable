@@ -5,7 +5,7 @@ defmodule Constable.Api.UserControllerTest do
   @view Constable.Api.UserView
 
   setup do
-    {:ok, api_authenticate}
+    {:ok, api_authenticate()}
   end
 
   test "#create creates a user", %{conn: conn} do

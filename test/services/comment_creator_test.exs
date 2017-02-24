@@ -90,6 +90,6 @@ defmodule Constable.Services.CommentCreatorTest do
       announcement_id: announcement.id
     })
 
-    assert_no_emails_delivered
+    assert_no_emails_delivered()
   end
 end

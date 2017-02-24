@@ -26,7 +26,7 @@ defmodule Constable.User do
     has_many :interesting_announcements, through: [:interests, :announcements]
     has_many :subscriptions, Subscription, on_delete: :delete_all
 
-    timestamps
+    timestamps()
   end
 
   def settings_changeset(user, params \\ %{}) do

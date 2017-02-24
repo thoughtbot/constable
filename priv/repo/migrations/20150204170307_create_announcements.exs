@@ -6,7 +6,7 @@ defmodule Constable.Repo.Migrations.CreateAnnouncements do
       add :title, :string
       add :body, :text
 
-      timestamps
+      timestamps()
     end
   end
 end

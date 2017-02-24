@@ -4,7 +4,7 @@ defmodule Constable.UserInterest do
   alias Constable.Interest
 
   schema "users_interests" do
-    timestamps
+    timestamps()
 
     belongs_to :user, User
     belongs_to :interest, Interest

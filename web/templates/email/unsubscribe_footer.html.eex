@@ -4,7 +4,7 @@
 
 <tr>
   <td colspan="2" align="center">
-    <%= link to: unsubscribe_link, style: "text-decoration: none; color: #{light_gray}; font-size: 13px;" do %>
+    <%= link to: unsubscribe_link(), style: "text-decoration: none; color: #{light_gray()}; font-size: 13px;" do %>
       <%= gettext("Unsubscribe from this thread") %>
     <% end %>
   </td>
@@ -16,7 +16,7 @@
 
 <tr>
   <td colspan="2" align="center">
-    <%= link to: notification_settings_link, style: "text-decoration: none; color: #{light_gray}; font-size: 13px" do %>
+    <%= link to: notification_settings_link(), style: "text-decoration: none; color: #{light_gray()}; font-size: 13px" do %>
       <%= gettext("Manage your notification settings") %>
     <% end %>
   </td>

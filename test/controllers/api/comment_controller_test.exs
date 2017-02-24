@@ -6,7 +6,7 @@ defmodule Constable.Api.CommentControllerTest do
   alias Constable.Comment
 
   setup do
-    {:ok, api_authenticate}
+    {:ok, api_authenticate()}
   end
 
   test "#create creates a comment for user and announcement", %{conn: conn, user: user} do

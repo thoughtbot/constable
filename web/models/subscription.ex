@@ -7,7 +7,7 @@ defmodule Constable.Subscription do
     field :token
     belongs_to :user, User
     belongs_to :announcement, Announcement
-    timestamps
+    timestamps()
   end
 
   def changeset(subscription \\ %__MODULE__{}, params) do

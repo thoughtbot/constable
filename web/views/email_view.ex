@@ -10,7 +10,7 @@ defmodule Constable.EmailView do
   end
 
   def unsubscribe_link do
-    URI.decode unsubscribe_url(Constable.Endpoint, :show, subscription_id_merge_variable)
+    URI.decode unsubscribe_url(Constable.Endpoint, :show, subscription_id_merge_variable())
   end
 
   def notification_settings_link do
@@ -90,7 +90,7 @@ defmodule Constable.EmailView do
 
   defp make_link(interest) do
     "##{interest.name}"
-    |> link(to: interest_url(Constable.Endpoint, :show, interest), style: "color: #{light_gray};")
+    |> link(to: interest_url(Constable.Endpoint, :show, interest), style: "color: #{light_gray()};")
     |> safe_to_string
   end
 

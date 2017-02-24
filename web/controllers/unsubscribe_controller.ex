@@ -4,7 +4,7 @@ defmodule Constable.UnsubscribeController do
   alias Constable.Subscription
 
   def show(conn, %{"id" => token}) do
-    subscription = Repo.get_by(subscription_with_announcement, token: token)
+    subscription = Repo.get_by(subscription_with_announcement(), token: token)
 
     if subscription do
       Repo.delete(subscription)

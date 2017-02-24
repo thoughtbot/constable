@@ -8,8 +8,6 @@ defmodule Constable.DailyDigest do
   alias Constable.Mailer
   alias Constable.Emails
 
-  @template_base "web/templates/mailers/daily_digest"
-
   def send_email(users, time) do
     if new_items_since?(time) do
       Logger.info "Sending daily digest"

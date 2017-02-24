@@ -8,7 +8,7 @@ defmodule Constable.EmailsTest do
     [comment_1, comment_2] = insert_pair(:comment, announcement: insert(:announcement))
     comment_3 = insert(:comment, announcement: insert(:announcement))
     comments = [comment_1, comment_2, comment_3]
-    announcements = [insert_announcement_with_interests, insert_announcement_with_interests]
+    announcements = [insert_announcement_with_interests(), insert_announcement_with_interests()]
 
     email = Constable.Emails.daily_digest(interests, announcements, comments, users)
 

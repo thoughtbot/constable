@@ -4,7 +4,7 @@ defmodule AuthControllerTest do
 
   @google_authorize_url "https://accounts.google.com/o/oauth2/auth"
   @permitted_email_domain Application.fetch_env!(:constable, :permitted_email_domain)
- 
+
   def valid_email_address, do: "fake@#{@permitted_email_domain}"
 
   defmodule FakeTokenRetriever do
@@ -68,9 +68,9 @@ defmodule AuthControllerTest do
   end
 
   test "index redirects to google with the correct redirect URI" do
-    Pact.override(self, "oauth_redirect_strategy", IgnoreEnvRedirectStrategy)
+    Pact.override(self(), "oauth_redirect_strategy", IgnoreEnvRedirectStrategy)
 
-    conn = get(build_conn, "/auth", redirect_uri: "foo.com")
+    conn = get(build_conn(), "/auth", redirect_uri: "foo.com")
 
     auth_uri = google_auth_uri(
       client_id: Constable.Env.get("CLIENT_ID"),
@@ -83,9 +83,9 @@ defmodule AuthControllerTest do
   end
 
   test "index redirects to google with the correct override redirect URI" do
-    Pact.override(self, "oauth_redirect_strategy", EnvOverrideRedirectStrategy)
+    Pact.override(self(), "oauth_redirect_strategy", EnvOverrideRedirectStrategy)
 
-    conn = get(build_conn, "/auth", redirect_uri: "foo.com")
+    conn = get(build_conn(), "/auth", redirect_uri: "foo.com")
 
     auth_uri = google_auth_uri(
       client_id: Constable.Env.get("CLIENT_ID"),
@@ -99,9 +99,9 @@ defmodule AuthControllerTest do
   end
 
   test "callback redirects to success URI with newly created user token" do
-    everyone_interest = create_everyone_interest
-    Pact.override(self, "token_retriever", FakeTokenRetriever)
-    Pact.override(self, "request_with_access_token", FakeRequestWithAccessToken)
+    everyone_interest = create_everyone_interest()
+    Pact.override(self(), "token_retriever", FakeTokenRetriever)
+    Pact.override(self(), "request_with_access_token", FakeRequestWithAccessToken)
 
     conn =
       request_authorization("foo.com")
@@ -113,9 +113,9 @@ defmodule AuthControllerTest do
   end
 
   test "callback redirects to success URI with existing user token" do
-    Pact.override(self, "token_retriever", FakeTokenRetriever)
-    Pact.override(self, "request_with_access_token", FakeRequestWithAccessToken)
-    insert(:user, email: valid_email_address)
+    Pact.override(self(), "token_retriever", FakeTokenRetriever)
+    Pact.override(self(), "request_with_access_token", FakeRequestWithAccessToken)
+    insert(:user, email: valid_email_address())
 
     conn =
       request_authorization("foo.com")
@@ -126,15 +126,15 @@ defmodule AuthControllerTest do
   end
 
   test "callback redirects to the root path when there is an error" do
-    conn = get(build_conn, "/auth/javascript_callback", error: "Foo")
+    conn = get(build_conn(), "/auth/javascript_callback", error: "Foo")
 
     assert redirected_to(conn) =~  "/"
   end
 
   test "callback redirects to the root path when the email is non-thoughtbot" do
-    create_everyone_interest
-    Pact.override(self, "token_retriever", FakeTokenRetriever)
-    Pact.override(self, "request_with_access_token", NonThoughtbotRequestWithAccessToken)
+    create_everyone_interest()
+    Pact.override(self(), "token_retriever", FakeTokenRetriever)
+    Pact.override(self(), "request_with_access_token", NonThoughtbotRequestWithAccessToken)
 
     conn =
       request_authorization("foo.com")
@@ -145,10 +145,10 @@ defmodule AuthControllerTest do
   end
 
   test "mobile_callback returns user json when successful" do
-    create_everyone_interest
+    create_everyone_interest()
     auth_params = %{"idToken" => "token"}
-    Pact.override(self, :google_strategy, FakeTokenInfoGoogleStrategy)
-    conn = build_conn
+    Pact.override(self(), :google_strategy, FakeTokenInfoGoogleStrategy)
+    conn = build_conn()
 
     conn = post conn, auth_path(conn, :mobile_callback), auth_params
 
@@ -158,10 +158,10 @@ defmodule AuthControllerTest do
   end
 
   test "mobile_callback returns error json when user has non-thoughtbot email" do
-    create_everyone_interest
+    create_everyone_interest()
     auth_params = %{"idToken" => "token"}
-    Pact.override(self, :google_strategy, NonThoughtbotTokenInfoGoogleStrategy)
-    conn = build_conn
+    Pact.override(self(), :google_strategy, NonThoughtbotTokenInfoGoogleStrategy)
+    conn = build_conn()
 
     conn = post conn, auth_path(conn, :mobile_callback), auth_params
 
@@ -170,9 +170,9 @@ defmodule AuthControllerTest do
   end
 
   test "browser_callback sets user_id on session when successful" do
-    create_everyone_interest
-    Pact.override(self, "token_retriever", FakeTokenRetriever)
-    Pact.override(self, "request_with_access_token", FakeRequestWithAccessToken)
+    create_everyone_interest()
+    Pact.override(self(), "token_retriever", FakeTokenRetriever)
+    Pact.override(self(), "request_with_access_token", FakeRequestWithAccessToken)
 
 
     conn =
@@ -195,7 +195,7 @@ defmodule AuthControllerTest do
   end
 
   defp request_authorization(redirect_uri) do
-    get(build_conn, "/auth", redirect_uri: redirect_uri)
+    get(build_conn(), "/auth", redirect_uri: redirect_uri)
   end
 
   defp google_auth_uri(params) do

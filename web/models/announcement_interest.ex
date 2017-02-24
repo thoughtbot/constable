@@ -4,7 +4,7 @@ defmodule Constable.AnnouncementInterest do
   alias Constable.Interest
 
   schema "announcements_interests" do
-    timestamps
+    timestamps()
 
     belongs_to :announcement, Announcement
     belongs_to :interest, Interest

@@ -4,7 +4,7 @@ defmodule Constable.Api.SearchesControllerTest do
   @view Constable.Api.AnnouncementView
 
   setup do
-    {:ok, api_authenticate}
+    {:ok, api_authenticate()}
   end
 
   test "returns matching announcements", %{conn: conn} do
@@ -25,10 +25,10 @@ defmodule Constable.Api.SearchesControllerTest do
   test "returns matching announcements that don't have the excluded interest", %{conn: conn} do
     lame = insert(:interest, name: "lame")
     other = insert(:interest, name: "other")
-    _announcement_1 = insert(:announcement, title: "foobar1") |> tag_with_interest(lame)
+    insert(:announcement, title: "foobar1") |> tag_with_interest(lame)
     announcement_2 = insert(:announcement, body: "announcement body cool")
       |> tag_with_interest(other)
-    announcement_3 = insert(:announcement, title: "awesome title", body: "cool body")
+    insert(:announcement, title: "awesome title", body: "cool body")
       |> tag_with_interest(lame)
       |> tag_with_interest(other)
 

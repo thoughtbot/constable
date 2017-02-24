@@ -6,15 +6,15 @@ defmodule Constable.Emails do
   alias Constable.Subscription
 
   def forwarded_email(%{"email" => to, "from_email" => from, "text" => email_body}) do
-    new_email
-    |> to(admins)
-    |> from(generic_address)
+    new_email()
+    |> to(admins())
+    |> from(generic_address())
     |> put_header("Reply-To", from)
     |> text_body(forwarded_body(email_body, from, to))
   end
 
   defp admins do
-    admin_emails |> String.split(", ")
+    admin_emails() |> String.split(", ")
   end
 
   defp admin_emails do
@@ -22,7 +22,7 @@ defmodule Constable.Emails do
   end
 
   defp generic_address do
-    "admin@#{outbound_domain}"
+    "admin@#{outbound_domain()}"
   end
 
   defp forwarded_body(text_body, from_address, to) do
@@ -89,7 +89,7 @@ defmodule Constable.Emails do
   def daily_digest(interests, announcements, comments, recipients) do
     new_email(to: recipients)
     |> subject("Daily Digest")
-    |> from({"Constable (thoughtbot)", "constable@#{outbound_domain}"})
+    |> from({"Constable (thoughtbot)", "constable@#{outbound_domain()}"})
     |> tag("daily-digest")
     |> render(:daily_digest,
       interests: interests,
@@ -137,19 +137,19 @@ defmodule Constable.Emails do
   end
 
   defp from_author(email, user) do
-    from(email, {"#{user.name} (Constable)", from_email_address})
+    from(email, {"#{user.name} (Constable)", from_email_address()})
   end
 
   defp from_email_address do
-    "announcements@#{outbound_domain}"
+    "announcements@#{outbound_domain()}"
   end
 
   defp announcement_email_address(announcement) do
-    "<announcement-#{announcement.id}@#{inbound_domain}>"
+    "<announcement-#{announcement.id}@#{inbound_domain()}>"
   end
 
   defp announcement_message_id(announcement) do
-    "<announcement-#{announcement.id}@#{outbound_domain}>"
+    "<announcement-#{announcement.id}@#{outbound_domain()}>"
   end
 
   defp inbound_domain do

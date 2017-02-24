@@ -17,7 +17,7 @@ defmodule Constable.Api.UserController do
   end
 
   def index(conn, _params) do
-    users = all_users_ordered_by_name
+    users = all_users_ordered_by_name()
 
     render(conn, "index.json", users: users)
   end

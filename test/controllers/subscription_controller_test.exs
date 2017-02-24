@@ -5,7 +5,7 @@ defmodule Constable.SubscriptionControllerTest do
   alias Constable.Subscription
 
   setup do
-    {:ok, browser_authenticate}
+    {:ok, browser_authenticate()}
   end
 
   test "#create creates the subscription", %{conn: conn, user: user} do

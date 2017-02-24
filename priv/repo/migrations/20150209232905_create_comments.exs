@@ -6,7 +6,7 @@ defmodule Constable.Repo.Migrations.CreateComments do
       add :body, :text, null: false
       add :announcement_id, references(:announcement)
 
-      timestamps
+      timestamps()
     end
   end
 end

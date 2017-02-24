@@ -2,7 +2,7 @@ defmodule Constable.HomeControllerTest do
   use Constable.ConnCase, async: true
 
   setup do
-    {:ok, browser_authenticate}
+    {:ok, browser_authenticate()}
   end
 
   test "when authenticated redirect to announcements", %{conn: conn} do

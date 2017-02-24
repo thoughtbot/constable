@@ -4,7 +4,7 @@ defmodule Constable.CommentTest do
   import GoodTimes
 
   test "when a comment is inserted, it updates the announcement last_discussed_at" do
-    announcement = create_announcement_last_discussed(a_week_ago)
+    announcement = create_announcement_last_discussed(a_week_ago())
     now = DateTime.utc_now
 
     comment = insert_comment_on_announcement(announcement, now)

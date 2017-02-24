@@ -5,7 +5,7 @@ defmodule Constable.CommentControllerTest do
   alias Constable.Comment
 
   setup do
-    {:ok, browser_authenticate}
+    {:ok, browser_authenticate()}
   end
 
   test "#create creates the comment", %{conn: conn, user: user} do

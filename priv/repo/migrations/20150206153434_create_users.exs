@@ -6,7 +6,7 @@ defmodule Constable.Repo.Migrations.CreateUsers do
       add :email, :string
       add :token, :string
 
-      timestamps
+      timestamps()
     end
     create index(:users, [:email], unique: true)
   end

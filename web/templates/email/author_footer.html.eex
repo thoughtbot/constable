@@ -13,7 +13,7 @@
   </td>
   <td align="right">
     <%= link to: announcement_url_for_footer(@announcement, @comment),
-      style: "color: #{red}; font-size: 14px;" do %>
+      style: "color: #{red()}; font-size: 14px;" do %>
       <%= gettext("View on #Constable") %>
     <% end %>
   </td>

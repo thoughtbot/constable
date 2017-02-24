@@ -5,7 +5,7 @@ defmodule Constable.Repo.Migrations.CreateInterests do
     create table(:interests) do
       add :name, :string, null: false
 
-      timestamps
+      timestamps()
     end
 
     create index(:interests, [:name], unique: true)

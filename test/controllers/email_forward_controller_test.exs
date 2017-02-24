@@ -11,7 +11,7 @@ defmodule Constable.EmailForwardControllerTest do
       text: "YO DAWG",
       email: "admin@constable.io"
     )
-    conn = build_conn
+    conn = build_conn()
 
     conn = post(conn, email_forward_path(Endpoint, :create), forwarded_emails)
 

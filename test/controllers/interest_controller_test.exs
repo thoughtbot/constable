@@ -2,7 +2,7 @@ defmodule Constable.InterestControllerTest do
   use Constable.ConnCase, async: true
 
   setup do
-    {:ok, browser_authenticate}
+    {:ok, browser_authenticate()}
   end
 
   test "#show all announcements that are associated with this interest", %{conn: conn} do

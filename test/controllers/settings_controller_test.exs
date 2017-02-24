@@ -4,7 +4,7 @@ defmodule Constable.SettingsControllerTest do
   alias Constable.User
 
   setup do
-    {:ok, browser_authenticate}
+    {:ok, browser_authenticate()}
   end
 
   test "show renders the settings form" , %{conn: conn} do

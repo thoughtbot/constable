@@ -1,7 +1,6 @@
 defmodule Constable.AnnouncementTest do
   use Constable.ModelCase, async: true
   alias Constable.Announcement
-  import GoodTimes
 
   test "inserting a record sets the last_discussed_at" do
     announcement = build(:announcement) |> insert

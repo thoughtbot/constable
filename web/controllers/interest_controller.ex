@@ -6,7 +6,7 @@ defmodule Constable.InterestController do
   def index(conn, _params) do
     conn
     |> assign(:current_user, preload_interests(conn.assigns.current_user))
-    |> assign(:interests, all_interests)
+    |> assign(:interests, all_interests())
     |> page_title("Interests")
     |> render("index.html")
   end

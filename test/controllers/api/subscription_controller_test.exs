@@ -5,7 +5,7 @@ defmodule Constable.Api.SubscriptionControllerTest do
   alias Constable.Subscription
 
   setup do
-    {:ok, api_authenticate}
+    {:ok, api_authenticate()}
   end
 
   test "#index shows all current users subscriptions", %{conn: conn, user: user} do

@@ -133,7 +133,7 @@
 
                   <%= for interest <- @interests do %>
                     <div class="interest left-padded">
-                      <%= link "##{interest.name}", to: interest_url(Constable.Endpoint, :show, interest), style: "color: #{red}" %>
+                      <%= link "##{interest.name}", to: interest_url(Constable.Endpoint, :show, interest), style: "color: #{red()}" %>
                     </div>
                   <% end %>
                 <% end %>
@@ -143,7 +143,7 @@
 
                   <%= for announcement <- @announcements do %>
                     <div class="left-padded">
-                      <h4><%= link announcement.title, to: announcement_url(Constable.Endpoint, :show, announcement), style: "color: #{red}" %></h4>
+                      <h4><%= link announcement.title, to: announcement_url(Constable.Endpoint, :show, announcement), style: "color: #{red()}" %></h4>
                       <%= gettext("posted by") %> <strong><%= announcement.user.name %></strong> <%= gettext("in") %> <%= raw interest_links(announcement) %>
                     </div>
                   <% end %>
@@ -163,7 +163,7 @@
 
                   <%= for announcement <- discussed_announcements(@comments) do %>
                     <div class="left-padded">
-                      <h4><%= link announcement.title, to: announcement_url(Constable.Endpoint, :show, announcement), style: "color: #{red}" %></h4>
+                      <h4><%= link announcement.title, to: announcement_url(Constable.Endpoint, :show, announcement), style: "color: #{red()}" %></h4>
                       <%= new_comment_count_text(@comments, announcement) %> <%= commenters_list_text(announcement, @comments) %>
                     </div>
                   <% end %>
@@ -182,7 +182,7 @@
               <td width='40'></td>
               <td align='center'>
                 <%= link to: announcement_url(Constable.Endpoint, :index) do %>
-                  <h4 style='color: <%= red %>; font-size: 18px; margin: 0; padding-bottom: 5px;'>
+                  <h4 style='color: <%= red() %>; font-size: 18px; margin: 0; padding-bottom: 5px;'>
                     <%= gettext("View Interests and Announcements on Constable") %>
                   </h4>
                 <% end %>

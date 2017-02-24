@@ -4,7 +4,7 @@ defmodule Constable.AnnouncementControllerTest do
   alias Constable.Announcement
 
   setup do
-    {:ok, browser_authenticate}
+    {:ok, browser_authenticate()}
   end
 
   test "#index all announcements are shown when query param all is set", %{conn: conn, user: user} do

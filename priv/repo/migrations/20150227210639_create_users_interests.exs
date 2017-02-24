@@ -6,7 +6,7 @@ defmodule Constable.Repo.Migrations.CreateUsersInterests do
       add :interest_id, references(:interests)
       add :user_id, references(:users)
 
-      timestamps
+      timestamps()
     end
 
     create index(

@@ -19,9 +19,9 @@ defmodule Constable.Services.SlackHook do
   end
 
   defp post(payload) do
-    if slack_webhook_url do
+    if slack_webhook_url() do
       spawn fn ->
-        HTTPoison.post(slack_webhook_url, Poison.encode!(payload))
+        HTTPoison.post(slack_webhook_url(), Poison.encode!(payload))
       end
     end
   end

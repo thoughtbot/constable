@@ -6,7 +6,7 @@ defmodule Constable.Repo.Migrations.AddSubscriptionsTable do
       add :user_id, references(:users), null: false
       add :announcement_id, references(:announcement), null: false
 
-      timestamps
+      timestamps()
     end
 
     create index(:subscriptions, [:user_id, :announcement_id], unique: true)

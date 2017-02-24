@@ -4,7 +4,7 @@ defmodule Constable.Api.UserInterestControllerTest do
   @view Constable.Api.UserInterestView
 
   setup do
-    {:ok, api_authenticate}
+    {:ok, api_authenticate()}
   end
 
   test "#index returns current users user_interests", %{conn: conn, user: user} do
