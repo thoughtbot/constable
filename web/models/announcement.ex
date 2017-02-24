@@ -44,10 +44,12 @@ defmodule Constable.Announcement do
     ]
   end
 
-  def search(query \\ __MODULE__, search_term) do
+  def search(query \\ __MODULE__, search_term, exclude_interests: excludes) do
     search_term = search_term |> prepare_for_tsquery
 
     from(a in query,
+      full_join: i in assoc(a, :interests),
+      where: not i.name in ^excludes or is_nil(i.name),
       where: fragment("to_tsvector('english', ?) || to_tsvector('english', ?) @@ plainto_tsquery('english', ?)",
         a.title,
         a.body,

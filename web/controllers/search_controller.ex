@@ -18,8 +18,10 @@ defmodule Constable.SearchController do
     render conn, "new.html", announcements: []
   end
 
-  defp matching_announcements(%{"query" => search_terms}) do
-    Announcement.search(search_terms)
+  defp matching_announcements(params = %{"query" => search_terms}) do
+    excluded_interests = params["exclude_interests"] || []
+
+    Announcement.search(search_terms, exclude_interests: excluded_interests)
     |> Announcement.last_discussed_first
     |> Announcement.with_announcement_list_assocs
   end

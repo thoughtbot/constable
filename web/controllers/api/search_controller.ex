@@ -5,8 +5,13 @@ defmodule Constable.Api.SearchController do
 
   alias Constable.Announcement
 
-  def create(conn, %{"query" => search_terms}) do
-    announcements = Announcement.search(search_terms) |> Repo.all
+  def create(conn, params = %{"query" => search_terms}) do
+    excludes = params["exclude_interests"] || []
+
+    announcements = 
+      search_terms
+      |> Announcement.search(exclude_interests: excludes)
+      |> Repo.all
     render(conn, "index.json", announcements: announcements)
   end
 end

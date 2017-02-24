@@ -22,8 +22,27 @@ defmodule Constable.Api.SearchesControllerTest do
     assert results_for(conn, query: query_with_extra_spaces) == json_for(announcement_2)
   end
 
+  test "returns matching announcements that don't have the excluded interest", %{conn: conn} do
+    lame = insert(:interest, name: "lame")
+    announcement_1 = insert(:announcement, title: "foobar1") |> tag_with_interest(lame)
+    announcement_2 = insert(:announcement, body: "announcement body cool")
+    announcement_3 = insert(:announcement, title: "awesome title", body: "cool body")
+
+    assert results_for(conn, query: "foobar1", exclude: ["lame"]) == json_for([])
+    assert results_for(conn, query: "announcement body", exclude: ["lame"]) == json_for(announcement_2)
+    assert results_for(conn, query: "awesome title cool body", exclude: []) == json_for(announcement_3)
+  end
+
   defp results_for(conn, query: search_term) do
-    response = post conn, api_search_path(conn, :create), query: search_term
+    results_for(conn, query: search_term, exclude: [])
+  end
+
+  defp results_for(conn, query: search_term, exclude: exclude) do
+    response = post conn,
+      api_search_path(conn, :create),
+      query: search_term,
+      exclude_interests: exclude
+
     json_response(response, 200)
   end
 
