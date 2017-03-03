@@ -28,7 +28,8 @@ exports.config = {
 
   plugins: {
     babel: {
-      ignore: [/web\/static\/vendor/]
+      ignore: [/web\/static\/vendor/],
+      presets: ["es2015"]
     },
     postcss: {
       processors: [
