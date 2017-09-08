@@ -37,7 +37,7 @@
   <div class="announcement-metadata">
     <img src="<%= gravatar @announcement.user %>" class="avatar-rounded"/>
     <h4 class="author"><%= @announcement.user.name %></h4>
-    <time><%= time_ago_in_words(@announcement.inserted_at) %></time>
+    <time title="<%= Date.to_string(@announcement.inserted_at) %>"><%= time_ago_in_words(@announcement.inserted_at) %></time>
   </div>
 
   <div class="announcement-body" data-role="body">
