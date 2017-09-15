@@ -1,5 +1,6 @@
 defmodule Constable.User do
   use Constable.Web, :model
+  alias Constable.Repo
   alias Constable.UserInterest
   alias Constable.Subscription
 
@@ -27,6 +28,12 @@ defmodule Constable.User do
     has_many :subscriptions, Subscription, on_delete: :delete_all
 
     timestamps()
+  end
+
+  def reactivate(email) when is_binary(email) do
+    Repo.get_by!(__MODULE__, email: email)
+    |> Ecto.Changeset.change(%{active: true})
+    |> Repo.update!
   end
 
   def settings_changeset(user, params \\ %{}) do

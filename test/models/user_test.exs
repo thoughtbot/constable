@@ -48,4 +48,12 @@ defmodule Constable.UserTest do
     changeset = User.create_changeset(%User{}, %{email: "#{username}@#{@permitted_email_domain}"})
     assert changeset.changes[:name] == username
   end
+
+  test "reactivating a user" do
+    user = insert(:user, active: false)
+
+    User.reactivate(user.email)
+
+    assert Repo.get!(User, user.id).active
+  end
 end
