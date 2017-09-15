@@ -10,6 +10,15 @@ To learn more about Phoenix, check out [Programming Phoenix](https://pragprog.co
 Use `bin/console` to start the console. Use `bin/console staging|production` to
 start the console in staging or production.
 
+## Reactivating Users
+
+Users are deactivated if they leave thoughtbot. Sometimes someone with the same
+first name joins thoughtbot later and inherits the deactivated email so we need
+to reactivate the email.
+
+* Run `bin/console production`
+* Run `Constable.User.reactivate("person@thoughtbot.com")`
+
 ## Developing the Application
 
 To set up your development environment, there are a few steps you'll need to
