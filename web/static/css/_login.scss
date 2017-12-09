@@ -1,6 +1,6 @@
 .login-page {
-  @include align-items(center);
-  @include display(flex);
-  @include justify-content(center);
+  align-items: center;
+  display: flex;
+  justify-content: center;
   min-height: 100vh;
 }

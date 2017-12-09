@@ -37,8 +37,8 @@
   }
 
   a {
-    @include display(flex);
-    @include align-items(center);
+    display: flex;
+    align-items: center;
     color: $base-font-color;
     font-size: $small-font-size;
   }

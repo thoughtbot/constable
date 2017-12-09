@@ -10,12 +10,12 @@
 }
 
 .comment-loading {
-  @include animation(loading-spinner 0.6s infinite linear);
   @include border-style(solid);
   @include border-width(0.2em);
   @include hide-text();
   @include margin(null auto);
   @include size(2em);
+  animation: $long-duration linear infinite loading-spinner;
   border-color: $base-border-color;
   border-left-color: $dark-blue;
   border-radius: 50%;

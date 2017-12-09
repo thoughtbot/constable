@@ -15,11 +15,11 @@
   }
 
   &.loading {
-    @include animation(loading-spinner 0.6s infinite linear);
     @include border-style(solid);
     @include border-width(0.5em);
     @include hide-text();
     @include size(5em);
+    animation: $long-duration linear infinite loading-spinner;
     border-color: $base-border-color;
     border-left-color: $dark-blue;
     border-radius: 50%;
