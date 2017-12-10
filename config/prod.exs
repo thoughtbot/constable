@@ -22,7 +22,7 @@ config :constable, Constable.Endpoint,
   force_ssl: [rewrite_on: [:x_forwarded_proto], host: System.get_env("HOST")],
   secret_key_base: System.get_env("SECRET_KEY_BASE"),
   code_reloader: false,
-  cache_static_manifest: "priv/static/manifest.json"
+  cache_static_manifest: "priv/static/cache_manifest.json"
 
 config :constable, :shubox_script_url, System.get_env("SHUBOX_SCRIPT_URL")
 
