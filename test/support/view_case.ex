@@ -1,4 +1,4 @@
-defmodule Constable.ViewCase do
+defmodule ConstableWeb.ViewCase do
   use ExUnit.CaseTemplate
 
   using do
@@ -6,12 +6,12 @@ defmodule Constable.ViewCase do
       use Constable.Web, :view
 
       import Constable.Factory
-      alias Constable.UserView
-      alias Constable.InterestsView
-      alias Constable.SubscriptionView
-      alias Constable.UserInterestView
-      alias Constable.CommentView
-      import Constable.ViewCaseHelper
+      alias ConstableWeb.UserView
+      alias ConstableWeb.InterestsView
+      alias ConstableWeb.SubscriptionView
+      alias ConstableWeb.UserInterestView
+      alias ConstableWeb.CommentView
+      import ConstableWeb.ViewCaseHelper
     end
   end
 

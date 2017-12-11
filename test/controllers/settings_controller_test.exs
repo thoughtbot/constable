@@ -1,5 +1,5 @@
-defmodule Constable.SettingsControllerTest do
-  use Constable.ConnCase, async: true
+defmodule ConstableWeb.SettingsControllerTest do
+  use ConstableWeb.ConnCase, async: true
 
   alias Constable.User
 

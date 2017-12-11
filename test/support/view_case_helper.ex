@@ -1,4 +1,4 @@
-defmodule Constable.ViewCaseHelper do
+defmodule ConstableWeb.ViewCaseHelper do
   def ids_from(enumerable) do
     Enum.map(enumerable, fn(object) ->
       Map.get(object, :id)

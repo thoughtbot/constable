@@ -1,6 +1,7 @@
-defmodule AuthControllerTest do
-  use Constable.ConnCase, async: true
+defmodule ConstableWeb.AuthControllerTest do
+  use ConstableWeb.ConnCase, async: true
   alias Constable.{User, UserIdentifier, UserInterest}
+  alias ConstableWeb.AuthControllerTest
 
   @google_authorize_url "https://accounts.google.com/o/oauth2/auth"
   @permitted_email_domain Application.fetch_env!(:constable, :permitted_email_domain)

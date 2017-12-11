@@ -1,5 +1,5 @@
-defmodule Constable.UserActivationControllerTest do
-  use Constable.ConnCase, async: true
+defmodule ConstableWeb.UserActivationControllerTest do
+  use ConstableWeb.ConnCase, async: true
 
   alias Constable.{Repo, User}
 

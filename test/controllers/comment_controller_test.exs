@@ -1,5 +1,5 @@
-defmodule Constable.CommentControllerTest do
-  use Constable.ConnCase, async: true
+defmodule ConstableWeb.CommentControllerTest do
+  use ConstableWeb.ConnCase, async: true
   use Bamboo.Test
 
   alias Constable.Comment

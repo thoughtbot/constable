@@ -1,5 +1,5 @@
-defmodule Constable.InterestControllerTest do
-  use Constable.ConnCase, async: true
+defmodule ConstableWeb.InterestControllerTest do
+  use ConstableWeb.ConnCase, async: true
 
   setup do
     {:ok, browser_authenticate()}

@@ -1,9 +1,8 @@
 defmodule Constable.Services.CommentCreatorTest do
-  use Constable.ChannelCase, async: true
-  use Phoenix.ChannelTest
+  use ConstableWeb.ChannelCase, async: true
   use Bamboo.Test
   alias Constable.Emails
-  alias Constable.Api.CommentView
+  alias ConstableWeb.Api.CommentView
   alias Constable.Comment
   alias Constable.Services.CommentCreator
 
@@ -26,7 +25,7 @@ defmodule Constable.Services.CommentCreatorTest do
   test "sends an update over a channel" do
     user = insert(:user)
     announcement = insert(:announcement)
-    {:ok, socket} = connect(Constable.UserSocket, %{"token" => user.token})
+    {:ok, socket} = connect(ConstableWeb.UserSocket, %{"token" => user.token})
     subscribe_and_join!(socket, "update")
 
     {:ok, comment} = CommentCreator.create(%{

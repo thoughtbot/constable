@@ -1,5 +1,5 @@
-defmodule Constable.EmailReplyTest do
-  use Constable.ConnCase, async: true
+defmodule ConstableWeb.EmailReplyTest do
+  use ConstableWeb.ConnCase, async: true
   use Bamboo.Test
   alias Constable.Emails
   alias Constable.Comment

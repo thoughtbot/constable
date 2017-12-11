@@ -1,6 +1,6 @@
 use Mix.Config
 
-config :constable, Constable.Endpoint,
+config :constable, ConstableWeb.Endpoint,
   http: [port: System.get_env("PORT") || 4000],
   url: [host: "localhost"],
   debug_errors: true,
@@ -10,8 +10,9 @@ config :constable, Constable.Endpoint,
   live_reload: [
     patterns: [
       ~r{priv/static/.*(js|css|png|jpeg|jpg|gif)$},
-      ~r{web/views/.*(ex)$},
-      ~r{web/templates/.*(eex)$}
+      ~r{priv/gettext/.*(po)$},
+      ~r{lib/constable_web/views/.*(ex)$},
+      ~r{lib/constable_web/templates/.*(eex)$}
     ]
   ]
 

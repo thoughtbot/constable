@@ -1,5 +1,5 @@
 defmodule Constable.Plugs.RequireApiLoginTest do
-  use Constable.ConnCase
+  use ConstableWeb.ConnCase
 
   test "active user is assigned to current_user assigns on conn" do
     user = insert(:user, active: true)

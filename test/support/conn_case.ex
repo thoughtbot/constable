@@ -1,4 +1,4 @@
-defmodule Constable.ConnCase do
+defmodule ConstableWeb.ConnCase do
   @moduledoc """
   This module defines the test case to be used by
   tests that require setting up a connection.
@@ -20,7 +20,7 @@ defmodule Constable.ConnCase do
       # Import conveniences for testing with connections
       use Phoenix.ConnTest
       use Constable.Web, :view
-      import Constable.ConnCaseHelper
+      import ConstableWeb.ConnCaseHelper
 
       # Alias the data repository and import query/model functions
       alias Constable.Repo
@@ -28,10 +28,10 @@ defmodule Constable.ConnCase do
       import Constable.Factory
 
       # Import URL helpers from the router
-      import Constable.Router.Helpers
+      import ConstableWeb.Router.Helpers
 
       # The default endpoint for testing
-      @endpoint Constable.Endpoint
+      @endpoint ConstableWeb.Endpoint
     end
   end
 

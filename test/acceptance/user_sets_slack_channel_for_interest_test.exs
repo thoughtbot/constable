@@ -1,5 +1,5 @@
-defmodule Constable.UserSetsSlackChannelForInterestTest do
-  use Constable.AcceptanceCase
+defmodule ConstableWeb.UserSetsSlackChannelForInterestTest do
+  use ConstableWeb.AcceptanceCase
 
   test "user adds the slack channel for an interest", %{session: session} do
     interest = insert(:interest, name: "interest")

@@ -1,5 +1,5 @@
-defmodule Constable.HomeControllerTest do
-  use Constable.ConnCase, async: true
+defmodule ConstableWeb.HomeControllerTest do
+  use ConstableWeb.ConnCase, async: true
 
   setup do
     {:ok, browser_authenticate()}
@@ -15,7 +15,7 @@ defmodule Constable.HomeControllerTest do
     conn = build_conn(:get, "/")
       |> assign(:current_user, build(:user))
       |> with_session(original_request_path: search_path(build_conn(), :new))
-      |> Constable.Router.call(Constable.Router.init([]))
+      |> ConstableWeb.Router.call(ConstableWeb.Router.init([]))
 
     assert redirected_to(conn) == search_path(conn, :new)
     refute get_session(conn, :original_request_path)

@@ -1,5 +1,5 @@
-defmodule Constable.SubscriptionControllerTest do
-  use Constable.ConnCase, async: true
+defmodule ConstableWeb.SubscriptionControllerTest do
+  use ConstableWeb.ConnCase, async: true
   use Bamboo.Test
 
   alias Constable.Subscription

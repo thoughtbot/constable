@@ -1,5 +1,5 @@
-defmodule Constable.SearchControllerTest do
-  use Constable.ConnCase, async: true
+defmodule ConstableWeb.SearchControllerTest do
+  use ConstableWeb.ConnCase, async: true
 
   setup do
     {:ok, browser_authenticate()}

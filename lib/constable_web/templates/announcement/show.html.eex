@@ -1,0 +1,66 @@
+<div class="announcement container" data-announcement-id="<%= @announcement.id %>">
+  <header class="announcement-header">
+    <div class="announcement-interests" data-role="interests">
+      <%= for interest <- @announcement.interests do %>
+        <%= link interest.name, to: interest_path(@conn, :show, interest), class: "announcement-interest" %>
+      <% end %>
+    </div>
+
+    <div class="subscription">
+      <%= if @subscription do %>
+        <%= link to: announcement_subscription_path(@conn, :delete, @announcement.id),
+          method: :delete,
+          class: "button button-unsubscribe",
+          data: [turbolinks: "refresh"] do %>
+          <%= gettext("Unsubscribe") %>
+        <% end %>
+      <% else %>
+        <%= link to: announcement_subscription_path(@conn, :create, @announcement.id),
+          method: :post,
+          class: "button button-subscribe",
+          data: [turbolinks: "refresh"] do %>
+          <%= gettext("Subscribe") %>
+        <% end %>
+      <% end %>
+    </div>
+  </header>
+
+  <h1 data-role="title">
+    <%= @announcement.title %>
+    <%= if @announcement.user_id == @current_user.id do %>
+      <small>
+        <%= link "edit", to: announcement_path(@conn, :edit, @announcement), data: [role: "edit"] %>
+      </small>
+    <% end %>
+  </h1>
+
+  <div class="announcement-metadata">
+    <img src="<%= gravatar @announcement.user %>" class="avatar-rounded"/>
+    <h4 class="author"><%= @announcement.user.name %></h4>
+    <time title="<%= Date.to_string(@announcement.inserted_at) %>"><%= time_ago_in_words(@announcement.inserted_at) %></time>
+  </div>
+
+  <div class="announcement-body" data-role="body">
+    <%= raw markdown_with_users(@announcement.body) %>
+  </div>
+
+  <ul class="comments-list">
+    <%= for comment <- @announcement.comments do %>
+      <%= render "_comment.html", comment: comment, conn: @conn, current_user: @current_user %>
+    <% end %>
+  </ul>
+
+  <div class="comment-new">
+    <%= ConstableWeb.CommentView.render "_form.html",
+      comment_changeset: @comment_changeset,
+      path: announcement_comment_path(@conn, :create, @announcement),
+      submit_text: gettext("Post Comment") %>
+  </div>
+</div>
+
+<script>
+  (function() {
+    require("web/static/js/comment-form").setupNewForm(<%= raw user_autocomplete_json(@users) %>);
+    require("web/static/js/syntax-highlighting").highlightSyntax('.comments-list');
+  })()
+</script>

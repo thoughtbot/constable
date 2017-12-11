@@ -1,5 +1,5 @@
-defmodule Constable.UserManagesInterestsTest do
-  use Constable.AcceptanceCase, async: true
+defmodule ConstableWeb.UserManagesInterestsTest do
+  use ConstableWeb.AcceptanceCase, async: true
 
   @unsubscribe_link_css "[data-role=unsubscribe-from-interest]"
   @subscribe_link_css "[data-role=subscribe-to-interest]"

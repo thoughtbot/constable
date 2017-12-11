@@ -1,9 +1,9 @@
 defmodule Constable.Plugs.FetchCurrentUserTest do
-  use Constable.ConnCase
+  use ConstableWeb.ConnCase
 
   test "active user is assigned to current_user assigns on conn" do
     user = insert(:user, active: true)
-    token = Constable.UserIdentifier.sign_user_id(Constable.Endpoint, user.id)
+    token = Constable.UserIdentifier.sign_user_id(ConstableWeb.Endpoint, user.id)
     conn = build_conn()
       |> bypass_through
       |> Phoenix.ConnTest.put_req_cookie("user_id", token)
@@ -16,7 +16,7 @@ defmodule Constable.Plugs.FetchCurrentUserTest do
 
   test "inactive user is not assigned to current_user assigns on conn" do
     user = insert(:user, active: false)
-    token = Constable.UserIdentifier.sign_user_id(Constable.Endpoint, user.id)
+    token = Constable.UserIdentifier.sign_user_id(ConstableWeb.Endpoint, user.id)
     conn = build_conn()
       |> bypass_through
       |> Phoenix.ConnTest.put_req_cookie("user_id", token)

@@ -1,5 +1,5 @@
 defmodule Constable.EmailsTest do
-  use Constable.ConnCase, async: true
+  use ConstableWeb.ConnCase, async: true
   import Constable.Factory
 
   test "daily_digest" do
@@ -65,7 +65,7 @@ defmodule Constable.EmailsTest do
 
   defp make_link(interest) do
     "##{interest.name}"
-    |> link(to: interest_url(Constable.Endpoint, :show, interest), style: "color: #aeaeae;")
+    |> link(to: interest_url(ConstableWeb.Endpoint, :show, interest), style: "color: #aeaeae;")
     |> safe_to_string
   end
 end

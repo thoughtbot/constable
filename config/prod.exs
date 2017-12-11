@@ -16,7 +16,7 @@ if heroku_app_name && heroku_app_name =~ ~r/\Aconstable-api-staging-pr/ do
   System.put_env("HOST", "#{heroku_app_name}.herokuapp.com")
 end
 
-config :constable, Constable.Endpoint,
+config :constable, ConstableWeb.Endpoint,
   url: [scheme: "https", host: System.get_env("HOST"), port: System.get_env("URL_PORT")],
   http: [port: {:system, "PORT"}, compress: true],
   force_ssl: [rewrite_on: [:x_forwarded_proto], host: System.get_env("HOST")],
@@ -48,5 +48,5 @@ config :logger, level: :info
 # Alternatively, you can configure exactly which server to
 # start per endpoint:
 #
-#     config :constable, Constable.Endpoint, server: true
+#     config :constable, ConstableWeb.Endpoint, server: true
 #

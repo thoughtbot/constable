@@ -1,8 +1,8 @@
-defmodule Constable.Api.AnnouncementViewTest do
-  use Constable.ViewCase, async: true
+defmodule ConstableWeb.Api.AnnouncementViewTest do
+  use ConstableWeb.ViewCase, async: true
 
-  alias Constable.Api.AnnouncementView
-  alias Constable.Api.CommentView
+  alias ConstableWeb.Api.AnnouncementView
+  alias ConstableWeb.Api.CommentView
 
   test "show.json returns correct fields" do
     interest = insert(:interest)

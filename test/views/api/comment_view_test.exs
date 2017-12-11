@@ -1,6 +1,6 @@
-defmodule Constable.Api.CommentViewTest do
-  use Constable.ViewCase, async: true
-  alias Constable.Api.CommentView
+defmodule ConstableWeb.Api.CommentViewTest do
+  use ConstableWeb.ViewCase, async: true
+  alias ConstableWeb.Api.CommentView
 
   test "show.json returns correct fields" do
     comment = insert(:comment)

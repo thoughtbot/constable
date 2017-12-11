@@ -1,5 +1,5 @@
-defmodule Constable.UserUnsubscribesTest do
-  use Constable.AcceptanceCase
+defmodule ConstableWeb.UserUnsubscribesTest do
+  use ConstableWeb.AcceptanceCase
 
   test "shows unsubscribe message when logged in", %{session: session} do
     announcement = insert(:announcement)

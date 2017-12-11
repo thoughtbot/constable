@@ -1,6 +1,6 @@
 use Mix.Config
 
-config :constable, Constable.Endpoint,
+config :constable, ConstableWeb.Endpoint,
   http: [port: System.get_env("PORT") || 4001],
   server: true
 

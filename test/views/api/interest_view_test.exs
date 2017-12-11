@@ -1,6 +1,6 @@
-defmodule Constable.Api.InterestViewTest do
-  use Constable.ViewCase, async: true
-  alias Constable.Api.InterestView
+defmodule ConstableWeb.Api.InterestViewTest do
+  use ConstableWeb.ViewCase, async: true
+  alias ConstableWeb.Api.InterestView
 
   test "show.json returns correct fields" do
     interest = build(:interest, id: 1)

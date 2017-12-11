@@ -1,8 +1,8 @@
-defmodule Constable.Api.UserControllerTest do
-  use Constable.ConnCase, async: true
+defmodule ConstableWeb.Api.UserControllerTest do
+  use ConstableWeb.ConnCase, async: true
   alias Constable.User
 
-  @view Constable.Api.UserView
+  @view ConstableWeb.Api.UserView
 
   setup do
     {:ok, api_authenticate()}

@@ -1,0 +1,22 @@
+<h1 class="search-results-header container">
+  Search results for <em><%= @conn.params["query"] %></em>
+</h1>
+
+<%= if length(@announcements) > 0 do %>
+  <%= render ConstableWeb.AnnouncementListView,
+    "index.html",
+    conn: @conn,
+    announcements: @announcements
+  %>
+
+    <div class="container pagination">
+      <%= if !on_first_page?(@search_page) do %>
+        <%= link gettext("foo"), to: search_path(@conn, :show, query: @query, page: (@search_page.page_number - 1)), class: "page-next button" %>
+      <% end %>
+
+      <%= if !on_last_page?(@search_page) do %>
+        <%= link gettext(""), to: search_path(@conn, :show, query: @query, page: (@search_page.page_number + 1)), class: "page-next button" %>
+      <% end %>
+    </div>
+  <% end %>
+</div>

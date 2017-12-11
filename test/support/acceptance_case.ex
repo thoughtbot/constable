@@ -1,17 +1,17 @@
-defmodule Constable.AcceptanceCase do
+defmodule ConstableWeb.AcceptanceCase do
   use ExUnit.CaseTemplate
 
   using do
     quote do
       use Wallaby.DSL
 
-      alias Constable.Endpoint
+      alias ConstableWeb.Endpoint
       import Ecto.Schema
       import Ecto.Query, only: [from: 2]
-      import Constable.Router.Helpers
+      import ConstableWeb.Router.Helpers
       import Constable.Factory
-      import Constable.WallabyHelper
-      Application.put_env(:wallaby, :base_url, Constable.Endpoint.url)
+      import ConstableWeb.WallabyHelper
+      Application.put_env(:wallaby, :base_url, ConstableWeb.Endpoint.url)
     end
   end
 

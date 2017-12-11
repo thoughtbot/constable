@@ -1,4 +1,4 @@
-defmodule Constable.ChannelCase do
+defmodule ConstableWeb.ChannelCase do
   @moduledoc """
   This module defines the test case to be used by
   channel tests.
@@ -27,7 +27,7 @@ defmodule Constable.ChannelCase do
       import Constable.Factory
 
       # The default endpoint for testing
-      @endpoint Constable.Endpoint
+      @endpoint ConstableWeb.Endpoint
     end
   end
 

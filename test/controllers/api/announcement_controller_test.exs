@@ -1,8 +1,8 @@
-defmodule Constable.Api.AnnouncementControllerTest do
-  use Constable.ConnCase, async: true
+defmodule ConstableWeb.Api.AnnouncementControllerTest do
+  use ConstableWeb.ConnCase, async: true
 
   alias Constable.Announcement
-  @view Constable.Api.AnnouncementView
+  @view ConstableWeb.Api.AnnouncementView
 
   setup do
     {:ok, api_authenticate()}

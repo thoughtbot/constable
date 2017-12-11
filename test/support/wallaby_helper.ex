@@ -1,4 +1,4 @@
-defmodule Constable.WallabyHelper do
+defmodule ConstableWeb.WallabyHelper do
   use Wallaby.DSL
 
   def accept_all_confirm_dialogs(session) do

@@ -1,4 +1,4 @@
-defmodule Constable.ConnCaseHelper do
+defmodule ConstableWeb.ConnCaseHelper do
   import Constable.Factory
   import Phoenix.ConnTest
   import Plug.Conn

@@ -1,6 +1,6 @@
-defmodule Constable.Api.UserViewTest do
-  use Constable.ViewCase, async: true
-  alias Constable.Api.UserView
+defmodule ConstableWeb.Api.UserViewTest do
+  use ConstableWeb.ViewCase, async: true
+  alias ConstableWeb.Api.UserView
 
   test "show.json returns correct fields" do
     user = insert(:user)

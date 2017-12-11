@@ -1,7 +1,7 @@
-defmodule Constable.Api.SearchesControllerTest do
-  use Constable.ConnCase, async: true
+defmodule ConstableWeb.Api.SearchesControllerTest do
+  use ConstableWeb.ConnCase, async: true
 
-  @view Constable.Api.AnnouncementView
+  @view ConstableWeb.Api.AnnouncementView
 
   setup do
     {:ok, api_authenticate()}

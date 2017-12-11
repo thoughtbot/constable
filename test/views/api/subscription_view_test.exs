@@ -1,6 +1,6 @@
-defmodule Constable.Api.SubscriptionViewTest do
-  use Constable.ViewCase, async: true
-  alias Constable.Api.SubscriptionView
+defmodule ConstableWeb.Api.SubscriptionViewTest do
+  use ConstableWeb.ViewCase, async: true
+  alias ConstableWeb.Api.SubscriptionView
 
   test "show.json returns correct fields" do
     subscription = insert(:subscription)

@@ -1,5 +1,5 @@
-defmodule Constable.UsubscribeController.Test do
-  use Constable.ConnCase, async: true
+defmodule ConstableWeb.UsubscribeControllerTest do
+  use ConstableWeb.ConnCase, async: true
 
   alias Constable.Repo
   alias Constable.Subscription

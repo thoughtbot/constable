@@ -1,7 +1,7 @@
-defmodule Constable.Api.InterestControllerTest do
-  use Constable.ConnCase, async: true
+defmodule ConstableWeb.Api.InterestControllerTest do
+  use ConstableWeb.ConnCase, async: true
 
-  @view Constable.Api.InterestView
+  @view ConstableWeb.Api.InterestView
 
   setup do
     {:ok, api_authenticate()}

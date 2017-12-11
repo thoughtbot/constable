@@ -1,5 +1,5 @@
-defmodule Constable.UserAnnouncementTest do
-  use Constable.AcceptanceCase
+defmodule ConstableWeb.UserAnnouncementTest do
+  use ConstableWeb.AcceptanceCase
 
   test "user creates an announcement", %{session: session} do
     user = insert(:user)

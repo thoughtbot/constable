@@ -1,0 +1,26 @@
+<li class="comment" id="comment-<%= @comment.id %>">
+  <div class="comment-information">
+    <div class="author-information">
+      <img class="avatar-rounded" src="<%= gravatar @comment.user %>">
+      <h4 class="author"><%= @comment.user.name %></h4>
+    </div>
+
+    <div>
+      <time class="comment-time">
+        <a href="#comment-<%= @comment.id %>">
+          <%= time_ago_in_words @comment.inserted_at %>
+        </a>
+
+      </time>
+      <%= if @comment.user_id == @current_user.id do %>
+        <%= link to: announcement_comment_path(ConstableWeb.Endpoint, :edit, @comment.announcement_id, @comment), class: "edit-comment", data: [role: "edit-comment"] do %>
+          <%= gettext "(edit)" %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="comment-body">
+    <%= raw markdown_with_users(@comment.body) %>
+  </div>
+</li>

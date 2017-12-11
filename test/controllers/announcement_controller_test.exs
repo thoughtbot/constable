@@ -1,5 +1,5 @@
-defmodule Constable.AnnouncementControllerTest do
-  use Constable.ConnCase, async: true
+defmodule ConstableWeb.AnnouncementControllerTest do
+  use ConstableWeb.ConnCase, async: true
 
   alias Constable.Announcement
 

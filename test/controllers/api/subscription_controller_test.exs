@@ -1,6 +1,6 @@
-defmodule Constable.Api.SubscriptionControllerTest do
+defmodule ConstableWeb.Api.SubscriptionControllerTest do
   import Ecto.Query
-  use Constable.ConnCase, async: true
+  use ConstableWeb.ConnCase, async: true
 
   alias Constable.Subscription
 
