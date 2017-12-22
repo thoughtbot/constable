@@ -8,8 +8,8 @@
       </a>
     </header>
 
-    <%= form_for @changeset, settings_path(@conn, :update), [class: "settings-form"], fn(f) -> %>
-      <div class="modal-body">
+    <div class="modal-body">
+      <%= form_for @changeset, settings_path(@conn, :update), [class: "settings-form"], fn(f) -> %>
         <div class='field'>
           <label>Your name:</label>
           <%= text_input f, :name %>
@@ -39,13 +39,13 @@
           Send me daily digest emails about what's new on Constable.
           </label>
         </div>
-      </div>
-
-      <footer>
-        <%# <%= link "Logout of Constable", to: session_path(@conn, :delete), method: :delete %1> %>
         <%= submit gettext("Save") %>
-      </footer>
-    <% end %>
+      <% end %>
+    </div>
+
+    <footer>
+      <%= link "Log out of Constable", to: session_path(@conn, :delete), method: :delete, class: "button button-secondary" %>
+    </footer>
   </div>
 
 
