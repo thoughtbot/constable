@@ -50,6 +50,6 @@
 
 
   <script>
-    require('web/static/js/settings-form-modal').default();
+    require('js/settings-form-modal').default();
   </script>
 </div>

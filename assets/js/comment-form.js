@@ -1,6 +1,6 @@
 import Mousetrap from 'mousetrap';
-import { setupImageUploader } from 'web/static/js/textarea-image-uploader';
-import { autocompleteUsers } from 'web/static/js/user-autocomplete';
+import { setupImageUploader } from './textarea-image-uploader';
+import { autocompleteUsers } from './user-autocomplete';
 
 import socket from './socket'
 

@@ -3,7 +3,7 @@
 erl_crash.dump
 *.ez
 
-node_modules
+assets/node_modules
 priv/static
 
 .env

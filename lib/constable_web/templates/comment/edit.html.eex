@@ -9,7 +9,7 @@
 
 <script>
   (function() {
-    require("web/static/js/comment-form").setupEditForm(
+    require("js/comment-form").setupEditForm(
       <%= raw ConstableWeb.AnnouncementView.user_autocomplete_json(@users) %>
     );
   })()

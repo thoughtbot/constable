@@ -49,11 +49,11 @@
 <script>
   (function() {
     window.INTERESTS_NAMES = <%= raw json_interests(@interests) %>;
-    var AnnouncementForm = require('web/static/js/announcement-form').default;
+    var AnnouncementForm = require('js/announcement-form').default;
     new AnnouncementForm();
-    require('web/static/js/announcement-form-mobile').setupForm();
-    require('web/static/js/textarea-image-uploader').setupImageUploader('#announcement_body');
-    require('web/static/js/user-autocomplete').autocompleteUsers(
+    require('js/announcement-form-mobile').setupForm();
+    require('js/textarea-image-uploader').setupImageUploader('#announcement_body');
+    require('js/user-autocomplete').autocompleteUsers(
       '#announcement_body',
       <%= raw user_autocomplete_json(@users) %>
     );
