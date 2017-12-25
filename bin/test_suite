@@ -1,0 +1,18 @@
+#!/bin/bash
+# Run the entire test suite
+
+# Exit the script if anything returns as an error
+set -e
+
+root_dir=$(pwd)
+
+cd assets
+if [ ! -d "node_modules" ]; then
+  npm install
+fi
+
+node_modules/.bin/brunch build
+cd "$root_dir"
+
+mix compile --force --warnings-as-errors
+mix test

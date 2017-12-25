@@ -28,4 +28,4 @@ test:
   override:
     - mix deps.compile
     - mix compile --warnings-as-errors
-    - mix test
+    - bin/test_suite
