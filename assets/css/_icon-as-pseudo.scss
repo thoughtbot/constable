@@ -1,0 +1,7 @@
+@mixin icon-as-pseudo($size, $image-path) {
+  @include size($size);
+  background: url("#{$image-path}") center / contain no-repeat;
+  content: "";
+  display: inline-block;
+  margin-right: $tiny-spacing / 2;
+}

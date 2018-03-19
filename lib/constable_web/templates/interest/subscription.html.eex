@@ -1,14 +1,14 @@
 <%= if interested_in?(@current_user, @interest) do %>
   <%= link to: interest_user_interest_path(@conn, :delete, @interest),
         method: :delete,
-        class: "unsubscribe",
+        class: "unsubscribe-to",
         data: [turbolinks: "refresh", role: "unsubscribe-from-interest"] do %>
-    <span><%= gettext("Unsubscribe") %></span>
+    <span><%= gettext("Subscribed") %></span>
   <% end %>
 <% else %>
   <%= link to: interest_user_interest_path(@conn, :create, @interest),
         method: :post,
-        class: "subscribe",
+        class: "subscribe-to",
         data: [turbolinks: "refresh", role: "subscribe-to-interest"] do %>
     <span><%= gettext("Subscribe") %></span>
   <% end %>

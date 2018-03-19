@@ -10,14 +10,14 @@
       <%= if @subscription do %>
         <%= link to: announcement_subscription_path(@conn, :delete, @announcement.id),
           method: :delete,
-          class: "button button-unsubscribe",
+          class: "unsubscribe-to",
           data: [turbolinks: "refresh"] do %>
-          <%= gettext("Unsubscribe") %>
+          <%= gettext("Subscribed") %>
         <% end %>
       <% else %>
         <%= link to: announcement_subscription_path(@conn, :create, @announcement.id),
           method: :post,
-          class: "button button-subscribe",
+          class: "subscribe-to",
           data: [turbolinks: "refresh"] do %>
           <%= gettext("Subscribe") %>
         <% end %>

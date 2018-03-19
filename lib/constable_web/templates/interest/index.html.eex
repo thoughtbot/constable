@@ -1,4 +1,4 @@
-<div class="interests container">
+<div class="interests container container-pad-top">
   <h1><%= gettext "Interests" %></h1>
 
   <ul class="interests-list">

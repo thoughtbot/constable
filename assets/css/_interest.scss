@@ -1,73 +1,85 @@
-.page-interest,
-.page-slack-channel {
-  .interest {
-    margin-top: $base-spacing;
-  }
-}
-
 .current-channel {
+  color: $base-font-color;
+  padding-top: $small-spacing;
   position: relative;
+
+  a {
+    color: $base-font-color;
+  }
 }
 
 .remove-slack-channel {
   @include position(absolute, null 0 0 null);
-
-  color: $dark-gray;
   background-color: $light-gray;
+  color: $dark-gray;
 
   &:hover {
     color: $dark-gray;
   }
 }
 
-.interests.container {
-  h1 {
-    padding-top: $base-spacing*.5;
-  }
+.interest-list-item-heading::before {
+  content: "#";
 }
 
 .interest-list-item {
+  align-items: baseline;
   border-bottom: $base-border;
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
-  margin: $base-spacing*.5 0 0;
-  padding: 0;
-
-  .interest.container & {
-    border-bottom: 0;
-  }
+  padding: $small-spacing 0;
 
   h3 {
-    line-height: inherit;
     margin: 0;
-    padding: 0;
 
     &::before {
       content: "#";
     }
+
     a {
       color: $dark-gray;
       text-decoration: underline;
     }
   }
+}
 
-  a.subscribe, a.unsubscribe {
-    border-radius: $base-border-radius;
-    display: inline-block;
-    height: $base-spacing;
-    line-height: $base-spacing*1.2;
-    margin: 0;
-    padding: 0;
-    width: $base-spacing*2;
+.subscribe-to,
+.unsubscribe-to {
+  border-radius: $base-border-radius;
+  font-size: $small-font-size;
+  line-height: normal;
+  padding: $tiny-spacing $small-spacing;
+  text-align: center;
+  width: 100%;
+}
 
-    span { display: none; }
+.subscribe-to {
+  border: $base-border;
+  color: $base-font-color;
+
+  &::before {
+    @include icon-as-pseudo(10px, "/images/icon-plus.svg");
   }
+}
 
-  a.subscribe {
-    background: $light-gray url("../images/icon-plus.svg") no-repeat center / 1em;
-  }
+.unsubscribe-to {
+  background-color: $action-color;
+  color: $white;
 
-  a.unsubscribe {
-    background: $dark-blue url("../images/icon-check.svg") no-repeat center / 1em;
+  &::before {
+    @include icon-as-pseudo(12px, "/images/icon-check-white.svg");
+    transform: translateX(3px);
   }
+}
+
+.interest-list-item .link {
+  display: inline-flex;
+  flex-shrink: 0;
+  min-width: 7.5em;
+}
+
+.announcement-interests {
+  flex-basis: 60%;
+  margin-bottom: $small-spacing;
 }

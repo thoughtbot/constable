@@ -1,7 +1,7 @@
 <div class="page-interest">
-  <div class="interest container">
+  <div class="interest container container-pad-top">
     <div class="interest-list-item">
-      <h1><%= @interest.name %></h1>
+      <h1 class="interest-list-item-heading"><%= @interest.name %></h1>
       <%= render ConstableWeb.InterestView, "subscription.html", conn: @conn, interest: @interest, current_user: @current_user %>
     </div>
 
@@ -18,14 +18,11 @@
           </p>
         <% else %>
           <p data-role="current-channel">
-            <%= gettext("Click here to add a slack channel webhook to this interest.") %>
+            <%= gettext("+ add a slack channel webhook to this interest") %>
           </p>
         <% end %>
       <% end %>
     </div>
-
-    <hr/>
-
   </div>
 
   <%= render ConstableWeb.AnnouncementListView, "index.html", conn: @conn, announcements: @announcements %>
