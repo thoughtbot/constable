@@ -5,15 +5,18 @@ $medium-font-family: 'hk_groteskmedium';
 $heading-font-family: $base-font-family;
 
 // Font Sizes
+$larger-font-size: 36px;
 $large-font-size: 24px;
+$medium-font-size: 18px;
 $base-font-size: 16px;
 $small-font-size: 14px;
+$tiny-font-size: 12px;
 
 // Font Weight
 $bold-weight: 500;
 
 // Line height
-$base-line-height: 1.8;
+$base-line-height: 1.65;
 $heading-line-height: 1.2;
 
 // Other Sizes
@@ -23,8 +26,10 @@ $base-spacing: 30px;
 $large-spacing: $base-spacing * 2;
 $small-spacing: $base-spacing / 2;
 $tiny-spacing: $small-spacing / 2;
+$tiniest-spacing: $tiny-spacing / 2;
 $base-z-index: 0;
-$rounded-avatar-size: 20px;
+$rounded-avatar-size-large: 40px;
+$rounded-avatar-size: 32px;
 
 // Colors
 $red: #ed3e44;

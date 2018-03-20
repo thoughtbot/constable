@@ -11,7 +11,7 @@
   border-bottom: $base-border;
 
   h1 {
-    margin-bottom: 0;
+    margin-bottom: $tiniest-spacing;
   }
 
   .announcement-metadata {
@@ -26,11 +26,11 @@
     color: $dark-blue;
 
     &:after {
-      content: ", "
+      content: ", ";
     }
 
     &:before {
-      content: "#"
+      content: "#";
     }
 
     &:last-of-type:after {
@@ -44,43 +44,40 @@
 }
 
 .announcement-metadata {
-  @include margin(null null $base-spacing);
   color: $medium-gray;
+  font-size: $small-font-size;
 
   .author {
-    display: inline;
     color: $base-font-color;
   }
 
-  .avatar-rounded {
-    @include position(relative, 4px null null null);
-    margin-right: 0;
+  .subscription {
+    @include margin($small-spacing 0);
   }
 }
 
 .announcement-interest {
+  @include padding(null $tiny-spacing);
+  background-color: $lightest-gray;
   color: $base-font-color;
   display: inline-flex;
-
-  &::after {
-    content: ",\00a0";
-    display: inline-block;
-    text-decoration: none;
-  }
+  font-size: $small-font-size;
+  line-height: normal;
+  margin-top: $tiniest-spacing;
 
   &::before {
-    content: "#"
+    content: "#";
   }
 
   &:last-of-type:after {
     content: "";
   }
-
-  .announcement & {
-    font-size: $small-font-size;
-  }
 }
 
 .commenters {
   margin-top: $small-spacing;
+
+  .avatar-rounded {
+    margin-bottom: $tiny-spacing;
+  }
 }

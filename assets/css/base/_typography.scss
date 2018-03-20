@@ -28,6 +28,7 @@ h4 {
 
 h1 {
   font-size: $large-font-size;
+  font-family: $bold-font-family;
 }
 
 h2 {
@@ -50,13 +51,14 @@ strong {
 
 blockquote,
 p {
-  @include margin(0 null $small-spacing null);
+  @include margin(0 null ($base-line-height * 0.75) null);
 }
 
 a {
   color: $action-color;
   text-decoration: none;
   transition: color $base-duration $base-timing;
+  word-wrap: break-word;
 
   &:active,
   &:focus,

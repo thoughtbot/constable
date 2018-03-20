@@ -11,7 +11,7 @@
           <%= time_ago_in_words(announcement.inserted_at) %>
         </time>
         to
-        <span class="announcement-interests">
+        <span>
         <%= for interest <- announcement.interests do %>
           <%= link to: interest_path(@conn, :show, interest), class: "announcement-interest" do %>
             <%= interest.name %>

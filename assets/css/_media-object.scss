@@ -1,0 +1,16 @@
+.media {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.media-center {
+  align-items: center;
+}
+
+.media-figure {
+  margin-right: $small-spacing;
+}
+
+.media-body {
+  flex: 1 45%;
+}

@@ -37,7 +37,7 @@
 .header-tag {
   @include padding($tiny-spacing null $tiny-spacing $base-spacing);
   background-color: $light-gray;
-  font-size: $small-font-size - 2px;
+  font-size: $tiny-font-size;
   font-weight: bold;
   text-transform: uppercase;
   transition: background-color .1s ease-out;

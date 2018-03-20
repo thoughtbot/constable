@@ -1,5 +1,18 @@
 .announcement {
-  margin-top: $base-spacing * 3;
+  margin-top: $base-spacing * 1.25;
+
+  @include media($medium-screen-up) {
+    margin-top: $large-spacing;
+  }
+
+  h1 {
+    @include margin($small-spacing null);
+
+    @include media($medium-screen-up) {
+      @include margin($base-spacing null ($base-spacing * 0.85));
+      font-size: $larger-font-size;
+    }
+  }
 
   pre {
     background-color: lighten($dark-blue, 77%);
@@ -33,7 +46,7 @@
 
 .comment-time {
   color: $medium-gray;
-  font-size: $small-font-size - 2px;
+  font-size: $tiny-font-size;
   margin-bottom: 0;
 
   a {
@@ -41,10 +54,8 @@
   }
 }
 
-.announcement-header {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: $base-spacing;
+.announcement-interests {
+  margin-bottom: $tiny-spacing;
 }
 
 .announcement-body,
@@ -54,7 +65,7 @@
   h3,
   h4 {
     @include margin($base-spacing null $small-spacing null);
-    font-family: $medium-font-family;
+    font-family: $bold-font-family;
   }
 
   h1 {
@@ -106,5 +117,14 @@
         margin-bottom: 0;
       }
     }
+  }
+}
+
+.announcement-body {
+  @include padding($base-spacing null);
+
+  @include media($medium-screen-up) {
+    @include padding($large-spacing null);
+    font-size: $medium-font-size;
   }
 }

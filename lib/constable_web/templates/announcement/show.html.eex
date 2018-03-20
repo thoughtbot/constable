@@ -1,30 +1,11 @@
 <div class="announcement container" data-announcement-id="<%= @announcement.id %>">
-  <header class="announcement-header">
-    <div class="announcement-interests" data-role="interests">
+  <header class="announcement-interests">
+    <div data-role="interests">
       <%= for interest <- @announcement.interests do %>
         <%= link interest.name, to: interest_path(@conn, :show, interest), class: "announcement-interest" %>
       <% end %>
     </div>
-
-    <div class="subscription">
-      <%= if @subscription do %>
-        <%= link to: announcement_subscription_path(@conn, :delete, @announcement.id),
-          method: :delete,
-          class: "unsubscribe-to",
-          data: [turbolinks: "refresh"] do %>
-          <%= gettext("Subscribed") %>
-        <% end %>
-      <% else %>
-        <%= link to: announcement_subscription_path(@conn, :create, @announcement.id),
-          method: :post,
-          class: "subscribe-to",
-          data: [turbolinks: "refresh"] do %>
-          <%= gettext("Subscribe") %>
-        <% end %>
-      <% end %>
-    </div>
   </header>
-
   <h1 data-role="title">
     <%= @announcement.title %>
     <%= if @announcement.user_id == @current_user.id do %>
@@ -35,15 +16,43 @@
   </h1>
 
   <div class="announcement-metadata">
-    <img src="<%= gravatar @announcement.user %>" class="avatar-rounded"/>
-    <h4 class="author"><%= @announcement.user.name %></h4>
-    <time title="<%= Date.to_string(@announcement.inserted_at) %>"><%= time_ago_in_words(@announcement.inserted_at) %></time>
+    <div class="media media-center">
+      <img src="<%= gravatar @announcement.user %>" class="media-figure avatar-rounded avatar-rounded-large"/>
+      <div class="media-body">
+        <h4 class="author"><%= @announcement.user.name %></h4>
+
+        <div class="announcement-metadata">
+          <%= gettext "announced" %>
+          <time>
+            <%= time_ago_in_words(@announcement.inserted_at) %>
+          </time>
+        </div>
+      </div>
+      <div class="subscription">
+        <%= if @subscription do %>
+          <%= link to: announcement_subscription_path(@conn, :delete, @announcement.id),
+            method: :delete,
+            class: "unsubscribe-to",
+            data: [turbolinks: "refresh"] do %>
+            <%= gettext("Subscribed to thread") %>
+          <% end %>
+        <% else %>
+          <%= link to: announcement_subscription_path(@conn, :create, @announcement.id),
+            method: :post,
+            class: "subscribe-to",
+            data: [turbolinks: "refresh"] do %>
+            <%= gettext("Subscribe to thread") %>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
   </div>
 
   <div class="announcement-body" data-role="body">
     <%= raw markdown_with_users(@announcement.body) %>
   </div>
 
+  <h4><%= gettext "Comments" %></h4>
   <ul class="comments-list">
     <%= for comment <- @announcement.comments do %>
       <%= render "_comment.html", comment: comment, conn: @conn, current_user: @current_user %>

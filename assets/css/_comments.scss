@@ -4,9 +4,8 @@
 }
 
 .edit-comment {
-  font-size: 13px;
-  color: 999;
-  margin-left: 5px;
+  font-size: $tiny-font-size;
+  margin-left: $tiniest-spacing;
 }
 
 .comment-loading {
@@ -23,10 +22,11 @@
 }
 
 .comments-list {
-  border-top: 5px solid $light-gray;
+  border-top: $base-border;
   list-style-type: none;
-  margin-top: $base-spacing;
+  margin-top: $small-spacing;
   padding-top: $base-spacing;
+  position: relative;
 }
 
 .comment-body {
@@ -50,20 +50,30 @@
 .avatar-rounded {
   @include size($rounded-avatar-size);
   border-radius: 50%;
-  margin-right: $tiny-spacing / 2;
+  vertical-align: middle;
+}
+
+.avatar-rounded-large {
+  @include size($rounded-avatar-size-large);
 }
 
 .author-information {
   @extend %align-center-flex;
+  @include padding($tiniest-spacing null $tiny-spacing);
+  justify-content: space-between;
+}
+
+.author {
+  flex: 1;
 }
 
 .comment-information {
-  @extend %align-center-flex;
   justify-content: space-between;
   margin-bottom: $tiny-spacing / 2;
 }
 
-.comment-new, .comment-edit {
+.comment-new,
+.comment-edit {
   border-top: $base-border;
   margin-bottom: $base-spacing;
   padding-top: $base-spacing;
