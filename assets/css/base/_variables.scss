@@ -27,7 +27,6 @@ $large-spacing: $base-spacing * 2;
 $small-spacing: $base-spacing / 2;
 $tiny-spacing: $small-spacing / 2;
 $tiniest-spacing: $tiny-spacing / 2;
-$base-z-index: 0;
 $rounded-avatar-size-large: 40px;
 $rounded-avatar-size: 32px;
 
@@ -66,10 +65,8 @@ $long-duration: 0.6s;
 
 // Z-indeces
 $base-z-index: 0;
-$z-index-subscribed-tooltip: 2;
-$z-index-interests-overlay: 1;
-$z-index-interests-select: 2;
-$z-index-modal: 1;
+$mezzanine-z-index: 500;
+$ceiling-z-index: 1000;
 
 // Transitions
 $base-transition-time: 0.3s;

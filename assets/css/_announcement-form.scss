@@ -24,6 +24,6 @@
     font-size: $small-font-size;
     padding: $small-spacing;
     width: 600px;
-    z-index: $z-index-subscribed-tooltip;
+    z-index: $ceiling-z-index;
   }
 }

@@ -1,6 +1,10 @@
 .segmented-control {
+  background-color: $white;
   border-bottom: $base-border;
   font-size: $small-font-size;
+  line-height: $base-spacing;
+  position: relative;
+  z-index: $mezzanine-z-index;
 
   .announcements & {
     padding: 0;
@@ -36,14 +40,16 @@
   }
 }
 
-.mine.selected {
-  + .select-interests-link,
-  .caret {
-    border-bottom: $dark-blue 1px solid;
+.interests-message {
+  border-bottom: $base-border;
+  text-align: center;
+
+  a {
+    @include padding(($small-spacing * 1.5) null);
+    display: block;
   }
 }
 
-.interests-message {
-  padding-top: $base-spacing * 0.5;
-  text-align: center;
+.subscribed-to {
+  color: $base-font-color;
 }

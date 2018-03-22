@@ -12,22 +12,36 @@
     </div>
   </nav>
 
-  <p class="interests-message container">
-    <%= dngettext("interest-count", "You're subscribed to 1 interest.", "You're subscribed to %{count} interests.", interest_count_for(@current_user)) %>
-    <%= link to: interest_path(@conn, :index), data: [role: "view-all-interests"] do %>
-      <%= gettext "Manage your interests." %>
-    <% end %>
-  </p>
+  <%= if !@show_all do %>
+    <p class="interests-message <%= class_for("mine", @conn) %>">
+      <%= link to: interest_path(@conn, :index), data: [role: "view-all-interests"] do %>
+        <span class="subscribed-to">
+          <%= dngettext("interest-count",
+            "Subscribed to 1 interest",
+            "Subscribed to %{count} interests",
+            interest_count_for(@current_user)) %>
+        </span>
+        <%= gettext "(edit)" %>
+      <% end %>
+    </p>
+  <% end %>
 
-  <%= render ConstableWeb.AnnouncementListView, "index.html", conn: @conn, announcements: @announcements %>
+  <%= render ConstableWeb.AnnouncementListView,
+    "index.html",
+    conn: @conn,
+    announcements: @announcements %>
 
     <div class="container pagination">
       <%= if !on_first_page?(@index_page) do %>
-        <%= link gettext(""), to: announcement_path(@conn, :index, all: @show_all, page: (@index_page.page_number - 1)), class: "page-previous button button-wire" %>
+        <%= link gettext(""),
+          to: announcement_path(@conn, :index, all: @show_all, page: (@index_page.page_number - 1)),
+          class: "page-previous button button-wire" %>
       <% end %>
 
       <%= if !on_last_page?(@index_page) do %>
-        <%= link gettext(""), to: announcement_path(@conn, :index, all: @show_all, page: (@index_page.page_number + 1)), class: "page-next button button-wire" %>
+        <%= link gettext(""),
+          to: announcement_path(@conn, :index, all: @show_all, page: (@index_page.page_number + 1)),
+          class: "page-next button button-wire" %>
       <% end %>
     </div>
   </div>

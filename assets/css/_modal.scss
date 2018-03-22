@@ -4,7 +4,7 @@
   border: $base-border;
   box-shadow: 0 0 22px 0 rgba(0, 0, 0 , 0.1);
   position: relative;
-  z-index: $z-index-modal;
+  z-index: $mezzanine-z-index;
   width: 600px;
 
   .modal-body {
