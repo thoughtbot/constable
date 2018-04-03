@@ -1,8 +1,10 @@
-<ul class="container announcement-list">
+<ul class="container container-pad-top announcement-list">
   <%= for announcement <- @announcements do %>
     <li class="announcement-list-item">
       <%= link to: announcement_path(@conn, :show, announcement.id) do %>
-        <h1 data-role="title"><%= announcement.title %></h1>
+        <h1 data-role="title" class="announcement-list-item-heading">
+          <%= announcement.title %>
+        </h1>
       <% end %>
 
       <div class="announcement-metadata">
@@ -23,7 +25,7 @@
       <div class="commenters">
         <%= for gravatar <- user_gravatars(announcement) do %>
           <img
-            class="avatar-rounded"
+            class="avatar-rounded avatar-rounded-small avatar-rounded-border avatar-stacked"
             src="<%= gravatar %>"
           />
         <% end %>

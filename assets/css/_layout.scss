@@ -39,3 +39,8 @@ ul {
   font-style: italic;
   margin-bottom: 10px;
 }
+
+.is-hidden {
+  @include hide-text;
+  display: none;
+}

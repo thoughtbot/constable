@@ -28,7 +28,8 @@ $small-spacing: $base-spacing / 2;
 $tiny-spacing: $small-spacing / 2;
 $tiniest-spacing: $tiny-spacing / 2;
 $rounded-avatar-size-large: 40px;
-$rounded-avatar-size: 32px;
+$rounded-avatar-size: 34px;
+$rounded-avatar-size-small: 32px;
 
 // Colors
 $red: #ed3e44;
@@ -45,6 +46,7 @@ $autocomplete-hover-color: darken($light-gray, 5%);
 // Font Colors
 $base-font-color: $dark-gray;
 $action-color: $red;
+$secondary-action-color: $dark-blue;
 
 // Border
 $base-border-color: $light-gray;

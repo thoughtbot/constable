@@ -32,7 +32,7 @@
         <%= if @subscription do %>
           <%= link to: announcement_subscription_path(@conn, :delete, @announcement.id),
             method: :delete,
-            class: "unsubscribe-to",
+            class: "unsubscribe-to unsubscribe-to-thread",
             data: [turbolinks: "refresh"] do %>
             <%= gettext("Subscribed to thread") %>
           <% end %>

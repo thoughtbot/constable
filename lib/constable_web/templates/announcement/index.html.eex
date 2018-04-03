@@ -1,30 +1,31 @@
 <div class="announcements">
   <nav class="segmented-control">
-    <div class="container">
+    <div class="segmented-control-wrapper">
       <%= link gettext("All announcements"),
         to: announcement_path(@conn, :index, all: true),
         class: class_for("all", @conn)
       %>
+
       <%= link gettext("Your interests"),
         to: announcement_path(@conn, :index),
         class: class_for("mine", @conn)
       %>
+
+      <%= if !@show_all do %>
+        <%= link to: interest_path(@conn, :index),
+          data: [role: "view-all-interests"],
+          class: "view-all-interests" do %>
+          <span class="subscribed-to">
+            <%= dngettext("interest-count",
+              "Subscribed to 1 interest",
+              "Subscribed to %{count} interests",
+              interest_count_for(@current_user)) %>
+          </span>
+          <%= gettext "(edit)" %>
+        <% end %>
+      <% end %>
     </div>
   </nav>
-
-  <%= if !@show_all do %>
-    <p class="interests-message <%= class_for("mine", @conn) %>">
-      <%= link to: interest_path(@conn, :index), data: [role: "view-all-interests"] do %>
-        <span class="subscribed-to">
-          <%= dngettext("interest-count",
-            "Subscribed to 1 interest",
-            "Subscribed to %{count} interests",
-            interest_count_for(@current_user)) %>
-        </span>
-        <%= gettext "(edit)" %>
-      <% end %>
-    </p>
-  <% end %>
 
   <%= render ConstableWeb.AnnouncementListView,
     "index.html",

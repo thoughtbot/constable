@@ -11,6 +11,7 @@
   border-bottom: $base-border;
 
   h1 {
+    font-size: 1.75rem;
     margin-bottom: $tiniest-spacing;
   }
 
@@ -41,6 +42,10 @@
   &:last-child {
     border-bottom: none;
   }
+}
+
+.announcement-list-item-heading {
+  color: $base-font-color;
 }
 
 .announcement-metadata {
@@ -76,8 +81,4 @@
 
 .commenters {
   margin-top: $small-spacing;
-
-  .avatar-rounded {
-    margin-bottom: $tiny-spacing;
-  }
 }

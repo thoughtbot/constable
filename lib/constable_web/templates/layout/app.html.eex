@@ -19,33 +19,29 @@
       <header class="main-header">
         <%= link "#Constable", to: "/", class: "logo" %>
 
-        <ul class="navigation right">
-          <li>
-            <%= form_tag search_path(@conn, :show), method: :get do %>
-              <input
-                class="header-search-input"
-                name="query"
-                placeholder="Search announcements..."
-                type="text"
-                value="<%= @conn.params["query"] %>"
-              />
-            <% end %>
-          </li>
-          <li>
-            <%= link to: announcement_path(@conn, :new), class: "button button-small button-secondary button-icon" do %>
-              <img src="/images/icon-plus-white.svg" />
-            <% end %>
-          </li>
-          <li>
-            <%= link to: settings_path(@conn, :show), class: "settings-gravatar remote-append" do %>
-              <img
-                src="<%= gravatar(@conn.assigns.current_user) %>"
-                class="current-user-gravatar"
-              />
-            <% end %>
-          </li>
-        </ul>
+        <%= form_tag search_path(@conn, :show), class: "header-search-form", method: :get do %>
+          <label class="is-hidden" for="header-search-input">Search Constable</label>
+          <input
+            class="header-search-input"
+            id="header-search-input"
+            name="query"
+            placeholder="Search Constable..."
+            type="search"
+            value="<%= @conn.params["query"] %>"
+          />
+        <% end %>
+
+        <%= link to: settings_path(@conn, :show), class: "settings-gravatar remote-append" do %>
+          <img
+            src="<%= gravatar(@conn.assigns.current_user) %>"
+            class="avatar-rounded avatar-rounded-optical-align-y"
+          />
+        <% end %>
+        <%= link to: announcement_path(@conn, :new), class: "announce button button-small button-icon" do %>
+          <span class="announce-text">Announce</span>
+        <% end %>
       </header>
+
       <%= render "_flashes.html", conn: @conn %>
       <%= render "_analytics.html" %>
 

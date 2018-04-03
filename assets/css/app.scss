@@ -3,6 +3,8 @@
 @import 'base/base';
 @import 'node_modules/highlight.js/styles/github';
 
+@import 'icon-as-pseudo';
+
 @import 'fonts';
 @import 'layout';
 @import 'header';
@@ -11,7 +13,6 @@
 @import 'toggle';
 @import 'media-object';
 @import 'modal';
-@import 'icon-as-pseudo';
 @import 'announcement';
 @import 'announcement-create';
 @import 'announcement-form';
@@ -25,3 +26,4 @@
 @import 'pagination';
 @import 'uploadable-input';
 @import 'user-activations';
+@import 'avatars';

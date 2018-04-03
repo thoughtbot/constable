@@ -47,16 +47,6 @@
   }
 }
 
-.avatar-rounded {
-  @include size($rounded-avatar-size);
-  border-radius: 50%;
-  vertical-align: middle;
-}
-
-.avatar-rounded-large {
-  @include size($rounded-avatar-size-large);
-}
-
 .author-information {
   @extend %align-center-flex;
   @include padding($tiniest-spacing null $tiny-spacing);

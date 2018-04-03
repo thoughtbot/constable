@@ -1,10 +1,11 @@
 .main-header {
-  align-items: center;
+  align-items: baseline;
   background-color: $lightest-gray;
   border-bottom: $base-border;
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
-  padding: $base-spacing;
+  padding: $small-spacing $base-spacing;
 
   @include media($small-screen) {
     padding: $small-spacing;
@@ -12,39 +13,81 @@
 }
 
 .logo {
-  text-decoration: none;
-  font-family: $medium-font-family;
   color: $dark-blue;
+  font-family: $medium-font-family;
+  font-size: $medium-font-size;
+  margin-bottom: $base-spacing;
+  order: 2;
+  text-align: center;
+  text-decoration: none;
+
+  @include media($medium-screen-up) {
+    margin-bottom: 0;
+  }
 
   &:hover {
     text-decoration: none;
   }
 }
 
-.navigation {
-  display: flex;
+.settings-gravatar {
+  order: 1;
+  padding-right: $small-spacing;
 
-  li {
-    margin-right: $small-spacing;
-
-    &:last-child {
-      margin-right: 0;
-    }
+  @include media($medium-screen-up) {
+    order: 3;
   }
 }
 
-input[type="text"].header-search-input {
-  @include size(280px $button-small-height);
+.header-search-form {
+  flex: 1 0 100%;
+  order: 4;
+  position: relative;
+
+  @include media($medium-screen-up) {
+    flex-basis: 18.75rem;
+    order: 2;
+  }
+}
+
+input[type="search"].header-search-input {
+  @include size(100% $button-small-height);
   font-size: $small-font-size;
   margin-bottom: 0;
+  text-align: center;
 
-  @include media($small-screen) {
-    width: 100px
+  @include media($medium-screen-up) {
+    @include size(18.75rem auto);
+    margin: 0 auto;
   }
 }
 
-.current-user-gravatar {
-  border-radius: $base-border-radius;
-  vertical-align: middle;
-  height: $button-small-height;
+.header-search-form::before {
+  @include position(absolute, 28% null null $small-spacing);
+  @include size(1.125rem);
+  background: url("/images/icon-search.svg") center / cover no-repeat;
+  content: "";
+  opacity: 0.35;
+  z-index: $mezzanine-z-index;
+
+  @include media($medium-screen-up) {
+    left: calc(50% - 8.5rem);
+  }
+}
+
+.announce-text {
+  display: none;
+
+  @include media($medium-screen-up) {
+    display: block;
+  }
+}
+
+.announce {
+  order: 3;
+}
+
+.announce::before {
+  @include icon-as-pseudo(16px, "/images/icon-create-white.svg");
+  margin: 0;
 }

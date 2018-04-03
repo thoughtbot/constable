@@ -1,8 +1,18 @@
-.segmented-control {
+.segmented-control-wrapper {
+  @include padding(null $small-spacing);
   background-color: $white;
   border-bottom: $base-border;
-  font-size: $small-font-size;
   line-height: $base-spacing;
+  text-align: center;
+
+  @include media($small-screen-up) {
+    @include padding(null $base-spacing);
+    text-align: left;
+  }
+}
+
+.segmented-control {
+  font-size: $small-font-size;
   position: relative;
   z-index: $mezzanine-z-index;
 
@@ -10,19 +20,17 @@
     padding: 0;
   }
 
-  .container {
-    align-items: center;
-    display: flex;
-    justify-content: center;
-  }
-
   a {
     border-bottom: 1px solid transparent;
     color: $medium-gray;
+    display: inline-block;
     padding: $tiny-spacing;
-    text-align: center;
     transform: translateY(1px);
-    width: 100%;
+    z-index: $mezzanine-z-index;
+
+    @include media($small-screen-up) {
+      @include padding($small-spacing null);
+    }
 
     &:hover,
     &:active {
@@ -40,16 +48,20 @@
   }
 }
 
-.interests-message {
-  border-bottom: $base-border;
-  text-align: center;
-
-  a {
-    @include padding(($small-spacing * 1.5) null);
-    display: block;
-  }
+.subscribed-to {
+  color: $action-color;
 }
 
-.subscribed-to {
-  color: $base-font-color;
+.view-all-interests {
+  border-top: $base-border;
+  color: $dark-blue;
+  display: block;
+  font-size: $tiny-font-size;
+  width: 100%;
+
+  @include media($small-screen-up) {
+    border-top: 0;
+    float: right;
+    width: auto;
+  }
 }

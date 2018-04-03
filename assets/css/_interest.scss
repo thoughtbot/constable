@@ -73,6 +73,16 @@
   }
 }
 
+.unsubscribe-to-thread {
+  background-color: $white;
+  border: 1px solid $secondary-action-color;
+  color: $secondary-action-color;
+
+  &::before {
+    @include icon-as-pseudo(12px, "/images/icon-check.svg");
+  }
+}
+
 .interest-list-item .link {
   display: inline-flex;
   flex-shrink: 0;
