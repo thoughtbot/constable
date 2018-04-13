@@ -3,6 +3,8 @@ defmodule ConstableWeb.Api.SubscriptionController do
 
   alias Constable.Subscription
 
+  plug Constable.Plugs.Deslugifier, slugified_key: "announcement_id"
+
   def index(conn, _params) do
     current_user = current_user(conn)
     subscriptions = subscriptions_for(current_user)

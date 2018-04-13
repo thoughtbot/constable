@@ -72,6 +72,7 @@ defmodule Constable.Mixfile do
       {:quick_alias, "~> 0.1.0"},
       {:scrivener_ecto, "~> 1.1"},
       {:secure_random, "~> 0.1"},
+      {:slugger, "~> 0.2"},
       {:wallaby, "~> 0.6", only: :test},
     ]
   end

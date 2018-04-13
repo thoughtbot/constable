@@ -3,6 +3,8 @@ defmodule ConstableWeb.Api.CommentController do
 
   alias Constable.Services.CommentCreator
 
+  plug Constable.Plugs.Deslugifier, slugified_key: "announcement_id"
+
   def create(conn, %{"comment" => params}) do
     current_user = current_user(conn)
     params = Map.put(params, "user_id", current_user.id)
