@@ -67,7 +67,7 @@ defmodule ConstableWeb.AnnouncementController do
 
     case AnnouncementCreator.create(announcement_params, interest_names) do
       {:ok, announcement} ->
-        redirect(conn, to: announcement_path(conn, :show, announcement.id))
+        redirect(conn, to: announcement_path(conn, :show, announcement))
       {:error, changeset} ->
         interests = Repo.all(Interest)
         render(conn, "new.html", %{
@@ -96,14 +96,14 @@ defmodule ConstableWeb.AnnouncementController do
     if announcement.user_id == current_user.id do
       case AnnouncementUpdater.update(announcement, announcement_params, interest_names) do
         {:ok, announcement} ->
-          redirect(conn, to: announcement_path(conn, :show, announcement.id))
+          redirect(conn, to: announcement_path(conn, :show, announcement))
         {:error, _changeset} ->
           render_form(conn, "edit", announcement)
       end
     else
       conn
       |> put_flash(:error, gettext("You do not have permission to edit that announcement"))
-      |> redirect(to: announcement_path(conn, :show, announcement.id))
+      |> redirect(to: announcement_path(conn, :show, announcement))
     end
   end
 
