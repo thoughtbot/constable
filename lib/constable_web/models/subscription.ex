@@ -6,7 +6,7 @@ defmodule Constable.Subscription do
   schema "subscriptions" do
     field :token
     belongs_to :user, User
-    belongs_to :announcement, Announcement
+    belongs_to :announcement, Announcement, type: Constable.PermalinkType
     timestamps()
   end
 

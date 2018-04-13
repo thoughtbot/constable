@@ -7,7 +7,7 @@ defmodule Constable.Comment do
     field :body
 
     belongs_to :user, User
-    belongs_to :announcement, Announcement
+    belongs_to :announcement, Announcement, type: Constable.PermalinkType
     timestamps()
   end
 
