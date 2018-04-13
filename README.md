@@ -65,9 +65,7 @@ You can view sent emails in development by going to `localhost:4000/sent_emails`
 
 ## Testing
 
-1. Run `bin/test_suite` for testing the whole test suite. The script will build
-   assets that are needed for testing js acceptance tests, or
-2. Run `mix test` for individual tests
+Run `mix test`
 
 ## Static Analysis
 
