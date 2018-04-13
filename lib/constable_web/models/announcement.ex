@@ -57,6 +57,7 @@ defmodule Constable.Announcement do
       full_join: i in assoc(a, :interests),
       group_by: a.id,
       having: fragment("NOT ARRAY_AGG(?) @> ?", i.name, ^excludes),
+      order_by: a.id,
       where: fragment("to_tsvector('english', ?) || to_tsvector('english', ?) @@ plainto_tsquery('english', ?)",
         a.title,
         a.body,
