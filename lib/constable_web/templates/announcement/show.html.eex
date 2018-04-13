@@ -30,14 +30,14 @@
       </div>
       <div class="subscription">
         <%= if @subscription do %>
-          <%= link to: announcement_subscription_path(@conn, :delete, @announcement.id),
+          <%= link to: announcement_subscription_path(@conn, :delete, @announcement),
             method: :delete,
             class: "unsubscribe-to unsubscribe-to-thread",
             data: [turbolinks: "refresh"] do %>
             <%= gettext("Subscribed to thread") %>
           <% end %>
         <% else %>
-          <%= link to: announcement_subscription_path(@conn, :create, @announcement.id),
+          <%= link to: announcement_subscription_path(@conn, :create, @announcement),
             method: :post,
             class: "subscribe-to",
             data: [turbolinks: "refresh"] do %>

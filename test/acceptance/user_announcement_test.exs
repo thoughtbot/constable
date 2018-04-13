@@ -35,7 +35,7 @@ defmodule ConstableWeb.UserAnnouncementTest do
     announcement = insert(:announcement, user: user)
 
     session
-    |> visit(announcement_path(Endpoint, :show, announcement.id, as: user.id))
+    |> visit(announcement_path(Endpoint, :show, announcement, as: user.id))
     |> click_edit
     |> fill_in("announcement_title", with: "Updated")
     |> fill_in_interests("updated")
@@ -53,7 +53,7 @@ defmodule ConstableWeb.UserAnnouncementTest do
     announcement = insert(:announcement, user: user) |> tag_with_interest(elixir_interest)
 
     session
-    |> visit(announcement_path(Endpoint, :edit, announcement.id, as: user.id))
+    |> visit(announcement_path(Endpoint, :edit, announcement, as: user.id))
     |> fill_in("announcement_title", with: "Updated title")
     |> fill_in("announcement_body", with: "# Updated")
     |> click_submit_button
