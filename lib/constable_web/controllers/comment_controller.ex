@@ -5,6 +5,8 @@ defmodule ConstableWeb.CommentController do
   alias Constable.Comment
   alias Constable.Services.CommentCreator
 
+  plug Constable.Plugs.Deslugifier, slugified_key: "announcement_id"
+
   def create(conn, %{"announcement_id" => announcement_id, "comment" => comment_params}) do
     comment_params = comment_params
       |> Map.put("user_id", conn.assigns.current_user.id)
@@ -43,7 +45,7 @@ defmodule ConstableWeb.CommentController do
 
     case Repo.update(changeset) do
       {:ok, comment} ->
-        redirect_to_comment_on_announcement_page(conn, comment)
+        redirect_to_comment_on_announcement_page(conn, announcement, comment)
       {:error, _changeset} ->
         conn
         |> render("edit.html",
@@ -54,7 +56,7 @@ defmodule ConstableWeb.CommentController do
     end
   end
 
-  defp redirect_to_comment_on_announcement_page(conn, comment) do
-    redirect(conn, to: announcement_path(conn, :show, comment.announcement_id) <> "#comment-#{comment.id}")
+  defp redirect_to_comment_on_announcement_page(conn, announcement, comment) do
+    redirect(conn, to: announcement_path(conn, :show, announcement) <> "#comment-#{comment.id}")
   end
 end

@@ -7,6 +7,8 @@ defmodule ConstableWeb.AnnouncementController do
   alias Constable.{Announcement, Comment, Interest, Subscription}
   alias Constable.Services.AnnouncementCreator
 
+  plug Constable.Plugs.Deslugifier, slugified_key: "id"
+
   def index(conn, %{"all" => "true"} = params) do
     index_page = all_announcements() |> Repo.paginate(params)
 

@@ -3,6 +3,8 @@ defmodule ConstableWeb.SubscriptionController do
 
   alias Constable.Subscription
 
+  plug Constable.Plugs.Deslugifier, slugified_key: "announcement_id"
+
   def create(conn, %{"announcement_id" => announcement_id}) do
     changeset = Subscription.changeset(%{
       announcement_id: announcement_id,

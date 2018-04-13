@@ -9,6 +9,7 @@ defmodule Constable.Announcement do
   schema "announcements" do
     field :title
     field :body
+    field :slug
     field :last_discussed_at, :utc_datetime, autogenerate: {DateTime, :utc_now, []}
     timestamps()
 
@@ -23,12 +24,14 @@ defmodule Constable.Announcement do
     announcement
     |> cast(params, ~w(title body))
     |> validate_required([:title, :body])
+    |> generate_slug()
   end
 
   def create_changeset(announcement, params) do
     announcement
     |> cast(params, ~w(title body user_id))
     |> validate_required([:title, :body])
+    |> generate_slug()
   end
 
   def last_discussed_first(query \\ __MODULE__) do
@@ -66,6 +69,17 @@ defmodule Constable.Announcement do
     )
   end
 
+  defp generate_slug(changeset) do
+    case get_change(changeset, :title) do
+      nil -> changeset
+      title -> put_change(changeset, :slug, slugify(title))
+    end
+  end
+
+  defp slugify(title) do
+    Slugger.slugify_downcase(title)
+  end
+
   defp prepare_for_tsquery(search_term) do
     search_term
     |> String.split(" ", trim: true)
@@ -75,5 +89,11 @@ defmodule Constable.Announcement do
 
   defp newest_comments_first do
     from(c in Comment, order_by: [asc: c.inserted_at])
+  end
+end
+
+defimpl Phoenix.Param, for: Constable.Announcement do
+  def to_param(%{slug: slug, id: id}) do
+    "#{id}-#{slug}"
   end
 end

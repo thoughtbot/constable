@@ -28,7 +28,7 @@ defmodule ConstableWeb.CommentControllerTest do
       body: "Foo"
     }
 
-    assert redirected_to(conn) =~ announcement_path(conn, :show, announcement)
+    assert redirected_to(conn) =~ announcement_path(conn, :show, announcement.id)
   end
 
   test "#create redirects back to the announcement with flash on failure", %{conn: conn} do

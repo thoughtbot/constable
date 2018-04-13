@@ -6,6 +6,8 @@ defmodule ConstableWeb.Api.AnnouncementController do
   alias Constable.Services.AnnouncementUpdater
   alias ConstableWeb.Api.AnnouncementView
 
+  plug Constable.Plugs.Deslugifier, slugified_key: "id"
+
   def index(conn, _params) do
     announcements = Repo.all(Announcement)
     render(conn, "index.json", announcements: announcements)
