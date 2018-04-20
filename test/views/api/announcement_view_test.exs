@@ -3,11 +3,13 @@ defmodule ConstableWeb.Api.AnnouncementViewTest do
 
   alias ConstableWeb.Api.AnnouncementView
   alias ConstableWeb.Api.CommentView
+  alias ConstableWeb.Router.Helpers
 
   test "show.json returns correct fields" do
     interest = insert(:interest)
     announcement = insert(:announcement) |> tag_with_interest(interest)
     comment = insert(:comment, announcement: announcement)
+    announcement_url = Helpers.announcement_url(ConstableWeb.Endpoint, :show, announcement)
 
     rendered_announcement = render_one(announcement, AnnouncementView, "show.json")
 
@@ -21,7 +23,7 @@ defmodule ConstableWeb.Api.AnnouncementViewTest do
         user_id: announcement.user_id,
         comments: render_many([comment], CommentView, "comment.json"),
         interest_ids: [interest.id],
-        url: "http://localhost:4001/announcements/#{announcement.id}",
+        url: announcement_url,
       }
     }
   end

@@ -32,7 +32,7 @@ defmodule ConstableWeb.AnnouncementControllerTest do
   test "#show renders markdown as html", %{conn: conn} do
     announcement = insert(:announcement, body: "# Hello")
 
-    conn = get conn, announcement_path(conn, :show, announcement.id)
+    conn = get conn, announcement_path(conn, :show, announcement)
 
     assert html_response(conn, :ok) =~ "<h1>Hello</h1>"
   end
@@ -41,7 +41,7 @@ defmodule ConstableWeb.AnnouncementControllerTest do
     announcement = insert(:announcement)
     insert(:comment, body: "# Comment", announcement: announcement)
 
-    conn = get conn, announcement_path(conn, :show, announcement.id)
+    conn = get conn, announcement_path(conn, :show, announcement)
 
     assert html_response(conn, :ok) =~ "<h1>Comment</h1>"
   end
@@ -49,7 +49,7 @@ defmodule ConstableWeb.AnnouncementControllerTest do
   test "comments on show page have an edit link if current user is the author", %{conn: conn, user: user} do
     comment = insert(:comment, user: user)
 
-    conn = get conn, announcement_path(conn, :show, comment.announcement.id)
+    conn = get conn, announcement_path(conn, :show, comment.announcement)
 
     assert html_response(conn, :ok) =~ "(edit)"
   end
@@ -58,7 +58,7 @@ defmodule ConstableWeb.AnnouncementControllerTest do
     another_user = insert(:user)
     comment = insert(:comment, user: another_user)
 
-    conn = get conn, announcement_path(conn, :show, comment.announcement.id)
+    conn = get conn, announcement_path(conn, :show, comment.announcement)
 
     refute html_response(conn, :ok) =~ "(edit)"
   end

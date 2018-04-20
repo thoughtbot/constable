@@ -6,7 +6,7 @@ defmodule Constable.AnnouncementInterest do
   schema "announcements_interests" do
     timestamps()
 
-    belongs_to :announcement, Announcement
+    belongs_to :announcement, Announcement, type: Constable.PermalinkType
     belongs_to :interest, Interest
   end
 end

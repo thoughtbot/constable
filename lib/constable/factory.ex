@@ -48,8 +48,12 @@ defmodule Constable.Factory do
   end
 
   def announcement_factory do
+    title = sequence(:email, &"Post Title#{&1}")
+    slug = Slugger.slugify_downcase(title)
+
     %Constable.Announcement{
-      title: sequence(:email, &"Post Title#{&1}"),
+      title: title,
+      slug: slug,
       body: "Post Body",
       user: build(:user)
     }

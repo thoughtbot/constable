@@ -19,7 +19,7 @@ defmodule ConstableWeb.Api.AnnouncementControllerTest do
   test "#show renders single announcement", %{conn: conn, user: user} do
     announcement = insert(:announcement, user: user)
 
-    conn = get conn, api_announcement_path(conn, :show, announcement.id)
+    conn = get conn, api_announcement_path(conn, :show, announcement)
 
     assert json_response(conn, 200) == render_json("show.json", announcement: announcement)
   end

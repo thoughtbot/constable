@@ -43,7 +43,7 @@ defmodule ConstableWeb.CommentController do
 
     case Repo.update(changeset) do
       {:ok, comment} ->
-        redirect_to_comment_on_announcement_page(conn, comment)
+        redirect_to_comment_on_announcement_page(conn, announcement, comment)
       {:error, _changeset} ->
         conn
         |> render("edit.html",
@@ -54,7 +54,7 @@ defmodule ConstableWeb.CommentController do
     end
   end
 
-  defp redirect_to_comment_on_announcement_page(conn, comment) do
-    redirect(conn, to: announcement_path(conn, :show, comment.announcement_id) <> "#comment-#{comment.id}")
+  defp redirect_to_comment_on_announcement_page(conn, announcement, comment) do
+    redirect(conn, to: announcement_path(conn, :show, announcement) <> "#comment-#{comment.id}")
   end
 end
