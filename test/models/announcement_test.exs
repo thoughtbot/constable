@@ -22,7 +22,7 @@ defmodule Constable.AnnouncementTest do
       assert slug == "a-normal-title"
     end
 
-    test "does not generate slug if not title is nil" do
+    test "does not generate slug if title is nil" do
       announcement = build(:announcement)
 
       slug =
