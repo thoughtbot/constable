@@ -65,7 +65,7 @@ defmodule Constable.Mixfile do
       {:oauth2, "~> 0.5"},
       {:pact, "0.1.0"},
       {:phoenix_ecto, "~> 3.0.0"},
-      {:phoenix_live_reload, "~> 1.0.5"},
+      {:phoenix_live_reload, "~> 1.1.3"},
       {:phoenix, "~> 1.3.0"},
       {:phoenix_html, "~> 2.4"},
       {:postgrex, ">= 0.0.0"},
