@@ -54,7 +54,7 @@ defmodule Constable.Mixfile do
       {:dialyxir, "~> 0.3", only: [:dev]},
       {:earmark, github: "pragdave/earmark"},
       {:ecto, "~> 2.1"},
-      {:envy, "~> 0.0.1"},
+      {:envy, "~> 1.1.1"},
       {:ex_machina, "~> 2.0"},
       {:exgravatar, "~> 0.2"},
       {:gettext, "~> 0.11"},
