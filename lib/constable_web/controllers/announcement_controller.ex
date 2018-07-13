@@ -109,6 +109,22 @@ defmodule ConstableWeb.AnnouncementController do
     end
   end
 
+  def delete(conn, %{"id" => id}) do
+    current_user = current_user(conn)
+    announcement = Repo.get!(Announcement, id)
+
+    if announcement.user_id == current_user.id do
+      Repo.delete!(announcement)
+      conn
+      |> put_flash(:info, gettext("Announcement deleted"))
+      |> redirect(to: announcement_path(conn, :index))
+    else
+      conn
+      |> put_flash(:error, gettext("You do not have permission to delete that announcement"))
+      |> redirect(to: announcement_path(conn, :show, announcement))
+    end
+  end
+
   defp render_form(conn, action, announcement) do
     changeset = Announcement.create_changeset(announcement, %{})
     interests = Repo.all(Interest)
