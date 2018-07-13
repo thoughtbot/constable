@@ -47,7 +47,7 @@ mix run priv/repo/seeds.exs
 
 # Grab JS dependencies from NPM
 echo "Installing npm dependencies"
-npm install
+cd assets && npm install && cd ../
 
 # Only if this isn't CI
 if [ -z "$CI" ]; then
