@@ -1,6 +1,5 @@
 defmodule ConstableWeb.AnnouncementControllerTest do
   use ConstableWeb.ConnCase, async: true
-  import ConstableWeb.ControllerHelper, only: [current_user: 1]
 
   alias Constable.Announcement
 
