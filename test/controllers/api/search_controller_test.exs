@@ -17,7 +17,7 @@ defmodule ConstableWeb.Api.SearchesControllerTest do
     assert results_for(conn, query: "announcement body") == json_for(announcement_2)
     assert results_for(conn, query: "awesome title cool body") == json_for(announcement_3)
     assert results_for(conn, query: "sweet 401(k) bro") == json_for(announcement_4)
-    assert results_for(conn, query: "cool") == json_for([announcement_2, announcement_3])
+    assert results_for(conn, query: "cool") == json_for([announcement_3, announcement_2])
     query_with_extra_spaces = "announcement     body"
     assert results_for(conn, query: query_with_extra_spaces) == json_for(announcement_2)
   end
