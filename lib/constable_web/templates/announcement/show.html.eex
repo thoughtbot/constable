@@ -17,7 +17,7 @@
             "delete",
             to: announcement_path(@conn, :delete, @announcement),
             method: :delete,
-            data: [confirm: "Really delete this announcement?", role: "delete"]
+            data: [confirm: gettext("Really delete this announcement?"), role: "delete"]
         ) %>
       </small>
     <% end %>
