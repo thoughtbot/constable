@@ -101,6 +101,24 @@ defmodule Constable.Services.AnnouncementCreatorTest do
     assert_delivered_email Emails.new_announcement(announcement, [subscribed_user])
   end
 
+  test "does not send announcement email to deactivated users" do
+    interest = insert(:interest, name: "foo")
+    author = insert(:user) |> with_interest(interest)
+    subscribed_user = insert(:user) |> with_interest(interest)
+    _deactivated_user = insert(:user, active: false) |> with_interest(interest)
+
+    announcement_params = %{
+      title: "Title",
+      body: "Body",
+      user_id: author.id
+    }
+
+    AnnouncementCreator.create(announcement_params, ["foo"])
+
+    announcement = Repo.one(Announcement) |> Repo.preload(:user)
+    assert_delivered_email Emails.new_announcement(announcement, [subscribed_user])
+  end
+
   test "sends announcement email to mentioned users" do
     interest = insert(:interest, name: "foo")
     author = insert(:user) |> with_interest(interest)
