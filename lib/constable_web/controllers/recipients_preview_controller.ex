@@ -20,6 +20,7 @@ defmodule ConstableWeb.RecipientsPreviewController do
               join: i in assoc(u, :interests),
               order_by: u.name,
               select: u.name,
+              where: u.active == true,
               where: i.name in ^interest_names
     Repo.all(query)
   end
