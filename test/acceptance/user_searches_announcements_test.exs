@@ -8,7 +8,7 @@ defmodule ConstableWeb.UserSearchesAnnouncementsTest do
 
     session
     |> visit(announcement_path(Endpoint, :new, as: user.id))
-    |> fill_in("query", with: matching_announcement.title)
+    |> fill_in(text_field("query"), with: matching_announcement.title)
     |> submit_search
 
     assert has_announcement_text?(session, matching_announcement.title)
@@ -24,7 +24,7 @@ defmodule ConstableWeb.UserSearchesAnnouncementsTest do
 
   defp has_announcement_text?(session, announcment_title) do
     session
-    |> find("h1[data-role=title]")
+    |> find(css("h1[data-role=title]"))
     |> has_text?(announcment_title)
   end
 end

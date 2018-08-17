@@ -73,7 +73,7 @@ defmodule Constable.Mixfile do
       {:scrivener_ecto, "~> 1.1"},
       {:secure_random, "~> 0.1"},
       {:slugger, "~> 0.2"},
-      {:wallaby, "~> 0.6", only: :test},
+      {:wallaby, "~> 0.20", only: :test},
     ]
   end
 

@@ -1,9 +1,9 @@
 defmodule ConstableWeb.UserManagesInterestsTest do
   use ConstableWeb.AcceptanceCase, async: true
 
-  @unsubscribe_link_css "[data-role=unsubscribe-from-interest]"
-  @subscribe_link_css "[data-role=subscribe-to-interest]"
-  @view_all_interests_css "[data-role=view-all-interests]"
+  @unsubscribe_link_css css("[data-role=unsubscribe-from-interest]")
+  @subscribe_link_css css("[data-role=subscribe-to-interest]")
+  @view_all_interests_css css("[data-role=view-all-interests]")
 
   test "user manages interests", %{session: session} do
     insert(:interest)
@@ -38,11 +38,11 @@ defmodule ConstableWeb.UserManagesInterestsTest do
   end
 
   defp subscribed_to_interest?(session) do
-    session |> has_css?(@unsubscribe_link_css)
+    session |> has?(@unsubscribe_link_css)
   end
 
   defp not_subscribed_to_interest?(session) do
-    session |> has_css?(@subscribe_link_css)
+    session |> has?(@subscribe_link_css)
   end
 
   defp subscribe_to_interest(session) do

@@ -1,14 +1,17 @@
 defmodule ConstableWeb.UserAnnouncementTest do
   use ConstableWeb.AcceptanceCase
 
+  @announcement_title text_field("announcement_title")
+  @announcement_body text_field("announcement_body")
+
   test "user creates an announcement", %{session: session} do
     user = insert(:user)
 
     session
     |> visit(announcement_path(Endpoint, :new, as: user.id))
-    |> fill_in("announcement_title", with: "Hello World")
+    |> fill_in(@announcement_title, with: "Hello World")
     |> fill_in_interests("everyone")
-    |> fill_in("announcement_body", with: "# Hello!")
+    |> fill_in(@announcement_body, with: "# Hello!")
     |> click_submit_button
 
     assert has_announcement_title?(session, "Hello World")
@@ -25,7 +28,7 @@ defmodule ConstableWeb.UserAnnouncementTest do
     session
     |> visit(announcement_path(Endpoint, :new, as: current_user.id))
     |> fill_in_interests("elixir")
-    |> click_link("2 people are subscribed")
+    |> click(link("2 people are subscribed"))
 
     assert has_recipient_preview?(session, "Blake, Paul")
   end
@@ -37,9 +40,9 @@ defmodule ConstableWeb.UserAnnouncementTest do
     session
     |> visit(announcement_path(Endpoint, :show, announcement, as: user.id))
     |> click_edit
-    |> fill_in("announcement_title", with: "Updated")
+    |> fill_in(@announcement_title, with: "Updated")
     |> fill_in_interests("updated")
-    |> fill_in("announcement_body", with: "# Updated")
+    |> fill_in(@announcement_body, with: "# Updated")
     |> click_submit_button
 
     assert has_announcement_title?(session, "Updated")
@@ -54,8 +57,8 @@ defmodule ConstableWeb.UserAnnouncementTest do
 
     session
     |> visit(announcement_path(Endpoint, :edit, announcement, as: user.id))
-    |> fill_in("announcement_title", with: "Updated title")
-    |> fill_in("announcement_body", with: "# Updated")
+    |> fill_in(@announcement_title, with: "Updated title")
+    |> fill_in(@announcement_body, with: "# Updated")
     |> click_submit_button
 
     assert has_announcement_title?(session, "Updated title")
@@ -64,43 +67,47 @@ defmodule ConstableWeb.UserAnnouncementTest do
 
   defp click_edit(session) do
     session
-    |> find("[data-role=edit]")
-    |> click
+    |> click(css("[data-role=edit]"))
 
     session
   end
 
   defp fill_in_interests(session, interests) do
     session
-    |> find(".selectize-input input")
-    |> fill_in(with: interests)
+    |> fill_in(css(".selectize-input input"), with: interests)
 
     session
-    |> find(".selectize-dropdown-content .create")
-    |> click
+    |> click(css(".selectize-dropdown-content .create"))
 
     session
   end
 
   defp click_submit_button(session) do
     session
-    |> find("[data-role=submit-announcement]")
-    |> click
+    |> click(css("[data-role=submit-announcement]"))
   end
 
   defp has_announcement_title?(session, text) do
-    session |> find("h1[data-role=title]") |> has_text?(text)
+    session
+    |> find(css("h1[data-role=title]"))
+    |> has_text?(text)
   end
 
   defp has_announcement_body?(session, text) do
-    session |> find("[data-role=body] h1") |> has_text?(text)
+    session
+    |> find(css("[data-role=body] h1"))
+    |> has_text?(text)
   end
 
   defp has_announcement_interest?(session, text) do
-    session |> find("[data-role=interests]") |> has_text?(text)
+    session
+    |> find(css("[data-role=interests]"))
+    |> has_text?(text)
   end
 
   defp has_recipient_preview?(session, user_names) do
-    session |> find(".interested-user-names") |> has_text?(user_names)
+    session
+    |> find(css(".interested-user-names"))
+    |> has_text?(user_names)
   end
 end

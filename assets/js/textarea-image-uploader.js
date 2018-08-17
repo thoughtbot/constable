@@ -12,5 +12,7 @@ export function setupImageUploader(selector) {
     },
   }
 
-  new Shubox(selector, shuboxOptions);
+  if (typeof(Shubox) !== 'undefined') {
+    new Shubox(selector, shuboxOptions);
+  }
 }

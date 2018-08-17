@@ -24,15 +24,19 @@ defmodule ConstableWeb.UserUnsubscribesTest do
 
   defp has_unsubscribed_flash_message?(session) do
     session
-    |> find(".flash")
+    |> find(css(".flash"))
     |> has_text?("unsubscribed")
   end
 
   defp has_announcement_title?(session, text) do
-    session |> find("h1[data-role=title]") |> has_text?(text)
+    session
+    |> find(css("h1[data-role=title]"))
+    |> has_text?(text)
   end
 
   defp has_login_button?(session) do
-    session |> find("a.sign-in-link") |> has_text?("Sign in")
+    session
+    |> find(css("a.sign-in-link"))
+    |> has_text?("Sign in")
   end
 end
