@@ -10,7 +10,7 @@
   "dialyze": {:hex, :dialyze, "0.2.1", "9fb71767f96649020d769db7cbd7290059daff23707d6e851e206b1fdfa92f9d", [:mix], []},
   "earmark": {:git, "https://github.com/pragdave/earmark.git", "b44d4817aa2b4047b07f91d633ae83ed27c695ed", []},
   "ecto": {:hex, :ecto, "2.1.3", "ffb24e150b519a4c0e4c84f9eabc8587199389bc499195d5d1a93cd3b2d9a045", [:mix], [{:db_connection, "~> 1.1", [hex: :db_connection, optional: true]}, {:decimal, "~> 1.2", [hex: :decimal, optional: false]}, {:mariaex, "~> 0.8.0", [hex: :mariaex, optional: true]}, {:poison, "~> 2.2 or ~> 3.0", [hex: :poison, optional: true]}, {:poolboy, "~> 1.5", [hex: :poolboy, optional: false]}, {:postgrex, "~> 0.13.0", [hex: :postgrex, optional: true]}, {:sbroker, "~> 1.0", [hex: :sbroker, optional: true]}]},
-  "envy": {:hex, :envy, "0.0.2", "278045cf7a7c7d46bd607e9cd6632b7d3fc71ddaa9c26bf364ec11af961b313b", [], []},
+  "envy": {:hex, :envy, "1.1.1", "0bc9bd654dec24fcdf203f7c5aa1b8f30620f12cfb28c589d5e9c38fe1b07475", [:mix], [], "hexpm"},
   "ex_machina": {:hex, :ex_machina, "2.0.0", "ec284c6f57233729cea9319e083f66e613e82549f78eccdb2059aeba5d0df9f3", [:mix], [{:ecto, "~> 2.1", [hex: :ecto, repo: "hexpm", optional: true]}], "hexpm"},
   "exgravatar": {:hex, :exgravatar, "0.2.0", "6a28d05e04b0536fa18fd38492d313469738d1f86bfd342146b358961f3ac459", [], []},
   "file_system": {:hex, :file_system, "0.2.5", "a3060f063b116daf56c044c273f65202e36f75ec42e678dc10653056d3366054", [:mix], [], "hexpm"},
