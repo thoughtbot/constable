@@ -50,7 +50,7 @@ defmodule ConstableWeb.EmailReplyTest do
     post(conn, "/email_replies", email_reply_webhook)
 
     comment = Repo.one(Comment)
-    assert comment.body == String.strip(user_text)
+    assert comment.body == String.trim(user_text)
   end
 
   defp create_email_reply_webhook(message_attributes) do

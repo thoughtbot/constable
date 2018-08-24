@@ -22,7 +22,7 @@ defmodule Constable.Interest do
     interest
     |> cast(params, ~w(name slack_channel))
     |> validate_required(:name)
-    |> update_change(:name, &String.strip(&1))
+    |> update_change(:name, &String.trim(&1))
     |> update_change(:name, &String.replace(&1, "#", ""))
     |> update_change(:name, &String.replace(&1, " ", "-"))
     |> update_change(:name, &String.downcase/1)
