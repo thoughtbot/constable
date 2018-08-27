@@ -12,6 +12,15 @@
       @include margin($base-spacing null ($base-spacing * 0.85));
       font-size: $larger-font-size;
     }
+
+    .inline-action {
+      margin-right: $tiny-spacing;
+      font-size: 0.5em;
+    }
+
+    form {
+      display: inline-block;
+    }
   }
 
   pre {

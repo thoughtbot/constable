@@ -9,8 +9,16 @@
   <h1 data-role="title">
     <%= @announcement.title %>
     <%= if @announcement.user_id == @current_user.id do %>
-      <small>
+      <small class="inline-action">
         <%= link "edit", to: announcement_path(@conn, :edit, @announcement), data: [role: "edit"] %>
+      </small>
+      <small class="inline-action">
+        <%= link(
+            "delete",
+            to: announcement_path(@conn, :delete, @announcement),
+            method: :delete,
+            data: [confirm: gettext("Really delete this announcement?"), role: "delete"]
+        ) %>
       </small>
     <% end %>
   </h1>

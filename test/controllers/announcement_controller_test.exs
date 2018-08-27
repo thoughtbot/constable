@@ -78,4 +78,21 @@ defmodule ConstableWeb.AnnouncementControllerTest do
 
     assert interest_names == ["boston", "everyone"]
   end
+
+  test "#delete does not work for users who are not the owner of the announcement", %{conn: conn, user: user} do
+    owner = insert(:user)
+    announcement = insert(:announcement, user: owner)
+
+    delete conn, announcement_path(conn, :delete, announcement)
+
+    assert Repo.one(Announcement)
+  end
+
+  test "#delete works for owner of the announcement", %{conn: conn, user: user} do
+    announcement = insert(:announcement, user: user)
+
+    delete conn, announcement_path(conn, :delete, announcement)
+
+    refute Repo.one(Announcement)
+  end
 end

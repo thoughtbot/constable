@@ -16,7 +16,7 @@ defmodule Constable.Announcement do
     belongs_to :user, User
     has_many :comments, Comment, on_delete: :delete_all
     has_many :subscriptions, Subscription, on_delete: :delete_all
-    many_to_many :interests, Interest, join_through: AnnouncementInterest
+    many_to_many :interests, Interest, on_delete: :delete_all, join_through: AnnouncementInterest
     has_many :interested_users, through: [:interests, :users]
   end
 
