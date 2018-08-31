@@ -104,7 +104,7 @@ defmodule Constable.User do
 
   defp is_blank?(nil), do: true
   defp is_blank?(string) when is_binary(string) do
-    case String.strip(string) do
+    case String.trim(string) do
       "" -> true
       _ -> false
     end
