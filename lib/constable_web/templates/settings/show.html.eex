@@ -39,6 +39,11 @@
           Send me daily digest emails about what's new on Constable.
           </label>
         </div>
+        <div class="field">
+          <label>
+            Looking to change your avatar? We use <%= link "gravatar", to: "https://en.gravatar.com/" %>. Set yours there with the same email as this account, and it will show up here.
+          </label>
+        </div>
         <%= submit gettext("Save") %>
       <% end %>
     </div>
