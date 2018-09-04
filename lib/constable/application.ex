@@ -29,7 +29,7 @@ defmodule Constable.Application do
 
   defp setup_dependencies do
     {:ok, _} = Pact.start
-    Pact.put(:request_with_access_token, OAuth2.AccessToken)
+    Pact.put(:request_with_access_token, OAuth2.Client)
     Pact.put(:token_retriever, OAuth2.Strategy.AuthCode)
     Pact.put(:daily_digest, Constable.DailyDigest)
     Pact.put(:google_strategy, GoogleStrategy)

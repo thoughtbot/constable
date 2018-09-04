@@ -6,7 +6,7 @@ defmodule Constable.GoogleStrategyTest do
 
     {client, _} = GoogleStrategy.tokeninfo_url(client, "1234")
 
-    {"Content-Type", content_type} = List.first(client.headers)
+    {"content-type", content_type} = List.first(client.headers)
     assert content_type == "application/x-www-form-urlencoded"
   end
 

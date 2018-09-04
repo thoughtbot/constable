@@ -1,6 +1,5 @@
 defmodule GoogleStrategy do
   use OAuth2.Strategy
-  alias OAuth2.Request
 
   def client(redirect_uri) do
     OAuth2.Client.new([
@@ -21,7 +20,9 @@ defmodule GoogleStrategy do
   end
 
   def get_token!(redirect_uri, params \\ [], headers \\ [], options \\ []) do
-    OAuth2.Client.get_token!(client(redirect_uri), params, headers, options)
+    client(redirect_uri)
+    |> put_param(:client_secret, System.get_env("CLIENT_SECRET"))
+    |> OAuth2.Client.get_token!(params, headers, options)
   end
 
   @doc """
@@ -43,7 +44,7 @@ defmodule GoogleStrategy do
   """
   def get_tokeninfo!(redirect_uri, id_token) do
     {client, url} = tokeninfo_url(client(redirect_uri), id_token)
-    case Request.post(url, client.params, client.headers) do
+    case OAuth2.Client.post(url, client.params, client.headers) do
       {:ok, response} -> response.body
       {:error, error} -> raise error
     end

@@ -62,7 +62,7 @@ defmodule Constable.Mixfile do
       {:honeybadger, "~> 0.6"},
       {:html_sanitize_ex, "~> 1.3.0"},
       {:httpoison, github: "edgurgel/httpoison", override: true},
-      {:oauth2, "~> 0.5"},
+      {:oauth2, "~> 0.8"},
       {:pact, "0.1.0"},
       {:phoenix_ecto, "~> 3.0.0"},
       {:phoenix_live_reload, "~> 1.1.5"},
