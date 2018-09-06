@@ -56,7 +56,7 @@ defmodule Constable.Mixfile do
       {:ecto, "~> 2.1"},
       {:envy, "~> 1.1.1"},
       {:ex_machina, "~> 2.0"},
-      {:exgravatar, "~> 0.2"},
+      {:exgravatar, "~> 2.0.0"},
       {:gettext, "~> 0.11"},
       {:good_times, "~> 1.1"},
       {:honeybadger, "~> 0.6"},
