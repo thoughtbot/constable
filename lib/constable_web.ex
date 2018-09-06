@@ -20,6 +20,7 @@ defmodule Constable.Web do
       import ConstableWeb.Gettext
       import ConstableWeb.SharedView
       import Constable.EnumHelper
+      import Exgravatar
 
       use Phoenix.HTML
       use Phoenix.View, root: "lib/constable_web/templates", namespace: ConstableWeb
@@ -47,6 +48,13 @@ defmodule Constable.Web do
       use Ecto.Schema
       import Ecto.Changeset
       import Ecto.Query
+      import Exgravatar
+    end
+  end
+
+  def serializer do
+    quote do
+      import Exgravatar
     end
   end
 

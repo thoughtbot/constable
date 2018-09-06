@@ -2,6 +2,7 @@ defmodule ConstableWeb.SharedView do
   require Ecto.Query
 
   alias Constable.Services.MentionFinder
+  import Exgravatar
 
   def title(%{page_title: title}) do
     "- #{title}"
@@ -12,7 +13,7 @@ defmodule ConstableWeb.SharedView do
   end
 
   def gravatar(user) do
-    Exgravatar.generate(user.email, %{}, true)
+    gravatar_url(user.email, secure: true)
   end
 
   def time_ago_in_words(time) do
