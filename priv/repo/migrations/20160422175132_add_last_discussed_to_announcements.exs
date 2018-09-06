@@ -5,7 +5,7 @@ defmodule Constable.Repo.Migrations.AddLastDiscussedToAnnouncements do
     rename table(:announcement), to: table(:announcements)
 
     alter table(:announcements) do
-      add :last_discussed_at, :datetime
+      add :last_discussed_at, :utc_datetime
     end
 
     execute """
@@ -15,7 +15,7 @@ defmodule Constable.Repo.Migrations.AddLastDiscussedToAnnouncements do
     """
 
     alter table(:announcements) do
-      modify :last_discussed_at, :datetime, null: false
+      modify :last_discussed_at, :utc_datetime, null: false
     end
   end
 

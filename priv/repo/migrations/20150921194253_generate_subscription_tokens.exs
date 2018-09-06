@@ -23,7 +23,7 @@ defmodule Constable.Repo.Migrations.GenerateSubscriptionTokens do
       modify :token, :string, null: false
     end
 
-    create index(:subscriptions, [:token], %{unique: true})
+    create index(:subscriptions, [:token], unique: true)
   end
 
   def down do
@@ -31,6 +31,6 @@ defmodule Constable.Repo.Migrations.GenerateSubscriptionTokens do
       modify :token, :string, null: true
     end
 
-    drop index(:subscriptions, [:token], %{unique: true})
+    drop index(:subscriptions, [:token], unique: true)
   end
 end
