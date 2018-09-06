@@ -51,13 +51,13 @@
 }
 
 input[type="search"].header-search-input {
-  @include size(100% $button-small-height);
+  @include size(100%, $button-small-height);
   font-size: $small-font-size;
   margin-bottom: 0;
   text-align: center;
 
   @include media($medium-screen-up) {
-    @include size(18.75rem auto);
+    @include size(18.75rem, auto);
     margin: 0 auto;
   }
 }
