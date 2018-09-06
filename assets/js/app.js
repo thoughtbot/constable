@@ -1,3 +1,3 @@
-import './custom_phoenix_html';
+import 'phoenix_html';
 import './remote-append';
 import 'turbolinks';

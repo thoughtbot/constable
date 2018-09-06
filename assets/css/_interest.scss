@@ -51,7 +51,6 @@
   line-height: normal;
   padding: $tiny-spacing $small-spacing;
   text-align: center;
-  width: 100%;
 }
 
 .subscribe-to {
@@ -81,10 +80,4 @@
   &::before {
     @include icon-as-pseudo(12px, "/images/icon-check.svg");
   }
-}
-
-.interest-list-item .link {
-  display: inline-flex;
-  flex-shrink: 0;
-  min-width: 7.5em;
 }
