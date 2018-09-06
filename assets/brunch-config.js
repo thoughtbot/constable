@@ -25,7 +25,6 @@ exports.config = {
   plugins: {
     babel: {
       ignore: [/vendor/],
-      presets: ["es2015"]
     },
     postcss: {
       processors: [
