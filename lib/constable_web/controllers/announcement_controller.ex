@@ -52,7 +52,7 @@ defmodule ConstableWeb.AnnouncementController do
       comment_changeset: comment,
       subscription: subscription,
       users: Repo.all(User.active),
-      page_title: announcement.title,
+      page_title: announcement.title
     )
   end
 

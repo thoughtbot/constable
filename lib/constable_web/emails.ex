@@ -108,7 +108,7 @@ defmodule Constable.Emails do
     Enum.map(recipients, fn(recipient) ->
       subscription = Repo.get_by(Subscription,
         announcement_id: announcement.id,
-        user_id: recipient.id,
+        user_id: recipient.id
       )
 
       case subscription do
