@@ -49,7 +49,7 @@ Once all the dependencies have been installed, you can start the Phoenix
 server with:
 
   ```sh
-  $ mix phoenix.server
+  $ mix phx.server
   ```
 
 ## Email Templates
