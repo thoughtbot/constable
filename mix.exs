@@ -48,7 +48,7 @@ defmodule Constable.Mixfile do
   # Type `mix help deps` for examples and options
   defp deps do
     [
-      {:bamboo, "~> 0.7"},
+      {:bamboo, "~> 1.1"},
       {:cors_plug, "~> 1.2"},
       {:cowboy, "~> 1.0"},
       {:dialyxir, "~> 0.3", only: [:dev]},
