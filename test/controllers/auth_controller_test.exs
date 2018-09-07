@@ -93,7 +93,7 @@ defmodule ConstableWeb.AuthControllerTest do
       redirect_uri: "https://constable-oauth-redirector.herokuapp.com/auth",
       response_type: "code",
       scope: "email",
-      state: auth_url(conn, :javascript_callback),
+      state: auth_url(conn, :javascript_callback)
     )
     assert redirected_to(conn) =~ auth_uri
     assert get_session(conn, :redirect_after_success_uri) == "foo.com"
