@@ -12,7 +12,7 @@ defmodule Constable.Services.AnnouncementUpdaterTest do
 
     insert(:announcement_interest,
       announcement: announcement,
-      interest: interest,
+      interest: interest
     )
 
     params = %{title: "New!", body: "# Bar!"}
