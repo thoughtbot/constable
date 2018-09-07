@@ -30,9 +30,13 @@ If you're on OS X and using Homebrew, run `brew install elixir phantomjs node`.
 Otherwise, follow the instructions on the [Elixir installation page], the
 [PhantomJS page], and the [Node downloads page].
 
+Alternately, you may want to use a tool like [asdf] to ensure that your versions
+of Erlang and Elixir match what the project expects (from .tool-versions).
+
 [Elixir installation page]: http://elixir-lang.org/install.html
 [PhantomJS page]: http://phantomjs.org/download.html
 [node downloads page]: https://nodejs.org/en/download/
+[asdf]: https://github.com/asdf-vm/asdf
 
 ### Configure Your Local Environment
 
