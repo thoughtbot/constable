@@ -29,7 +29,7 @@
   "mimetype_parser": {:hex, :mimetype_parser, "0.1.2", "221d2d3f727e89d80de5e1610fc2ce444514aa56f873da1b8fc9c033143e5d6a", [:mix], []},
   "mochiweb": {:hex, :mochiweb, "2.15.0", "e1daac474df07651e5d17cc1e642c4069c7850dc4508d3db7263a0651330aacc", [:rebar3], [], "hexpm"},
   "oauth2": {:hex, :oauth2, "0.9.3", "e6c4a396858881cb88e1edf8d077aeb30ad0e65cf9d8cd87e33c1a9d0c77fdba", [:mix], [{:hackney, ">= 1.7.0 and <= 1.9.0", [hex: :hackney, repo: "hexpm", optional: false]}], "hexpm"},
-  "pact": {:hex, :pact, "0.1.0", "59e6e1dceb49dd1e9293b3452e8a2c9e189d2366cef1331b821254f9a7e3e300", [:mix], [], "hexpm"},
+  "pact": {:hex, :pact, "0.2.0", "8f3695179f3d50e46d9378b1f36c7bca91c5f4d14200d98b43c3a6d23fb5c0da", [:mix], [], "hexpm"},
   "parse_trans": {:hex, :parse_trans, "3.2.0", "2adfa4daf80c14dc36f522cf190eb5c4ee3e28008fc6394397c16f62a26258c2", [:rebar3], [], "hexpm"},
   "phoenix": {:hex, :phoenix, "1.3.4", "aaa1b55e5523083a877bcbe9886d9ee180bf2c8754905323493c2ac325903dc5", [:mix], [{:cowboy, "~> 1.0", [hex: :cowboy, repo: "hexpm", optional: true]}, {:phoenix_pubsub, "~> 1.0", [hex: :phoenix_pubsub, repo: "hexpm", optional: false]}, {:plug, "~> 1.3.3 or ~> 1.4", [hex: :plug, repo: "hexpm", optional: false]}, {:poison, "~> 2.2 or ~> 3.0", [hex: :poison, repo: "hexpm", optional: false]}], "hexpm"},
   "phoenix_ecto": {:hex, :phoenix_ecto, "3.4.0", "91cd39427006fe4b5588d69f0941b9c3d3d8f5e6477c563a08379de7de2b0c58", [:mix], [{:ecto, "~> 2.1", [hex: :ecto, repo: "hexpm", optional: false]}, {:phoenix_html, "~> 2.9", [hex: :phoenix_html, repo: "hexpm", optional: true]}, {:plug, "~> 1.0", [hex: :plug, repo: "hexpm", optional: false]}], "hexpm"},
