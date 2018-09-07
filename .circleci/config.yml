@@ -11,7 +11,7 @@ jobs:
           OUTBOUND_EMAIL_DOMAIN: http://localhost
           INBOUND_EMAIL_DOMAIN: http://localhost
           SLACK_WEBHOOK_URL: https://fakeslack/webhook
-      - image: circleci/postgres:9.5
+      - image: circleci/postgres:10.5-alpine
         environment:
           POSTGRES_USER: postgres
           POSTGRES_DB: constable_api_test
@@ -27,46 +27,46 @@ jobs:
 
       - restore_cache:
           keys:
-            - v2-mix-cache-{{ .Branch }}-{{ checksum "mix.lock" }}
-            - v2-mix-cache-{{ .Branch }}
-            - v2-mix-cache
+            - v3-mix-cache-{{ .Branch }}-{{ checksum "mix.lock" }}
+            - v3-mix-cache-{{ .Branch }}
+            - v3-mix-cache
       - restore_cache:
           keys:
-            - v2-build-cache-{{ .Branch }}
-            - v2-build-cache
+            - v3-build-cache-{{ .Branch }}
+            - v3-build-cache
       - run: mix do deps.get, compile --warnings-as-errors
       - save_cache:
-          key: v2-mix-cache-{{ .Branch }}-{{ checksum "mix.lock" }}
+          key: v3-mix-cache-{{ .Branch }}-{{ checksum "mix.lock" }}
           paths: "deps"
       - save_cache:
-          key: v2-mix-cache-{{ .Branch }}
+          key: v3-mix-cache-{{ .Branch }}
           paths: "deps"
       - save_cache:
-          key: v2-mix-cache
+          key: v3-mix-cache
           paths: "deps"
       - save_cache:
-          key: v2-build-cache-{{ .Branch }}
+          key: v3-build-cache-{{ .Branch }}
           paths: "_build"
       - save_cache:
-          key: v2-build-cache
+          key: v3-build-cache
           paths: "_build"
 
       - restore_cache:
           keys:
-            - v2-npm-cache-{{ .Branch }}-{{ checksum "assets/package-lock.json" }}
-            - v2-npm-cache-{{ .Branch }}
-            - v2-npm-cache
+            - v3-npm-cache-{{ .Branch }}-{{ checksum "assets/package-lock.json" }}
+            - v3-npm-cache-{{ .Branch }}
+            - v3-npm-cache
       - run:
           working_directory: assets
           command: npm install && node_modules/.bin/brunch build
       - save_cache:
-          key: v2-npm-cache-{{ .Branch }}-{{ checksum "assets/package-lock.json" }}
+          key: v3-npm-cache-{{ .Branch }}-{{ checksum "assets/package-lock.json" }}
           paths: "assets/node_modules"
       - save_cache:
-          key: v2-npm-cache-{{ .Branch }}
+          key: v3-npm-cache-{{ .Branch }}
           paths: "assets/node_modules"
       - save_cache:
-          key: v2-npm-cache
+          key: v3-npm-cache
           paths: "assets/node_modules"
 
       - run:
@@ -76,4 +76,4 @@ jobs:
       - run: mix test
 
       - store_test_results:
-          path: _build/test/junit
+          path: _build/test/lib/constable
