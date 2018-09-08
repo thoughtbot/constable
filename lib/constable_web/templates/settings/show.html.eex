@@ -1,9 +1,9 @@
-<div class="modal-container">
+<div class="modal-container" data-role="settings-modal">
   <div class="modal-overlay"></div>
   <div class="modal">
     <header>
       <h2>Profile and Settings</h2>
-      <a href="#" class="modal-close">
+      <a href="#" class="modal-close" data-role="closing-icon">
         <img src="../images/icon-close.svg" />
       </a>
     </header>

@@ -28,6 +28,12 @@ function watchFormSubmit() {
 }
 
 function watchModalClose() {
+  $(document).keyup(function(e) {
+      if (e.keyCode == 27) {
+        e.preventDefault();
+        closeModal();
+      }
+  });
   $('.modal-overlay, .modal-close').on('click', function(e) {
     e.preventDefault();
     closeModal();
