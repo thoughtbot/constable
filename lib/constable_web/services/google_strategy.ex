@@ -1,6 +1,9 @@
 defmodule GoogleStrategy do
   use OAuth2.Strategy
 
+  # https://developers.google.com/identity/protocols/googlescopes
+  @oauth_scopes "https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile"
+
   def client(redirect_uri) do
     OAuth2.Client.new([
       client_id: System.get_env("CLIENT_ID"),
@@ -14,10 +17,12 @@ defmodule GoogleStrategy do
 
   def authorize_url!(redirect_uri) do
     client(redirect_uri)
-    |> put_param(:scope, "email")
+    |> put_param(:scope, @oauth_scopes)
     |> maybe_add_redirect_uri_state(redirect_uri)
     |> OAuth2.Client.authorize_url!([])
   end
+
+  def oauth_scopes, do: @oauth_scopes
 
   def get_token!(redirect_uri, params \\ [], headers \\ [], options \\ []) do
     client(redirect_uri)

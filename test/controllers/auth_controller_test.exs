@@ -77,7 +77,7 @@ defmodule ConstableWeb.AuthControllerTest do
       client_id: Constable.Env.get("CLIENT_ID"),
       redirect_uri: auth_url(conn, :javascript_callback),
       response_type: "code",
-      scope: "email"
+      scope: GoogleStrategy.oauth_scopes
     )
     assert redirected_to(conn) =~ auth_uri
     assert get_session(conn, :redirect_after_success_uri) == "foo.com"
@@ -92,7 +92,7 @@ defmodule ConstableWeb.AuthControllerTest do
       client_id: Constable.Env.get("CLIENT_ID"),
       redirect_uri: "https://constable-oauth-redirector.herokuapp.com/auth",
       response_type: "code",
-      scope: "email",
+      scope: GoogleStrategy.oauth_scopes,
       state: auth_url(conn, :javascript_callback)
     )
     assert redirected_to(conn) =~ auth_uri
