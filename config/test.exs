@@ -22,7 +22,10 @@ config :honeybadger, :environment_name, :test
 # Print only warnings and errors during test
 config :logger, level: :warn
 
-config :wallaby, max_wait_time: 250, js_logger: false
+config :wallaby,
+  max_wait_time: 250,
+  js_logger: false,
+  driver: Wallaby.Experimental.Chrome
 
 # Set a higher stacktrace during test.
 config :phoenix, :stacktrace_depth, 35
