@@ -7,17 +7,21 @@ defmodule Mix.Tasks.Constable.SendDailyDigest do
   alias Constable.User
 
   def run(_) do
-    Mix.Task.run "app.start"
-    users = Repo.all(from u in User.active, where: u.daily_digest == true)
-    user_emails = for user <- users do
-      user.email
-    end
-    Logger.info """
+    Mix.Task.run("app.start")
+    users = Repo.all(from(u in User.active(), where: u.daily_digest == true))
+
+    user_emails =
+      for user <- users do
+        user.email
+      end
+
+    Logger.info("""
     Users with Daily Digest enabled:
 
-    #{inspect user_emails}
-    """
-    since = Constable.Time.yesterday
-    Constable.DailyDigest.send_email(users, since)
+    #{inspect(user_emails)}
+    """)
+
+    since = Constable.Time.yesterday()
+    Pact.get("daily_digest").send_email(users, since)
   end
 end
