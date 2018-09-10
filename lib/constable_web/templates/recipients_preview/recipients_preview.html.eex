@@ -1,5 +1,5 @@
 <%= if length(@interested_user_names) > 0 do %>
-  <a class="toggle-interested-user-names" href="#">
+  <a class="toggle-interested-user-names" data-role="interested-users" href="#">
     <%= ngettext("1 person is", "%{count} people are", length(@interested_user_names)) %>
     subscribed
   </a>

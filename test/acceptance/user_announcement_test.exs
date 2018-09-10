@@ -3,6 +3,7 @@ defmodule ConstableWeb.UserAnnouncementTest do
 
   @announcement_title text_field("announcement_title")
   @announcement_body text_field("announcement_body")
+  @interested_subscribers css("[data-role=interested-users]")
 
   test "user creates an announcement", %{session: session} do
     user = insert(:user)
@@ -28,6 +29,7 @@ defmodule ConstableWeb.UserAnnouncementTest do
     session
     |> visit(announcement_path(Endpoint, :new, as: current_user.id))
     |> fill_in_interests("elixir")
+    |> assert_has(@interested_subscribers)
     |> click(link("2 people are subscribed"))
 
     assert has_recipient_preview?(session, "Blake, Paul")
