@@ -83,7 +83,7 @@ defmodule Constable.Mixfile do
   defp aliases do
     [
       "ecto.reset": ["ecto.drop", "ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
-      "test": [
+      test: [
         "assets.compile --quiet",
         "ecto.create --quiet",
         "ecto.migrate",
