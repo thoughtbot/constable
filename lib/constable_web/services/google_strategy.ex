@@ -5,14 +5,14 @@ defmodule GoogleStrategy do
   @oauth_scopes "https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile"
 
   def client(redirect_uri) do
-    OAuth2.Client.new(
+    OAuth2.Client.new([
       client_id: System.get_env("CLIENT_ID"),
       client_secret: System.get_env("CLIENT_SECRET"),
       authorize_url: "https://accounts.google.com/o/oauth2/auth",
       token_url: "https://www.googleapis.com/oauth2/v3/token",
       site: "https://www.googleapis.com",
-      redirect_uri: Pact.get("oauth_redirect_strategy").redirect_uri(redirect_uri)
-    )
+      redirect_uri: Constable.Pact.get(:oauth_redirect_strategy).redirect_uri(redirect_uri)
+    ])
   end
 
   def authorize_url!(redirect_uri) do
@@ -66,13 +66,13 @@ defmodule GoogleStrategy do
   # Strategy Callbacks
 
   def authorize_url(client, params) do
-    Pact.get("token_retriever").authorize_url(client, params)
+    Constable.Pact.get(:token_retriever).authorize_url(client, params)
   end
 
   def get_token(client, params, headers) do
     client
     |> put_header("Accept", "application/json")
-    |> Pact.get("token_retriever").get_token(params, headers)
+    |> Constable.Pact.get(:token_retriever).get_token(params, headers)
   end
 
   defp to_url(client, endpoint) do
@@ -81,7 +81,7 @@ defmodule GoogleStrategy do
   end
 
   defp maybe_add_redirect_uri_state(client, original_redirect_uri) do
-    state_param = Pact.get("oauth_redirect_strategy").state_param(original_redirect_uri)
+    state_param = Constable.Pact.get(:oauth_redirect_strategy).state_param(original_redirect_uri)
 
     if state_param do
       put_param(client, :state, state_param)

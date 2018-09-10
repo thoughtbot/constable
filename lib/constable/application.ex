@@ -28,12 +28,7 @@ defmodule Constable.Application do
   end
 
   defp setup_dependencies do
-    {:ok, _} = Pact.start
-    Pact.put(:request_with_access_token, OAuth2.Client)
-    Pact.put(:token_retriever, OAuth2.Strategy.AuthCode)
-    Pact.put(:daily_digest, Constable.DailyDigest)
-    Pact.put(:google_strategy, GoogleStrategy)
-    Pact.put(:oauth_redirect_strategy, OAuthRedirectStrategy)
+    Constable.Pact.start_link
   end
 
   # Tell Phoenix to update the endpoint configuration
