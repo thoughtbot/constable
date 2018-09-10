@@ -90,11 +90,11 @@ defmodule ConstableWeb.AuthController do
   end
 
   defp google_strategy do
-    Pact.get(:google_strategy)
+    Constable.Pact.get(:google_strategy)
   end
 
   defp get_userinfo(token) do
-    Pact.get(:request_with_access_token).get!(token, "/oauth2/v1/userinfo?alt=json")
+    Constable.Pact.get(:request_with_access_token).get!(token, "/oauth2/v1/userinfo?alt=json")
     |> Map.get(:body)
   end
 

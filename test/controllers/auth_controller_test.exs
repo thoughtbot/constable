@@ -2,6 +2,7 @@ defmodule ConstableWeb.AuthControllerTest do
   use ConstableWeb.ConnCase, async: true
   alias Constable.{User, UserIdentifier, UserInterest}
   alias ConstableWeb.AuthControllerTest
+  require Constable.Pact
 
   @google_authorize_url "https://accounts.google.com/o/oauth2/auth"
   @permitted_email_domain Application.fetch_env!(:constable, :permitted_email_domain)
@@ -69,60 +70,68 @@ defmodule ConstableWeb.AuthControllerTest do
   end
 
   test "index redirects to google with the correct redirect URI" do
-    Pact.override(self(), "oauth_redirect_strategy", IgnoreEnvRedirectStrategy)
+    Constable.Pact.replace(:oauth_redirect_strategy, IgnoreEnvRedirectStrategy) do
+      conn = get(build_conn(), "/auth", redirect_uri: "foo.com")
 
-    conn = get(build_conn(), "/auth", redirect_uri: "foo.com")
+      auth_uri = google_auth_uri(
+        client_id: Constable.Env.get("CLIENT_ID"),
+        redirect_uri: auth_url(conn, :javascript_callback),
+        response_type: "code",
+        scope: GoogleStrategy.oauth_scopes
+      )
+    end
 
-    auth_uri = google_auth_uri(
-      client_id: Constable.Env.get("CLIENT_ID"),
-      redirect_uri: auth_url(conn, :javascript_callback),
-      response_type: "code",
-      scope: GoogleStrategy.oauth_scopes
-    )
     assert redirected_to(conn) =~ auth_uri
     assert get_session(conn, :redirect_after_success_uri) == "foo.com"
   end
 
   test "index redirects to google with the correct override redirect URI" do
-    Pact.override(self(), "oauth_redirect_strategy", EnvOverrideRedirectStrategy)
+    Constable.Pact.replace(:oauth_redirect_strategy, EnvOverrideRedirectStrategy) do
+      conn = get(build_conn(), "/auth", redirect_uri: "foo.com")
 
-    conn = get(build_conn(), "/auth", redirect_uri: "foo.com")
+      auth_uri = google_auth_uri(
+        client_id: Constable.Env.get("CLIENT_ID"),
+        redirect_uri: "https://constable-oauth-redirector.herokuapp.com/auth",
+        response_type: "code",
+        scope: GoogleStrategy.oauth_scopes,
+        state: auth_url(conn, :javascript_callback)
+      )
+    end
 
-    auth_uri = google_auth_uri(
-      client_id: Constable.Env.get("CLIENT_ID"),
-      redirect_uri: "https://constable-oauth-redirector.herokuapp.com/auth",
-      response_type: "code",
-      scope: GoogleStrategy.oauth_scopes,
-      state: auth_url(conn, :javascript_callback)
-    )
     assert redirected_to(conn) =~ auth_uri
     assert get_session(conn, :redirect_after_success_uri) == "foo.com"
   end
 
   test "callback redirects to success URI with newly created user token" do
     everyone_interest = create_everyone_interest()
-    Pact.override(self(), "token_retriever", FakeTokenRetriever)
-    Pact.override(self(), "request_with_access_token", FakeRequestWithAccessToken)
 
-    conn =
-      request_authorization("foo.com")
-      |> get("/auth/javascript_callback", code: "foo")
+    Constable.Pact.replace(:token_retriever, FakeTokenRetriever) do
+      Constable.Pact.replace(:request_with_access_token, FakeRequestWithAccessToken) do
+        conn =
+          request_authorization("foo.com")
+          |> get("/auth/javascript_callback", code: "foo")
 
-    user_auth_token = Repo.one(User).token
+        user_auth_token = Repo.one(User).token
+      end
+    end
+
     assert redirected_to(conn) =~ "foo.com/#{user_auth_token}"
     assert user_has_interest(everyone_interest)
   end
 
   test "callback redirects to success URI with existing user token" do
-    Pact.override(self(), "token_retriever", FakeTokenRetriever)
-    Pact.override(self(), "request_with_access_token", FakeRequestWithAccessToken)
-    insert(:user, email: valid_email_address())
+    Constable.Pact.replace(:token_retriever, FakeTokenRetriever) do
+      Constable.Pact.replace(:request_with_access_token, FakeRequestWithAccessToken) do
+        insert(:user, email: valid_email_address())
 
-    conn =
-      request_authorization("foo.com")
-      |> get("/auth/javascript_callback", code: "foo")
+        conn =
+          request_authorization("foo.com")
+          |> get("/auth/javascript_callback", code: "foo")
 
-    user_auth_token = Repo.one(User).token
+        user_auth_token = Repo.one(User).token
+      end
+    end
+
     assert redirected_to(conn) =~ "foo.com/#{user_auth_token}"
   end
 
@@ -134,12 +143,14 @@ defmodule ConstableWeb.AuthControllerTest do
 
   test "callback redirects to the root path when the email is non-thoughtbot" do
     create_everyone_interest()
-    Pact.override(self(), "token_retriever", FakeTokenRetriever)
-    Pact.override(self(), "request_with_access_token", NonThoughtbotRequestWithAccessToken)
 
-    conn =
-      request_authorization("foo.com")
-      |> get("/auth/javascript_callback", code: "foo")
+    Constable.Pact.replace(:token_retriever, FakeTokenRetriever) do
+      Constable.Pact.replace(:request_with_access_token, NonThoughtbotRequestWithAccessToken) do
+        conn =
+          request_authorization("foo.com")
+          |> get("/auth/javascript_callback", code: "foo")
+      end
+    end
 
     assert redirected_to(conn) =~  "/"
     refute Repo.one(User)
@@ -148,12 +159,14 @@ defmodule ConstableWeb.AuthControllerTest do
   test "mobile_callback returns user json when successful" do
     create_everyone_interest()
     auth_params = %{"idToken" => "token"}
-    Pact.override(self(), :google_strategy, FakeTokenInfoGoogleStrategy)
-    conn = build_conn()
 
-    conn = post conn, auth_path(conn, :mobile_callback), auth_params
+    Constable.Pact.replace(:google_strategy, FakeTokenInfoGoogleStrategy) do
+      conn = build_conn()
+      conn = post conn, auth_path(conn, :mobile_callback), auth_params
 
-    user_auth_token = Repo.one(User).token
+      user_auth_token = Repo.one(User).token
+    end
+
     assert json_response(conn, 201)
     assert json_response(conn, 201)["user"]["token"] == user_auth_token
   end
@@ -161,10 +174,12 @@ defmodule ConstableWeb.AuthControllerTest do
   test "mobile_callback returns error json when user has non-thoughtbot email" do
     create_everyone_interest()
     auth_params = %{"idToken" => "token"}
-    Pact.override(self(), :google_strategy, NonThoughtbotTokenInfoGoogleStrategy)
-    conn = build_conn()
 
-    conn = post conn, auth_path(conn, :mobile_callback), auth_params
+    Constable.Pact.replace(:google_strategy, NonThoughtbotTokenInfoGoogleStrategy) do
+      conn = build_conn()
+
+      conn = post conn, auth_path(conn, :mobile_callback), auth_params
+    end
 
     assert json_response(conn, 403)
     assert json_response(conn, 403)["error"] == "must sign up with a thoughtbot.com email"
@@ -172,15 +187,17 @@ defmodule ConstableWeb.AuthControllerTest do
 
   test "browser_callback sets user_id on session when successful" do
     create_everyone_interest()
-    Pact.override(self(), "token_retriever", FakeTokenRetriever)
-    Pact.override(self(), "request_with_access_token", FakeRequestWithAccessToken)
 
+    Constable.Pact.replace(:token_retriever, FakeTokenRetriever) do
+      Constable.Pact.replace(:request_with_access_token, FakeRequestWithAccessToken) do
+        conn =
+          request_authorization("foo.com")
+          |> get("/auth/browser_callback", code: "foo")
 
-    conn =
-      request_authorization("foo.com")
-      |> get("/auth/browser_callback", code: "foo")
+        user = Repo.one(User)
+      end
+    end
 
-    user = Repo.one(User)
     assert user_id_cookie_is_saved?(conn, user)
   end
 
