@@ -26,16 +26,19 @@ follow.
 
 ### Install Required Dependencies
 
-If you're on OS X and using Homebrew, run `brew install elixir phantomjs node`.
-Otherwise, follow the instructions on the [Elixir installation page], the
-[PhantomJS page], and the [Node downloads page].
+You need to have Erlang, Elixir, Node and ChromeDriver installed. This section
+describes the easiest way to do that.
 
-Alternately, you may want to use a tool like [asdf] to ensure that your versions
-of Erlang and Elixir match what the project expects (from .tool-versions).
+If you're on OS X and using Homebrew, run `brew install node` to get nodejs.
 
-[Elixir installation page]: http://elixir-lang.org/install.html
-[PhantomJS page]: http://phantomjs.org/download.html
-[node downloads page]: https://nodejs.org/en/download/
+Once node is installed, run `npm -g install chromedriver`.
+
+Finally, install the [asdf] package manager, which will read the
+`.tool-versions` file from the repo to install the correct versions of Erlang
+and Elixir. Downloading and installing Erlang might take a while, so be patient
+on first run. You should be able to run `asdf install` from the project directly
+to install the required packages.
+
 [asdf]: https://github.com/asdf-vm/asdf
 
 ### Configure Your Local Environment
