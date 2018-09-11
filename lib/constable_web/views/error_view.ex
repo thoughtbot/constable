@@ -1,16 +1,16 @@
 defmodule ConstableWeb.ErrorView do
   use Constable.Web, :view
 
-  def render("404.html", _assigns) do
-    "Page not found - 404"
-  end
+  # If you want to customize a particular status code
+  # for a certain format, you may uncomment below.
+  # def render("500.html", _assigns) do
+  #   "Internal Server Error"
+  # end
 
-  def render("500.html", _assigns) do
-    "Server internal error - 500"
-  end
-
-  # Render all other templates as 500
-  def render(_, assigns) do
-    render "500.html", assigns
+  # By default, Phoenix returns the status message from
+  # the template name. For example, "404.html" becomes
+  # "Not Found".
+  def template_not_found(template, _assigns) do
+    Phoenix.Controller.status_message_from_template(template)
   end
 end
