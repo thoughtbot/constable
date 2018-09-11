@@ -1,5 +1,5 @@
 defmodule ConstableWeb.AnnouncementListView do
-  use Constable.Web, :view
+  use ConstableWeb, :view
 
   def user_gravatars(announcement) do
     author_gravatar = gravatar(announcement.user)

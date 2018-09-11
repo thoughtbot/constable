@@ -1,5 +1,5 @@
 defmodule ConstableWeb.Api.SubscriptionView do
-  use Constable.Web, :view
+  use ConstableWeb, :view
 
   def render("index.json", %{subscriptions: subscriptions}) do
     %{subscriptions: render_many(subscriptions, ConstableWeb.Api.SubscriptionView, "subscription.json")}

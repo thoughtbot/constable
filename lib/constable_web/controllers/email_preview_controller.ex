@@ -1,5 +1,5 @@
 defmodule ConstableWeb.EmailPreviewController do
-  use Constable.Web, :controller
+  use ConstableWeb, :controller
 
   import Constable.Factory
   alias Constable.Emails

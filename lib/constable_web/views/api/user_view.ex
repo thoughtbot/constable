@@ -1,5 +1,5 @@
 defmodule ConstableWeb.Api.UserView do
-  use Constable.Web, :view
+  use ConstableWeb, :view
 
   def render("index.json", %{users: users}) do
     users = users |> Repo.preload([:user_interests, :subscriptions])

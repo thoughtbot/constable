@@ -1,5 +1,5 @@
 defmodule ConstableWeb.SessionController do
-  use Constable.Web, :controller
+  use ConstableWeb, :controller
 
   def new(conn, _params) do
     if conn.assigns[:current_user] do

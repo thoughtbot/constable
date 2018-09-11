@@ -1,5 +1,5 @@
 defmodule ConstableWeb.Api.SubscriptionController do
-  use Constable.Web, :controller
+  use ConstableWeb, :controller
 
   alias Constable.Subscription
 

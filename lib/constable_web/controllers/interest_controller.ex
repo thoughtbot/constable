@@ -1,5 +1,5 @@
 defmodule ConstableWeb.InterestController do
-  use Constable.Web, :controller
+  use ConstableWeb, :controller
 
   alias Constable.{Announcement, Interest}
 

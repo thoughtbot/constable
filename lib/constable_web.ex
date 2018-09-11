@@ -1,4 +1,4 @@
-defmodule Constable.Web do
+defmodule ConstableWeb do
   @moduledoc """
   A module that keeps using definitions for controllers,
   views and so on.

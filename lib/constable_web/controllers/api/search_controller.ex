@@ -1,5 +1,5 @@
 defmodule ConstableWeb.Api.SearchController do
-  use Constable.Web, :controller
+  use ConstableWeb, :controller
 
   plug :put_view, ConstableWeb.Api.AnnouncementView
 

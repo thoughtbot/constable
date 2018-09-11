@@ -1,5 +1,5 @@
 defmodule ConstableWeb.UnsubscribeController do
-  use Constable.Web, :controller
+  use ConstableWeb, :controller
 
   alias Constable.Subscription
 

@@ -1,5 +1,5 @@
 defmodule ConstableWeb.UserActivationController do
-  use Constable.Web, :controller
+  use ConstableWeb, :controller
 
   alias Constable.{Repo, User}
 

@@ -1,5 +1,5 @@
 defmodule ConstableWeb.SettingsController do
-  use Constable.Web, :controller
+  use ConstableWeb, :controller
 
   alias Constable.User
 

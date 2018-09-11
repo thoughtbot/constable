@@ -1,5 +1,5 @@
 defmodule Constable.Announcement do
-  use Constable.Web, :model
+  use ConstableWeb, :model
   alias Constable.Comment
   alias Constable.User
   alias Constable.Subscription

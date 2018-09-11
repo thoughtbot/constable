@@ -1,5 +1,5 @@
 defmodule ConstableWeb.Api.AnnouncementView do
-  use Constable.Web, :view
+  use ConstableWeb, :view
 
   alias ConstableWeb.Api.CommentView
 

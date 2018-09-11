@@ -1,5 +1,5 @@
 defmodule ConstableWeb.EmailForwardController do
-  use Constable.Web, :controller
+  use ConstableWeb, :controller
 
   def create(conn, %{"mandrill_events" => messages}) do
     messages

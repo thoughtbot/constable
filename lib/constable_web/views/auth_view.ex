@@ -1,5 +1,5 @@
 defmodule ConstableWeb.AuthView do
-  use Constable.Web, :view
+  use ConstableWeb, :view
 
   alias ConstableWeb.Api.UserView
 

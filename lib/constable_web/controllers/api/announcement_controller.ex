@@ -1,5 +1,5 @@
 defmodule ConstableWeb.Api.AnnouncementController do
-  use Constable.Web, :controller
+  use ConstableWeb, :controller
 
   alias Constable.Announcement
   alias Constable.Services.AnnouncementCreator

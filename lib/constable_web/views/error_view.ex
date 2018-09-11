@@ -1,5 +1,5 @@
 defmodule ConstableWeb.ErrorView do
-  use Constable.Web, :view
+  use ConstableWeb, :view
 
   # If you want to customize a particular status code
   # for a certain format, you may uncomment below.

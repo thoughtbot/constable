@@ -1,5 +1,5 @@
 defmodule ConstableWeb.EmailView do
-  use Constable.Web, :view
+  use ConstableWeb, :view
 
   def red do
     "#c32f34"

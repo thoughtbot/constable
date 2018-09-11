@@ -1,3 +1,3 @@
 defmodule ConstableWeb.UserActivationView do
-  use Constable.Web, :view
+  use ConstableWeb, :view
 end

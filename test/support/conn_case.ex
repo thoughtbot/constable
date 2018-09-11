@@ -19,7 +19,7 @@ defmodule ConstableWeb.ConnCase do
     quote do
       # Import conveniences for testing with connections
       use Phoenix.ConnTest
-      use Constable.Web, :view
+      use ConstableWeb, :view
       import ConstableWeb.ConnCaseHelper
 
       # Alias the data repository and import query/model functions

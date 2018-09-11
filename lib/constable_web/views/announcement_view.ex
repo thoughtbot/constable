@@ -1,5 +1,5 @@
 defmodule ConstableWeb.AnnouncementView do
-  use Constable.Web, :view
+  use ConstableWeb, :view
 
   def json_interests(interests) do
     interests

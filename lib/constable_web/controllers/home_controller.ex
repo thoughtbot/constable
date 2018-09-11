@@ -1,5 +1,5 @@
 defmodule ConstableWeb.HomeController do
-  use Constable.Web, :controller
+  use ConstableWeb, :controller
 
   def index(conn, _params) do
     conn |> redirect_to_original_path_or_announcement_index

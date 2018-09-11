@@ -3,7 +3,7 @@ defmodule ConstableWeb.ViewCase do
 
   using do
     quote do
-      use Constable.Web, :view
+      use ConstableWeb, :view
 
       import Constable.Factory
       alias ConstableWeb.UserView

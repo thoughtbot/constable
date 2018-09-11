@@ -1,5 +1,5 @@
 defmodule ConstableWeb.Api.InterestController do
-  use Constable.Web, :controller
+  use ConstableWeb, :controller
 
   alias Constable.Interest
   alias ConstableWeb.Api.InterestView

@@ -1,5 +1,5 @@
 defmodule ConstableWeb.AuthController do
-  use Constable.Web, :controller
+  use ConstableWeb, :controller
   require Logger
 
   alias Constable.{

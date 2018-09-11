@@ -1,5 +1,5 @@
 defmodule ConstableWeb.SlackChannelController do
-  use Constable.Web, :controller
+  use ConstableWeb, :controller
 
   alias Constable.Interest
 

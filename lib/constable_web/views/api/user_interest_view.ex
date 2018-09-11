@@ -1,5 +1,5 @@
 defmodule ConstableWeb.Api.UserInterestView do
-  use Constable.Web, :view
+  use ConstableWeb, :view
 
   def render("index.json", %{user_interests: user_interests}) do
     %{user_interests: render_many(user_interests, ConstableWeb.Api.UserInterestView, "user_interest.json")}

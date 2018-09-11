@@ -1,5 +1,5 @@
 defmodule ConstableWeb.Api.CommentView do
-  use Constable.Web, :view
+  use ConstableWeb, :view
 
   def render("index.json", %{comments: comments}) do
     %{comments: render_many(comments, ConstableWeb.Api.CommentView, "comment.json")}

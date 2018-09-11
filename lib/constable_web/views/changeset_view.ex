@@ -1,5 +1,5 @@
 defmodule ConstableWeb.ChangesetView do
-  use Constable.Web, :view
+  use ConstableWeb, :view
 
   def translate_errors(changeset) do
     Ecto.Changeset.traverse_errors(changeset, &translate_error/1)

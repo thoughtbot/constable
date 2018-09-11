@@ -1,5 +1,5 @@
 defmodule ConstableWeb.EmailReplyController do
-  use Constable.Web, :controller
+  use ConstableWeb, :controller
   alias Constable.Services.CommentCreator
   alias Constable.User
   alias Constable.EmailReplyParser
