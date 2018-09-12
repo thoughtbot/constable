@@ -19,23 +19,24 @@ defmodule Constable.EmailsTest do
       "constable@#{Constable.Env.get("OUTBOUND_EMAIL_DOMAIN")}"
     }
     for interest <- interests do
-      assert email.html_body =~ interest.name
-      assert email.text_body =~ interest.name
+      assert both_parts_contain(email, interest.name)
     end
     for announcement <- announcements do
-      assert email.html_body =~ announcement.title
-      assert email.text_body =~ announcement.title
+      assert email |> both_parts_contain(announcement.title)
+      assert email |> both_parts_contain(announcement.body)
       assert email.html_body =~ posted_by_html(announcement.user.name, announcement)
       assert email.text_body =~ posted_by_text(announcement.user.name, announcement)
     end
-    assert email.html_body =~ "2 comments by #{comment_1.user.name}, #{comment_2.user.name}"
-    assert email.text_body =~ "2 comments by #{comment_1.user.name}, #{comment_2.user.name}"
-    assert email.html_body =~ "1 comment by #{comment_3.user.name}"
-    assert email.text_body =~ "1 comment by #{comment_3.user.name}"
-    assert email.html_body =~ "Post Body"
-    assert email.text_body =~ "Post Body"
-    assert email.html_body =~ "Comment Body"
-    assert email.text_body =~ "Comment Body"
+    for comment <- comments do
+      assert email |> both_parts_contain(comment.user.name)
+      assert email |> both_parts_contain(comment.body)
+    end
+    assert email |> both_parts_contain("2 comments by #{comment_1.user.name}, #{comment_2.user.name}")
+    assert email |> both_parts_contain("1 comment by #{comment_3.user.name}")
+  end
+
+  defp both_parts_contain(email, string) do
+    email.html_body =~ string && email.text_body =~ string
   end
 
   defp insert_announcement_with_interests do
