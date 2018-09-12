@@ -1,7 +1,7 @@
 defmodule ConstableWeb.Endpoint do
   use Phoenix.Endpoint, otp_app: :constable
 
-  socket "/ws", ConstableWeb.UserSocket
+  socket "/socket", ConstableWeb.UserSocket
 
   if Application.get_env(:constable, :sql_sandbox) do
     plug Phoenix.Ecto.SQL.Sandbox
