@@ -84,7 +84,7 @@ defmodule ConstableWeb.EmailView do
     announcement_url_for_footer(announcement, nil) <> "#comment-#{comment.id}"
   end
 
-  defp new_comments(comments, announcement) do
+  def new_comments(comments, announcement) do
     Enum.filter(comments, fn(c) -> c.announcement_id == announcement.id end)
   end
 

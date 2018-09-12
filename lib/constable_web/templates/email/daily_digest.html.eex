@@ -166,6 +166,10 @@
                     <div class="left-padded">
                       <h4><%= link announcement.title, to: announcement_url(ConstableWeb.Endpoint, :show, announcement), style: "color: #{red()}" %></h4>
                       <%= new_comment_count_text(@comments, announcement) %> <%= commenters_list_text(announcement, @comments) %>
+                      <%= for comment <- new_comments(@comments, announcement) do %>
+                        <p>Comment by <strong><%= comment.user.name %></strong> <%= time_ago_in_words comment.inserted_at %>:</p>
+                        <%= raw markdown_with_users(comment.body) %>
+                      <% end %>
                     </div>
                   <% end %>
                 <% end %>
