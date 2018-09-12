@@ -4,6 +4,10 @@ config :constable, ConstableWeb.Endpoint,
   http: [port: System.get_env("PORT") || 4001],
   server: true
 
+# Print only warnings and errors during test
+config :logger, level: :warn
+
+# Configure your database
 config :constable, Constable.Repo,
   database: "constable_api_test",
   hostname: "localhost",
@@ -18,9 +22,6 @@ config :constable, Constable.Mailer,
   adapter: Bamboo.TestAdapter
 
 config :honeybadger, :environment_name, :test
-
-# Print only warnings and errors during test
-config :logger, level: :warn
 
 config :wallaby,
   max_wait_time: 250,
