@@ -5,18 +5,17 @@
 # is restricted to this project.
 use Mix.Config
 
+# General application configuration
+config :constable,
+  ecto_repos: [Constable.Repo]
+
 # Configures the endpoint
 config :constable, ConstableWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "tJ+MdrPlKWMpmz7JyJgSu/11xvwnNZo7Sz8IAacy9MM6di3GqackE9iNjhkHI9p8",
-  debug_errors: false,
-  root: Path.expand("..", __DIR__),
-  code_reloader: false,
-  pubsub: [
-    name: Constable.PubSub,
-    adapter: Phoenix.PubSub.PG2]
-
-config :constable, ecto_repos: [Constable.Repo]
+  render_errors: [view: ConstableWeb.ErrorView, accepts: ~w(html json)],
+  pubsub: [name: Constable.PubSub,
+           adapter: Phoenix.PubSub.PG2]
 
 # Configures Elixir's Logger
 config :logger, :console,
