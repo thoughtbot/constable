@@ -86,7 +86,7 @@ defmodule Constable.Factory do
 
   def comment_factory do
     %Constable.Comment{
-      body: "Post Body",
+      body: "Comment Body",
       user: build(:user),
       announcement: build(:announcement)
     }

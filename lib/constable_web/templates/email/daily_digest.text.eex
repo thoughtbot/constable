@@ -27,6 +27,10 @@
 
  - <%= announcement.title %>
    <%= new_comment_count_text(@comments, announcement) %> <%= commenters_list_text(announcement, @comments) %>
+   <%= for comment <- new_comments(@comments, announcement) do %>
+     Comment by <%= comment.user.name %> <%= time_ago_in_words comment.inserted_at %>:
+     <%= comment.body %>
+   <% end %>
 <%= "   " %><%= announcement_url(ConstableWeb.Endpoint, :show, announcement) %>
 <% end %>
 <% end %>

@@ -34,7 +34,8 @@ defmodule Constable.EmailsTest do
     assert email.text_body =~ "1 comment by #{comment_3.user.name}"
     assert email.html_body =~ "Post Body"
     assert email.text_body =~ "Post Body"
-
+    assert email.html_body =~ "Comment Body"
+    assert email.text_body =~ "Comment Body"
   end
 
   defp insert_announcement_with_interests do
