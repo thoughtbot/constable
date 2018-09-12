@@ -144,6 +144,7 @@
                   <%= for announcement <- @announcements do %>
                     <div class="left-padded">
                       <h4><%= link announcement.title, to: announcement_url(ConstableWeb.Endpoint, :show, announcement), style: "color: #{red()}" %></h4>
+                      <%= raw markdown_with_users(announcement.body) %>
                       <%= gettext("posted by") %> <strong><%= announcement.user.name %></strong> <%= gettext("in") %> <%= raw interest_links(announcement) %>
                     </div>
                   <% end %>

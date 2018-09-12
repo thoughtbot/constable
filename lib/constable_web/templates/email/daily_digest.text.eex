@@ -15,6 +15,7 @@
 <%= for announcement <- @announcements do %>
 
  - <%= announcement.title %>
+   <%= announcement.body %>
    <%= gettext("posted by") %> <%= announcement.user.name %> <%= gettext("in") %> <%= interest_names(announcement) %>
 <%= "   " %><%= announcement_url(ConstableWeb.Endpoint, :show, announcement) %>
 <% end %>
