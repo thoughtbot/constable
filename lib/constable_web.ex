@@ -43,6 +43,15 @@ defmodule ConstableWeb do
     end
   end
 
+  def router do
+    quote do
+      use Phoenix.Router
+      use Honeybadger.Plug
+      import Plug.Conn
+      import Phoenix.Controller
+    end
+  end
+
   def model do
     quote do
       use Ecto.Schema

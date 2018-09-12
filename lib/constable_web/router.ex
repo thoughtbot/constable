@@ -1,11 +1,12 @@
 defmodule ConstableWeb.Router do
-  use Phoenix.Router
-  use Honeybadger.Plug
+  use ConstableWeb, :router
 
   pipeline :browser do
     plug :accepts, ~w(html)
     plug :fetch_session
     plug :fetch_flash
+    plug :protect_from_forgery
+    plug :put_secure_browser_headers
 
     if Mix.env == :test do
       plug Constable.Plugs.SetUserIdFromParams
