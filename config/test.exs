@@ -9,6 +9,7 @@ config :logger, level: :warn
 
 # Configure your database
 config :constable, Constable.Repo,
+  adapter: Ecto.Adapters.Postgres,
   database: "constable_api_test",
   hostname: "localhost",
   username: System.get_env("POSTGRES_USER") || "postgres",
