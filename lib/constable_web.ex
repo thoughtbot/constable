@@ -1,33 +1,21 @@
 defmodule ConstableWeb do
   @moduledoc """
-  A module that keeps using definitions for controllers,
-  views and so on.
+  The entrypoint for defining your web interface, such
+  as controllers, views, channels and so on.
 
   This can be used in your application as:
 
-      use MyApp.Web, :controller
-      use MyApp.Web, :view
+      use ConstableWeb, :controller
+      use ConstableWeb, :view
 
-  Keep the definitions in this module short and clean,
-  mostly focused on imports, uses and aliases.
+  The definitions below will be executed for every view,
+  controller, etc, so keep them short and clean, focused
+  on imports, uses and aliases.
+
+  Do NOT define functions inside the quoted expressions
+  below. Instead, define any helper function in modules
+  and import those modules here.
   """
-
-  def view do
-    quote do
-      import Phoenix.Controller, only: [get_csrf_token: 0, get_flash: 2, view_module: 1]
-      import ConstableWeb.Router.Helpers
-      import ConstableWeb.ErrorHelpers
-      import ConstableWeb.Gettext
-      import ConstableWeb.SharedView
-      import Constable.EnumHelper
-      import Exgravatar
-
-      use Phoenix.HTML
-      use Phoenix.View, root: "lib/constable_web/templates", namespace: ConstableWeb
-
-      alias Constable.Repo
-    end
-  end
 
   def controller do
     quote do
@@ -43,12 +31,41 @@ defmodule ConstableWeb do
     end
   end
 
+  def view do
+    quote do
+      use Phoenix.View, root: "lib/constable_web/templates",
+                        namespace: ConstableWeb
+
+      # Import convenience functions from controllers
+      import Phoenix.Controller,
+        only: [get_csrf_token: 0, get_flash: 2, view_module: 1]
+      import ConstableWeb.Router.Helpers
+      import ConstableWeb.ErrorHelpers
+      import ConstableWeb.Gettext
+      import ConstableWeb.SharedView
+      import Constable.EnumHelper
+      import Exgravatar
+
+      # Use all HTML functionality (forms, tags, etc)
+      use Phoenix.HTML
+
+      alias Constable.Repo
+    end
+  end
+
   def router do
     quote do
       use Phoenix.Router
       use Honeybadger.Plug
       import Plug.Conn
       import Phoenix.Controller
+    end
+  end
+
+  def channel do
+    quote do
+      use Phoenix.Channel
+      import ConstableWeb.Gettext
     end
   end
 
