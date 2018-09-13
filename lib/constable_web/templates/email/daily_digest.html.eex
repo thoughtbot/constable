@@ -3,7 +3,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width" />
-    <title>Constable comment</title>
+    <title>Constable daily digest</title>
     <style>
       .avatar-rounded {
         height: 20px;
@@ -36,6 +36,21 @@
       h4,
       h5 {
         margin-bottom: .5em; !important;
+      }
+
+      .discussion-summary {
+        font-style: italic;
+      }
+
+      .content-body {
+        padding-left: 1.85rem;
+      }
+
+      hr {
+        border: 0;
+        border-bottom: 1px solid #ccc;
+        background: #999;
+        margin-top: 2.0rem;
       }
 
       @media (max-width: 320px) {
@@ -128,47 +143,73 @@
             <tr>
               <td width='40'></td>
               <td align='left'>
-                <%= unless Enum.empty?(@interests) do %>
-                  <h4><%= gettext("Recently added interests") %></h4>
+                <h2>Summary</h2>
 
-                  <%= for interest <- @interests do %>
-                    <div class="interest left-padded">
-                      <%= link "##{interest.name}", to: interest_url(ConstableWeb.Endpoint, :show, interest), style: "color: #{red()}" %>
-                    </div>
-                  <% end %>
+                <%= unless Enum.empty?(@interests) do %>
+                  <h3>Recently added interests</h3>
+                  <ul>
+                    <%= for interest <- @interests do %>
+                      <li>
+                        <%= link "##{interest.name}", to: interest_url(ConstableWeb.Endpoint, :show, interest), style: "color: #{red()}" %>
+                      </li>
+                    <% end %>
+                  </ul>
                 <% end %>
 
                 <%= unless Enum.empty?(@announcements) do %>
-                  <h4><%= gettext("Recently added announcements") %></h4><!-- Change to h4 to match interests -->
+                  <h3>Recently posted announcements</h3>
+                  <ul>
+                    <%= for announcement <- @announcements do %>
+                      <li>
+                        <%= link announcement.title, to: announcement_url(ConstableWeb.Endpoint, :show, announcement), style: "color: #{red()}" %>
+                        <%= gettext("posted by") %> <strong><%= announcement.user.name %></strong> <%= gettext("in") %> <%= raw interest_links(announcement) %>
+                      </li>
+                    <% end %>
+                  </ul>
+                <% end %>
+
+                <%= unless Enum.empty?(@announcements) do %>
+                  <hr />
+                  <h3><%= gettext("Announcements") %></h3>
 
                   <%= for announcement <- @announcements do %>
                     <div class="left-padded">
                       <h4><%= link announcement.title, to: announcement_url(ConstableWeb.Endpoint, :show, announcement), style: "color: #{red()}" %></h4>
-                      <%= raw markdown_with_users(announcement.body) %>
-                      <%= gettext("posted by") %> <strong><%= announcement.user.name %></strong> <%= gettext("in") %> <%= raw interest_links(announcement) %>
+                      <p>
+                        <img src="<%= author_avatar_url(announcement.user) %>" class="avatar-rounded">
+                        <strong><%= announcement.user.name %></strong>
+                        <%= gettext("posted to") %> <%= raw interest_links(announcement) %>
+                        <%= time_ago_in_words announcement.inserted_at %>:
+                      </p>
+                      <div class="content-body">
+                        <%= raw markdown_with_users(announcement.body) %>
+                      </div>
                     </div>
                   <% end %>
                 <% end %>
 
                 <%= unless Enum.empty?(@comments) do %>
-                  <h4>
-                    <%= ngettext("%{count} announcement was discussed", "%{count} announcements were discussed", length(discussed_announcements(@comments))) %>
-                    <%= ngettext("by %{count} person", "by %{count} people", length(unique_commenters(@comments))) %>
-                  </h4>
-
-                  <div class="left-padded">
-                    <%= for commenter <- unique_commenters(@comments) do %>
-                      <img src="<%= author_avatar_url(commenter) %>" class="avatar-rounded">
-                    <% end %>
-                  </div>
+                  <hr />
+                  <h3><%= gettext("Discussions") %></h3>
+                  <p class="discussion-summary">
+                    &rarr; There
+                    <%= ngettext("was %{count} announcement", "were %{count} announcements", length(discussed_announcements(@comments))) %>
+                    discussed by
+                    <%= ngettext("%{count} person", "%{count} people", length(unique_commenters(@comments))) %>&hellip;
+                  </p>
 
                   <%= for announcement <- discussed_announcements(@comments) do %>
                     <div class="left-padded">
                       <h4><%= link announcement.title, to: announcement_url(ConstableWeb.Endpoint, :show, announcement), style: "color: #{red()}" %></h4>
                       <%= new_comment_count_text(@comments, announcement) %> <%= commenters_list_text(announcement, @comments) %>
                       <%= for comment <- new_comments(@comments, announcement) do %>
-                        <p>Comment by <strong><%= comment.user.name %></strong> <%= time_ago_in_words comment.inserted_at %>:</p>
-                        <%= raw markdown_with_users(comment.body) %>
+                        <p>
+                          <img src="<%= author_avatar_url(comment.user) %>" class="avatar-rounded">
+                          <strong><%= comment.user.name %></strong> left a comment <%= time_ago_in_words comment.inserted_at %>:
+                        </p>
+                        <div class="content-body">
+                          <%= raw markdown_with_users(comment.body) %>
+                        </div>
                       <% end %>
                     </div>
                   <% end %>
@@ -186,6 +227,7 @@
             <tr>
               <td width='40'></td>
               <td align='center'>
+                <hr />
                 <%= link to: announcement_url(ConstableWeb.Endpoint, :index) do %>
                   <h4 style='color: <%= red() %>; font-size: 18px; margin: 0; padding-bottom: 5px;'>
                     <%= gettext("View Interests and Announcements on Constable") %>
