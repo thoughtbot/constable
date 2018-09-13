@@ -25,6 +25,14 @@ exports.config = {
   plugins: {
     babel: {
       ignore: [/vendor/],
+      "presets": [
+        [
+          "@babel/preset-env",
+          {
+            forceAllTransforms: process.env === "production"
+          }
+        ]
+      ]
     },
     postcss: {
       processors: [
