@@ -37,3 +37,15 @@
     margin-right: -0.75rem;
   }
 }
+
+.avatar-settings {
+  display: flex;
+  & img {
+    margin-right: 35px;
+  }
+
+  code {
+    background-color: $lightest-gray;
+    padding: 0.25rem;
+  }
+}

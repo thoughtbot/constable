@@ -24,7 +24,7 @@
                 <span class="onoffswitch-switch"></span>
               </label>
             </div>
-          Subscribe to me to announcements I’m interested in.
+          Subscribe me to announcements I'm interested in.
           </label>
         </div>
         <div class='field'>
@@ -39,9 +39,11 @@
           Send me daily digest emails about what's new on Constable.
           </label>
         </div>
-        <div class="field">
+        <div class="field avatar-settings">
+          <img class="avatar-rounded avatar-rounded-large" src="<%= gravatar @current_user %>" />
           <label>
-            Looking to change your avatar? We use <%= link "gravatar", to: "https://en.gravatar.com/" %>. Set yours there with the same email as this account, and it will show up here.
+            The <%= link "Gravatar", to: "https://en.gravatar.com/", title: "Manage your Gravatar (Globally Recognized Avatar)" %>
+            for <code><%= @current_user.email %></code> will show up with your posts on Constable.
           </label>
         </div>
         <%= submit gettext("Save") %>
