@@ -20,9 +20,7 @@
               <%= gettext("You were mentioned by") %> <%= @mentioner.name %>:
               </p>
             <% end %>
-            <p>
-              <%= raw Constable.Markdown.to_html(@comment.body) %>
-            <p>
+            <%= raw Constable.Markdown.to_html(@comment.body) %>
           </td>
         </tr>
         <tr>
