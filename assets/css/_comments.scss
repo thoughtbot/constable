@@ -22,7 +22,6 @@
 }
 
 .comments-list {
-  border-top: $base-border;
   list-style-type: none;
   margin-top: $small-spacing;
   padding-top: $base-spacing;
@@ -35,15 +34,10 @@
 
 .comment {
   @include padding($base-spacing null);
-  border-bottom: $base-border;
+  border-top: $base-border;
 
   &:first-child {
     margin-top: 0;
-    padding-top: 0;
-  }
-
-  &:last-child {
-    border-bottom: none;
   }
 }
 
