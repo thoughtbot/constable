@@ -1,37 +1,25 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta name="viewport" content="width=device-width" />
-    <title>Constable comment</title>
-    <%= raw render("styles.html") %>
-  </head>
-
-  <body leftmargin="0" marginwidth="0" marginheight="0" offset="0" topmargin="0" style="padding: 0 30px;">
-    <center>
-      <table border="0" cellpadding="0" cellspacing="0" class="flex-size" style="color: #454f52; font-family: Helvetica, Tahoma, sans-serif; font-size: 16px; line-height: 1.5;" width="600">
-        <tr>
-          <td colspan="2" height="35"></td>
-        </tr>
-        <tr>
-          <td colspan="2" align="left">
-            <%= if @mentioner do %>
-              <p>
-              <%= gettext("You were mentioned by") %> <%= @mentioner.name %>:
-              </p>
-            <% end %>
-            <%= raw Constable.Markdown.to_html(@comment.body) %>
-          </td>
-        </tr>
-        <tr>
-          <td colspan="2" height="35"></td>
-        </tr>
-        <%= render "author_footer.html", author: @author, announcement: @announcement, comment: @comment %>
-        <%= render "unsubscribe_footer.html" %>
-        <tr>
-          <td colspan="2" height="45"></td>
-        </tr>
-      </table>
-    </center>
-  </body>
-</html>
+<center>
+  <table border="0" cellpadding="0" cellspacing="0" class="flex-size" style="color: #454f52; font-family: Helvetica, Tahoma, sans-serif; font-size: 16px; line-height: 1.5;" width="600">
+    <tr>
+      <td colspan="2" height="35"></td>
+    </tr>
+    <tr>
+      <td colspan="2" align="left">
+        <%= if @mentioner do %>
+          <p>
+          <%= gettext("You were mentioned by") %> <%= @mentioner.name %>:
+          </p>
+        <% end %>
+        <%= raw Constable.Markdown.to_html(@comment.body) %>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2" height="35"></td>
+    </tr>
+    <%= render "author_footer.html", author: @author, announcement: @announcement, comment: @comment %>
+    <%= render "unsubscribe_footer.html" %>
+    <tr>
+      <td colspan="2" height="45"></td>
+    </tr>
+  </table>
+</center>
