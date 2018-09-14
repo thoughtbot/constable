@@ -17,11 +17,6 @@
         padding-left: 8px;
       }
 
-      .interest {
-        font-size: 16px !important;
-        font-weight: bold;
-      }
-
       a {
         text-decoration: none; !important;
       }
