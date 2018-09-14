@@ -50,5 +50,10 @@
       width: 100% !important;
     }
 
+    /* Contains content images */
+
+    .flex-size img {
+      max-width: 100% !important;
+    }
   }
 </style>
