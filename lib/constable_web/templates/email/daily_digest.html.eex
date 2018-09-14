@@ -17,10 +17,6 @@
         padding-left: 8px;
       }
 
-      a {
-        text-decoration: none; !important;
-      }
-
       .discussion-summary {
         font-style: italic;
       }

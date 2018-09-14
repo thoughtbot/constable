@@ -12,6 +12,10 @@
     margin-bottom: .5em; !important;
   }
 
+  a {
+    text-decoration: none; !important;
+  }
+
   /* Contains content images */
 
   .body img {
