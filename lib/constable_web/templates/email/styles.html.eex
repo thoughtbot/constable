@@ -16,6 +16,13 @@
     text-decoration: none; !important;
   }
 
+  hr {
+    border: 0;
+    border-bottom: 1px solid #ccc;
+    background: #999;
+    margin-top: 2.0rem;
+  }
+
   /* Contains content images */
 
   .body img {
