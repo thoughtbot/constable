@@ -63,7 +63,8 @@ exports.config = {
     },
     globals: {
       $: 'jquery',
-      jQuery: 'jquery'
+      jQuery: 'jquery',
+      LocalTime: 'local-time'
     },
     whitelist: [
       "highlight.js",
