@@ -23,9 +23,7 @@
         </tr>
         <tr>
           <td colspan="2" align="left">
-            <p>
-              <%= raw Constable.Markdown.to_html(@announcement.body) %>
-            </p>
+            <%= raw Constable.Markdown.to_html(@announcement.body) %>
           </td>
         </tr>
         <tr>
