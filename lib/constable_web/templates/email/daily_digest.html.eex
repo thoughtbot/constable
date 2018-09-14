@@ -4,6 +4,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width" />
     <title>Constable daily digest</title>
+    <%= raw render("styles.html") %>
     <style>
       .avatar-rounded {
         height: 20px;
@@ -21,21 +22,8 @@
         font-weight: bold;
       }
 
-      * {
-        text-rendering: optimizeLegibility;
-        -webkit-font-smoothing: antialiased;
-      }
-
       a {
         text-decoration: none; !important;
-      }
-
-      h1,
-      h2,
-      h3,
-      h4,
-      h5 {
-        margin-bottom: .5em; !important;
       }
 
       .discussion-summary {
@@ -51,54 +39,6 @@
         border-bottom: 1px solid #ccc;
         background: #999;
         margin-top: 2.0rem;
-      }
-
-      @media (max-width: 320px) {
-
-        /* Forces the button to full width */
-
-        .btn-full {
-          width: 100% !important;
-        }
-      }
-
-      @media (max-width: 600px) {
-
-        /* Typography */
-
-        table {
-          font-size: 12px !important;
-        }
-
-        h1 {
-          font-size: 20px !important;
-        }
-
-        h2 {
-          font-size: 18px !important;
-        }
-
-        h3 {
-          font-size: 16px !important; }
-
-        h4 {
-          font-size: 14px !important; }
-
-        h5 {
-          font-size: 14px !important;
-        }
-
-        /* Makes fixed width items flexible */
-
-        .flex-size {
-          width: 100% !important;
-        }
-
-        /* Contains content images */
-
-        .flex-size img {
-          max-width: 100% !important;
-        }
       }
     </style>
   </head>
