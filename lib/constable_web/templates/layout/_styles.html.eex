@@ -23,6 +23,13 @@
     margin-top: 2.0rem;
   }
 
+  .avatar-rounded {
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    margin-right: 0.3rem;
+  }
+
   /* Contains content images */
 
   .body img {

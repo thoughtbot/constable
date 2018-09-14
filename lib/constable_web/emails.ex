@@ -36,7 +36,8 @@ defmodule Constable.Emails do
 
   def new_announcement(announcement, recipients) do
     announcement = announcement |> Repo.preload([:user, :interests])
-    new_email(to: recipients)
+    base_email()
+    |> to(recipients)
     |> subject(announcement.title)
     |> from_author(announcement.user)
     |> put_header("Reply-To", announcement_email_address(announcement))
@@ -52,7 +53,8 @@ defmodule Constable.Emails do
 
   def new_comment(comment, recipients, mentioner \\ nil) do
     announcement = comment.announcement
-    new_email(to: recipients)
+    base_email()
+    |> to(recipients)
     |> subject("Re: #{announcement.title}")
     |> from_author(comment.user)
     |> put_reply_headers(announcement)
@@ -73,7 +75,8 @@ defmodule Constable.Emails do
 
   def new_announcement_mention(announcement, recipients) do
     announcement = announcement |> Repo.preload([:user, :interests])
-    new_email(to: recipients)
+    base_email()
+    |> to(recipients)
     |> subject("You were mentioned in: #{announcement.title}")
     |> from_author(announcement.user)
     |> tag("new-announcement-mention")
@@ -87,7 +90,8 @@ defmodule Constable.Emails do
   end
 
   def daily_digest(interests, announcements, comments, recipients) do
-    new_email(to: recipients)
+    base_email()
+    |> to(recipients)
     |> subject("Daily Digest")
     |> from({"Constable (thoughtbot)", "constable@#{outbound_domain()}"})
     |> tag("daily-digest")
@@ -96,6 +100,11 @@ defmodule Constable.Emails do
       announcements: announcements,
       comments: comments
     )
+  end
+
+  defp base_email do
+    new_email()
+    |> put_html_layout({ConstableWeb.LayoutView, "email.html"})
   end
 
   defp add_unsubscribe_vars(email, announcement) do
