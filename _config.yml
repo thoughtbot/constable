@@ -1,0 +1,5 @@
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+  - circle.yml
