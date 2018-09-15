@@ -21,7 +21,6 @@
 <% end %>
 <% end %>
 <%= unless Enum.empty?(@comments) do %>
-<%= ngettext("%{count} announcement was discussed", "%{count} announcements were discussed", length(discussed_announcements(@comments))) %> <%= ngettext("by %{count} person", "by %{count} people", length(unique_commenters(@comments))) %>
 -----------------
 <%= for announcement <- discussed_announcements(@comments) do %>
 
