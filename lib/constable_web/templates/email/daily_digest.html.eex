@@ -58,12 +58,6 @@
               <%= unless Enum.empty?(@comments) do %>
                 <hr />
                 <h3><%= gettext("Discussions") %></h3>
-                <p style="font-style: italic;">
-                  &rarr; There
-                  <%= ngettext("was %{count} announcement", "were %{count} announcements", length(discussed_announcements(@comments))) %>
-                  discussed by
-                  <%= ngettext("%{count} person", "%{count} people", length(unique_commenters(@comments))) %>&hellip;
-                </p>
 
                 <%= for announcement <- discussed_announcements(@comments) do %>
                   <div style="padding-left: 8px;">
