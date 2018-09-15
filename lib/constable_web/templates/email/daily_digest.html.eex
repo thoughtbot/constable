@@ -62,7 +62,6 @@
                 <%= for announcement <- discussed_announcements(@comments) do %>
                   <div style="padding-left: 8px;">
                     <h4><%= link announcement.title, to: announcement_url(ConstableWeb.Endpoint, :show, announcement), style: "color: #{red()}" %></h4>
-                    <%= new_comment_count_text(@comments, announcement) %> <%= commenters_list_text(announcement, @comments) %>
                     <%= for comment <- new_comments(@comments, announcement) do %>
                       <p>
                         <img src="<%= author_avatar_url(comment.user) %>" class="avatar-rounded">

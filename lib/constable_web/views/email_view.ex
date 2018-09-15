@@ -56,27 +56,6 @@ defmodule ConstableWeb.EmailView do
     |> Enum.uniq
   end
 
-  def new_comment_count_text(comments, announcement) do
-    ngettext(
-      "%{count} comment",
-      "%{count} comments",
-      Enum.count(new_comments(comments, announcement))
-    )
-  end
-
-  def commenters_list_text(announcement, comments) do
-    gettext("by ")
-    <>
-    comma_separated_commenter_list(announcement, comments)
-  end
-
-  defp comma_separated_commenter_list(announcement, comments) do
-    announcement
-    |> unique_commenters(comments)
-    |> commenter_names
-    |> Enum.join(", ")
-  end
-
   def announcement_url_for_footer(announcement, nil) do
     ConstableWeb.Router.Helpers.announcement_url(ConstableWeb.Endpoint, :show, announcement)
   end
