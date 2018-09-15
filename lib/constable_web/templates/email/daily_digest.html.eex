@@ -62,6 +62,7 @@
                 <%= for announcement <- discussed_announcements(@comments) do %>
                   <div style="padding-left: 8px;">
                     <h4><%= link announcement.title, to: announcement_url(ConstableWeb.Endpoint, :show, announcement), style: "color: #{red()}" %></h4>
+                    <p style="font-weight: normal; font-style: italic;">(Posted by <%= announcement.user.name %> <%= time_ago_in_words announcement.inserted_at %>)</p>
                     <%= for comment <- new_comments(@comments, announcement) do %>
                       <p>
                         <img src="<%= author_avatar_url(comment.user) %>" class="avatar-rounded">

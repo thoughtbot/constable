@@ -25,6 +25,7 @@
 <%= for announcement <- discussed_announcements(@comments) do %>
 
  - <%= announcement.title %>
+    Posted by <%= announcement.user.name %> <%= time_ago_in_words announcement.inserted_at %>
    <%= for comment <- new_comments(@comments, announcement) do %>
      Comment by <%= comment.user.name %> <%= time_ago_in_words comment.inserted_at %>:
      <%= comment.body %>
