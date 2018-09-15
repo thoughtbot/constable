@@ -38,6 +38,6 @@ defmodule Constable.DailyDigest do
 
   defp comments_since(time) do
     Repo.all(from i in Comment, where: i.inserted_at > ^time)
-    |> Repo.preload([:announcement, :user])
+    |> Repo.preload([:user, announcement: :user])
   end
 end

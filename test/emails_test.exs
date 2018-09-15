@@ -31,8 +31,6 @@ defmodule Constable.EmailsTest do
       assert email |> both_parts_contain(comment.user.name)
       assert email |> both_parts_contain(comment.body)
     end
-    assert email |> both_parts_contain("2 comments by #{comment_1.user.name}, #{comment_2.user.name}")
-    assert email |> both_parts_contain("1 comment by #{comment_3.user.name}")
   end
 
   defp both_parts_contain(email, string) do
