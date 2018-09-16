@@ -1,0 +1,12 @@
+body {
+  background: #fff;
+  color: #000;
+  text-align: center;
+  font-family: "Helvetica", sans-serif;
+}
+
+header a#logo {
+  background: url(envelope.svg) no-repeat center;
+  height: 200px;
+  display: block;
+}
