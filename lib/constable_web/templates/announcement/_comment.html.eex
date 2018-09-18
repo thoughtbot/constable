@@ -7,11 +7,9 @@
   <div class="media-body">
     <div class="author-information">
       <h4 class="author"><%= @comment.user.name %></h4>
-      <time class="comment-time">
-        <a href="#comment-<%= @comment.id %>">
-          <%= time_ago_in_words @comment.inserted_at %>
-        </a>
-      </time>
+      <a href="#comment-<%= @comment.id %>" class="comment-time">
+        <%= relative_timestamp(@comment.inserted_at) %>
+      </a>
 
       <%= if @comment.user_id == @current_user.id do %>
         <%= link to: announcement_comment_path(ConstableWeb.Endpoint, :edit, @comment.announcement_id, @comment), class: "edit-comment", data: [role: "edit-comment"] do %>
