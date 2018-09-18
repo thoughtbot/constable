@@ -52,7 +52,7 @@ defmodule Constable.Mixfile do
       {:cors_plug, "~> 1.2"},
       {:cowboy, "~> 1.0"},
       {:dialyxir, "~> 0.3", only: [:dev]},
-      {:earmark, github: "pragdave/earmark"},
+      {:earmark, "~> 1.2"},
       {:ecto, "~> 2.1"},
       {:envy, "~> 1.1.1"},
       {:ex_machina, "~> 2.0"},
