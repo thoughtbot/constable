@@ -9,9 +9,7 @@
 
       <div class="announcement-metadata">
         <%= gettext "announced" %>
-        <time>
-          <%= time_ago_in_words(announcement.inserted_at) %>
-        </time>
+        <%= relative_timestamp(announcement.inserted_at) %>
         to
         <span>
         <%= for interest <- announcement.interests do %>

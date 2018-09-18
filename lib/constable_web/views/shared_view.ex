@@ -4,6 +4,8 @@ defmodule ConstableWeb.SharedView do
   alias Constable.Services.MentionFinder
   import Exgravatar
 
+  use Phoenix.HTML
+
   def title(%{page_title: title}) do
     "- #{title}"
   end
@@ -14,6 +16,27 @@ defmodule ConstableWeb.SharedView do
 
   def gravatar(user) do
     gravatar_url(user.email, secure: true)
+  end
+
+  def relative_timestamp(datetime) do
+    datetime = datetime |> DateTime.from_naive!("Etc/UTC")
+
+    content_tag(
+      :time,
+      simple_date(datetime),
+      [
+        {:data,
+         [
+           format: "%B %e, %Y %l:%M%P",
+           local: "time-ago"
+         ]},
+        datetime: DateTime.to_iso8601(datetime)
+      ]
+    )
+  end
+
+  def simple_date(datetime) do
+    Enum.join([datetime.year, datetime.month, datetime.day], "/")
   end
 
   def time_ago_in_words(time) do
