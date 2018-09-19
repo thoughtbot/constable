@@ -19,8 +19,6 @@ defmodule ConstableWeb.SharedView do
   end
 
   def relative_timestamp(datetime) do
-    datetime = datetime |> DateTime.from_naive!("Etc/UTC")
-
     content_tag(
       :time,
       simple_date(datetime),

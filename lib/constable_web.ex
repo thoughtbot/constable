@@ -75,6 +75,7 @@ defmodule ConstableWeb do
       import Ecto.Changeset
       import Ecto.Query
       import Exgravatar
+      @timestamps_opts [type: :utc_datetime, usec: false]
     end
   end
 
