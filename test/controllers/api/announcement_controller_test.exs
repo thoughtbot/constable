@@ -24,6 +24,16 @@ defmodule ConstableWeb.Api.AnnouncementControllerTest do
     assert json_response(conn, 200) == render_json("show.json", announcement: announcement)
   end
 
+  test "#show uses iso8601 timestamps", %{conn: conn, user: user} do
+    announcement = insert(:announcement, user: user, updated_at: ~N[2018-01-01 15:15:15.000000])
+
+    conn = get conn, api_announcement_path(conn, :show, announcement)
+    body = json_response(conn, 200)
+
+    # A previous Ecto version upgrade caused a regression around datetime formats
+    assert body["announcement"]["updated_at"] == "2018-01-01T15:15:15.000000Z"
+  end
+
   test "#create with valid attributes saves an announcement", %{conn: conn} do
     announcement_params = build(:announcement_params)
 
