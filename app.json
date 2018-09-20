@@ -37,6 +37,9 @@
     "OUTBOUND_EMAIL_DOMAIN": {
       "required": true
     },
+    "PERMITTED_EMAIL_DOMAIN": {
+      "required": true
+    },
     "SECRET_KEY_BASE": {
       "generator": "secret"
     },

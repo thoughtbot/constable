@@ -19,10 +19,12 @@ config :constable, :sql_sandbox, true
 
 config :constable, :shubox_script_url, "http://localhost/testing123.js"
 
-config :constable, Constable.Mailer,
-  adapter: Bamboo.TestAdapter
+config :constable, Constable.Mailer, adapter: Bamboo.TestAdapter
 
 config :honeybadger, :environment_name, :test
+
+# The tests all use thoughtbot.com user emails
+config :constable, :permitted_email_domain, "thoughtbot.com"
 
 config :wallaby,
   max_wait_time: 250,
