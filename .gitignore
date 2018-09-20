@@ -1,1 +1,6 @@
 _site
+_build
+assets
+deps
+priv
+.env
