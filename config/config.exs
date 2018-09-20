@@ -23,7 +23,9 @@ config :logger, :console,
   metadata: [:request_id]
 
 # To sign in, users must have an email in this domain
-config :constable, :permitted_email_domain, "thoughtbot.com"
+config :constable,
+  :permitted_email_domain,
+  System.get_env("PERMITTED_EMAIL_DOMAIN") || "thoughtbot.com"
 
 config :oauth2, serializers: %{"application/json" => Poison}
 
