@@ -36,14 +36,17 @@ defmodule ConstableWeb.AuthController do
         conn
         |> put_flash(:error, "You must sign up with a #{@permitted_email_domain} email address")
         |> redirect(external: "/")
+
       user ->
         conn
         |> set_user_id_cookie(user)
         |> redirect(external: session_path(conn, :new))
     end
   end
+
   def browser_callback(conn, %{"error" => error_message}) do
     Logger.info("Auth error: #{error_message}")
+
     conn
     |> put_flash(:error, error_message)
     |> redirect(external: "/")
@@ -64,6 +67,7 @@ defmodule ConstableWeb.AuthController do
       user -> redirect(conn, external: redirect_after_success_uri(conn, user.token))
     end
   end
+
   def javascript_callback(conn, %{"error" => error_message}) do
     Logger.info("Auth error: #{error_message}")
     conn |> redirect(external: "/")
@@ -82,10 +86,11 @@ defmodule ConstableWeb.AuthController do
         conn
         |> put_status(403)
         |> json(%{error: "must sign up with a #{@permitted_email_domain} email"})
+
       user ->
         conn
         |> put_status(201)
-        |>  render("show.json", user: user)
+        |> render("show.json", user: user)
     end
   end
 
@@ -112,16 +117,22 @@ defmodule ConstableWeb.AuthController do
     case Repo.insert(changeset) do
       {:ok, user} ->
         user |> add_everyone_interest
+
       {:error, _changeset} ->
-        Logger.info("Non-thoughtbot email")
+        Logger.info(
+          "Email address `#{email}` not from permitted `#{@permitted_email_domain}` domain"
+        )
+
         nil
     end
   end
 
   defp add_everyone_interest(user) do
     user_interest_params = %{user_id: user.id, interest_id: everyone_interest().id}
+
     UserInterest.changeset(%UserInterest{}, user_interest_params)
-    |> Repo.insert!
+    |> Repo.insert!()
+
     user
   end
 
