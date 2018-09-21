@@ -16,7 +16,6 @@ defmodule ConstableWeb.Api.UserInterestController do
   end
 
   def create(conn, %{"user_interest" => params}) do
-    conn |> put_status(201)
     current_user = current_user(conn)
     params = Map.put(params, "user_id", current_user.id)
 
