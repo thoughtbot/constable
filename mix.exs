@@ -26,22 +26,15 @@ defmodule Constable.Mixfile do
   #
   # Type `mix help compile.app` for more information
   def application do
-    [mod: {Constable.Application, []},
-     applications: app_list()]
+    [
+      mod: {Constable.Application, []},
+      extra_applications: [:logger, :runtime_tools]
+    ]
   end
 
-  defp app_list, do: [
-    :bamboo,
-    :cowboy,
-    :ecto,
-    :ex_machina,
-    :gettext,
-    :honeybadger,
-    :httpoison,
-    :logger,
-    :phoenix,
-    :postgrex
-  ]
+  # Specifies which paths to compile per environment.
+  defp elixirc_paths(:test), do: ["lib", "test/support"]
+  defp elixirc_paths(_), do: ["lib"]
 
   # Specifies your project dependencies
   #
@@ -77,12 +70,10 @@ defmodule Constable.Mixfile do
     ]
   end
 
-  defp elixirc_paths(:test), do: ["lib", "test/support"]
-  defp elixirc_paths(_),     do: ["lib"]
-
   defp aliases do
     [
-      "ecto.reset": ["ecto.drop", "ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
+      "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
+      "ecto.reset": ["ecto.drop", "ecto.setup"],
       test: [
         "assets.compile --quiet",
         "ecto.create --quiet",
