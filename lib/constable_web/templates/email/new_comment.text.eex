@@ -1,4 +1,4 @@
-<% if @mentioner do %>
+<%= if @mentioner do %>
 <%= gettext("You were mentioned by") %> <%= @mentioner.name %>:
 
 <% end %>
