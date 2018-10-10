@@ -8,7 +8,7 @@ defmodule ConstableWeb.AcceptanceCase do
       alias ConstableWeb.Endpoint
       import Ecto.Schema
       import Ecto.Query, only: [from: 2]
-      import ConstableWeb.Router.Helpers
+      alias ConstableWeb.Router.Helpers, as: Routes
       import Constable.Factory
       import ConstableWeb.WallabyHelper
       import Wallaby.Query, only: [link: 1, button: 1, css: 1, text_field: 1]

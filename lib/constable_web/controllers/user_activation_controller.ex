@@ -15,6 +15,6 @@ defmodule ConstableWeb.UserActivationController do
     Ecto.Changeset.change(user, %{active: new_activation_status})
     |> Repo.update!
 
-    redirect(conn, to: user_activation_path(conn, :index))
+    redirect(conn, to: Routes.user_activation_path(conn, :index))
   end
 end

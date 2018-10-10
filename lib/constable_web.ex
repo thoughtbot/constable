@@ -21,25 +21,26 @@ defmodule ConstableWeb do
     quote do
       use Phoenix.Controller, namespace: ConstableWeb
 
-      import ConstableWeb.Router.Helpers
       import Ecto.Query
       import Ecto.Schema
       import ConstableWeb.Gettext
       import ConstableWeb.ControllerHelper
 
       alias Constable.Repo
+      alias ConstableWeb.Router.Helpers, as: Routes
     end
   end
 
   def view do
     quote do
-      use Phoenix.View, root: "lib/constable_web/templates",
-                        namespace: ConstableWeb
+      use Phoenix.View,
+        root: "lib/constable_web/templates",
+        namespace: ConstableWeb
 
       # Import convenience functions from controllers
       import Phoenix.Controller,
         only: [get_csrf_token: 0, get_flash: 2, view_module: 1]
-      import ConstableWeb.Router.Helpers
+
       import ConstableWeb.ErrorHelpers
       import ConstableWeb.Gettext
       import ConstableWeb.SharedView
@@ -50,6 +51,7 @@ defmodule ConstableWeb do
       use Phoenix.HTML
 
       alias Constable.Repo
+      alias ConstableWeb.Router.Helpers, as: Routes
     end
   end
 

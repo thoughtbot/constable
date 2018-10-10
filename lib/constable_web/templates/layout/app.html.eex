@@ -8,9 +8,9 @@
     <meta name="author" content="">
 
     <title>Constable <%= title(assigns) %></title>
-    <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
+    <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>">
     <script>window.userToken = "<%= @current_user.token %>";</script>
-    <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
+    <script src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
     <script src="<%= Application.fetch_env!(:constable, :shubox_script_url) %>"></script>
   </head>
 
@@ -19,7 +19,7 @@
       <header class="main-header">
         <%= link "#Constable", to: "/", class: "logo" %>
 
-        <%= form_tag search_path(@conn, :show), class: "header-search-form", method: :get do %>
+        <%= form_tag Routes.search_path(@conn, :show), class: "header-search-form", method: :get do %>
           <label class="is-hidden" for="header-search-input">Search Constable</label>
           <input
             class="header-search-input"
@@ -31,13 +31,13 @@
           />
         <% end %>
 
-        <%= link to: settings_path(@conn, :show), class: "settings-gravatar remote-append", data: [role: "settings-link"] do %>
+        <%= link to: Routes.settings_path(@conn, :show), class: "settings-gravatar remote-append", data: [role: "settings-link"] do %>
           <img
             src="<%= gravatar(@conn.assigns.current_user) %>"
             class="avatar-rounded avatar-rounded-optical-align-y"
           />
         <% end %>
-        <%= link to: announcement_path(@conn, :new), class: "announce button button-small button-icon" do %>
+        <%= link to: Routes.announcement_path(@conn, :new), class: "announce button button-small button-icon" do %>
           <span class="announce-text">Announce</span>
         <% end %>
       </header>

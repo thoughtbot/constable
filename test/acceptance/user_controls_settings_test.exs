@@ -9,7 +9,7 @@ defmodule ConstableWeb.UserControlsSettingsTest do
     user = insert(:user)
 
     session
-    |> visit(announcement_path(Endpoint, :new, as: user.id))
+    |> visit(Routes.announcement_path(Endpoint, :new, as: user.id))
     |> open_settings_modal
 
     assert showing_modal?(session)
@@ -19,7 +19,7 @@ defmodule ConstableWeb.UserControlsSettingsTest do
     user = insert(:user)
 
     session
-    |> visit(announcement_path(Endpoint, :new, as: user.id))
+    |> visit(Routes.announcement_path(Endpoint, :new, as: user.id))
     |> open_settings_modal
     |> assert_has(@modal_window)
     |> close_modal_with_icon
@@ -31,7 +31,7 @@ defmodule ConstableWeb.UserControlsSettingsTest do
     user = insert(:user)
 
     session
-    |> visit(announcement_path(Endpoint, :new, as: user.id))
+    |> visit(Routes.announcement_path(Endpoint, :new, as: user.id))
     |> open_settings_modal
     |> assert_has(@modal_window)
     |> close_modal_with_esc

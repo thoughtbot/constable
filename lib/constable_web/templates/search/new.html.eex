@@ -11,11 +11,11 @@
 
     <div class="container pagination">
       <%= if !on_first_page?(@search_page) do %>
-        <%= link gettext(""), to: search_path(@conn, :show, query: @query, page: (@search_page.page_number - 1)), class: "page-previous button" %>
+        <%= link gettext(""), to: Routes.search_path(@conn, :show, query: @query, page: (@search_page.page_number - 1)), class: "page-previous button" %>
       <% end %>
 
       <%= if !on_last_page?(@search_page) do %>
-        <%= link gettext(""), to: search_path(@conn, :show, query: @query, page: (@search_page.page_number + 1)), class: "page-next button" %>
+        <%= link gettext(""), to: Routes.search_path(@conn, :show, query: @query, page: (@search_page.page_number + 1)), class: "page-next button" %>
       <% end %>
     </div>
   <% end %>

@@ -11,11 +11,11 @@ defmodule ConstableWeb.UnsubscribeController do
 
       conn
       |> put_flash(:info, gettext("You've been unsubscribed from this announcement."))
-      |> redirect(to: announcement_path(conn, :show, subscription.announcement))
+      |> redirect(to: Routes.announcement_path(conn, :show, subscription.announcement))
     else
       conn
       |> put_flash(:error, gettext("We could not unsubscribe you from the announcement."))
-      |> redirect(to: announcement_path(conn, :index))
+      |> redirect(to: Routes.announcement_path(conn, :index))
     end
   end
 

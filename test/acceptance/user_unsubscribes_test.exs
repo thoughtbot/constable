@@ -7,7 +7,7 @@ defmodule ConstableWeb.UserUnsubscribesTest do
     user = insert(:user)
 
     session
-    |> visit(unsubscribe_path(Endpoint, :show, subscription.token, as: user))
+    |> visit(Routes.unsubscribe_path(Endpoint, :show, subscription.token, as: user))
 
     assert has_unsubscribed_flash_message?(session)
     assert has_announcement_title?(session, announcement.title)
@@ -16,7 +16,7 @@ defmodule ConstableWeb.UserUnsubscribesTest do
   test "shows unsubscribed message when logged out", %{session: session} do
     subscription = insert(:subscription)
     session
-    |> visit(unsubscribe_path(Endpoint, :show, subscription.token))
+    |> visit(Routes.unsubscribe_path(Endpoint, :show, subscription.token))
 
     assert has_unsubscribed_flash_message?(session)
     assert has_login_button?(session)

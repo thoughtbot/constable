@@ -68,7 +68,7 @@ defmodule Constable.EmailsTest do
 
   defp make_link(interest) do
     "##{interest.name}"
-    |> link(to: interest_url(ConstableWeb.Endpoint, :show, interest), style: "color: #aeaeae;")
+    |> link(to: Routes.interest_url(ConstableWeb.Endpoint, :show, interest), style: "color: #aeaeae;")
     |> safe_to_string
   end
 end

@@ -11,7 +11,7 @@ defmodule ConstableWeb.AnnouncementControllerTest do
     insert(:announcement, title: "Awesome", user: user)
     insert(:announcement, title: "Lame", user: user)
 
-    conn = get conn, announcement_path(conn, :index, all: true)
+    conn = get conn, Routes.announcement_path(conn, :index, all: true)
 
     assert html_response(conn, :ok) =~ "Awesome"
     assert html_response(conn, :ok) =~ "Lame"
@@ -23,7 +23,7 @@ defmodule ConstableWeb.AnnouncementControllerTest do
     insert(:announcement, title: "Shows up") |> tag_with_interest(my_interest)
     _announcement_with_no_matching_interest = insert(:announcement, title: "Does not show up")
 
-    conn = get conn, announcement_path(conn, :index)
+    conn = get conn, Routes.announcement_path(conn, :index)
 
     assert html_response(conn, :ok) =~ "Shows up"
     refute html_response(conn, :ok) =~ "Does not show up"
@@ -32,7 +32,7 @@ defmodule ConstableWeb.AnnouncementControllerTest do
   test "#show renders markdown as html", %{conn: conn} do
     announcement = insert(:announcement, body: "# Hello")
 
-    conn = get conn, announcement_path(conn, :show, announcement)
+    conn = get conn, Routes.announcement_path(conn, :show, announcement)
 
     assert html_response(conn, :ok) =~ "<h1>Hello</h1>"
   end
@@ -41,7 +41,7 @@ defmodule ConstableWeb.AnnouncementControllerTest do
     announcement = insert(:announcement)
     insert(:comment, body: "# Comment", announcement: announcement)
 
-    conn = get conn, announcement_path(conn, :show, announcement)
+    conn = get conn, Routes.announcement_path(conn, :show, announcement)
 
     assert html_response(conn, :ok) =~ "<h1>Comment</h1>"
   end
@@ -49,7 +49,7 @@ defmodule ConstableWeb.AnnouncementControllerTest do
   test "comments on show page have an edit link if current user is the author", %{conn: conn, user: user} do
     comment = insert(:comment, user: user)
 
-    conn = get conn, announcement_path(conn, :show, comment.announcement)
+    conn = get conn, Routes.announcement_path(conn, :show, comment.announcement)
 
     assert html_response(conn, :ok) =~ "(edit)"
   end
@@ -58,13 +58,13 @@ defmodule ConstableWeb.AnnouncementControllerTest do
     another_user = insert(:user)
     comment = insert(:comment, user: another_user)
 
-    conn = get conn, announcement_path(conn, :show, comment.announcement)
+    conn = get conn, Routes.announcement_path(conn, :show, comment.announcement)
 
     refute html_response(conn, :ok) =~ "(edit)"
   end
 
   test "#create splits interests by ,", %{conn: conn} do
-    post conn, announcement_path(conn, :create), announcement: %{
+    post conn, Routes.announcement_path(conn, :create), announcement: %{
       title: "Hello world",
       interests: "everyone, boston",
       body: "# Hello"
@@ -83,7 +83,7 @@ defmodule ConstableWeb.AnnouncementControllerTest do
     owner = insert(:user)
     announcement = insert(:announcement, user: owner)
 
-    delete conn, announcement_path(conn, :delete, announcement)
+    delete conn, Routes.announcement_path(conn, :delete, announcement)
 
     assert Repo.one(Announcement)
   end
@@ -91,7 +91,7 @@ defmodule ConstableWeb.AnnouncementControllerTest do
   test "#delete works for owner of the announcement", %{conn: conn, user: user} do
     announcement = insert(:announcement, user: user)
 
-    delete conn, announcement_path(conn, :delete, announcement)
+    delete conn, Routes.announcement_path(conn, :delete, announcement)
 
     refute Repo.one(Announcement)
   end

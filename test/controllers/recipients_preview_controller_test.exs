@@ -13,7 +13,7 @@ defmodule ContableWeb.RecipientsPreviewControllerTest do
 
       response =
         conn
-        |> get(recipients_preview_path(conn, :show, %{"interests" => interest.name}))
+        |> get(Routes.recipients_preview_path(conn, :show, %{"interests" => interest.name}))
         |> json_response(200)
 
       recipients_preview_html = response["recipients_preview_html"]
@@ -28,7 +28,7 @@ defmodule ContableWeb.RecipientsPreviewControllerTest do
 
       response =
         conn
-        |> get(recipients_preview_path(conn, :show, %{"interests" => interest.name}))
+        |> get(Routes.recipients_preview_path(conn, :show, %{"interests" => interest.name}))
         |> json_response(200)
 
       recipients_preview_html = response["recipients_preview_html"]

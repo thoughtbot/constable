@@ -9,7 +9,7 @@
     </header>
 
     <div class="modal-body">
-      <%= form_for @changeset, settings_path(@conn, :update), [class: "settings-form"], fn(f) -> %>
+      <%= form_for @changeset, Routes.settings_path(@conn, :update), [class: "settings-form"], fn(f) -> %>
         <div class='field'>
           <label>Your name:</label>
           <%= text_input f, :name %>
@@ -51,7 +51,7 @@
     </div>
 
     <footer>
-      <%= link "Log out of Constable", to: session_path(@conn, :delete), method: :delete, class: "button button-secondary" %>
+      <%= link "Log out of Constable", to: Routes.session_path(@conn, :delete), method: :delete, class: "button button-secondary" %>
     </footer>
   </div>
 

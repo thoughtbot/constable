@@ -1,6 +1,6 @@
 defmodule Constable.Mailers.AnnouncementTest do
   use Constable.TestWithEcto, async: false
-  import ConstableWeb.Router.Helpers
+  alias ConstableWeb.Router.Helpers, as: Routes
   alias Constable.Emails
   import Exgravatar
 
@@ -68,7 +68,7 @@ defmodule Constable.Mailers.AnnouncementTest do
   end
 
   defp email_contains_interest_link(email, interest) do
-    interest_link = interest_url(ConstableWeb.Endpoint, :show, interest)
+    interest_link = Routes.interest_url(ConstableWeb.Endpoint, :show, interest)
     email.html_body =~ ~s(a href="#{interest_link}")
   end
 end

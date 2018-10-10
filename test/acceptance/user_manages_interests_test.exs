@@ -21,7 +21,7 @@ defmodule ConstableWeb.UserManagesInterestsTest do
   test "user subscribes to an interest from interest page", %{session: session} do
     user = insert(:user)
     interest = insert(:interest)
-    session |> visit(interest_path(Endpoint, :show, interest, as: user.id))
+    session |> visit(Routes.interest_path(Endpoint, :show, interest, as: user.id))
 
     assert not_subscribed_to_interest?(session)
     session |> subscribe_to_interest
@@ -33,7 +33,7 @@ defmodule ConstableWeb.UserManagesInterestsTest do
     user = insert(:user)
 
     session
-    |> visit(announcement_path(Endpoint, :index, as: user.id))
+    |> visit(Routes.announcement_path(Endpoint, :index, as: user.id))
     |> click(@view_all_interests_css)
   end
 

@@ -13,7 +13,7 @@ defmodule ConstableWeb.Api.CommentControllerTest do
     announcement = insert(:announcement)
     subscribed_user = insert(:user) |> with_subscription(announcement)
 
-    conn = post conn, api_comment_path(conn, :create), comment: %{
+    conn = post conn, Routes.api_comment_path(conn, :create), comment: %{
       body: "Foo",
       announcement_id: announcement.id
     }

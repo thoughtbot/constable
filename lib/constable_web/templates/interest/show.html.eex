@@ -6,7 +6,7 @@
     </div>
 
     <div class="current-channel">
-      <%= link to: interest_slack_channel_path(@conn, :edit, @interest), data: [role: "edit-interest"] do %>
+      <%= link to: Routes.interest_slack_channel_path(@conn, :edit, @interest), data: [role: "edit-interest"] do %>
         <%= if @interest.slack_channel do %>
           <p data-role="current-channel">
             <%=
@@ -29,11 +29,11 @@
 
   <div class="container pagination">
     <%= if !on_first_page?(@interest_page) do %>
-      <%= link gettext(""), to: interest_path(@conn, :show, @interest, page: (@interest_page.page_number - 1)), class: "page-previous button" %>
+      <%= link gettext(""), to: Routes.interest_path(@conn, :show, @interest, page: (@interest_page.page_number - 1)), class: "page-previous button" %>
     <% end %>
 
     <%= if !on_last_page?(@interest_page) do %>
-      <%= link gettext(""), to: interest_path(@conn, :show, @interest, page: (@interest_page.page_number + 1)), class: "page-next button" %>
+      <%= link gettext(""), to: Routes.interest_path(@conn, :show, @interest, page: (@interest_page.page_number + 1)), class: "page-next button" %>
     <% end %>
   </div>
 </div>

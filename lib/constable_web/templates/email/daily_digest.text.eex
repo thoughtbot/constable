@@ -6,7 +6,7 @@
 -----------------
 
 <%= for interest <- @interests do %>
- - #<%= interest.name %> (<%= interest_url(ConstableWeb.Endpoint, :show, interest) %>)
+ - #<%= interest.name %> (<%= Routes.interest_url(ConstableWeb.Endpoint, :show, interest) %>)
 <% end %>
 <% end %>
 <%= unless Enum.empty?(@announcements) do %>
@@ -17,7 +17,7 @@
  - <%= announcement.title %>
    <%= announcement.body %>
    <%= gettext("posted by") %> <%= announcement.user.name %> <%= gettext("in") %> <%= interest_names(announcement) %>
-<%= "   " %><%= announcement_url(ConstableWeb.Endpoint, :show, announcement) %>
+<%= "   " %><%= Routes.announcement_url(ConstableWeb.Endpoint, :show, announcement) %>
 <% end %>
 <% end %>
 <%= unless Enum.empty?(@comments) do %>
@@ -30,9 +30,9 @@
      Comment by <%= comment.user.name %> <%= time_ago_in_words comment.inserted_at %>:
      <%= comment.body %>
    <% end %>
-<%= "   " %><%= announcement_url(ConstableWeb.Endpoint, :show, announcement) %>
+<%= "   " %><%= Routes.announcement_url(ConstableWeb.Endpoint, :show, announcement) %>
 <% end %>
 <% end %>
 ---
 <%= gettext("View Interests and Announcements on Constable\n") %>
-<%= announcement_url(ConstableWeb.Endpoint, :index) %>
+<%= Routes.announcement_url(ConstableWeb.Endpoint, :index) %>

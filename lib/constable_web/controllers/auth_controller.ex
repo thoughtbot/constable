@@ -15,7 +15,7 @@ defmodule ConstableWeb.AuthController do
 
   def index(conn, %{"browser" => "true"}) do
     conn
-    |> redirect(external: GoogleStrategy.authorize_url!(auth_url(conn, :browser_callback)))
+    |> redirect(external: GoogleStrategy.authorize_url!(Routes.auth_url(conn, :browser_callback)))
   end
 
   @doc """
@@ -24,11 +24,13 @@ defmodule ConstableWeb.AuthController do
   def index(conn, %{"redirect_uri" => redirect_uri}) do
     conn
     |> put_session(:redirect_after_success_uri, redirect_uri)
-    |> redirect(external: GoogleStrategy.authorize_url!(auth_url(conn, :javascript_callback)))
+    |> redirect(
+      external: GoogleStrategy.authorize_url!(Routes.auth_url(conn, :javascript_callback))
+    )
   end
 
   def browser_callback(conn, %{"code" => code}) do
-    token = google_strategy().get_token!(auth_url(conn, :browser_callback), code: code)
+    token = google_strategy().get_token!(Routes.auth_url(conn, :browser_callback), code: code)
     %{"email" => email, "name" => name} = get_userinfo(token)
 
     case find_or_insert_user(email, name) do
@@ -40,7 +42,7 @@ defmodule ConstableWeb.AuthController do
       user ->
         conn
         |> set_user_id_cookie(user)
-        |> redirect(external: session_path(conn, :new))
+        |> redirect(external: Routes.session_path(conn, :new))
     end
   end
 
@@ -59,7 +61,7 @@ defmodule ConstableWeb.AuthController do
   access the email address on behalf of the user.
   """
   def javascript_callback(conn, %{"code" => code}) do
-    token = google_strategy().get_token!(auth_url(conn, :javascript_callback), code: code)
+    token = google_strategy().get_token!(Routes.auth_url(conn, :javascript_callback), code: code)
     %{"email" => email, "name" => name} = get_userinfo(token)
 
     case find_or_insert_user(email, name) do

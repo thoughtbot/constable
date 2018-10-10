@@ -8,7 +8,7 @@ defmodule ConstableWeb.SettingsControllerTest do
   end
 
   test "show renders the settings form" , %{conn: conn} do
-    conn = get conn, settings_path(conn, :show)
+    conn = get conn, Routes.settings_path(conn, :show)
 
     assert html_response(conn, :ok)
   end
@@ -17,7 +17,7 @@ defmodule ConstableWeb.SettingsControllerTest do
     user = insert(:user, name: "Joe Dirt", auto_subscribe: true, daily_digest: true)
     %{conn: conn, user: user} = browser_authenticate(user)
 
-    put conn, settings_path(conn, :update), user: %{
+    put conn, Routes.settings_path(conn, :update), user: %{
       auto_subscribe: false,
       daily_digest: false,
       name: "Roger Murdoch",

@@ -75,7 +75,7 @@ defmodule ConstableWeb.AuthControllerTest do
 
       auth_uri = google_auth_uri(
         client_id: Constable.Env.get("CLIENT_ID"),
-        redirect_uri: auth_url(conn, :javascript_callback),
+        redirect_uri: Routes.auth_url(conn, :javascript_callback),
         response_type: "code",
         scope: GoogleStrategy.oauth_scopes
       )
@@ -94,7 +94,7 @@ defmodule ConstableWeb.AuthControllerTest do
         redirect_uri: "https://constable-oauth-redirector.herokuapp.com/auth",
         response_type: "code",
         scope: GoogleStrategy.oauth_scopes,
-        state: auth_url(conn, :javascript_callback)
+        state: Routes.auth_url(conn, :javascript_callback)
       )
     end
 
@@ -162,7 +162,7 @@ defmodule ConstableWeb.AuthControllerTest do
 
     Constable.Pact.replace(:google_strategy, FakeTokenInfoGoogleStrategy) do
       conn = build_conn()
-      conn = post conn, auth_path(conn, :mobile_callback), auth_params
+      conn = post conn, Routes.auth_path(conn, :mobile_callback), auth_params
 
       user_auth_token = Repo.one(User).token
     end
@@ -178,7 +178,7 @@ defmodule ConstableWeb.AuthControllerTest do
     Constable.Pact.replace(:google_strategy, NonThoughtbotTokenInfoGoogleStrategy) do
       conn = build_conn()
 
-      conn = post conn, auth_path(conn, :mobile_callback), auth_params
+      conn = post conn, Routes.auth_path(conn, :mobile_callback), auth_params
     end
 
     assert json_response(conn, 403)
