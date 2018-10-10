@@ -8,7 +8,7 @@ defmodule ConstableWeb.UserSetsSlackChannelForInterestTest do
     user = insert(:user)
 
     session
-    |> visit(interest_path(Endpoint, :show, interest, as: user.id))
+    |> visit(Routes.interest_path(Endpoint, :show, interest, as: user.id))
     |> click_edit_interest
     |> fill_in(@interest_slack_channel, with: "#channel-name")
     |> click_submit
@@ -20,7 +20,7 @@ defmodule ConstableWeb.UserSetsSlackChannelForInterestTest do
     interest = insert(:interest, name: "interest", slack_channel: "#channel-name")
     user = insert(:user)
 
-    visit(session, interest_path(Endpoint, :show, interest, as: user.id))
+    visit(session, Routes.interest_path(Endpoint, :show, interest, as: user.id))
 
     assert has_slack_channel_set?(session, "#channel-name")
 
@@ -37,7 +37,7 @@ defmodule ConstableWeb.UserSetsSlackChannelForInterestTest do
     user = insert(:user)
 
     session
-    |> visit(interest_slack_channel_path(Endpoint, :edit, interest, as: user.id))
+    |> visit(Routes.interest_slack_channel_path(Endpoint, :edit, interest, as: user.id))
     |> accept_all_confirm_dialogs
     |> click_remove_slack_channel
 

@@ -9,7 +9,7 @@ defmodule ConstableWeb.UserAnnouncementTest do
     user = insert(:user)
 
     session
-    |> visit(announcement_path(Endpoint, :new, as: user.id))
+    |> visit(Routes.announcement_path(Endpoint, :new, as: user.id))
     |> fill_in(@announcement_title, with: "Hello World")
     |> fill_in_interests("everyone")
     |> fill_in(@announcement_body, with: "# Hello!")
@@ -27,7 +27,7 @@ defmodule ConstableWeb.UserAnnouncementTest do
     current_user = insert(:user, name: "Blake") |> with_interest(elixir_interest)
 
     session
-    |> visit(announcement_path(Endpoint, :new, as: current_user.id))
+    |> visit(Routes.announcement_path(Endpoint, :new, as: current_user.id))
     |> fill_in_interests("elixir")
     |> assert_has(@interested_subscribers)
     |> click(link("2 people are subscribed"))
@@ -40,7 +40,7 @@ defmodule ConstableWeb.UserAnnouncementTest do
     announcement = insert(:announcement, user: user)
 
     session
-    |> visit(announcement_path(Endpoint, :show, announcement, as: user.id))
+    |> visit(Routes.announcement_path(Endpoint, :show, announcement, as: user.id))
     |> click_edit
     |> fill_in(@announcement_title, with: "Updated")
     |> fill_in_interests("updated")
@@ -58,7 +58,7 @@ defmodule ConstableWeb.UserAnnouncementTest do
     announcement = insert(:announcement, user: user) |> tag_with_interest(elixir_interest)
 
     session
-    |> visit(announcement_path(Endpoint, :edit, announcement, as: user.id))
+    |> visit(Routes.announcement_path(Endpoint, :edit, announcement, as: user.id))
     |> fill_in(@announcement_title, with: "Updated title")
     |> fill_in(@announcement_body, with: "# Updated")
     |> click_submit_button

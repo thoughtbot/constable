@@ -2,7 +2,7 @@
   <header class="announcement-interests">
     <div data-role="interests">
       <%= for interest <- @announcement.interests do %>
-        <%= link interest.name, to: interest_path(@conn, :show, interest), class: "announcement-interest" %>
+        <%= link interest.name, to: Routes.interest_path(@conn, :show, interest), class: "announcement-interest" %>
       <% end %>
     </div>
   </header>
@@ -10,12 +10,12 @@
     <%= @announcement.title %>
     <%= if @announcement.user_id == @current_user.id do %>
       <small class="inline-action">
-        <%= link "edit", to: announcement_path(@conn, :edit, @announcement), data: [role: "edit"] %>
+        <%= link "edit", to: Routes.announcement_path(@conn, :edit, @announcement), data: [role: "edit"] %>
       </small>
       <small class="inline-action">
         <%= link(
             "delete",
-            to: announcement_path(@conn, :delete, @announcement),
+            to: Routes.announcement_path(@conn, :delete, @announcement),
             method: :delete,
             data: [confirm: gettext("Really delete this announcement?"), role: "delete"]
         ) %>
@@ -36,13 +36,13 @@
       </div>
       <div class="subscription">
         <%= if @subscription do %>
-          <%= link to: announcement_subscription_path(@conn, :delete, @announcement),
+          <%= link to: Routes.announcement_subscription_path(@conn, :delete, @announcement),
             method: :delete,
             class: "unsubscribe-to unsubscribe-to-thread" do %>
             <%= gettext("Subscribed to thread") %>
           <% end %>
         <% else %>
-          <%= link to: announcement_subscription_path(@conn, :create, @announcement),
+          <%= link to: Routes.announcement_subscription_path(@conn, :create, @announcement),
             method: :post,
             class: "subscribe-to" do %>
             <%= gettext("Subscribe to thread") %>
@@ -66,7 +66,7 @@
   <div class="comment-new">
     <%= ConstableWeb.CommentView.render "_form.html",
       comment_changeset: @comment_changeset,
-      path: announcement_comment_path(@conn, :create, @announcement),
+      path: Routes.announcement_comment_path(@conn, :create, @announcement),
       submit_text: gettext("Post Comment") %>
   </div>
 </div>

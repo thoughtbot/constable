@@ -13,7 +13,7 @@ defmodule ConstableWeb.SubscriptionController do
 
     Repo.insert!(changeset)
 
-    redirect(conn, to: announcement_path(conn, :show, announcement_id))
+    redirect(conn, to: Routes.announcement_path(conn, :show, announcement_id))
   end
 
   def delete(conn, %{"announcement_id" => announcement_id}) do
@@ -23,6 +23,6 @@ defmodule ConstableWeb.SubscriptionController do
     )
 
     Repo.delete!(subscription)
-    redirect(conn, to: announcement_path(conn, :show, announcement_id))
+    redirect(conn, to: Routes.announcement_path(conn, :show, announcement_id))
   end
 end

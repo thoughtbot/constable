@@ -10,7 +10,7 @@ defmodule ConstableWeb.InterestControllerTest do
     insert(:announcement, title: "Awesome") |> tag_with_interest(interest)
     insert(:announcement, title: "Nope") |> tag_with_interest(insert(:interest))
 
-    conn = get conn, interest_path(conn, :show, interest)
+    conn = get conn, Routes.interest_path(conn, :show, interest)
 
     assert html_response(conn, :ok) =~ "Awesome"
     refute html_response(conn, :ok) =~ "Nope"
@@ -20,7 +20,7 @@ defmodule ConstableWeb.InterestControllerTest do
     interest = insert(:interest)
     insert(:announcement, title: "Awesome") |> tag_with_interest(interest)
 
-    conn = get conn, interest_path(conn, :show, interest.id)
+    conn = get conn, Routes.interest_path(conn, :show, interest.id)
 
     assert html_response(conn, :ok) =~ "Awesome"
   end

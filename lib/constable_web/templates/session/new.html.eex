@@ -1,3 +1,3 @@
-<%= link to: auth_path(@conn, :index, browser: true), class: "sign-in-link button" do %>
+<%= link to: Routes.auth_path(@conn, :index, browser: true), class: "sign-in-link button" do %>
   <%= gettext "Sign in with Google" %>
 <% end %>

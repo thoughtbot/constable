@@ -2,7 +2,7 @@
   <div class="comment-edit">
     <%= render "_form.html",
       comment_changeset: @changeset,
-      path: announcement_comment_path(@conn, :update, @announcement, @comment),
+      path: Routes.announcement_comment_path(@conn, :update, @announcement, @comment),
       submit_text: gettext("Update Comment") %>
   </div>
 </div>

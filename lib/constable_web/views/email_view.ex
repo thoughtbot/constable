@@ -10,11 +10,13 @@ defmodule ConstableWeb.EmailView do
   end
 
   def unsubscribe_link do
-    URI.decode unsubscribe_url(ConstableWeb.Endpoint, :show, subscription_id_merge_variable())
+    URI.decode(
+      Routes.unsubscribe_url(ConstableWeb.Endpoint, :show, subscription_id_merge_variable())
+    )
   end
 
   def notification_settings_link do
-    settings_url(ConstableWeb.Endpoint, :show)
+    Routes.settings_url(ConstableWeb.Endpoint, :show)
   end
 
   def author_avatar_url(user) do
@@ -31,45 +33,49 @@ defmodule ConstableWeb.EmailView do
   def interest_names(announcement) do
     announcement
     |> Map.get(:interests)
-    |> Enum.map(&("##{&1.name}"))
+    |> Enum.map(&"##{&1.name}")
     |> Enum.join(", ")
   end
 
   def unique_commenters(comments) do
-    Enum.map(comments, fn(c) -> c.user end)
-    |> Enum.uniq
+    Enum.map(comments, fn c -> c.user end)
+    |> Enum.uniq()
   end
 
   def unique_commenters(announcement, comments) do
-    Enum.filter(comments, fn(c) -> c.announcement_id == announcement.id end)
-    |> Enum.map(fn(c) -> c.user end)
-    |> Enum.uniq
+    Enum.filter(comments, fn c -> c.announcement_id == announcement.id end)
+    |> Enum.map(fn c -> c.user end)
+    |> Enum.uniq()
   end
 
   def commenter_names(users) do
     users
-    |> Enum.map(fn(user) -> user.name end)
+    |> Enum.map(fn user -> user.name end)
   end
 
   def discussed_announcements(comments) do
-    Enum.map(comments, fn(c) -> c.announcement end)
-    |> Enum.uniq
+    Enum.map(comments, fn c -> c.announcement end)
+    |> Enum.uniq()
   end
 
   def announcement_url_for_footer(announcement, nil) do
-    ConstableWeb.Router.Helpers.announcement_url(ConstableWeb.Endpoint, :show, announcement)
+    Routes.announcement_url(ConstableWeb.Endpoint, :show, announcement)
   end
+
   def announcement_url_for_footer(announcement, comment) do
     announcement_url_for_footer(announcement, nil) <> "#comment-#{comment.id}"
   end
 
   def new_comments(comments, announcement) do
-    Enum.filter(comments, fn(c) -> c.announcement_id == announcement.id end)
+    Enum.filter(comments, fn c -> c.announcement_id == announcement.id end)
   end
 
   defp make_link(interest) do
     "##{interest.name}"
-    |> link(to: interest_url(ConstableWeb.Endpoint, :show, interest), style: "color: #{light_gray()};")
+    |> link(
+      to: Routes.interest_url(ConstableWeb.Endpoint, :show, interest),
+      style: "color: #{light_gray()};"
+    )
     |> safe_to_string
   end
 

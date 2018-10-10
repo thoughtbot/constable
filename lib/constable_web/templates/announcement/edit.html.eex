@@ -1,5 +1,5 @@
 <%= render "_form.html",
-  path: announcement_path(@conn, :update, @changeset.data.id),
+  path: Routes.announcement_path(@conn, :update, @changeset.data.id),
   conn: @conn,
   changeset: @changeset,
   interests: @interests,

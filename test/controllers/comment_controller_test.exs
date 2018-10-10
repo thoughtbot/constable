@@ -11,7 +11,7 @@ defmodule ConstableWeb.CommentControllerTest do
   test "#create creates the comment", %{conn: conn, user: user} do
     announcement = insert(:announcement)
 
-    post conn, announcement_comment_path(conn, :create, announcement.id), comment: %{
+    post conn, Routes.announcement_comment_path(conn, :create, announcement.id), comment: %{
       body: "Foo"
     }
 
@@ -24,17 +24,17 @@ defmodule ConstableWeb.CommentControllerTest do
   test "#create redirects back to announcement", %{conn: conn} do
     announcement = insert(:announcement)
 
-    conn = post conn, announcement_comment_path(conn, :create, announcement), comment: %{
+    conn = post conn, Routes.announcement_comment_path(conn, :create, announcement), comment: %{
       body: "Foo"
     }
 
-    assert redirected_to(conn) =~ announcement_path(conn, :show, announcement.id)
+    assert redirected_to(conn) =~ Routes.announcement_path(conn, :show, announcement.id)
   end
 
   test "#create redirects back to the announcement with flash on failure", %{conn: conn} do
     announcement = insert(:announcement)
 
-    conn = post conn, announcement_comment_path(conn, :create, announcement), comment: %{
+    conn = post conn, Routes.announcement_comment_path(conn, :create, announcement), comment: %{
     }
 
     assert Phoenix.ConnTest.get_flash(conn, :error) =~ "invalid"
@@ -43,7 +43,7 @@ defmodule ConstableWeb.CommentControllerTest do
   test "#update updates the comments if the current user is the author", %{conn: conn, user: user} do
     comment = insert(:comment, body: "not updated", user: user)
 
-    conn = put conn, announcement_comment_path(conn, :update, comment.announcement, comment), comment: %{
+    conn = put conn, Routes.announcement_comment_path(conn, :update, comment.announcement, comment), comment: %{
       body: "updated body"
     }
 
@@ -52,7 +52,7 @@ defmodule ConstableWeb.CommentControllerTest do
   end
 
   defp comment_on_announcement_page(conn, comment) do
-    announcement_path(conn, :show, comment.announcement) <> "#comment-#{comment.id}"
+    Routes.announcement_path(conn, :show, comment.announcement) <> "#comment-#{comment.id}"
   end
 
   test "#update does nothing if current user isn't the author", %{conn: conn} do
@@ -60,7 +60,7 @@ defmodule ConstableWeb.CommentControllerTest do
     comment = insert(:comment, body: "not updated", user: another_user)
 
     assert_error_sent :not_found, fn ->
-      put conn, announcement_comment_path(conn, :update, comment.announcement, comment), comment: %{
+      put conn, Routes.announcement_comment_path(conn, :update, comment.announcement, comment), comment: %{
         body: "updated body"
       }
     end

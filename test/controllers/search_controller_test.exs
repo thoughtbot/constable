@@ -11,7 +11,7 @@ defmodule ConstableWeb.SearchControllerTest do
     insert(:announcement, title: "Not so much post", body: "awesome post!") |> tag_with_interest(foo)
     insert(:announcement, title: "Don't show up!", body: "lame post!") |> tag_with_interest(insert(:interest))
 
-    conn = get conn, search_path(conn, :show, query: "awesome")
+    conn = get conn, Routes.search_path(conn, :show, query: "awesome")
 
     assert html_response(conn, :ok) =~ "Awesome Post"
     assert html_response(conn, :ok) =~ "Not so much post"
@@ -25,7 +25,7 @@ defmodule ConstableWeb.SearchControllerTest do
     insert(:announcement, title: "Not so much post", body: "awesome post!") |> tag_with_interest(foo)
     insert(:announcement, title: "Good post!", body: "another awesome post!") |> tag_with_interest(bar)
 
-    conn = get conn, search_path(conn, :show, query: "awesome", exclude_interests: ["foo"])
+    conn = get conn, Routes.search_path(conn, :show, query: "awesome", exclude_interests: ["foo"])
 
     refute html_response(conn, :ok) =~ "Awesome Post"
     refute html_response(conn, :ok) =~ "Not so much post"

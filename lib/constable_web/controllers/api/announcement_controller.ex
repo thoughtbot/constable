@@ -6,15 +6,17 @@ defmodule ConstableWeb.Api.AnnouncementController do
   alias Constable.Services.AnnouncementUpdater
   alias ConstableWeb.Api.AnnouncementView
 
-  plug Constable.Plugs.Deslugifier, slugified_key: "id"
+  plug(Constable.Plugs.Deslugifier, slugified_key: "id")
 
   def index(conn, _params) do
     announcements = Repo.all(Announcement)
     render(conn, "index.json", announcements: announcements)
   end
 
-  def create(conn,
-      %{"announcement" => announcement_params, "interest_names" => interest_names}) do
+  def create(
+        conn,
+        %{"announcement" => announcement_params, "interest_names" => interest_names}
+      ) do
     current_user = current_user(conn)
     announcement_params = Map.put(announcement_params, "user_id", current_user.id)
 
@@ -25,27 +27,31 @@ defmodule ConstableWeb.Api.AnnouncementController do
           "announcement:add",
           AnnouncementView.render("show.json", %{announcement: announcement})
         )
+
         conn
         |> put_status(:created)
         |> render("show.json", announcement: announcement)
+
       {:error, changeset} ->
         conn
         |> put_status(:unprocessable_entity)
-        |> render(ConstableWeb.ChangesetView, "error.json", changeset: changeset)
+        |> put_view(ConstableWeb.ChangesetView)
+        |> render("error.json", changeset: changeset)
     end
   end
+
   def create(conn, _params), do: send_resp(conn, 422, "")
 
   def show(conn, %{"id" => id}) do
     announcement = Repo.get!(Announcement, id)
-    render conn, "show.json", announcement: announcement
+    render(conn, "show.json", announcement: announcement)
   end
 
   def update(conn, %{
-      "id" => id, "announcement" => announcement_params,
-      "interest_names" => interest_names
-    }) do
-
+        "id" => id,
+        "announcement" => announcement_params,
+        "interest_names" => interest_names
+      }) do
     current_user = current_user(conn)
     announcement = Repo.get!(Announcement, id)
 
@@ -57,16 +63,20 @@ defmodule ConstableWeb.Api.AnnouncementController do
             "announcement:update",
             AnnouncementView.render("show.json", %{announcement: announcement})
           )
+
           render(conn, "show.json", announcement: announcement)
+
         {:error, changeset} ->
           conn
           |> put_status(:unprocessable_entity)
-          |> render(ConstableWeb.ChangesetView, "error.json", changeset: changeset)
+          |> put_view(ConstableWeb.ChangesetView)
+          |> render("error.json", changeset: changeset)
       end
     else
       unauthorized(conn)
     end
   end
+
   def update(conn, _params), do: send_resp(conn, 422, "")
 
   def delete(conn, %{"id" => id}) do
@@ -75,11 +85,13 @@ defmodule ConstableWeb.Api.AnnouncementController do
 
     if announcement.user_id == current_user.id do
       Repo.delete!(announcement)
+
       ConstableWeb.Endpoint.broadcast!(
         "update",
         "announcement:remove",
         %{id: announcement.id}
       )
+
       send_resp(conn, 204, "")
     else
       unauthorized(conn)

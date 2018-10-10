@@ -12,7 +12,7 @@
       </a>
 
       <%= if @comment.user_id == @current_user.id do %>
-        <%= link to: announcement_comment_path(ConstableWeb.Endpoint, :edit, @comment.announcement_id, @comment), class: "edit-comment", data: [role: "edit-comment"] do %>
+        <%= link to: Routes.announcement_comment_path(ConstableWeb.Endpoint, :edit, @comment.announcement_id, @comment), class: "edit-comment", data: [role: "edit-comment"] do %>
           <%= gettext "(edit)" %>
         <% end %>
       <% end %>

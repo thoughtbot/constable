@@ -11,7 +11,7 @@ defmodule ConstableWeb.SubscriptionControllerTest do
   test "#create creates the subscription", %{conn: conn, user: user} do
     announcement = insert(:announcement)
 
-    post conn, announcement_subscription_path(conn, :create, announcement.id)
+    post conn, Routes.announcement_subscription_path(conn, :create, announcement.id)
 
     subscription = Repo.one(Subscription) |> Repo.preload([:user, :announcement])
     assert subscription.user.id == user.id
@@ -22,7 +22,7 @@ defmodule ConstableWeb.SubscriptionControllerTest do
     announcement = insert(:announcement)
     subscription = insert(:subscription, user: user, announcement: announcement)
 
-    delete conn, announcement_subscription_path(conn, :delete, announcement.id)
+    delete conn, Routes.announcement_subscription_path(conn, :delete, announcement.id)
 
     refute Repo.get(Subscription, subscription.id)
   end

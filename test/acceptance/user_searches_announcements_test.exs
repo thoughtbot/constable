@@ -7,7 +7,7 @@ defmodule ConstableWeb.UserSearchesAnnouncementsTest do
     user = insert(:user)
 
     session
-    |> visit(announcement_path(Endpoint, :new, as: user.id))
+    |> visit(Routes.announcement_path(Endpoint, :new, as: user.id))
     |> fill_in(text_field("query"), with: matching_announcement.title)
     |> submit_search
 

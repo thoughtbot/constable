@@ -3,7 +3,7 @@ defmodule ConstableWeb.SessionController do
 
   def new(conn, _params) do
     if conn.assigns[:current_user] do
-      conn |> redirect(to: home_path(conn, :index))
+      conn |> redirect(to: Routes.home_path(conn, :index))
     else
       conn
       |> put_layout("login.html")
@@ -14,7 +14,7 @@ defmodule ConstableWeb.SessionController do
   def delete(conn, _params) do
     conn
     |> logout_user
-    |> redirect(to: home_path(conn, :index))
+    |> redirect(to: Routes.home_path(conn, :index))
   end
 
   defp logout_user(conn) do

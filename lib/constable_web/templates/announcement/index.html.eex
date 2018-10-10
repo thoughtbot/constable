@@ -2,17 +2,17 @@
   <nav class="segmented-control">
     <div class="segmented-control-wrapper">
       <%= link gettext("All announcements"),
-        to: announcement_path(@conn, :index, all: true),
+        to: Routes.announcement_path(@conn, :index, all: true),
         class: class_for("all", @conn)
       %>
 
       <%= link gettext("Your interests"),
-        to: announcement_path(@conn, :index),
+        to: Routes.announcement_path(@conn, :index),
         class: class_for("mine", @conn)
       %>
 
       <%= if !@show_all do %>
-        <%= link to: interest_path(@conn, :index),
+        <%= link to: Routes.interest_path(@conn, :index),
           data: [role: "view-all-interests"],
           class: "view-all-interests" do %>
           <span class="subscribed-to">
@@ -35,13 +35,13 @@
     <div class="container pagination">
       <%= if !on_first_page?(@index_page) do %>
         <%= link gettext(""),
-          to: announcement_path(@conn, :index, all: @show_all, page: (@index_page.page_number - 1)),
+          to: Routes.announcement_path(@conn, :index, all: @show_all, page: (@index_page.page_number - 1)),
           class: "page-previous button button-wire" %>
       <% end %>
 
       <%= if !on_last_page?(@index_page) do %>
         <%= link gettext(""),
-          to: announcement_path(@conn, :index, all: @show_all, page: (@index_page.page_number + 1)),
+          to: Routes.announcement_path(@conn, :index, all: @show_all, page: (@index_page.page_number + 1)),
           class: "page-next button button-wire" %>
       <% end %>
     </div>

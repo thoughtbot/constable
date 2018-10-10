@@ -17,7 +17,7 @@
                 <ul>
                   <%= for interest <- @interests do %>
                     <li>
-                      <%= link "##{interest.name}", to: interest_url(ConstableWeb.Endpoint, :show, interest), style: "color: #{red()}" %>
+                      <%= link "##{interest.name}", to: Routes.interest_url(ConstableWeb.Endpoint, :show, interest), style: "color: #{red()}" %>
                     </li>
                   <% end %>
                 </ul>
@@ -28,7 +28,7 @@
                 <ul>
                   <%= for announcement <- @announcements do %>
                     <li>
-                      <%= link announcement.title, to: announcement_url(ConstableWeb.Endpoint, :show, announcement), style: "color: #{red()}" %>
+                      <%= link announcement.title, to: Routes.announcement_url(ConstableWeb.Endpoint, :show, announcement), style: "color: #{red()}" %>
                       <%= gettext("posted by") %> <strong><%= announcement.user.name %></strong> <%= gettext("in") %> <%= raw interest_links(announcement) %>
                     </li>
                   <% end %>
@@ -41,7 +41,7 @@
 
                 <%= for announcement <- @announcements do %>
                   <div style="padding-left: 8px;">
-                    <h4><%= link announcement.title, to: announcement_url(ConstableWeb.Endpoint, :show, announcement), style: "color: #{red()}" %></h4>
+                    <h4><%= link announcement.title, to: Routes.announcement_url(ConstableWeb.Endpoint, :show, announcement), style: "color: #{red()}" %></h4>
                     <p>
                       <img src="<%= author_avatar_url(announcement.user) %>" class="avatar-rounded">
                       <strong><%= announcement.user.name %></strong>
@@ -61,7 +61,7 @@
 
                 <%= for announcement <- discussed_announcements(@comments) do %>
                   <div style="padding-left: 8px;">
-                    <h4><%= link announcement.title, to: announcement_url(ConstableWeb.Endpoint, :show, announcement), style: "color: #{red()}" %></h4>
+                    <h4><%= link announcement.title, to: Routes.announcement_url(ConstableWeb.Endpoint, :show, announcement), style: "color: #{red()}" %></h4>
                     <p style="font-weight: normal; font-style: italic;">(Posted by <%= announcement.user.name %> <%= time_ago_in_words announcement.inserted_at %>)</p>
                     <%= for comment <- new_comments(@comments, announcement) do %>
                       <p>
@@ -85,7 +85,7 @@
             <td width='40'></td>
             <td align='center'>
               <hr />
-              <%= link to: announcement_url(ConstableWeb.Endpoint, :index) do %>
+              <%= link to: Routes.announcement_url(ConstableWeb.Endpoint, :index) do %>
                 <h4 style='color: <%= red() %>; font-size: 18px; margin: 0; padding-bottom: 5px;'>
                   <%= gettext("View Interests and Announcements on Constable") %>
                 </h4>

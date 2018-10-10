@@ -1,7 +1,7 @@
 <ul class="container container-pad-top announcement-list">
   <%= for announcement <- @announcements do %>
     <li class="announcement-list-item">
-      <%= link to: announcement_path(@conn, :show, announcement) do %>
+      <%= link to: Routes.announcement_path(@conn, :show, announcement) do %>
         <h1 data-role="title" class="announcement-list-item-heading">
           <%= announcement.title %>
         </h1>
@@ -13,7 +13,7 @@
         to
         <span>
         <%= for interest <- announcement.interests do %>
-          <%= link to: interest_path(@conn, :show, interest), class: "announcement-interest" do %>
+          <%= link to: Routes.interest_path(@conn, :show, interest), class: "announcement-interest" do %>
             <%= interest.name %>
           <% end %>
         <% end %>

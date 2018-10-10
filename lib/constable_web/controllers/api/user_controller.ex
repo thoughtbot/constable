@@ -9,10 +9,12 @@ defmodule ConstableWeb.Api.UserController do
     case Repo.insert(changeset) do
       {:ok, user} ->
         render(conn, "show.json", user: user)
+
       {:error, changeset} ->
         conn
         |> put_status(:unprocessable_entity)
-        |> render(ConstableWeb.ChangesetView, "error.json", changeset: changeset)
+        |> put_view(ConstableWeb.ChangesetView)
+        |> render("error.json", changeset: changeset)
     end
   end
 
@@ -26,6 +28,7 @@ defmodule ConstableWeb.Api.UserController do
     current_user = current_user(conn)
     render(conn, "show.json", user: current_user)
   end
+
   def show(conn, %{"id" => id}) do
     user = Repo.get!(User, id)
     render(conn, "show.json", user: user)
@@ -38,6 +41,7 @@ defmodule ConstableWeb.Api.UserController do
     case Repo.update(changeset) do
       {:ok, user} ->
         render(conn, "show.json", user: user)
+
       {:error, changeset} ->
         conn
         |> put_status(:unprocessable_entity)
@@ -46,6 +50,6 @@ defmodule ConstableWeb.Api.UserController do
   end
 
   defp all_users_ordered_by_name do
-    Repo.all User.ordered_by_name
+    Repo.all(User.ordered_by_name())
   end
 end

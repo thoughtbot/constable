@@ -13,7 +13,7 @@ defmodule ConstableWeb.HomeController do
       |> delete_session(:original_request_path)
       |> redirect(to: original_request_path)
     else
-      conn |> redirect(to: announcement_path(conn, :index))
+      conn |> redirect(to: Routes.announcement_path(conn, :index))
     end
   end
 end

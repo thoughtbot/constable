@@ -7,12 +7,12 @@ defmodule ConstableWeb.NewCommentTest do
     user = insert(:user)
 
     session
-    |> visit(announcement_path(Endpoint, :show, announcement, as: user.id))
+    |> visit(Routes.announcement_path(Endpoint, :show, announcement, as: user.id))
     |> fill_in(text_field("comment_body"), with: "My Cool Comment")
     |> click(button("Post Comment"))
 
     other_session
-    |> visit(announcement_path(Endpoint, :show, other_announcement, as: user.id))
+    |> visit(Routes.announcement_path(Endpoint, :show, other_announcement, as: user.id))
 
     assert has_comment_text?(session, "My Cool Comment")
     refute has_comment_text?(other_session, "My Cool Comment")

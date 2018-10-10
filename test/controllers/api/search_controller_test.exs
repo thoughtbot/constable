@@ -62,7 +62,7 @@ defmodule ConstableWeb.Api.SearchesControllerTest do
 
   defp results_for(conn, query: search_term, exclude: exclude) do
     response = post conn,
-      api_search_path(conn, :create),
+      Routes.api_search_path(conn, :create),
       query: search_term,
       exclude_interests: exclude
 

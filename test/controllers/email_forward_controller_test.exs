@@ -13,7 +13,7 @@ defmodule ConstableWeb.EmailForwardControllerTest do
     )
     conn = build_conn()
 
-    conn = post(conn, email_forward_path(Endpoint, :create), forwarded_emails)
+    conn = post(conn, Routes.email_forward_path(Endpoint, :create), forwarded_emails)
 
     assert conn.status == 200
     message = forwarded_emails.mandrill_events |> Poison.decode! |> List.first |> Map.fetch!("msg")
