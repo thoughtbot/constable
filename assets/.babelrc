@@ -1,0 +1,8 @@
+{
+  "ignore": [
+    "/vendor/"
+  ],
+  "presets": [
+    "@babel/preset-env"
+  ]
+}

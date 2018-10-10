@@ -58,7 +58,7 @@ jobs:
             - v3-npm-cache
       - run:
           working_directory: assets
-          command: npm install && node_modules/.bin/brunch build
+          command: npm install && node_modules/.bin/webpack --mode production
       - save_cache:
           key: v3-npm-cache-{{ .Branch }}-{{ checksum "assets/package-lock.json" }}
           paths: "assets/node_modules"
