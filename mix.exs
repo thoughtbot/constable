@@ -1,10 +1,10 @@
-defmodule Constable.Mixfile do
+defmodule Constable.MixProject do
   use Mix.Project
 
   def project do
     [
       app: :constable,
-      version: "0.0.1",
+      version: "0.1.0",
       elixir: "~> 1.5",
       elixirc_paths: elixirc_paths(Mix.env()),
       compilers: [:phoenix, :gettext] ++ Mix.compilers(),
@@ -56,13 +56,15 @@ defmodule Constable.Mixfile do
       {:honeybadger, "~> 0.6"},
       {:html_sanitize_ex, "~> 1.3.0"},
       {:httpoison, "~> 1.3", override: true},
+      {:jason, "~> 1.0"},
       {:oauth2, "~> 0.8"},
       {:pact, "~> 0.2.0"},
-      {:phoenix, "~> 1.3.0"},
+      {:phoenix, "~> 1.4.0" },
+      {:phoenix_pubsub, "~> 1.1"},
       {:phoenix_ecto, "~> 4.0.0"},
-      {:phoenix_html, "~> 2.4"},
-      {:phoenix_live_reload, "~> 1.1.5"},
-      {:plug_cowboy, "~> 1.0"},
+      {:phoenix_html, "~> 2.11"},
+      {:phoenix_live_reload, "~> 1.2", only: :dev},
+      {:plug_cowboy, "~> 2.0"},
       {:postgrex, ">= 0.0.0"},
       {:quick_alias, "~> 0.1.0"},
       {:scrivener_ecto, "~> 2.0.0"},
