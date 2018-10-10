@@ -57,6 +57,6 @@
 
 
   <script>
-    require('js/settings-form-modal').default();
+    window.constable.settingsFormModal.default();
   </script>
 </div>

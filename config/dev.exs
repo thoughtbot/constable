@@ -6,8 +6,15 @@ config :constable, ConstableWeb.Endpoint,
   debug_errors: true,
   code_reloader: true,
   check_origin: false,
-  watchers: [node: ["node_modules/brunch/bin/brunch", "watch", "--stdin",
-                    cd: Path.expand("../assets", __DIR__)]]
+  watchers: [
+    node: [
+      "node_modules/webpack/bin/webpack.js",
+      "--mode",
+      "development",
+      "--watch-stdin",
+      cd: Path.expand("../assets", __DIR__)
+    ]
+  ]
 
 # Watch static and templates for browser reloading.
 config :constable, ConstableWeb.Endpoint,
@@ -36,8 +43,7 @@ config :constable, Constable.Repo,
   database: "constable_api_development",
   hostname: "localhost"
 
-config :constable, Constable.Mailer,
-  adapter: Bamboo.LocalAdapter
+config :constable, Constable.Mailer, adapter: Bamboo.LocalAdapter
 
 config :constable, :shubox_script_url, "http://shubox.io/x/a7c92ded.js"
 

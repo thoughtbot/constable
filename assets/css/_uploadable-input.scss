@@ -4,7 +4,7 @@ $progress-bar-height: 5px;
   display: block;
   background-position: top left;
   background-repeat: no-repeat;
-  background-image: url('../images/upload-progress-bar-background.png');
+  // background-image: url('../images/upload-progress-bar-background.png');
   background-size: 0 $progress-bar-height;
 
   @for $i from 1 through 99 {

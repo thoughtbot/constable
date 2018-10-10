@@ -73,7 +73,7 @@
 
 <script>
   (function() {
-    require("js/comment-form").setupNewForm(<%= raw user_autocomplete_json(@users) %>);
-    require("js/syntax-highlighting").highlightSyntax('.comments-list');
+    window.constable.commentForm.setupNewForm(<%= raw user_autocomplete_json(@users) %>);
+    window.constable.syntaxHighlighting.highlightSyntax('.comments-list');
   })()
 </script>

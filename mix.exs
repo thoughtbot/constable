@@ -89,6 +89,6 @@ defmodule Constable.MixProject do
   end
 
   defp compile_assets(_) do
-    Mix.shell().cmd("assets/node_modules/.bin/brunch build assets/")
+    Mix.shell().cmd("cd assets && node_modules/.bin/webpack --mode production && cd ..")
   end
 end

@@ -1,7 +1,7 @@
-@import 'bourbon';
-@import 'neat';
+@import "~bourbon/core/bourbon";
+@import "~bourbon-neat/app/assets/stylesheets/neat";
 @import 'base/base';
-@import 'node_modules/highlight.js/styles/github.css';
+@import '~highlight.js/styles/github.css';
 
 @import 'icon-as-pseudo';
 
@@ -27,3 +27,5 @@
 @import 'uploadable-input';
 @import 'user-activations';
 @import 'avatars';
+
+@import 'selectize';
