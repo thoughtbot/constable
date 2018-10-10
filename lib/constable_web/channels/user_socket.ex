@@ -5,11 +5,8 @@ defmodule ConstableWeb.UserSocket do
   alias Constable.Repo
   alias Constable.User
 
-  channel "update", ConstableWeb.UpdateChannel
-  channel "live-html", ConstableWeb.LiveHtmlChannel
-
-  transport :websocket, Phoenix.Transports.WebSocket, check_origin: false
-  transport :longpoll, Phoenix.Transports.LongPoll
+  channel("update", ConstableWeb.UpdateChannel)
+  channel("live-html", ConstableWeb.LiveHtmlChannel)
 
   def connect(%{"token" => token}, socket) do
     if user = user_with_token(token) do
@@ -21,7 +18,7 @@ defmodule ConstableWeb.UserSocket do
   end
 
   def connect(params, _socket) do
-    Logger.debug "Expected socket params to have a 'token', got: #{inspect params}"
+    Logger.debug("Expected socket params to have a 'token', got: #{inspect(params)}")
   end
 
   def id(_socket), do: nil
