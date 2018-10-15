@@ -5,7 +5,7 @@
     "watch": "brunch watch --stdin"
   },
   "dependencies": {
-    "autoprefixer": "^9.1.5",
+    "autoprefixer": "^9.2.0",
     "bourbon": "^5.1.0",
     "bourbon-neat": "^1.9.1",
     "highlight.js": "^9.13.0",
