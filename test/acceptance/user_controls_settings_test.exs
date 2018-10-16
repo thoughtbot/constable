@@ -1,5 +1,5 @@
 defmodule ConstableWeb.UserControlsSettingsTest do
-  use ConstableWeb.AcceptanceCase, async: true
+  use ConstableWeb.AcceptanceCase
 
   @modal_window css("[data-role=settings-modal]")
   @settings_link css("[data-role=settings-link]")
