@@ -1,19 +1,16 @@
 const path = require('path');
 const glob = require('glob');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const autoprefix = require('autoprefixer');
-const bourbon = require('bourbon');
-const neat = require('bourbon-neat');
-const devMode = process.env.NODE_ENV !== 'production'
 const webpack = require('webpack');
 
 module.exports = (env, options) => ({
   optimization: {
     minimizer: [
-      new UglifyJsPlugin({ cache: true, parallel: true, sourceMap: false }),
+      new TerserPlugin(),
       new OptimizeCSSAssetsPlugin({})
     ]
   },
@@ -33,7 +30,6 @@ module.exports = (env, options) => ({
           loader: 'babel-loader'
         }
       },
-
       {
         test: /\.(sa|sc|c)ss$/,
         use: [
@@ -47,18 +43,6 @@ module.exports = (env, options) => ({
           },
           { loader: 'sass-loader' },
         ],
-      },
-
-      {
-        test: /.*\.(gif|png|jpe?g)$/i,
-        use: [
-          {
-            loader: 'url-loader',
-            options: {
-              limit: 8000,
-            },
-          },
-        ]
       }
     ]
   },
