@@ -1,5 +1,5 @@
 defmodule ConstableWeb.UserSearchesAnnouncementsTest do
-  use ConstableWeb.AcceptanceCase, async: true
+  use ConstableWeb.AcceptanceCase
 
   test "user performs search", %{session: session} do
     matching_announcement = insert(:announcement, title: "foobar1")
