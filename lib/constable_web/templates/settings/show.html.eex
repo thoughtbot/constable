@@ -1,15 +1,15 @@
-<div class="modal-container" data-role="settings-modal">
-  <div class="modal-overlay"></div>
-  <div class="modal">
+<div class="modal-container" data-controller="settings-form" data-role="settings-modal">
+  <div class="modal-overlay" data-action="click->settings-form#close"></div>
+  <div class="modal" data-action="keyup@document->settings-form#closeWithKeyboard">
     <header>
       <h2>Profile and Settings</h2>
-      <a href="#" class="modal-close" data-role="closing-icon">
+      <a href="#" class="modal-close" data-role="closing-icon" data-action="settings-form#close">
         <img src="../images/icon-close.svg" />
       </a>
     </header>
 
     <div class="modal-body">
-      <%= form_for @changeset, Routes.settings_path(@conn, :update), [class: "settings-form"], fn(f) -> %>
+      <%= form_for @changeset, Routes.settings_path(@conn, :update), [data: [controller: "settings-form", action: "settings-form#submit"]], fn(f) -> %>
         <div class='field'>
           <label>Your name:</label>
           <%= text_input f, :name %>
@@ -54,9 +54,4 @@
       <%= link "Log out of Constable", to: Routes.session_path(@conn, :delete), method: :delete, class: "button button-secondary" %>
     </footer>
   </div>
-
-
-  <script>
-    window.constable.settingsFormModal.default();
-  </script>
 </div>

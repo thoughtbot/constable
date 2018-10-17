@@ -18,7 +18,6 @@ LocalTime.start()
 
 // Make the modules available to html pages
 global.constable = global.constable || {}
-global.constable.settingsFormModal = require('./settings-form-modal')
 global.constable.commentForm = require('./comment-form')
 global.constable.syntaxHighlighting = require('./syntax-highlighting')
 global.constable.announcementForm = require('./announcement-form')
