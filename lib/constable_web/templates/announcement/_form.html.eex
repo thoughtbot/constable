@@ -1,17 +1,28 @@
 <%= form_for @changeset,
   @path,
-  [class: "flex-container", data: [role: "announcement-form", id: @changeset.data.id]],
+  [class: "flex-container", data: [role: "announcement-form", controller: "mobile-announcement", id: @changeset.data.id]],
   fn(f) -> %>
   <nav class="header-tags">
-    <div class="header-tag header-tag-markdown active">
+    <div
+      class="header-tag active"
+      data-action="click->mobile-announcement#enableMarkdown"
+      data-target="mobile-announcement.modeMarkdown"
+    >
       <%= gettext("Markdown") %>
     </div>
 
-    <div class="header-tag header-tag-preview">
+    <div
+      class="header-tag"
+      data-action="click->mobile-announcement#enablePreview"
+      data-target="mobile-announcement.modePreview"
+    >
       <%= gettext("Preview") %>
     </div>
   </nav>
-  <div class="col-markdown announcement-create active">
+  <div
+    class="col-markdown announcement-create active"
+    data-target="mobile-announcement.modeMarkdown"
+  >
     <div class="announcement-form">
       <%= text_input f, :title, placeholder: gettext("What are you announcing?") %>
 
@@ -28,7 +39,10 @@
     </div>
   </div>
 
-  <div class="announcement-preview">
+  <div
+    class="announcement-preview"
+    data-target="mobile-announcement.modePreview"
+  >
     <h1 data-role="title-preview">Preview</h1>
     <div class="markdown announcement-body" data-role="markdown-preview">
       Preview
@@ -51,7 +65,6 @@
     window.INTERESTS_NAMES = <%= raw json_interests(@interests) %>;
     var AnnouncementForm = window.constable.announcementForm.default;
     new AnnouncementForm();
-    window.constable.announcementFormMobile.setupForm();
     window.constable.textareaImageUploader.setupImageUploader('#announcement_body');
     window.constable.userAutocomplete.autocompleteUsers(
       '#announcement_body',
