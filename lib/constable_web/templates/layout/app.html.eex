@@ -41,7 +41,7 @@
           />
         <% end %>
 
-        <%= link to: Routes.settings_path(@conn, :show), class: "settings-gravatar remote-append", data: [role: "settings-link"] do %>
+        <%= link to: Routes.settings_path(@conn, :show), class: "settings-gravatar", data: [role: "settings-link", controller: "content-loader", action: "content-loader#load"] do %>
           <img
             src="<%= gravatar(@conn.assigns.current_user) %>"
             class="avatar-rounded avatar-rounded-optical-align-y"

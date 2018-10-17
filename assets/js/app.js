@@ -3,9 +3,6 @@ import css from '../css/app.scss'
 // Framework JS
 import 'phoenix_html'
 
-// Basic AJAX Helper
-import './remote-append'
-
 // Bring in jQuery for other modules that rely on it
 import $ from 'jquery'
 window.jQuery = $
