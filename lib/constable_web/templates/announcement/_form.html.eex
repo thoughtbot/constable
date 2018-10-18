@@ -29,7 +29,12 @@
       <section class="recipients-preview">
         Please select interests:
       </section>
-      <%= text_input :announcement, :interests, value: comma_separated_interest_names(@changeset.data.interests), placeholder: gettext("Interests") %>
+      <%= text_input :announcement,
+        :interests,
+        value: comma_separated_interest_names(@changeset.data.interests),
+        placeholder: gettext("Interests"),
+        data: [controller: "form-interests"]
+      %>
 
       <%= textarea f,
         :body,
