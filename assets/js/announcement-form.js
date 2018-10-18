@@ -7,7 +7,6 @@ export default class {
 
     this.watchTitle();
     this.watchBody();
-    this.clearLocalStorageOnSubmit();
   }
 
   watchTitle() {
@@ -62,16 +61,6 @@ export default class {
       $('[data-role=markdown-preview]').removeClass('preview');
       const markdown = markedWithSyntax(value);
       $('[data-role=markdown-preview]').html(markdown);
-    }
-  };
-
-  clearLocalStorageOnSubmit() {
-    if (!this._isEditing) {
-      $('[data-role=announcement-form]').on('submit', function() {
-        localStorage.removeItem('title');
-        localStorage.removeItem('interests');
-        localStorage.removeItem('markdown');
-      });
     }
   };
 }

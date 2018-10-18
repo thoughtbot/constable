@@ -1,6 +1,14 @@
 <%= form_for @changeset,
   @path,
-  [class: "flex-container", data: [role: "announcement-form", controller: "mobile-announcement", id: @changeset.data.id]],
+  [
+    class: "flex-container",
+    data: [
+      role: "announcement-form",
+      controller: "mobile-announcement form-storage",
+      action: "form-storage#clearValues",
+      id: @changeset.data.id
+    ]
+  ],
   fn(f) -> %>
   <nav class="header-tags">
     <div
