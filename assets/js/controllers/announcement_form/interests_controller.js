@@ -1,5 +1,4 @@
 import { Controller } from "stimulus"
-import { updateRecipientsPreview } from "../../recipients-preview"
 import "selectize"
 
 const DELIMITER = ","
@@ -12,7 +11,7 @@ export default class extends Controller {
       if (interests.val() === '') {
         const localStorageValue = localStorage.getItem('interests')
         interests.val(localStorageValue)
-        updateRecipientsPreview(localStorageValue)
+        this._updateRecipientsPreview(localStorageValue)
       }
 
       interests.selectize({
@@ -29,9 +28,18 @@ export default class extends Controller {
           if (!this._isEditing) {
             localStorage.setItem('interests', value)
           }
-          updateRecipientsPreview(value)
+          this._updateRecipientsPreview(value)
         },
       })
     }
+  }
+
+  _updateRecipientsPreview(interests) {
+    const previewSelector = $(".recipients-preview")
+
+    $.getJSON("/recipients_preview", { interests })
+      .done((data) => {
+        previewSelector.html(data.recipients_preview_html)
+      })
   }
 }
