@@ -4,8 +4,8 @@
     class: "flex-container",
     data: [
       role: "announcement-form",
-      controller: "mobile-announcement form-storage form-preview",
-      action: "form-storage#clearValues",
+      controller: "mobile-announcement announcement-form--storage announcement-form--preview",
+      action: "announcement-form--storage#clearValues",
       id: @changeset.data.id
     ]
   ],
@@ -34,7 +34,7 @@
     <div class="announcement-form">
       <%= text_input f, :title,
         placeholder: gettext("What are you announcing?"),
-        data: [action: "input->form-preview#titleChange"]
+        data: [action: "input->announcement-form--preview#titleChange"]
       %>
 
       <section class="recipients-preview">
@@ -44,14 +44,14 @@
         :interests,
         value: comma_separated_interest_names(@changeset.data.interests),
         placeholder: gettext("Interests"),
-        data: [controller: "form-interests"]
+        data: [controller: "announcement-form--interests"]
       %>
 
       <%= textarea f,
         :body,
         placeholder: gettext("Write markdown here. You can @mention specific people to notify them"),
         class: "uploadable-input",
-        data: [action: "input->form-preview#bodyChange"]
+        data: [action: "input->announcement-form--preview#bodyChange"]
         %>
     </div>
   </div>

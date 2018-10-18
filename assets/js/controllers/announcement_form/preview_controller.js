@@ -1,5 +1,5 @@
 import { Controller } from "stimulus"
-import { markedWithSyntax } from "../syntax-highlighting"
+import { markedWithSyntax } from "../../syntax-highlighting"
 
 export default class extends Controller {
   initialize() {

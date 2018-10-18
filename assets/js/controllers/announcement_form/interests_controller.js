@@ -1,5 +1,5 @@
 import { Controller } from "stimulus"
-import { updateRecipientsPreview } from "../recipients-preview"
+import { updateRecipientsPreview } from "../../recipients-preview"
 import "selectize"
 
 const DELIMITER = ","
