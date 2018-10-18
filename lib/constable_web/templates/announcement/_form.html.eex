@@ -4,7 +4,7 @@
     class: "flex-container",
     data: [
       role: "announcement-form",
-      controller: "mobile-announcement form-storage",
+      controller: "mobile-announcement form-storage form-preview",
       action: "form-storage#clearValues",
       id: @changeset.data.id
     ]
@@ -34,7 +34,7 @@
     <div class="announcement-form">
       <%= text_input f, :title,
         placeholder: gettext("What are you announcing?"),
-        data: [controller: "form-preview", action: "input->form-preview#titleChange"]
+        data: [action: "input->form-preview#titleChange"]
       %>
 
       <section class="recipients-preview">
@@ -50,7 +50,8 @@
       <%= textarea f,
         :body,
         placeholder: gettext("Write markdown here. You can @mention specific people to notify them"),
-        class: "uploadable-input"
+        class: "uploadable-input",
+        data: [action: "input->form-preview#bodyChange"]
         %>
     </div>
   </div>
@@ -79,8 +80,6 @@
 <script>
   (function() {
     window.INTERESTS_NAMES = <%= raw json_interests(@interests) %>;
-    var AnnouncementForm = window.constable.announcementForm.default;
-    new AnnouncementForm();
     window.constable.textareaImageUploader.setupImageUploader('#announcement_body');
     window.constable.userAutocomplete.autocompleteUsers(
       '#announcement_body',
