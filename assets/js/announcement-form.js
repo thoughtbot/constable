@@ -5,36 +5,8 @@ export default class {
     this._form = $('[data-role=announcement-form]');
     this._isEditing = !!this._form.data('id');
 
-    this.watchTitle();
     this.watchBody();
   }
-
-  watchTitle() {
-    const title = $('#announcement_title');
-
-    title.on('input', this._updateTitle.bind(this));
-
-    if (!this._isEditing && title.val() === '') {
-      title.val(localStorage.getItem('title'));
-    }
-    title.trigger('input');
-  }
-
-  _updateTitle(e) {
-    const value = e.target.value;
-
-    if (!this._isEditing) {
-      localStorage.setItem('title', value);
-    }
-
-    if (value === '') {
-      $('[data-role=title-preview]').addClass('preview');
-      $('[data-role=title-preview]').html('Title Preview');
-    } else {
-      $('[data-role=title-preview]').removeClass('preview');
-      $('[data-role=title-preview]').html(value);
-    }
-  };
 
   watchBody() {
     const body = $('#announcement_body');

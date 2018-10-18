@@ -32,7 +32,10 @@
     data-target="mobile-announcement.modeMarkdown"
   >
     <div class="announcement-form">
-      <%= text_input f, :title, placeholder: gettext("What are you announcing?") %>
+      <%= text_input f, :title,
+        placeholder: gettext("What are you announcing?"),
+        data: [controller: "form-preview", action: "input->form-preview#titleChange"]
+      %>
 
       <section class="recipients-preview">
         Please select interests:
