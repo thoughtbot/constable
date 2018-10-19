@@ -2,16 +2,18 @@ defmodule Constable.Mixfile do
   use Mix.Project
 
   def project do
-    [app: :constable,
-     version: "0.0.1",
-     elixir: "~> 1.5",
-     elixirc_paths: elixirc_paths(Mix.env),
-     compilers: [:phoenix, :gettext] ++ Mix.compilers,
-     build_embedded: Mix.env == :prod,
-     start_permanent: Mix.env == :prod,
-     dialyzer: dialyzer_settings(),
-     aliases: aliases(),
-     deps: deps()]
+    [
+      app: :constable,
+      version: "0.0.1",
+      elixir: "~> 1.5",
+      elixirc_paths: elixirc_paths(Mix.env()),
+      compilers: [:phoenix, :gettext] ++ Mix.compilers(),
+      build_embedded: Mix.env() == :prod,
+      start_permanent: Mix.env() == :prod,
+      dialyzer: dialyzer_settings(),
+      aliases: aliases(),
+      deps: deps()
+    ]
   end
 
   defp dialyzer_settings do
@@ -41,7 +43,7 @@ defmodule Constable.Mixfile do
   # Type `mix help deps` for examples and options
   defp deps do
     [
-      {:bamboo, "~> 0.7"},
+      {:bamboo, "~> 1.1"},
       {:cors_plug, "~> 1.2"},
       {:cowboy, "~> 1.0"},
       {:dialyxir, "~> 0.3", only: [:dev]},
@@ -66,7 +68,7 @@ defmodule Constable.Mixfile do
       {:scrivener_ecto, "~> 1.1"},
       {:secure_random, "~> 0.1"},
       {:slugger, "~> 0.2"},
-      {:wallaby, "~> 0.20", only: :test},
+      {:wallaby, "~> 0.20", only: :test}
     ]
   end
 
@@ -85,6 +87,6 @@ defmodule Constable.Mixfile do
   end
 
   defp compile_assets(_) do
-    Mix.shell.cmd("assets/node_modules/.bin/brunch build assets/")
+    Mix.shell().cmd("assets/node_modules/.bin/brunch build assets/")
   end
 end
