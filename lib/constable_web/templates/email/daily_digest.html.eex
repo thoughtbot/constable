@@ -48,7 +48,7 @@
                       <%= gettext("posted to") %> <%= raw interest_links(announcement) %>
                       <%= time_ago_in_words announcement.inserted_at %>:
                     </p>
-                    <div style="padding-left: 1.85rem;">
+                    <div style="padding-left: 1.85rem;" class="body">
                       <%= raw markdown_with_users(announcement.body) %>
                     </div>
                   </div>
@@ -68,7 +68,7 @@
                         <img src="<%= author_avatar_url(comment.user) %>" class="avatar-rounded">
                         <strong><%= comment.user.name %></strong> left a comment <%= time_ago_in_words comment.inserted_at %>:
                       </p>
-                      <div style="padding-left: 1.85rem;">
+                      <div style="padding-left: 1.85rem;" class="body">
                         <%= raw markdown_with_users(comment.body) %>
                       </div>
                     <% end %>
