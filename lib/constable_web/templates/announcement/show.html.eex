@@ -57,7 +57,7 @@
   </div>
 
   <h4><%= gettext "Comments" %></h4>
-  <ul class="comments-list">
+  <ul class="comments-list" data-controller="syntax">
     <%= for comment <- @announcement.comments do %>
       <%= render "_comment.html", comment: comment, conn: @conn, current_user: @current_user %>
     <% end %>
@@ -75,9 +75,3 @@
   id: "users_for_autocomplete",
   data: [users: user_autocomplete_json(@users)]
 %>
-
-<script>
-  (function() {
-    window.constable.syntaxHighlighting.highlightSyntax('.comments-list');
-  })()
-</script>
