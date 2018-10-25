@@ -1,4 +1,12 @@
-<%= form_for @comment_changeset, @path, [class: "comment-form"], fn(f) -> %>
+<%= form_for @comment_changeset,
+  @path,
+  [
+    class: "comment-form",
+    data: [
+      controller: "form-submission"
+    ]
+  ],
+  fn(f) -> %>
   <%= textarea f,
     :body,
     class: "comment-textarea mousetrap uploadable-input",
