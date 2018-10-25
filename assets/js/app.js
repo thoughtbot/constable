@@ -16,6 +16,9 @@ TurboLinks.start()
 import LocalTime from 'local-time'
 LocalTime.start()
 
+// Set up live comment updating
+require('./live-comments')
+
 // Make the modules available to html pages
 global.constable = global.constable || {}
 global.constable.commentForm = require('./comment-form')
