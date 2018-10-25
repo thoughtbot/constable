@@ -53,7 +53,7 @@
         class: "uploadable-input",
         data: [
           action: "input->announcement-form--preview#bodyChange",
-          controller: "announcement-form--users-autocomplete",
+          controller: "announcement-form--users-autocomplete announcement-form--image-uploader",
         ]
         %>
     </div>
@@ -88,6 +88,5 @@
 <script>
   (function() {
     window.INTERESTS_NAMES = <%= raw json_interests(@interests) %>;
-    window.constable.textareaImageUploader.setupImageUploader('#announcement_body');
   })()
 </script>

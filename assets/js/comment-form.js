@@ -1,5 +1,4 @@
 import Mousetrap from 'mousetrap';
-import { setupImageUploader } from './textarea-image-uploader';
 
 import socket from './socket'
 
@@ -21,8 +20,6 @@ const enableForm = (form) => form.children(':input').removeAttr('disabled');
 const SAVE_SHORTCUT = ['mod+enter'];
 
 const initializeForm = function() {
-  setupImageUploader('#comment_body');
-
   Mousetrap.bind(SAVE_SHORTCUT, function() {
     const $form = $('.comment-form');
     $form.submit();

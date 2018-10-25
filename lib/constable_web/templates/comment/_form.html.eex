@@ -5,7 +5,7 @@
     placeholder: gettext("Your markdown formatted comment here"),
     required: true,
     data: [
-      controller: "announcement-form--users-autocomplete"
+      controller: "announcement-form--users-autocomplete announcement-form--image-uploader",
     ]
   %>
 
