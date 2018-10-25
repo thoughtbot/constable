@@ -3,7 +3,8 @@
   [
     class: "comment-form",
     data: [
-      controller: "form-submission"
+      controller: "form-submission comment-form",
+      action: "comment-form#submit"
     ]
   ],
   fn(f) -> %>

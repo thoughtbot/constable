@@ -21,7 +21,6 @@ require('./live-comments')
 
 // Make the modules available to html pages
 global.constable = global.constable || {}
-global.constable.commentForm = require('./comment-form')
 global.constable.syntaxHighlighting = require('./syntax-highlighting')
 
 import { Application } from "stimulus"

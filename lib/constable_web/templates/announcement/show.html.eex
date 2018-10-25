@@ -78,7 +78,6 @@
 
 <script>
   (function() {
-    window.constable.commentForm.setupNewForm();
     window.constable.syntaxHighlighting.highlightSyntax('.comments-list');
   })()
 </script>
