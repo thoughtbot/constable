@@ -9,8 +9,6 @@
 
 <script>
   (function() {
-    window.constable.commentForm.setupEditForm(
-      <%= raw ConstableWeb.AnnouncementView.user_autocomplete_json(@users) %>
-    );
+    window.constable.commentForm.setupEditForm();
   })()
 </script>

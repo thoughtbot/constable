@@ -1,6 +1,5 @@
 import Mousetrap from 'mousetrap';
 import { setupImageUploader } from './textarea-image-uploader';
-import { autocompleteUsers } from './user-autocomplete';
 
 import socket from './socket'
 
@@ -21,9 +20,8 @@ const enableForm = (form) => form.children(':input').removeAttr('disabled');
 
 const SAVE_SHORTCUT = ['mod+enter'];
 
-const initializeForm = function(usersForAutoComplete) {
+const initializeForm = function() {
   setupImageUploader('#comment_body');
-  autocompleteUsers('.comment-textarea', usersForAutoComplete);
 
   Mousetrap.bind(SAVE_SHORTCUT, function() {
     const $form = $('.comment-form');
@@ -31,12 +29,12 @@ const initializeForm = function(usersForAutoComplete) {
   });
 }
 
-export function setupEditForm(usersForAutoComplete) {
-  initializeForm(usersForAutoComplete);
+export function setupEditForm() {
+  initializeForm();
 }
 
-export function setupNewForm(usersForAutoComplete) {
-  initializeForm(usersForAutoComplete);
+export function setupNewForm() {
+  initializeForm();
 
   $('.comment-form').on('submit', function submitForm(event) {
     event.preventDefault();

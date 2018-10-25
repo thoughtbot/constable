@@ -3,7 +3,10 @@
     :body,
     class: "comment-textarea mousetrap uploadable-input",
     placeholder: gettext("Your markdown formatted comment here"),
-    required: true
+    required: true,
+    data: [
+      controller: "announcement-form--users-autocomplete"
+    ]
   %>
 
   <%= submit @submit_text, id: "submit-comment" %>

@@ -51,7 +51,10 @@
         :body,
         placeholder: gettext("Write markdown here. You can @mention specific people to notify them"),
         class: "uploadable-input",
-        data: [action: "input->announcement-form--preview#bodyChange"]
+        data: [
+          action: "input->announcement-form--preview#bodyChange",
+          controller: "announcement-form--users-autocomplete",
+        ]
         %>
     </div>
   </div>
@@ -77,13 +80,14 @@
   </div>
 <% end %>
 
+<%= tag :div,
+  id: "users_for_autocomplete",
+  data: [users: user_autocomplete_json(@users)]
+%>
+
 <script>
   (function() {
     window.INTERESTS_NAMES = <%= raw json_interests(@interests) %>;
     window.constable.textareaImageUploader.setupImageUploader('#announcement_body');
-    window.constable.userAutocomplete.autocompleteUsers(
-      '#announcement_body',
-      <%= raw user_autocomplete_json(@users) %>
-    );
   })()
 </script>

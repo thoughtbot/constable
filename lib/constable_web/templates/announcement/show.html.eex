@@ -71,9 +71,14 @@
   </div>
 </div>
 
+<%= tag :div,
+  id: "users_for_autocomplete",
+  data: [users: user_autocomplete_json(@users)]
+%>
+
 <script>
   (function() {
-    window.constable.commentForm.setupNewForm(<%= raw user_autocomplete_json(@users) %>);
+    window.constable.commentForm.setupNewForm();
     window.constable.syntaxHighlighting.highlightSyntax('.comments-list');
   })()
 </script>

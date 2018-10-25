@@ -21,7 +21,6 @@ global.constable = global.constable || {}
 global.constable.commentForm = require('./comment-form')
 global.constable.syntaxHighlighting = require('./syntax-highlighting')
 global.constable.textareaImageUploader = require('./textarea-image-uploader')
-global.constable.userAutocomplete = require('./user-autocomplete')
 
 import { Application } from "stimulus"
 import { definitionsFromContext } from "stimulus/webpack-helpers"
