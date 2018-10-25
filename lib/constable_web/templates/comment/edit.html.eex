@@ -6,9 +6,3 @@
       submit_text: gettext("Update Comment") %>
   </div>
 </div>
-
-<script>
-  (function() {
-    window.constable.commentForm.setupEditForm();
-  })()
-</script>

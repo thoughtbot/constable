@@ -2,9 +2,6 @@ const resetForm = (form) => form.reset();
 const disableForm = (form) => form.children(':input').attr('disabled', 'disabled');
 const enableForm = (form) => form.children(':input').removeAttr('disabled');
 
-export function setupEditForm() {
-}
-
 export function setupNewForm() {
   $('.comment-form').on('submit', function submitForm(event) {
     event.preventDefault();
