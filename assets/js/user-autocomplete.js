@@ -1,9 +1,11 @@
-import 'jquery-textcomplete';
+import { Textcomplete, Textarea } from 'textcomplete';
 
 const AT_REGEX = /(^|\s)@(\w*)$/;
 
 export function autocompleteUsers(selector, users) {
-  $(selector).textcomplete([{
+
+  const usernameStrategy = {
+    id: 'username',
     match: AT_REGEX,
     search: (term, callback) => {
       term = term.toLowerCase();
@@ -29,6 +31,10 @@ export function autocompleteUsers(selector, users) {
 
     replace: function(user) {
       return `$1@${user.username} `;
-    },
-  }], { className: 'at-mention-menu' });
+    }
+  };
+
+  const editor = new Textarea(document.querySelector(selector));
+  const textcomplete = new Textcomplete(editor);
+  textcomplete.register([usernameStrategy]);
 }
