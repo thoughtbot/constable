@@ -33,6 +33,12 @@ defmodule ConstableWeb.SharedView do
     )
   end
 
+  def user_autocomplete_json(users) do
+    users
+    |> Enum.map(&format_user_json/1)
+    |> Poison.encode!
+  end
+
   def simple_date(datetime) do
     Enum.join([datetime.year, datetime.month, datetime.day], "/")
   end
@@ -79,5 +85,9 @@ defmodule ConstableWeb.SharedView do
     Enum.reduce(users, text, fn(user, text) ->
       String.replace(text, "@#{user.username}", "**@#{user.username}**")
     end)
+  end
+
+  defp format_user_json(user) do
+    %{name: user.name, username: user.username, gravatar_url: gravatar(user)}
   end
 end

@@ -27,14 +27,4 @@ defmodule ConstableWeb.AnnouncementView do
   def interest_count_for(user) do
     length user.interests
   end
-
-  def user_autocomplete_json(users) do
-    users
-    |> Enum.map(&format_user_json/1)
-    |> Poison.encode!
-  end
-
-  defp format_user_json(user) do
-    %{name: user.name, username: user.username, gravatar_url: gravatar(user)}
-  end
 end
