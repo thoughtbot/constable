@@ -1,6 +1,6 @@
 @import '../../vendor/textcomplete.css';
 
-.at-mention-menu {
+.dropdown-menu {
   border: none;
   border-radius: $base-border-radius;
   box-shadow: $base-box-shadow;
@@ -21,6 +21,11 @@
       }
     }
   }
+}
+
+.textcomplete-header,
+.textcomplete-footer {
+  display: none;
 }
 
 .textcomplete-item {
