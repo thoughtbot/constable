@@ -1,30 +1,19 @@
-<%= if length(@interested_user_names) > 0 do %>
-  <a class="toggle-interested-user-names" data-role="interested-users" href="#">
-    <%= ngettext("1 person is", "%{count} people are", length(@interested_user_names)) %>
-    subscribed
-  </a>
-  to these interests.
-<% else %>
-  <%= if length(@interest_names) > 0 do %>
-    No one is subscribed to these interests.
+<div data-controller="timed-fader">
+  <%= if length(@interested_user_names) > 0 do %>
+    <a class="toggle-interested-user-names" data-role="interested-users" href="#" data-action="mouseover->timed-fader#fadeIn mouseout->timed-fader#fadeOut">
+      <%= ngettext("1 person is", "%{count} people are", length(@interested_user_names)) %>
+      subscribed
+    </a>
+    to these interests.
   <% else %>
-    Please select interests:
+    <%= if length(@interest_names) > 0 do %>
+      No one is subscribed to these interests.
+    <% else %>
+      Please select interests:
+    <% end %>
   <% end %>
-<% end %>
 
-<div class="interested-user-names">
-  <%= Enum.join(@interested_user_names, ", ") %>
+  <div class="interested-user-names" data-target="timed-fader.userNames">
+    <%= Enum.join(@interested_user_names, ", ") %>
+  </div>
 </div>
-
-<script>
-  $(function() {
-    $('.toggle-interested-user-names').hover(function() {
-      timer = setTimeout(function() {
-        $('.interested-user-names').fadeIn(150);
-      }, 150);
-    }, function() {
-      $('.interested-user-names').fadeOut(150);
-      clearTimeout(timer);
-    });
-  });
-</script>
