@@ -1,11 +1,12 @@
-import { Controller } from "stimulus"
-import "selectize"
+import { Controller } from 'stimulus'
+import $ from 'jquery'
+import 'selectize'
 
-const DELIMITER = ","
+const DELIMITER = ','
 
 export default class extends Controller {
-  initialize() {
-    const interests = $("#announcement_interests")
+  initialize () {
+    const interests = $('#announcement_interests')
 
     if (interests.length !== 0) {
       if (interests.val() === '') {
@@ -17,7 +18,7 @@ export default class extends Controller {
       interests.selectize({
         delimiter: DELIMITER,
         persist: false,
-        create: function(name) {
+        create: function (name) {
           return { name }
         },
         valueField: 'name',
@@ -29,15 +30,15 @@ export default class extends Controller {
             localStorage.setItem('interests', value)
           }
           this._updateRecipientsPreview(value)
-        },
+        }
       })
     }
   }
 
-  _updateRecipientsPreview(interests) {
-    const previewSelector = $(".recipients-preview")
+  _updateRecipientsPreview (interests) {
+    const previewSelector = $('.recipients-preview')
 
-    $.getJSON("/recipients_preview", { interests })
+    $.getJSON('/recipients_preview', { interests })
       .done((data) => {
         previewSelector.html(data.recipients_preview_html)
       })

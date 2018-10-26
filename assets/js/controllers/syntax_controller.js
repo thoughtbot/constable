@@ -1,15 +1,16 @@
-import { Controller } from "stimulus"
+/* global MutationObserver */
 
+import { Controller } from 'stimulus'
 import { highlightCodeBlocks } from '../syntax-highlighting'
 
-const observer = new MutationObserver( mutations => {
-  mutations.forEach((mutation) => {
+const observer = new MutationObserver(mutations => {
+  mutations.forEach(() => {
     highlightCodeBlocks()
   })
 })
 
 export default class extends Controller {
-  initialize() {
+  initialize () {
     observer.observe(this.element, { childList: true })
     highlightCodeBlocks()
   }

@@ -4,7 +4,7 @@ import { Textcomplete, Textarea } from 'textcomplete'
 const AT_REGEX = /(^|\s)@(\w*)$/
 
 export default class extends Controller {
-  initialize() {
+  initialize () {
     const users = this._userdata()
 
     const usernameStrategy = {
@@ -28,11 +28,11 @@ export default class extends Controller {
         }
       },
 
-      template: function(user, _term) {
+      template: function (user, _term) {
         return `<img class="avatar-rounded" src="${user.gravatar_url}"/> ${user.username}`
       },
 
-      replace: function(user) {
+      replace: function (user) {
         return `$1@${user.username} `
       }
     }
@@ -42,7 +42,7 @@ export default class extends Controller {
     textcomplete.register([usernameStrategy])
   }
 
-  _userdata() {
+  _userdata () {
     const element = document.getElementById('users_for_autocomplete')
     return JSON.parse(element.dataset.users)
   }

@@ -1,13 +1,13 @@
-import { Controller } from "stimulus"
-import Mousetrap from "mousetrap"
+import { Controller } from 'stimulus'
+import Mousetrap from 'mousetrap'
 
-const SAVE_SHORTCUT = ["mod+enter"]
+const SAVE_SHORTCUT = ['mod+enter']
 
 export default class extends Controller {
-  initialize() {
+  initialize () {
     const form = this.element
 
-    Mousetrap.bind(SAVE_SHORTCUT, function() {
+    Mousetrap.bind(SAVE_SHORTCUT, function () {
       form.submit()
     })
   }

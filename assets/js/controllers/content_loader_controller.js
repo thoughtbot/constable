@@ -1,7 +1,7 @@
-import { Controller } from "stimulus"
+import { Controller } from 'stimulus'
 
 export default class extends Controller {
-  load() {
+  load (event) {
     event.preventDefault()
 
     fetch(this.element.href)

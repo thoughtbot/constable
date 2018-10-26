@@ -1,18 +1,19 @@
-import { Controller } from "stimulus"
+import { Controller } from 'stimulus'
+import $ from 'jquery'
 
-const BODY_FIXED_CLASS = "fixed"
+const BODY_FIXED_CLASS = 'fixed'
 
 export default class extends Controller {
-  initialize() {
+  initialize () {
     document.body.classList.add(BODY_FIXED_CLASS)
   }
 
-  submit(event) {
+  submit (event) {
     event.preventDefault()
 
     $.ajax({
       data: $(this.element).serialize(),
-      type: "POST",
+      type: 'POST',
       url: this.element.action,
       success: (data, textStatus, jqXHR) => {
         this._closeModal()
@@ -23,25 +24,25 @@ export default class extends Controller {
     })
   }
 
-  close(event) {
+  close (event) {
     event.preventDefault()
     this._closeModal()
   }
 
-  closeWithKeyboard(event) {
+  closeWithKeyboard (event) {
     var ESC_KEY = 27
-    if(event.keyCode == ESC_KEY) {
+    if (event.keyCode === ESC_KEY) {
       event.preventDefault()
       this._closeModal()
     }
   }
 
-  _closeModal() {
-    $(".modal-container").remove()
+  _closeModal () {
+    $('.modal-container').remove()
     document.body.classList.remove(BODY_FIXED_CLASS)
   }
 
-  _showError(text) {
-    $(".modal-container .modal-body").text(text)
+  _showError (text) {
+    $('.modal-container .modal-body').text(text)
   }
 }

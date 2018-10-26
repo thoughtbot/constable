@@ -7,16 +7,16 @@ marked.setOptions({
   }
 })
 
-const code_blocks = function() {
+const codeBlocks = function () {
   return document.querySelectorAll('pre code')
 }
 
-export function highlightCodeBlocks() {
-  code_blocks().forEach(function(block) {
+export function highlightCodeBlocks () {
+  codeBlocks().forEach(function (block) {
     hljs.highlightBlock(block)
   })
 }
 
-export function markedWithSyntax(value) {
+export function markedWithSyntax (value) {
   return marked(value)
 }
