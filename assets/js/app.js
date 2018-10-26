@@ -21,7 +21,6 @@ require('./live-comments')
 
 // Make the modules available to html pages
 global.constable = global.constable || {}
-global.constable.syntaxHighlighting = require('./syntax-highlighting')
 
 import { Application } from "stimulus"
 import { definitionsFromContext } from "stimulus/webpack-helpers"
