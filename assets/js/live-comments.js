@@ -1,5 +1,4 @@
 import socket from './socket'
-import $ from 'jquery'
 
 const channel = socket.channel('live-html', {})
 
@@ -8,6 +7,6 @@ channel.join()
   .receive('error', function (resp) { console.log('Unable to join', resp) })
 
 channel.on('new-comment', payload => {
-  $(`[data-announcement-id='${payload.announcement_id}'] .comments-list`)
-    .append(payload.comment_html)
+  const element = document.querySelector(`[data-announcement-id='${payload.announcement_id}'] .comments-list`)
+  element.insertAdjacentHTML('beforeend', payload.comment_html)
 })
