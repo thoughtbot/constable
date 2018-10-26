@@ -19,9 +19,6 @@ LocalTime.start()
 // Set up live comment updating
 require('./live-comments')
 
-// Make the modules available to html pages
-global.constable = global.constable || {}
-
 import { Application } from "stimulus"
 import { definitionsFromContext } from "stimulus/webpack-helpers"
 
