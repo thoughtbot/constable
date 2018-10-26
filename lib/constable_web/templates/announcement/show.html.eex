@@ -63,7 +63,7 @@
     <% end %>
   </ul>
 
-  <div class="comment-new">
+  <div class="comment-new" data-controller="comment-form">
     <%= ConstableWeb.CommentView.render "_form.html",
       comment_changeset: @comment_changeset,
       path: Routes.announcement_comment_path(@conn, :create, @announcement),

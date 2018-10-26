@@ -3,7 +3,7 @@
   [
     class: "comment-form",
     data: [
-      controller: "form-submission comment-form",
+      controller: "form-submission",
       action: "comment-form#submit"
     ]
   ],
