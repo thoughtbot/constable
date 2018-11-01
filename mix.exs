@@ -59,7 +59,7 @@ defmodule Constable.Mixfile do
       {:httpoison, "~> 1.3", override: true},
       {:oauth2, "~> 0.8"},
       {:pact, "~> 0.2.0"},
-      {:phoenix_ecto, "~> 3.5.0"},
+      {:phoenix_ecto, "~> 3.6.0"},
       {:phoenix_live_reload, "~> 1.1.5"},
       {:phoenix, "~> 1.3.0"},
       {:phoenix_html, "~> 2.4"},
