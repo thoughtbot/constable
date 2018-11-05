@@ -17,14 +17,14 @@ defmodule Constable.Comment do
 
   def create_changeset(model, params, last_discussed_at) do
     model
-    |> cast(params, ~w(announcement_id user_id body))
+    |> cast(params, ~w(announcement_id user_id body)a)
     |> validate_required(:body)
     |> set_last_discussed_at(last_discussed_at)
   end
 
   def update_changeset(model, params) do
     model
-    |> cast(params, ~w(body))
+    |> cast(params, ~w(body)a)
     |> validate_required(:body)
   end
 

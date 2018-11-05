@@ -20,7 +20,7 @@ defmodule Constable.Interest do
 
   def changeset(interest \\ %__MODULE__{}, params) do
     interest
-    |> cast(params, ~w(name slack_channel))
+    |> cast(params, ~w(name slack_channel)a)
     |> validate_required(:name)
     |> update_change(:name, &String.trim(&1))
     |> update_change(:name, &String.replace(&1, "#", ""))
@@ -31,7 +31,7 @@ defmodule Constable.Interest do
 
   def update_channel_changeset(interest, channel_name) do
     interest
-    |> cast(%{slack_channel: channel_name}, ~w(slack_channel))
+    |> cast(%{slack_channel: channel_name}, ~w(slack_channel)a)
     |> update_change(:slack_channel, &Regex.replace(~r/^#*/, &1, "#"))
   end
 

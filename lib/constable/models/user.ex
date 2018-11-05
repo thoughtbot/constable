@@ -38,13 +38,13 @@ defmodule Constable.User do
 
   def settings_changeset(user, params \\ %{}) do
     user
-    |> cast(params, ~w(auto_subscribe daily_digest name))
+    |> cast(params, ~w(auto_subscribe daily_digest name)a)
     |> validate_length(:name, min: 3)
   end
 
   def create_changeset(user \\ %__MODULE__{}, params) do
     user
-    |> cast(params, ~w(email name))
+    |> cast(params, ~w(email name)a)
     |> validate_required(:email)
     |> require_permitted_email_domain
     |> generate_token

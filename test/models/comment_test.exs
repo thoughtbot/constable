@@ -5,11 +5,12 @@ defmodule Constable.CommentTest do
 
   test "when a comment is inserted, it updates the announcement last_discussed_at" do
     announcement = create_announcement_last_discussed(a_week_ago())
-    now = DateTime.utc_now
+    now = DateTime.utc_now |> DateTime.truncate(:second)
 
     comment = insert_comment_on_announcement(announcement, now)
+    updated_last_discussed_at = DateTime.truncate(comment.announcement.last_discussed_at, :second)
 
-    assert comment.announcement.last_discussed_at == now
+    assert updated_last_discussed_at == now
   end
 
   defp create_announcement_last_discussed(time_ago) do
