@@ -1,5 +1,7 @@
 defmodule Constable.Repo do
-  use Ecto.Repo, otp_app: :constable
+  use Ecto.Repo,
+    otp_app: :constable,
+    adapter: Ecto.Adapters.Postgres
   use Scrivener, page_size: 30
   import Ecto.Query
 

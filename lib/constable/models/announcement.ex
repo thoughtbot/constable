@@ -10,7 +10,7 @@ defmodule Constable.Announcement do
     field :title
     field :body
     field :slug
-    field :last_discussed_at, :utc_datetime, autogenerate: {DateTime, :utc_now, []}
+    field :last_discussed_at, :utc_datetime_usec, autogenerate: {DateTime, :utc_now, []}
     timestamps()
 
     belongs_to :user, User
@@ -22,14 +22,14 @@ defmodule Constable.Announcement do
 
   def update_changeset(announcement, params) do
     announcement
-    |> cast(params, ~w(title body))
+    |> cast(params, ~w(title body)a)
     |> validate_required([:title, :body])
     |> generate_slug()
   end
 
   def create_changeset(announcement, params) do
     announcement
-    |> cast(params, ~w(title body user_id))
+    |> cast(params, ~w(title body user_id)a)
     |> validate_required([:title, :body])
     |> generate_slug()
   end

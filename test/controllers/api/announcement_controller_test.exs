@@ -31,7 +31,7 @@ defmodule ConstableWeb.Api.AnnouncementControllerTest do
     body = json_response(conn, 200)
 
     # A previous Ecto version upgrade caused a regression around datetime formats
-    assert body["announcement"]["updated_at"] == "2018-01-01T15:15:15.000000Z"
+    assert body["announcement"]["updated_at"] == "2018-01-01T15:15:15Z"
   end
 
   test "#create with valid attributes saves an announcement", %{conn: conn} do
