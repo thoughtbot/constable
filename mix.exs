@@ -44,7 +44,7 @@ defmodule Constable.Mixfile do
   defp deps do
     [
       {:bamboo, "~> 1.1"},
-      {:cors_plug, "~> 1.2"},
+      {:cors_plug, "~> 2.0"},
       {:dialyxir, "~> 0.3", only: [:dev]},
       {:earmark, "~> 1.2"},
       {:ecto_sql, "~> 3.0.0"},
