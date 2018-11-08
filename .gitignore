@@ -1,10 +1,17 @@
-/_build
-/deps
+/_build/
+/cover/
+/deps/
+/doc/
+/.fetch
 erl_crash.dump
 *.ez
 
-assets/node_modules
+assets/node_modules/
 priv/static
+
+sample_app-*.tar
+
+npm-debug.log
 
 .env
 *.tmlanguage.cache
@@ -15,3 +22,4 @@ priv/static
 .dialyzer.plt
 
 screenshots
+/config/*.secret.exs
