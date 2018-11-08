@@ -1,25 +1,27 @@
 defmodule Constable.Application do
-  use Application
 
   # See https://hexdocs.pm/elixir/Application.html
   # for more information on OTP Applications
-  def start(_type, _args) do
-    import Supervisor.Spec
 
+  @moduledoc false
+
+  use Application
+
+  def start(_type, _args) do
     unless Mix.env == "production" do
       Envy.auto_load
     end
 
     setup_dependencies()
 
-    # Define workers and child supervisors to be supervised
+    # List all child processes to be supervised
     children = [
       # Start the Ecto repository
-      supervisor(Constable.Repo, []),
+      Constable.Repo,
       # Start the endpoint when the application starts
-      supervisor(ConstableWeb.Endpoint, []),
-      # Start your own worker by calling: Constable.Worker.start_link(arg1, arg2, arg3)
-      # worker(Constable.Worker, [arg1, arg2, arg3]),
+      ConstableWeb.Endpoint,
+      # Starts a worker by calling: ConstableWeb.Worker.start_link(arg)
+      # {ConstableWeb.Worker, arg},
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

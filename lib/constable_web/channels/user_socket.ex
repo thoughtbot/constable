@@ -8,7 +8,7 @@ defmodule ConstableWeb.UserSocket do
   channel("update", ConstableWeb.UpdateChannel)
   channel("live-html", ConstableWeb.LiveHtmlChannel)
 
-  def connect(%{"token" => token}, socket) do
+  def connect(%{"token" => token}, socket, _connect_info) do
     if user = user_with_token(token) do
       socket = assign(socket, :current_user, user)
       {:ok, socket}
@@ -17,7 +17,7 @@ defmodule ConstableWeb.UserSocket do
     end
   end
 
-  def connect(params, _socket) do
+  def connect(params, _socket, _connect_info) do
     Logger.debug("Expected socket params to have a 'token', got: #{inspect(params)}")
   end
 
