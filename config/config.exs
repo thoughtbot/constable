@@ -3,9 +3,10 @@
 #
 # This configuration file is loaded before any dependency and
 # is restricted to this project.
-use Mix.Config
 
 # General application configuration
+use Mix.Config
+
 config :constable,
   ecto_repos: [Constable.Repo]
 
@@ -20,6 +21,9 @@ config :constable, ConstableWeb.Endpoint,
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",
   metadata: [:request_id]
+
+# Use Jason for JSON parsing in Phoenix
+config :phoenix, :json_library, Jason
 
 # To sign in, users must have an email in this domain
 config :constable, :permitted_email_domain, System.get_env("PERMITTED_EMAIL_DOMAIN")

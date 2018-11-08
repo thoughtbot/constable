@@ -1,7 +1,7 @@
 use Mix.Config
 
 config :constable, ConstableWeb.Endpoint,
-  http: [port: System.get_env("PORT") || 4001],
+  http: [port: System.get_env("PORT") || 4002],
   server: true
 
 # Print only warnings and errors during test
