@@ -1,12 +1,19 @@
 import { Controller } from 'stimulus'
-import $ from 'jquery'
 
 const refreshMarkdownPreview = function (inputSelector) {
-  $(inputSelector).trigger('input')
+  const event = new Event('input', {
+    'bubbles': true,
+    'cancelable': true
+  })
+  const element = document.querySelector(inputSelector)
+
+  element.dispatchEvent(event)
 }
 
 export default class extends Controller {
   initialize () {
+    refreshMarkdownPreview(this._selector())
+
     const shuboxOptions = {
       textBehavior: 'append',
       clickable: false,
