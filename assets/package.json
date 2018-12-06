@@ -11,7 +11,7 @@
     "highlight.js": "^9.13.1",
     "jquery": "^3.3.1",
     "local-time": "^2.1.0",
-    "marked": "^0.5.1",
+    "marked": "^0.5.2",
     "mousetrap": "^1.6.2",
     "normalize.css": "^8.0.0",
     "phoenix": "file:../deps/phoenix",
