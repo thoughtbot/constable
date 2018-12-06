@@ -13,7 +13,7 @@
     "local-time": "^2.1.0",
     "marked": "^0.5.2",
     "mousetrap": "^1.6.2",
-    "normalize.css": "^8.0.0",
+    "normalize.css": "^8.0.1",
     "phoenix": "file:../deps/phoenix",
     "phoenix_html": "file:../deps/phoenix_html",
     "postcss-brunch": "^2.10.1",
