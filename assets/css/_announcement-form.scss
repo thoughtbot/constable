@@ -13,6 +13,16 @@
 .recipients-preview {
   position: relative;
 
+  .fade-in {
+    opacity: 1 !important;
+    transition: opacity .150s ease-in-out;
+  }
+
+  .fade-out {
+    opacity: 0 !important;
+    transition: opacity .150s ease-in-out;
+  }
+
   .interested-user-names {
     @include position(absolute, 24px null null null);
     background-color: $white;
@@ -20,7 +30,7 @@
     border: $base-border;
     box-shadow: 0 0 16px rgba($light-gray, 0.6);
     color: $dark-gray;
-    display: none;
+    opacity: 0;
     font-size: $small-font-size;
     padding: $small-spacing;
     width: 600px;

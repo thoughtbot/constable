@@ -1,20 +1,17 @@
 import { Controller } from 'stimulus'
-import $ from 'jquery'
 
 export default class extends Controller {
   static targets = ['userNames']
 
   fadeIn () {
-    const element = $(this.userNamesTarget)
-
-    this._timer = setTimeout(function () {
-      element.fadeIn(150)
-    }, 150)
+    const element = this.userNamesTarget
+    element.classList.remove('fade-out')
+    element.classList.add('fade-in')
   }
 
   fadeOut () {
-    const element = $(this.userNamesTarget)
-    element.fadeOut(150)
-    clearTimeout(this._timer)
+    const element = this.userNamesTarget
+    element.classList.remove('fade-in')
+    element.classList.add('fade-out')
   }
 }
