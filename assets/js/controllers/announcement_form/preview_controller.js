@@ -1,5 +1,4 @@
 import { Controller } from 'stimulus'
-import $ from 'jquery'
 import { markedWithSyntax } from '../../syntax-highlighting'
 
 export default class extends Controller {
@@ -8,26 +7,21 @@ export default class extends Controller {
   }
 
   titleChange () {
-    const title = $('#announcement_title')
+    const title = this._announcementTitle()
+    this._updateTitle(title.value)
 
-    this._updateTitle(title.val())
-
-    if (!this._isEditing && title.val() === '') {
-      title.val(localStorage.getItem('title'))
+    if (!this._isEditing && title.value === '') {
+      title.value = localStorage.getItem('title')
     }
-    title.trigger('input')
   }
 
   bodyChange () {
-    const body = $('#announcement_body')
+    const body = this._announcementBody()
+    this._updateBody(body.value)
 
-    this._updateBody(body.val())
-
-    if (!this._isEditing && body.val() === '') {
-      body.val(localStorage.getItem('markdown'))
+    if (!this._isEditing && body.value === '') {
+      body.value = localStorage.getItem('markdown')
     }
-
-    body.trigger('input')
   }
 
   _updateTitle (value) {
@@ -35,12 +29,14 @@ export default class extends Controller {
       localStorage.setItem('title', value)
     }
 
+    const titlePreview = this._titlePreview()
+
     if (value === '') {
-      $('[data-role=title-preview]').addClass('preview')
-      $('[data-role=title-preview]').html('Title Preview')
+      titlePreview.classList.add('preview')
+      titlePreview.innerHTML = 'Title Preview'
     } else {
-      $('[data-role=title-preview]').removeClass('preview')
-      $('[data-role=title-preview]').html(value)
+      titlePreview.classList.remove('preview')
+      titlePreview.innerHTML = value
     }
   }
 
@@ -49,13 +45,31 @@ export default class extends Controller {
       localStorage.setItem('markdown', value)
     }
 
+    const bodyPreview = this._bodyPreview()
+
     if (value === '') {
-      $('[data-role=markdown-preview]').addClass('preview')
-      $('[data-role=markdown-preview]').html('Your rendered markdown goes here')
+      bodyPreview.classList.add('preview')
+      bodyPreview.innerHTML = 'Your rendered markdown goes here'
     } else {
-      $('[data-role=markdown-preview]').removeClass('preview')
+      bodyPreview.classList.remove('preview')
       const markdown = markedWithSyntax(value)
-      $('[data-role=markdown-preview]').html(markdown)
+      bodyPreview.innerHTML = markdown
     }
+  }
+
+  _titlePreview () {
+    return document.querySelector('[data-role=title-preview]')
+  }
+
+  _bodyPreview () {
+    return document.querySelector('[data-role=markdown-preview]')
+  }
+
+  _announcementTitle () {
+    return document.querySelector('#announcement_title')
+  }
+
+  _announcementBody () {
+    return document.querySelector('#announcement_body')
   }
 }
