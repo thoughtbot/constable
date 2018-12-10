@@ -6,7 +6,7 @@ const DELIMITER = ','
 
 export default class extends Controller {
   initialize () {
-    const interests = this._interests_element()
+    const interests = this._interestsElement()
 
     if (interests !== null) {
       if (interests.value === '') {
@@ -35,16 +35,20 @@ export default class extends Controller {
     }
   }
 
-  _interests_element() {
+  _interestsElement () {
     return document.querySelector('#announcement_interests')
   }
 
   _updateRecipientsPreview (interests) {
-    const previewSelector = $('.recipients-preview')
+    const previewSelector = document.querySelector('.recipients-preview')
 
-    $.getJSON('/recipients_preview', { interests })
-      .done((data) => {
-        previewSelector.html(data.recipients_preview_html)
+    fetch('/recipients_preview?interests=' + interests)
+      .then(response => response.json())
+      .then(data => {
+        previewSelector.innerHTML = data.recipients_preview_html
+      })
+      .catch(error => {
+        console.error('Error retrieving interests' + error)
       })
   }
 }
