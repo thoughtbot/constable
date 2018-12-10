@@ -6,16 +6,16 @@ const DELIMITER = ','
 
 export default class extends Controller {
   initialize () {
-    const interests = $('#announcement_interests')
+    const interests = this._interests_element()
 
-    if (interests.length !== 0) {
-      if (interests.val() === '') {
+    if (interests !== null) {
+      if (interests.value === '') {
         const localStorageValue = localStorage.getItem('interests')
-        interests.val(localStorageValue)
+        interests.value = localStorageValue
         this._updateRecipientsPreview(localStorageValue)
       }
 
-      interests.selectize({
+      $(interests).selectize({
         delimiter: DELIMITER,
         persist: false,
         create: function (name) {
@@ -33,6 +33,10 @@ export default class extends Controller {
         }
       })
     }
+  }
+
+  _interests_element() {
+    return document.querySelector('#announcement_interests')
   }
 
   _updateRecipientsPreview (interests) {
