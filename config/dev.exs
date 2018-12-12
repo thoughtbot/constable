@@ -45,6 +45,4 @@ config :constable, Constable.Repo,
 
 config :constable, Constable.Mailer, adapter: Bamboo.LocalAdapter
 
-config :constable, :shubox_script_url, "http://shubox.io/x/a7c92ded.js"
-
 config :honeybadger, :environment_name, :dev
