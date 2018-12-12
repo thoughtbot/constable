@@ -28,6 +28,9 @@ config :phoenix, :json_library, Jason
 # To sign in, users must have an email in this domain
 config :constable, :permitted_email_domain, System.get_env("PERMITTED_EMAIL_DOMAIN")
 
+# The shubox JS source URL is unique to each app/env
+config :constable, :shubox_script_url, System.get_env("SHUBOX_SCRIPT_URL")
+
 config :oauth2, serializers: %{"application/json" => Poison}
 
 # Import environment specific config. This must remain at the bottom

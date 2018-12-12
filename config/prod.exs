@@ -74,8 +74,6 @@ config :constable, Constable.Repo,
   pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10"),
   ssl: true
 
-config :constable, :shubox_script_url, System.get_env("SHUBOX_SCRIPT_URL")
-
 config :constable, Constable.Mailer,
   adapter: Bamboo.MandrillAdapter,
   api_key: System.get_env("MANDRILL_KEY")
