@@ -18,7 +18,23 @@ defmodule ConstableWeb.Endpoint do
     at: "/",
     from: :constable,
     gzip: true,
-    only: ~w(css fonts images js favicon.ico robots.txt)
+    only: ~w(
+      apple-touch-icon-114x114.png
+      apple-touch-icon-120x120.png
+      apple-touch-icon-144x144.png
+      apple-touch-icon-152x152.png
+      apple-touch-icon-180x180.png
+      apple-touch-icon-57x57.png
+      apple-touch-icon-72x72.png
+      apple-touch-icon-76x76.png
+      apple-touch-icon.png
+      css
+      favicon.ico
+      fonts
+      images
+      js
+      robots.txt
+    )
   )
 
   # Code reloading can be explicitly enabled under the
