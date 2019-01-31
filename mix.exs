@@ -65,6 +65,7 @@ defmodule Constable.MixProject do
       {:phoenix_html, "~> 2.11"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
       {:plug_cowboy, "~> 2.0"},
+      {:poison, ">= 1.5.0"},
       {:postgrex, ">= 0.0.0"},
       {:quick_alias, "~> 0.1.0"},
       {:scrivener_ecto, "~> 2.0.0"},
