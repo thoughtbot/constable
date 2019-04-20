@@ -1,9 +1,10 @@
 @import "~bourbon/core/bourbon";
-@import "~bourbon-neat/app/assets/stylesheets/neat";
+
+@import 'media';
+@import 'icon-as-pseudo';
+
 @import 'base/base';
 @import '~highlight.js/styles/github.css';
-
-@import 'icon-as-pseudo';
 
 @import 'fonts';
 @import 'layout';
