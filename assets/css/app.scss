@@ -2,7 +2,8 @@
 @import "~bourbon/core/bourbon";
 
 @import 'media';
-@import 'icon-as-pseudo';
+
+@import "~@thoughtbot/design-system/src/button/index";
 
 @import 'base/base';
 @import '~highlight.js/styles/github.css';
@@ -31,3 +32,5 @@
 @import 'avatars';
 
 @import 'selectize';
+
+@import 'shims';

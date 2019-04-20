@@ -9,7 +9,7 @@
     <div class="current-channel">
       <%= form_for @changeset, Routes.interest_slack_channel_path(@conn, :update, @interest), fn f -> %>
         <%= text_input f, :slack_channel, placeholder: gettext("Name of the Slack channel, e.g. #everyone") %>
-        <%= submit gettext("Save Slack Channel"), id: "submit-channel-name", class: "button" %>
+        <%= submit gettext("Save Slack Channel"), id: "submit-channel-name", class: "tbds-button" %>
       <% end %>
 
       <%= if @interest.slack_channel do %>
@@ -17,7 +17,7 @@
           to: Routes.interest_slack_channel_path(@conn, :delete, @interest),
           method: :delete,
           data: [confirm: gettext("Are you sure?"), role: "remove-channel"],
-          class: "button remove-slack-channel"
+          class: "tbds-button button-secondary remove-slack-channel"
         ) do %>
           <%= gettext("Remove Channel") %>
         <% end %>

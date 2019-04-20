@@ -50,12 +50,12 @@
             for <code><%= @current_user.email %></code> will show up with your posts on Constable.
           </label>
         </div>
-        <%= submit gettext("Save") %>
+        <%= submit gettext("Save"), class: "tbds-button" %>
       <% end %>
     </div>
 
     <footer>
-      <%= link "Log out of Constable", to: Routes.session_path(@conn, :delete), method: :delete, class: "button button-secondary" %>
+      <%= link "Log out of Constable", to: Routes.session_path(@conn, :delete), method: :delete, class: "tbds-button button-secondary" %>
     </footer>
   </div>
 

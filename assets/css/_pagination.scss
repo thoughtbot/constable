@@ -3,28 +3,8 @@
   align-items: center;
   display: flex;
   justify-content: center;
+}
 
-  .button {
-    @include margin(null $small-spacing);
-    background-color: transparent;
-    border: $base-border;
-
-    &:hover {
-      border-color: shade($base-border-color, 20%);
-    }
-  }
-
-  .page-next,
-  .page-previous {
-    background-position: center center;
-    background-repeat: no-repeat;
-  }
-
-  .page-next {
-    background-image: url("/images/pagination-arrow-next.svg");
-  }
-
-  .page-previous {
-    background-image: url("/images/pagination-arrow-previous.svg");
-  }
+.pagination-button {
+  @include margin(null $tiny-spacing);
 }

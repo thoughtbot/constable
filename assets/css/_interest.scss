@@ -10,12 +10,6 @@
 
 .remove-slack-channel {
   @include position(absolute, null 0 0 null);
-  background-color: $light-gray;
-  color: $dark-gray;
-
-  &:hover {
-    color: $dark-gray;
-  }
 }
 
 .interest-list-item-heading::before {
@@ -41,43 +35,5 @@
       color: $dark-gray;
       text-decoration: underline;
     }
-  }
-}
-
-.subscribe-to,
-.unsubscribe-to {
-  border-radius: $base-border-radius;
-  font-size: $small-font-size;
-  line-height: normal;
-  padding: $tiny-spacing $small-spacing;
-  text-align: center;
-}
-
-.subscribe-to {
-  border: $base-border;
-  color: $base-font-color;
-
-  &::before {
-    @include icon-as-pseudo(10px, "/images/icon-plus.svg");
-  }
-}
-
-.unsubscribe-to {
-  background-color: $action-color;
-  color: $white;
-
-  &::before {
-    @include icon-as-pseudo(12px, "/images/icon-check-white.svg");
-    transform: translateX(3px);
-  }
-}
-
-.unsubscribe-to-thread {
-  background-color: $white;
-  border: 1px solid $secondary-action-color;
-  color: $secondary-action-color;
-
-  &::before {
-    @include icon-as-pseudo(12px, "/images/icon-check.svg");
   }
 }

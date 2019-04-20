@@ -6,5 +6,5 @@
     required: true
   %>
 
-  <%= submit @submit_text, id: "submit-comment" %>
+  <%= submit @submit_text, id: "submit-comment", class: "tbds-button" %>
 <% end %>
