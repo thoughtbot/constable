@@ -12,35 +12,3 @@
     }
   }
 }
-
-a.nav-settings-back {
-  padding: 0;
-  position: relative;
-
-  &::before {
-    @include position(absolute, 25% null null -12px);
-    @include triangle(12px, $medium-gray, left);
-    content: "";
-    margin-right: $small-spacing;
-    transition: $base-transition-time;
-  }
-
-  &:hover,
-  &:active,
-  &:focus {
-    &::before {
-      border-right-color: $dark-blue;
-    }
-  }
-}
-
-.nav-primary-title {
-  font-size: $small-font-size;
-  font-weight: bold;
-  letter-spacing: .75px;
-  text-transform: uppercase;
-}
-
-.settings-options {
-  padding-top: $base-spacing;
-}
