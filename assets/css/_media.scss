@@ -1,0 +1,5 @@
+@mixin media($query) {
+  @media screen and (nth($query, 1): nth($query, 2)) {
+    @content;
+  }
+}
