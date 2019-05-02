@@ -6,7 +6,7 @@
   },
   "dependencies": {
     "bourbon": "^5.1.0",
-    "highlight.js": "^9.13.1",
+    "highlight.js": "^9.15.6",
     "jquery": "^3.4.1",
     "local-time": "^2.1.0",
     "marked": "^0.6.2",
