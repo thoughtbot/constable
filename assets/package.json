@@ -5,7 +5,6 @@
     "watch": "webpack --mode development --watch-stdin"
   },
   "dependencies": {
-    "autoprefixer": "^9.4.2",
     "bourbon": "^5.1.0",
     "highlight.js": "^9.13.1",
     "jquery": "^3.4.1",
@@ -22,7 +21,7 @@
   "devDependencies": {
     "@babel/core": "^7.4.4",
     "@babel/preset-env": "^7.4.4",
-    "autoprefixer": "^9.1.5",
+    "autoprefixer": "^9.5.1",
     "babel-loader": "^8.0.0",
     "bourbon": "^5.1.0",
     "bourbon-neat": "^1.9.1",
