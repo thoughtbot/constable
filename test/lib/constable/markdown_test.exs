@@ -34,5 +34,15 @@ defmodule Constable.MarkdownTest do
 
       assert html == "<p><iframe>This is a paragraph</iframe></p>\n"
     end
+
+    test "allows for alt tags on images" do
+      html =
+        """
+        ![alt text](image.jpg)
+        """
+        |> Constable.Markdown.to_html()
+
+      assert html == "<p><img src=\"image.jpg\" alt=\"alt text\" /></p>\n"
+    end
   end
 end
