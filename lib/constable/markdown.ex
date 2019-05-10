@@ -4,6 +4,6 @@ defmodule Constable.Markdown do
   def to_html(markdown) do
     markdown
     |> Earmark.as_html!(%Options{smartypants: false})
-    |> HtmlSanitizeEx.html5()
+    |> HtmlSanitizeEx.Scrubber.scrub(Constable.CustomScrubber)
   end
 end
