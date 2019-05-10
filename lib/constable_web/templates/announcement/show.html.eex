@@ -25,7 +25,11 @@
 
   <div class="announcement-metadata">
     <div class="media media-center">
-      <img src="<%= gravatar @announcement.user %>" class="media-figure avatar-rounded avatar-rounded-large"/>
+      <img
+        src="<%= gravatar @announcement.user %>"
+        class="media-figure avatar-rounded avatar-rounded-large"
+        alt="Picture of <%= @announcement.user.name %>"
+      />
       <div class="media-body">
         <h4><%= link @announcement.user.name, to: Routes.announcement_path(@conn, :index, user_id: @announcement.user_id), class: "author" %></h4>
 

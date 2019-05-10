@@ -1,7 +1,11 @@
 <li class="comment media" id="comment-<%= @comment.id %>">
 
   <div class="comment-information media-figure">
-    <img class="avatar-rounded" src="<%= gravatar @comment.user %>">
+    <img
+      class="avatar-rounded"
+      src="<%= gravatar @comment.user %>"
+      alt="Picture of <%= @comment.user.name %>"
+    />
   </div>
 
   <div class="media-body">

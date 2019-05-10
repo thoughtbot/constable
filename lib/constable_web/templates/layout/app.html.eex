@@ -45,6 +45,7 @@
           <img
             src="<%= gravatar(@conn.assigns.current_user) %>"
             class="avatar-rounded avatar-rounded-optical-align-y"
+            alt="Picture of <%= @conn.assigns.current_user.name %>"
           />
         <% end %>
         <%= link to: Routes.announcement_path(@conn, :new), class: "announce button button-small button-icon" do %>
