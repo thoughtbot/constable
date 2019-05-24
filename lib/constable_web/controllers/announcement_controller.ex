@@ -13,12 +13,16 @@ defmodule ConstableWeb.AnnouncementController do
     index_page = all_announcements() |> Repo.paginate(params)
 
     conn
-    |> assign(:announcements, index_page.entries)
     |> assign(:show_all, true)
-    |> assign(:current_user, preload_interests(conn.assigns.current_user))
-    |> assign(:index_page, index_page)
-    |> page_title("Announcements")
-    |> render("index.html")
+    |> render_index(index_page)
+  end
+
+  def index(conn, %{"user_id" => user_id} = params) do
+    index_page = user_announcements(user_id) |> Repo.paginate(params)
+
+    conn
+    |> assign(:show_all, false)
+    |> render_index(index_page)
   end
 
   def index(conn, %{"interest" => interest, "page" => page}) do
@@ -27,11 +31,16 @@ defmodule ConstableWeb.AnnouncementController do
   end
 
   def index(conn, params) do
-    index_page = my_announcements(conn) |> Repo.paginate(params)
+    index_page = announcements_of_interest(conn) |> Repo.paginate(params)
 
     conn
-    |> assign(:announcements, index_page.entries)
     |> assign(:show_all, false)
+    |> render_index(index_page)
+  end
+
+  defp render_index(conn, index_page) do
+    conn
+    |> assign(:announcements, index_page.entries)
     |> assign(:current_user, preload_interests(conn.assigns.current_user))
     |> assign(:index_page, index_page)
     |> page_title("Announcements")
@@ -157,7 +166,13 @@ defmodule ConstableWeb.AnnouncementController do
     {interest_names, announcement_params}
   end
 
-  defp my_announcements(conn) do
+  defp user_announcements(user_id) do
+    Announcement.for_user(user_id)
+    |> Announcement.with_announcement_list_assocs()
+    |> Announcement.last_discussed_first()
+  end
+
+  defp announcements_of_interest(conn) do
     conn.assigns.current_user
     |> Ecto.assoc(:interesting_announcements)
     |> Announcement.with_announcement_list_assocs()

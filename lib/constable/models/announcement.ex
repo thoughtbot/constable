@@ -39,32 +39,41 @@ defmodule Constable.Announcement do
   end
 
   def with_announcement_list_assocs(query \\ __MODULE__) do
-    from q in query, preload: [
-      :user,
-      interests: ^Interest.ordered_by_name,
-      comments: ^newest_comments_first(),
-      comments: :user
-    ]
+    from q in query,
+      preload: [
+        :user,
+        interests: ^Interest.ordered_by_name(),
+        comments: ^newest_comments_first(),
+        comments: :user
+      ]
+  end
+
+  def for_user(query \\ __MODULE__, user_id) do
+    query
+    |> where([a], a.user_id == ^user_id)
   end
 
   def search(query \\ __MODULE__, search_term, exclude_interests: excludes) do
     search_term = search_term |> prepare_for_tsquery
 
-    excludes = if Enum.empty?(excludes) do
-      [""]
-    else
-      excludes
-    end
+    excludes =
+      if Enum.empty?(excludes) do
+        [""]
+      else
+        excludes
+      end
 
     from(a in query,
       full_join: i in assoc(a, :interests),
       group_by: a.id,
       having: fragment("NOT ARRAY_AGG(?) @> ?", i.name, ^excludes),
-      where: fragment("to_tsvector('english', ?) || to_tsvector('english', ?) @@ plainto_tsquery('english', ?)",
-        a.title,
-        a.body,
-        ^search_term
-      )
+      where:
+        fragment(
+          "to_tsvector('english', ?) || to_tsvector('english', ?) @@ plainto_tsquery('english', ?)",
+          a.title,
+          a.body,
+          ^search_term
+        )
     )
   end
 
