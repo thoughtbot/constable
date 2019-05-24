@@ -15,21 +15,11 @@ defmodule ConstableWeb.AnnouncementView do
 
   def comma_separated_interest_names(_), do: ""
 
-  def class_for("all", %{params: %{"all" => "true"}}) do
-    "selected"
-  end
-
-  def class_for("your announcements", %{params: %{"user_id" => _}}) do
-    "your announcements selected"
-  end
-
+  def class_for("all", %{params: %{"all" => "true"}}), do: "selected"
+  def class_for("your announcements", %{params: %{"user_id" => _}}), do: "selected"
   def class_for("your interests", %{params: %{"all" => "true"}}), do: nil
   def class_for("your interests", %{params: %{"user_id" => _}}), do: nil
-
-  def class_for("your interests", _) do
-    "your interests selected"
-  end
-
+  def class_for("your interests", _), do: "selected"
   def class_for(_, _), do: nil
 
   def interest_count_for(user) do
