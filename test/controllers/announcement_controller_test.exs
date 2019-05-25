@@ -9,18 +9,18 @@ defmodule ConstableWeb.AnnouncementControllerTest do
 
   test "#index all announcements are shown when query param all is set", %{conn: conn, user: user} do
     insert(:announcement, title: "Awesome", user: user)
-    insert(:announcement, title: "Lame", user: user)
+    insert(:announcement, title: "Great", user: user)
 
     conn = get(conn, Routes.announcement_path(conn, :index, all: true))
 
     assert html_response(conn, :ok) =~ "Awesome"
-    assert html_response(conn, :ok) =~ "Lame"
+    assert html_response(conn, :ok) =~ "Great"
   end
 
   test "#index shows user's announcements when user_id is set", %{conn: conn, user: user} do
     other_user = insert(:user)
     insert(:announcement, title: "Awesome", user: user)
-    insert(:announcement, title: "Lame", user: other_user)
+    insert(:announcement, title: "Do not show", user: other_user)
 
     response =
       conn
@@ -28,7 +28,7 @@ defmodule ConstableWeb.AnnouncementControllerTest do
       |> html_response(:ok)
 
     assert response =~ "Awesome"
-    refute response =~ "Lame"
+    refute response =~ "Do not show"
   end
 
   test "#index only announcements of interest are shown by default", %{conn: conn, user: user} do
