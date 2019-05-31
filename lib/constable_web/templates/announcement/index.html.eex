@@ -8,7 +8,12 @@
 
       <%= link gettext("Your interests"),
         to: Routes.announcement_path(@conn, :index),
-        class: class_for("mine", @conn)
+        class: class_for("your interests", @conn)
+      %>
+
+      <%= link gettext("Your announcements"),
+        to: Routes.announcement_path(@conn, :index, user_id: @current_user.id),
+        class: class_for("your announcements", @conn)
       %>
 
       <%= if !@show_all do %>
