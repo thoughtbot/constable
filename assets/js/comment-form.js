@@ -1,6 +1,7 @@
 import Mousetrap from 'mousetrap';
 import { setupImageUploader } from './textarea-image-uploader';
 import { autocompleteUsers } from './user-autocomplete';
+import { markedWithSyntax } from './syntax-highlighting';
 
 import socket from './socket';
 
@@ -29,6 +30,10 @@ const enableForm = form => form.children(':input').removeAttr('disabled');
 const SAVE_SHORTCUT = [ 'mod+enter' ];
 
 const initializeForm = function(usersForAutoComplete) {
+  watchBody();
+  watchCommentToggles();
+  toggleWrite();
+
   setupImageUploader('#comment_body');
   autocompleteUsers('.comment-textarea', usersForAutoComplete);
 
@@ -38,12 +43,97 @@ const initializeForm = function(usersForAutoComplete) {
   });
 };
 
+const initializeNewComment = () => {
+  const savedComment = getCommentFromLocalStorage();
+  const body = $('.comment-textarea');
+  body.val(savedComment);
+};
+
+function watchBody() {
+  if (!window.location.pathname.endsWith('edit')) {
+    const body = $('.comment-textarea');
+    body.on('input', event => {
+      saveCommentToLocalStorage(event);
+    });
+  }
+}
+
+function getCommentFromLocalStorage() {
+  return localStorage.getItem('new-markdown-comment');
+}
+
+function saveCommentToLocalStorage(event) {
+  localStorage.setItem('new-markdown-comment', event.target.value);
+}
+
+function clearSavedCommentChanges() {
+  localStorage.removeItem('new-markdown-comment');
+}
+
+function watchCommentToggles() {
+  const viewTextButton = $('#comment-preview-text-button');
+  const viewPreviewButton = $('#comment-preview-markdown-button');
+
+  viewTextButton.on('click', toggleWrite);
+  viewPreviewButton.on('click', togglePreview);
+}
+
+function toggleWrite() {
+  const viewTextButton = $('#comment-preview-text-button');
+  const viewPreviewButton = $('#comment-preview-markdown-button');
+  const commentTextArea = $('.comment-textarea');
+  const commentPreview = $('#comment-preview');
+
+  viewTextButton.addClass('active-button-toggle');
+  viewPreviewButton.removeClass('active-button-toggle');
+
+  commentTextArea.css('display', 'block');
+  commentPreview.attr('hidden', true);
+}
+
+function togglePreview() {
+  updateMarkdownPreview();
+  showMarkdownPreview();
+}
+
+function updateMarkdownPreview() {
+  const value = $('.comment-textarea').val();
+  const preview = $('#comment-preview');
+
+  if (value.length) {
+    const markdown = markedWithSyntax(value);
+    preview.html(markdown);
+  } else {
+    preview.html('Your rendered markdown goes here');
+  }
+}
+
+function showMarkdownPreview() {
+  const viewTextButton = $('#comment-preview-text-button');
+  const viewPreviewButton = $('#comment-preview-markdown-button');
+  const commentTextArea = $('.comment-textarea');
+  const commentPreview = $('#comment-preview');
+
+  viewTextButton.removeClass('active-button-toggle');
+  viewPreviewButton.addClass('active-button-toggle');
+
+  commentTextArea.css('display', 'none');
+  commentPreview.removeAttr('hidden');
+}
+
+function resetPreview() {
+  const commentPreview = $('#comment-preview');
+  commentPreview.html('');
+  toggleWrite();
+}
+
 export function setupEditForm(usersForAutoComplete) {
   initializeForm(usersForAutoComplete);
 }
 
 export function setupNewForm(usersForAutoComplete) {
   initializeForm(usersForAutoComplete);
+  initializeNewComment();
 
   $('.comment-form').on('submit', function submitForm(event) {
     event.preventDefault();
@@ -57,6 +147,8 @@ export function setupNewForm(usersForAutoComplete) {
     }).done(() => {
       resetForm(form[0]);
       enableForm(form);
+      clearSavedCommentChanges();
+      resetPreview();
     });
   });
 }
