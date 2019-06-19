@@ -4,7 +4,7 @@
     <header>
       <h2>Profile and Settings</h2>
       <a href="#" class="modal-close" data-role="closing-icon">
-        <img src="../images/icon-close.svg" />
+        <img src="/images/icon-close.svg" />
       </a>
     </header>
 
