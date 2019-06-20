@@ -25,4 +25,8 @@ defmodule ConstableWeb.SearchController do
     |> Announcement.last_discussed_first
     |> Announcement.with_announcement_list_assocs
   end
+
+  defp matching_announcements(_params = %{}) do
+    Announcement.search("", exclude_interests: [])
+  end
 end

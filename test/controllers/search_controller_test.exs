@@ -31,4 +31,10 @@ defmodule ConstableWeb.SearchControllerTest do
     refute html_response(conn, :ok) =~ "Not so much post"
     assert html_response(conn, :ok) =~ "Good post!"
   end
+
+  test "#show runs empty search with no query param", %{conn: conn} do
+    conn = get conn, Routes.search_path(conn, :show)
+
+    assert html_response(conn, :ok) =~ "Search results for"
+  end
 end
