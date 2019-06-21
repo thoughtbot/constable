@@ -17,9 +17,12 @@ channel
   });
 
 channel.on('new-comment', payload => {
-  $(
-    `[data-announcement-id='${payload.announcement_id}'] .comments-list`
-  ).append(payload.comment_html);
+  $(`[data-announcement-id='${payload.announcement_id}'] .comments-list`)
+    .append(payload.comment_html);
+
+  if (payload.subscribed === true) {
+    $("[data-role='subscription-button'] a").replaceWith(payload.unsubscribe_button_html);
+  }
 });
 
 const resetForm = form => form.reset();

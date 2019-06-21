@@ -5,6 +5,7 @@ defmodule Constable.Services.CommentCreatorTest do
   alias ConstableWeb.Api.CommentView
   alias Constable.Comment
   alias Constable.Services.CommentCreator
+  alias Constable.Subscription
 
   test "creates a comment" do
     announcement = insert(:announcement)
@@ -95,5 +96,21 @@ defmodule Constable.Services.CommentCreatorTest do
       })
 
     assert_no_emails_delivered()
+  end
+
+  test "create subscribes the commenting user to the announcement" do
+    commenter = insert(:user)
+    announcement = insert(:announcement)
+
+    {:ok, _comment} =
+      CommentCreator.create(%{
+        user_id: commenter.id,
+        body: "Baz!",
+        announcement_id: announcement.id
+      })
+
+    subscription = Repo.one!(Subscription)
+    assert subscription.user_id == commenter.id
+    assert subscription.announcement_id == announcement.id
   end
 end

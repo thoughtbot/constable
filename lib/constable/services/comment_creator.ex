@@ -17,11 +17,19 @@ defmodule Constable.Services.CommentCreator do
         broadcast(comment)
         mentioned_users = email_mentioned_users(comment)
         email_subscribers(comment, mentioned_users)
+        subscribe_comment_author(comment)
         {:ok, comment}
 
       {:error, changeset} ->
         {:error, changeset}
     end
+  end
+
+  defp subscribe_comment_author(comment) do
+    comment
+    |> Map.take([:announcement_id, :user_id])
+    |> Subscription.changeset()
+    |> Repo.insert!(on_conflict: :nothing)
   end
 
   defp email_subscribers(comment, mentioned_users) do
@@ -30,7 +38,6 @@ defmodule Constable.Services.CommentCreator do
       |> Enum.reject(fn user -> user.id == comment.user_id end)
 
     Emails.new_comment(comment, users) |> Mailer.deliver_later()
-    comment
   end
 
   defp email_mentioned_users(comment) do
