@@ -12,4 +12,20 @@ defmodule Constable.Services.MentionFinderTest do
     user = Repo.one(User)
     assert MentionFinder.find_users(body) == [user]
   end
+
+  test "extracts possessive-ized users from text" do
+    insert(:user, username: "machoman")
+    body = "Hello @machoman's lunch and and @hulkamania fans"
+
+    user = Repo.one(User)
+    assert MentionFinder.find_users(body) == [user]
+  end
+
+  test "operates on text with smart quotes" do
+    insert(:user, username: "machoman")
+    body = "The @machoman’s peanut butter sandwich at @hulkamania"
+
+    user = Repo.one(User)
+    assert MentionFinder.find_users(body) == [user]
+  end
 end
