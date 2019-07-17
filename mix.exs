@@ -57,7 +57,7 @@ defmodule Constable.MixProject do
       {:html_sanitize_ex, "~> 1.3.0"},
       {:httpoison, "~> 1.3", override: true},
       {:jason, "~> 1.0"},
-      {:oauth2, "~> 1.0"},
+      {:oauth2, "~> 2.0"},
       {:pact, "~> 0.2.0"},
       {:phoenix, "~> 1.4.0" },
       {:phoenix_pubsub, "~> 1.1"},
