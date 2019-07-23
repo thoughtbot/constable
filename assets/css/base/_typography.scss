@@ -64,6 +64,7 @@ a {
   &:focus,
   &:hover {
     text-decoration: underline dashed;
+    text-decoration-skip-ink: auto;
   }
 }
 
