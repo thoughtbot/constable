@@ -56,14 +56,15 @@ p {
 
 a {
   color: $action-color;
-  text-decoration: none;
+  text-decoration: underline;
   transition: color $base-duration $base-timing;
   word-wrap: break-word;
 
   &:active,
   &:focus,
   &:hover {
-    text-decoration: underline;
+    text-decoration: underline dashed;
+    text-decoration-skip-ink: auto;
   }
 }
 
