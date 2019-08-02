@@ -5,10 +5,11 @@ defmodule ConstableWeb.Router do
     plug :accepts, ~w(html)
     plug :fetch_session
     plug :fetch_flash
+    plug Phoenix.LiveView.Flash
     plug :protect_from_forgery
     plug :put_secure_browser_headers
 
-    if Mix.env == :test do
+    if Mix.env() == :test do
       plug Constable.Plugs.SetUserIdFromParams
     end
 
@@ -26,7 +27,7 @@ defmodule ConstableWeb.Router do
 
     resources "/unsubscribe", UnsubscribeController, only: [:show]
 
-    if Mix.env == :dev do
+    if Mix.env() == :dev do
       get "/emails/:email_name", EmailPreviewController, :show
     end
   end
@@ -40,17 +41,20 @@ defmodule ConstableWeb.Router do
       resources "/comments", CommentController, only: [:create, :edit, :update]
       resources "/subscriptions", SubscriptionController, singleton: true, only: [:create, :delete]
     end
+
     resources "/settings", SettingsController, singleton: true, only: [:show, :update]
+
     resources "/interests", InterestController, only: [:index, :show], param: "id_or_name" do
       resources "/slack_channel", SlackChannelController, singleton: true, only: [:edit, :update, :delete]
       resources "/user_interest", UserInterestController, singleton: true, only: [:create, :delete]
     end
+
     resources "/search", SearchController, singleton: true, only: [:show, :new]
     resources "/recipients_preview", RecipientsPreviewController, singleton: true, only: [:show]
     resources "/user_activations", UserActivationController, only: [:index, :update]
   end
 
-  if Mix.env == :dev do
+  if Mix.env() == :dev do
     forward "/sent_emails", Bamboo.SentEmailViewerPlug
   end
 

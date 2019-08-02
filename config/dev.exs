@@ -22,6 +22,7 @@ config :constable, ConstableWeb.Endpoint,
     patterns: [
       ~r{priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$},
       ~r{priv/gettext/.*(po)$},
+      ~r{lib/constable_web/live/.*(ex)$},
       ~r{lib/constable_web/views/.*(ex)$},
       ~r{lib/constable_web/templates/.*(eex)$}
     ]

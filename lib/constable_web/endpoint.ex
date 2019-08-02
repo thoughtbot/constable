@@ -1,6 +1,8 @@
 defmodule ConstableWeb.Endpoint do
   use Phoenix.Endpoint, otp_app: :constable
 
+  socket "/live", Phoenix.LiveView.Socket
+
   socket("/socket", ConstableWeb.UserSocket,
     websocket: [check_origin: false],
     longpoll: true

@@ -25,6 +25,7 @@ defmodule ConstableWeb do
       import Ecto.Schema
       import ConstableWeb.Gettext
       import ConstableWeb.ControllerHelper
+      import Phoenix.LiveView.Controller, only: [live_render: 3]
 
       alias Constable.Repo
       alias ConstableWeb.Router.Helpers, as: Routes
@@ -40,6 +41,8 @@ defmodule ConstableWeb do
       # Import convenience functions from controllers
       import Phoenix.Controller,
         only: [get_flash: 1, get_flash: 2, view_module: 1]
+
+      import Phoenix.LiveView, only: [live_render: 2, live_render: 3, live_link: 1, live_link: 2]
 
       import ConstableWeb.ErrorHelpers
       import ConstableWeb.Gettext
@@ -60,6 +63,7 @@ defmodule ConstableWeb do
       use Honeybadger.Plug
       import Plug.Conn
       import Phoenix.Controller
+      import Phoenix.LiveView.Router
     end
   end
 
