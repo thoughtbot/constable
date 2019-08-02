@@ -44,5 +44,16 @@ defmodule Constable.MarkdownTest do
 
       assert html == "<p><img src=\"image.jpg\" alt=\"alt text\" /></p>\n"
     end
+
+    test "allows for inline css on images" do
+      html =
+        """
+        <img src="image.jpg" style="display: block; margin-left: auto;">
+        """
+        |> Constable.Markdown.to_html()
+
+      assert html ==
+               "<img src=\"image.jpg\" style=\"display: block; margin-left: auto;\" />"
+    end
   end
 end
