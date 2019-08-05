@@ -66,7 +66,7 @@ defmodule Constable.MixProject do
       {:phoenix_ecto, "~> 4.0.0"},
       {:phoenix_html, "~> 2.11"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
-      {:phoenix_live_view, github: "phoenixframework/phoenix_live_view"},
+      {:phoenix_live_view, "~> 0.1.1"},
       {:plug_cowboy, "~> 2.0"},
       {:poison, ">= 1.5.0"},
       {:postgrex, ">= 0.0.0"},

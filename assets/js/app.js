@@ -22,6 +22,12 @@ TurboLinks.start();
 import LocalTime from 'local-time';
 LocalTime.start();
 
+// Set up live view
+import LiveSocket from 'phoenix_live_view';
+import Hooks from './hooks/index';
+const liveSocket = new LiveSocket('/live', { hooks: Hooks });
+liveSocket.connect();
+
 // Make the modules available to html pages
 global.constable = global.constable || {};
 global.constable.commentForm = require('./comment-form');

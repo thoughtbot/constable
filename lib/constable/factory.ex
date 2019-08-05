@@ -31,7 +31,7 @@ defmodule Constable.Factory do
   def user_factory do
     %Constable.User{
       username: "myusername",
-      name: "Gumbo",
+      name: sequence(:name, &"Gumbo#{&1}"),
       email: sequence(:email, &"test#{&1}@thoughtbot.com"),
       daily_digest: true,
       auto_subscribe: false,
@@ -60,8 +60,7 @@ defmodule Constable.Factory do
   end
 
   def tag_with_interest(announcement, interest) do
-    insert(:announcement_interest, announcement: announcement, interest:
-    interest).announcement
+    insert(:announcement_interest, announcement: announcement, interest: interest).announcement
   end
 
   def with_subscriber(announcement, user) do

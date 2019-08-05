@@ -7,6 +7,8 @@ defmodule ConstableWeb.AnnouncementController do
   alias Constable.{Announcement, Comment, Interest, Subscription}
   alias Constable.Services.AnnouncementCreator
 
+  alias ConstableWeb.AnnouncementLive
+
   plug(Constable.Plugs.Deslugifier, slugified_key: "id")
 
   def index(conn, %{"all" => "true"} = params) do
@@ -75,6 +77,16 @@ defmodule ConstableWeb.AnnouncementController do
       users: Repo.all(User.active()),
       page_title: announcement.title
     )
+  end
+
+  def new(conn, %{"live" => _}) do
+    session = %{
+      csrf_token: Phoenix.Controller.get_csrf_token()
+    }
+
+    conn
+    |> page_title("New Announcement")
+    |> live_render(AnnouncementLive, session: session)
   end
 
   def new(conn, _params) do
