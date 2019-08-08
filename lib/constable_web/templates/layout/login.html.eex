@@ -21,11 +21,9 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180x180.png" />
   </head>
 
-  <body>
+  <body class="tbds-app-frame">
     <%= render "_flashes.html", conn: @conn %>
 
-    <div class="login-page">
-      <%= render @view_module, @view_template, assigns %>
-    </div>
+    <%= render @view_module, @view_template, assigns %>
   </body>
 </html>
