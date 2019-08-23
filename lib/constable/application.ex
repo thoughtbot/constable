@@ -8,8 +8,9 @@ defmodule Constable.Application do
   use Application
 
   def start(_type, _args) do
-    unless Mix.env == "production" do
-      Envy.auto_load
+    unless Mix.env() == "production" do
+      Envy.auto_load()
+      Envy.reload_config()
     end
 
     setup_dependencies()
