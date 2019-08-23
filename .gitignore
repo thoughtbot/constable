@@ -6,6 +6,8 @@
 erl_crash.dump
 *.ez
 
+.elixir_ls/
+
 assets/node_modules/
 priv/static
 
