@@ -6,8 +6,8 @@
   .commenters & {
     &:first-of-type {
       @include size($rounded-avatar-size-large);
-      z-index: $mezzanine-z-index;
       position: relative;
+      z-index: $mezzanine-z-index;
     }
   }
 
@@ -40,6 +40,7 @@
 
 .avatar-settings {
   display: flex;
+
   & img {
     margin-right: 35px;
   }

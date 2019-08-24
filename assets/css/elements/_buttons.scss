@@ -1,6 +1,5 @@
 .button,
 #{$all-buttons} {
-  -webkit-font-smoothing: antialiased;
   appearance: none;
   background-color: $action-color;
   border: 0;
@@ -10,6 +9,7 @@
   display: inline-block;
   font-family: $bold-font-family;
   font-size: $base-font-size;
+  -webkit-font-smoothing: antialiased;
   line-height: 1;
   padding: $small-spacing $base-spacing;
   text-align: center;

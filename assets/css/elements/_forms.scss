@@ -36,14 +36,14 @@ select[multiple=multiple] {
     border: none;
     border-bottom: 1px solid $light-gray;
     box-shadow: none;
+    font-family: Monaco;
+    margin-bottom: $base-spacing;
     padding: 0;
     padding-bottom: $tiny-spacing;
-    margin-bottom: $base-spacing;
-    font-family: Monaco;
 
     &:focus {
-      box-shadow: none;
       border-radius: 0;
+      box-shadow: none;
     }
 
     &::-webkit-input-placeholder {
@@ -72,10 +72,10 @@ select[multiple=multiple] {
 
 textarea {
   border: $base-border;
-  padding: $small-spacing;
   color: $base-font-color;
-  resize: vertical;
   line-height: 1.6;
+  padding: $small-spacing;
+  resize: vertical;
 }
 
 input[type="search"] {
@@ -94,8 +94,8 @@ select {
 }
 
 .switch-container {
-  display: flex;
   align-items: center;
+  display: flex;
 }
 
 .field {

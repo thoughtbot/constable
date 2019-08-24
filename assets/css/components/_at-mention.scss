@@ -1,4 +1,4 @@
-@import '../static/vendor/textcomplete.css';
+@import "../static/vendor/textcomplete.css";
 
 .dropdown-menu {
   background-color: $white;
@@ -43,9 +43,9 @@
   }
 
   a {
-    display: flex;
     align-items: center;
     color: $base-font-color;
+    display: flex;
     font-size: $small-font-size;
   }
 }

@@ -26,15 +26,15 @@
   .interest {
     color: $dark-blue;
 
-    &:after {
+    &::after {
       content: ", ";
     }
 
-    &:before {
+    &::before {
       content: "#";
     }
 
-    &:last-of-type:after {
+    &:last-of-type::after {
       content: "";
     }
   }
@@ -74,7 +74,7 @@
     content: "#";
   }
 
-  &:last-of-type:after {
+  &:last-of-type::after {
     content: "";
   }
 }

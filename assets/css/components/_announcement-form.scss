@@ -16,8 +16,8 @@
   .interested-user-names {
     @include position(absolute, 24px null null null);
     background-color: $white;
-    border-radius: $base-border-radius;
     border: $base-border;
+    border-radius: $base-border-radius;
     box-shadow: 0 0 16px rgba($light-gray, 0.6);
     color: $dark-gray;
     display: none;
