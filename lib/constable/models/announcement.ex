@@ -5,6 +5,7 @@ defmodule Constable.Announcement do
   alias Constable.Subscription
   alias Constable.Interest
   alias Constable.AnnouncementInterest
+  alias Constable.Reaction
 
   schema "announcements" do
     field :title
@@ -18,6 +19,10 @@ defmodule Constable.Announcement do
     has_many :subscriptions, Subscription, on_delete: :delete_all
     many_to_many :interests, Interest, on_delete: :delete_all, join_through: AnnouncementInterest
     has_many :interested_users, through: [:interests, :users]
+
+    has_many :reactions, {"announcement_reactions", Reaction},
+      foreign_key: :reactable_id,
+      on_delete: :delete_all
   end
 
   def update_changeset(announcement, params) do
@@ -42,9 +47,11 @@ defmodule Constable.Announcement do
     from q in query,
       preload: [
         :user,
+        :reactions,
         interests: ^Interest.ordered_by_name(),
         comments: ^newest_comments_first(),
-        comments: :user
+        comments: :user,
+        comments: :reactions
       ]
   end
 

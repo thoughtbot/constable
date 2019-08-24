@@ -7,20 +7,21 @@ defimpl Poison.Encoder, for: Constable.Announcement do
     user
     comments
     interests
+    reactions
     inserted_at
     updated_at
   )a
 
   def encode(announcement, _options) do
     announcement
-    |> Repo.preload([:comments, :user, :interests])
+    |> Repo.preload([:comments, :user, :interests, :reactions])
     |> Map.take(@attributes)
     |> set_interests
-    |> Poison.encode!
+    |> Poison.encode!()
   end
 
   def set_interests(announcement) do
-    interest_names = Enum.map(announcement.interests, fn (interest) -> interest.name end)
+    interest_names = Enum.map(announcement.interests, fn interest -> interest.name end)
     Map.put(announcement, "interests", interest_names)
   end
 end

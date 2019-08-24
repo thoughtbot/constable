@@ -24,5 +24,10 @@
     <div class="comment-body">
       <%= raw markdown_with_users(@comment.body) %>
     </div>
+    <div class="reaction-container">
+    <%= for reaction <- @comment.reactions do %>
+      <span class="reaction"><%= reaction.emoji %></span>
+    <% end %>
+  </div>
   </div>
 </li>

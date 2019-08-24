@@ -49,6 +49,7 @@ defmodule ConstableWeb.AnnouncementController do
 
   def show(conn, %{"id" => id}) do
     announcement = Repo.get!(Announcement.with_announcement_list_assocs(), id)
+
     comment = Comment.create_changeset(%{})
 
     subscription =

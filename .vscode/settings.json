@@ -1,0 +1,5 @@
+{
+  "files.exclude": {
+    ".elixir_ls": true
+  }
+}
