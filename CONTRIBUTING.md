@@ -34,5 +34,9 @@ merge the contribution.
 
 - Organize and architect CSS using the [Inverted Triangle CSS (ITCSS)][itcss]
   methodology
+- Lint styles using stylelint
+  - The stylelint configuration is in
+    [`assets/.stylelintrc.json`][stylelint-config]
 
 [itcss]: https://www.creativebloq.com/web-design/manage-large-css-projects-itcss-101517528
+[stylelint-config]: /assets/.stylelintrc.json

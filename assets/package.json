@@ -2,6 +2,7 @@
   "repository": {},
   "scripts": {
     "deploy": "webpack --mode production",
+    "stylelint": "stylelint 'css/**/*.scss'",
     "watch": "webpack --mode development --watch-stdin"
   },
   "dependencies": {
@@ -22,6 +23,7 @@
   "devDependencies": {
     "@babel/core": "^7.5.5",
     "@babel/preset-env": "^7.5.5",
+    "@thoughtbot/stylelint-config": "^1.0.1",
     "autoprefixer": "^9.6.1",
     "babel-loader": "^8.0.6",
     "copy-webpack-plugin": "^4.5.0",
@@ -30,6 +32,7 @@
     "optimize-css-assets-webpack-plugin": "^5.0.1",
     "postcss-loader": "^3.0.0",
     "sass-loader": "^7.3.1",
+    "stylelint": "^10.1.0",
     "terser-webpack-plugin": "^1.4.1",
     "webpack": "^4.39.2",
     "webpack-cli": "^3.3.7"
