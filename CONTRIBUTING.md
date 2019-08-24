@@ -29,3 +29,10 @@ merge the contribution.
 
   [style]: https://github.com/thoughtbot/guides/tree/master/style
   [commit]: http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html
+
+## CSS
+
+- Organize and architect CSS using the [Inverted Triangle CSS (ITCSS)][itcss]
+  methodology
+
+[itcss]: https://www.creativebloq.com/web-design/manage-large-css-projects-itcss-101517528

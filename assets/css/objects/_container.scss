@@ -1,0 +1,14 @@
+.container {
+  margin: 0 auto;
+  max-width: 620px;
+  width: 80%;
+
+  @include media($small-screen) {
+    padding: 0 $small-spacing;
+    width: 100%;
+  }
+}
+
+.container-pad-top {
+  padding-top: $base-spacing;
+}
