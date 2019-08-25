@@ -10,22 +10,10 @@
       z-index: $mezzanine-z-index;
     }
   }
-
-  .textcomplete-item & {
-    margin-right: $tiny-spacing;
-  }
-}
-
-.avatar-rounded-large {
-  @include size($rounded-avatar-size-large);
 }
 
 .avatar-rounded-small {
   @include size($rounded-avatar-size-small);
-}
-
-.avatar-rounded-optical-align-y {
-  margin-top: -$tiny-spacing;
 }
 
 .avatar-rounded-border {
@@ -35,18 +23,5 @@
 .avatar-stacked {
   &:not(:first-of-type) {
     margin-right: -0.75rem;
-  }
-}
-
-.avatar-settings {
-  display: flex;
-
-  & img {
-    margin-right: 35px;
-  }
-
-  code {
-    background-color: $lightest-gray;
-    padding: 0.25rem;
   }
 }

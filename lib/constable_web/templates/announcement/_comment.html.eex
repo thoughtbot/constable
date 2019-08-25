@@ -1,7 +1,7 @@
 <li class="tbds-media comment" id="comment-<%= @comment.id %>">
   <div class="tbds-media__figure comment-information">
     <img
-      class="avatar-rounded"
+      class="tbds-avatar tbds-avatar--circle"
       src="<%= gravatar @comment.user %>"
       alt="Picture of <%= @comment.user.name %>"
     />

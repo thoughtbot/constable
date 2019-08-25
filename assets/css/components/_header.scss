@@ -1,5 +1,5 @@
 .main-header {
-  align-items: baseline;
+  align-items: center;
   background-color: $lightest-gray;
   border-bottom: $base-border;
   display: flex;
@@ -16,7 +16,6 @@
   color: $dark-blue;
   font-size: $medium-font-size;
   font-weight: $font-weight-medium;
-  margin-bottom: $base-spacing;
   order: 2;
   text-align: center;
   text-decoration: none;
@@ -31,8 +30,8 @@
 }
 
 .settings-gravatar {
+  margin-right: $small-spacing;
   order: 1;
-  padding-right: $small-spacing;
 
   @include media($medium-screen-up) {
     order: 3;
@@ -41,11 +40,13 @@
 
 .header-search-form {
   flex: 1 0 100%;
+  margin-top: $small-spacing;
   order: 4;
   position: relative;
 
   @include media($medium-screen-up) {
     flex-basis: 18.75rem;
+    margin-top: 0;
     order: 2;
   }
 }

@@ -41,10 +41,10 @@
           />
         <% end %>
 
-        <%= link to: Routes.settings_path(@conn, :show), class: "settings-gravatar remote-append", data: [role: "settings-link"] do %>
+        <%= link to: Routes.settings_path(@conn, :show), class: "settings-gravatar remote-append tbds-line-height-0", data: [role: "settings-link"] do %>
           <img
             src="<%= gravatar(@conn.assigns.current_user) %>"
-            class="avatar-rounded avatar-rounded-optical-align-y"
+            class="tbds-avatar tbds-avatar--circle"
             alt="Picture of <%= @conn.assigns.current_user.name %>"
           />
         <% end %>

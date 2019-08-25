@@ -25,10 +25,10 @@
 
   <div class="announcement-metadata">
     <div class="tbds-media tbds-media--block-center">
-      <div class="tbds-media__figure">
+      <div class="tbds-media__figure tbds-line-height-0">
         <img
           src="<%= gravatar @announcement.user %>"
-          class="avatar-rounded avatar-rounded-large"
+          class="tbds-avatar tbds-avatar--circle"
           alt="Picture of <%= @announcement.user.name %>"
         />
       </div>

@@ -39,13 +39,15 @@
           Send me daily digest emails about what's new on Constable.
           </label>
         </div>
-        <div class="field avatar-settings">
-          <img
-            class="avatar-rounded avatar-rounded-large"
-            src="<%= gravatar @current_user %>"
-            alt="Picture of <%= @current_user.name %>"
-          />
-          <label>
+        <div class="tbds-media field">
+          <div class="tbds-media__figure">
+            <img
+              class="tbds-avatar tbds-avatar--circle"
+              src="<%= gravatar @current_user %>"
+              alt="Picture of <%= @current_user.name %>"
+            />
+          </div>
+          <label class="tbds-media__body">
             The <%= link "Gravatar", to: "https://en.gravatar.com/", title: "Manage your Gravatar (Globally Recognized Avatar)" %>
             for <code><%= @current_user.email %></code> will show up with your posts on Constable.
           </label>

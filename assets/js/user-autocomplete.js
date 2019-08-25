@@ -26,7 +26,7 @@ export function autocompleteUsers(selector, users) {
     },
 
     template: function(user, _term) {
-      return `<img class="avatar-rounded" src="${user.gravatar_url}"/> ${user.username}`;
+      return `<img class="tbds-avatar tbds-avatar--circle tbds-avatar--small tbds-margin-inline-end-2" src="${user.gravatar_url}"/> ${user.username}`;
     },
 
     replace: function(user) {
