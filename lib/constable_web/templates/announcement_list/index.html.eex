@@ -23,7 +23,7 @@
       <div class="commenters">
         <%= for gravatar <- user_gravatars(announcement) do %>
           <img
-            class="avatar-rounded avatar-rounded-small avatar-rounded-border avatar-stacked"
+            class="commenters__avatar"
             src="<%= gravatar %>"
           />
         <% end %>

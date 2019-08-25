@@ -72,3 +72,18 @@
 .commenters {
   margin-top: $small-spacing;
 }
+
+.commenters__avatar {
+  @include size(32px);
+  border: medium solid $white;
+  border-radius: 50%;
+  margin-right: -0.75rem;
+  vertical-align: middle;
+
+  &:first-of-type {
+    @include size(40px);
+    margin-right: 0;
+    position: relative;
+    z-index: $mezzanine-z-index;
+  }
+}
