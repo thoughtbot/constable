@@ -30,8 +30,8 @@
         <%= link "#Constable", to: "/", class: "logo" %>
 
         <%= form_tag Routes.search_path(@conn, :show), class: "header-search-form", method: :get do %>
-          <label class="is-hidden" for="header-search-input">Search Constable</label>
           <input
+            aria-label="Search Constable"
             class="header-search-input"
             id="header-search-input"
             name="query"
