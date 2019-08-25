@@ -1,9 +1,7 @@
 .onoffswitch {
   margin-right: $small-spacing;
   position: relative;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  -webkit-user-select: none;
+  user-select: none;
   width: 60px;
 }
 
@@ -28,7 +26,7 @@
 .onoffswitch-inner::before,
 .onoffswitch-inner::after {
   box-sizing: border-box;
-  color: white;
+  color: $white;
   display: block;
   float: left;
   font-size: 14px;
