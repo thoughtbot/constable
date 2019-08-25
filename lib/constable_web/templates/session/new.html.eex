@@ -1,21 +1,19 @@
-<main class="tbds-app-frame__body tbds-app-frame__body--center-items">
-  <div class="container container-x-small">
-    <div class="box tbds-text-align-center">
-      <svg aria-label="thoughtbot logo" class="tbds-margin-block-end-3" width="48" height="48">
-        <use xlink:href="/images/icons.svg#thoughtbot-logomark"></use>
+<div class="container container-x-small">
+  <div class="box tbds-text-align-center">
+    <svg aria-label="thoughtbot logo" class="tbds-margin-block-end-3" width="48" height="48">
+      <use xlink:href="/images/icons.svg#thoughtbot-logomark"></use>
+    </svg>
+
+    <p class="tbds-margin-block-end-4">
+      <strong>Constable</strong> is for posting announcements and
+      having discussions.
+    </p>
+
+    <%= link to: Routes.auth_path(@conn, :index, browser: true), class: "tbds-button tbds-button--full-width sign-in-link" do %>
+      <svg aria-hidden="true" class="tbds-button__icon tbds-button__icon--start">
+        <use xlink:href="/images/icons.svg#google-logomark"></use>
       </svg>
-
-      <p class="tbds-margin-block-end-4">
-        <strong>Constable</strong> is for posting announcements and
-        having discussions.
-      </p>
-
-      <%= link to: Routes.auth_path(@conn, :index, browser: true), class: "tbds-button tbds-button--full-width sign-in-link" do %>
-        <svg aria-hidden="true" class="tbds-button__icon tbds-button__icon--start">
-          <use xlink:href="/images/icons.svg#google-logomark"></use>
-        </svg>
-        Sign in with Google
-      <% end %>
-    </div>
+      Sign in with Google
+    <% end %>
   </div>
-</main>
+</div>

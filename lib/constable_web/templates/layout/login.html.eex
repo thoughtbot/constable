@@ -20,10 +20,13 @@
     <link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon-152x152.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180x180.png" />
   </head>
-
   <body class="tbds-app-frame">
-    <%= render "_flashes.html", conn: @conn %>
-
-    <%= render @view_module, @view_template, assigns %>
+    <main
+      class="tbds-app-frame__body tbds-app-frame__body--center-items"
+      id="main"
+    >
+      <%= render "_flashes.html", conn: @conn %>
+      <%= render @view_module, @view_template, assigns %>
+    </main>
   </body>
 </html>
