@@ -6,6 +6,7 @@
     "watch": "webpack --mode development --watch-stdin"
   },
   "dependencies": {
+    "@thoughtbot/design-system": "0.3.0",
     "bourbon": "^6.0.0",
     "highlight.js": "^9.15.10",
     "jquery": "^3.4.1",
