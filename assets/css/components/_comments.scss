@@ -1,8 +1,3 @@
-%align-center-flex {
-  align-items: center;
-  display: flex;
-}
-
 .edit-comment {
   font-size: $tiny-font-size;
   margin-left: $tiniest-spacing;
@@ -13,8 +8,9 @@
 }
 
 .author-information {
-  @extend %align-center-flex;
   @include padding($tiniest-spacing null $tiny-spacing);
+  align-items: center;
+  display: flex;
   justify-content: space-between;
 }
 
