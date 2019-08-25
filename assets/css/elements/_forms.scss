@@ -32,25 +32,6 @@ select[multiple=multiple] {
   transition: border-color $base-duration $base-timing;
   width: 100%;
 
-  &.input-minimal {
-    border: none;
-    border-bottom: 1px solid $light-gray;
-    box-shadow: none;
-    font-family: Monaco;
-    margin-bottom: $base-spacing;
-    padding: 0;
-    padding-bottom: $tiny-spacing;
-
-    &:focus {
-      border-radius: 0;
-      box-shadow: none;
-    }
-
-    &::-webkit-input-placeholder {
-      color: $medium-gray;
-    }
-  }
-
   &:hover {
     border-color: shade($base-border-color, 20%);
   }

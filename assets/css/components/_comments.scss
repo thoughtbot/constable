@@ -8,19 +8,6 @@
   margin-left: $tiniest-spacing;
 }
 
-.comment-loading {
-  @include border-style(solid);
-  @include border-width(0.2em);
-  @include hide-text();
-  @include margin(null auto);
-  @include size(2em);
-  animation: $long-duration linear infinite loading-spinner;
-  border-color: $base-border-color;
-  border-left-color: $dark-blue;
-  border-radius: 50%;
-  text-transform: uppercase;
-}
-
 .comment-body {
   position: relative;
 }
@@ -44,10 +31,6 @@
 .comment-edit {
   margin-bottom: $base-spacing;
   padding-top: $base-spacing;
-
-  input[type="submit"] {
-    width: 100%;
-  }
 }
 
 .comment-textarea {

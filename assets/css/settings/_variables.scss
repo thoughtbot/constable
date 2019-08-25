@@ -37,14 +37,11 @@ $dark-gray: #545559;
 $medium-gray: #999;
 $seafoam: #4cbd9c;
 $white: #fff;
-
 $lightest-gray: lighten($light-gray, 7%);
-$autocomplete-hover-color: darken($light-gray, 5%);
 
 // Font Colors
 $base-font-color: $tbds-color-text-default;
 $action-color: $tbds-brand-red;
-$secondary-action-color: $dark-blue;
 
 // Border
 $base-border-color: $light-gray;
@@ -52,7 +49,6 @@ $base-border: 1px solid $base-border-color;
 
 // Background Colors
 $base-background-color: #fcfcfc;
-$secondary-background-color: tint($base-border-color, 75%);
 
 // Forms
 $form-box-shadow: inset 0 1px 1px rgba($dark-blue, 0.1);
@@ -64,14 +60,11 @@ $base-timing: ease;
 $long-duration: 0.6s;
 
 // Z-indeces
-$base-z-index: 0;
 $mezzanine-z-index: 500;
 $ceiling-z-index: 1000;
 
 // Transitions
 $base-transition-time: 0.3s;
-$fast-transtion-time: $base-transition-time / 2;
 
 // Box shadow
 $base-box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.25);
-$tight-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.75);
