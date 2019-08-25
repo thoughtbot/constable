@@ -1,6 +1,5 @@
-<li class="comment media" id="comment-<%= @comment.id %>">
-
-  <div class="comment-information media-figure">
+<li class="tbds-media comment" id="comment-<%= @comment.id %>">
+  <div class="tbds-media__figure comment-information">
     <img
       class="avatar-rounded"
       src="<%= gravatar @comment.user %>"
@@ -8,7 +7,7 @@
     />
   </div>
 
-  <div class="media-body">
+  <div class="tbds-media__body">
     <div class="author-information">
       <h4 class="author"><%= @comment.user.name %></h4>
       <a href="#comment-<%= @comment.id %>" class="comment-time">

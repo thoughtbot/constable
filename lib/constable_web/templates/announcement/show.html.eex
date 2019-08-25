@@ -24,13 +24,15 @@
   </h1>
 
   <div class="announcement-metadata">
-    <div class="media media-center">
-      <img
-        src="<%= gravatar @announcement.user %>"
-        class="media-figure avatar-rounded avatar-rounded-large"
-        alt="Picture of <%= @announcement.user.name %>"
-      />
-      <div class="media-body">
+    <div class="tbds-media tbds-media--block-center">
+      <div class="tbds-media__figure">
+        <img
+          src="<%= gravatar @announcement.user %>"
+          class="avatar-rounded avatar-rounded-large"
+          alt="Picture of <%= @announcement.user.name %>"
+        />
+      </div>
+      <div class="tbds-media__body">
         <h4><%= link @announcement.user.name, to: Routes.announcement_path(@conn, :index, user_id: @announcement.user_id), class: "author" %></h4>
 
         <div class="announcement-metadata">
