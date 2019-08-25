@@ -56,7 +56,6 @@
 
     <main id="main">
       <%= render "_flashes.html", conn: @conn %>
-      <%= render "_analytics.html" %>
       <%= render @view_module, @view_template, assigns %>
     </main>
   </body>
