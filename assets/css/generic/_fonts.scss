@@ -1,23 +1,15 @@
 @font-face {
-  font-family: "hk_groteskregular";
+  font-display: swap;
+  font-family: "Inter";
   font-style: normal;
-  font-weight: normal;
-  src: url("/fonts/hkgrotesk-regular-webfont.woff2") format("woff2"),
-    url("/fonts/hkgrotesk-regular-webfont.woff") format("woff");
+  font-weight: 100 900;
+  src: url("/fonts/Inter-upright.var.woff2") format("woff2");
 }
 
 @font-face {
-  font-family: "hk_groteskmedium";
-  font-style: normal;
-  font-weight: normal;
-  src: url("/fonts/hkgrotesk-medium-webfont.woff2") format("woff2"),
-    url("/fonts/hkgrotesk-medium-webfont.woff") format("woff");
-}
-
-@font-face {
-  font-family: "hk_groteskbold";
-  font-style: normal;
-  font-weight: normal;
-  src: url("/fonts/hkgrotesk-bold-webfont.woff2") format("woff2"),
-    url("/fonts/hkgrotesk-bold-webfont.woff") format("woff");
+  font-display: swap;
+  font-family: "Inter";
+  font-style: italic;
+  font-weight: 100 900;
+  src: url("/fonts/Inter-italic.var.woff2") format("woff2");
 }

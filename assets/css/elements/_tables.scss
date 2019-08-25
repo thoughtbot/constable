@@ -1,6 +1,6 @@
 table {
   border-collapse: collapse;
-  font-feature-settings: "kern", "liga", "tnum";
+  font-variant-numeric: tabular-nums;
   margin: $small-spacing 0;
   table-layout: fixed;
   width: 100%;
@@ -8,7 +8,7 @@ table {
 
 th {
   border-bottom: 1px solid shade($base-border-color, 25%);
-  font-weight: $bold-weight;
+  font-weight: $font-weight-bold;
   padding: $small-spacing 0;
   text-align: left;
 }

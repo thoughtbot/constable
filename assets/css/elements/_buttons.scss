@@ -7,9 +7,9 @@
   color: #fff;
   cursor: pointer;
   display: inline-block;
-  font-family: $bold-font-family;
+  font-family: $font-family-body;
   font-size: $base-font-size;
-  -webkit-font-smoothing: antialiased;
+  font-weight: $font-weight-medium;
   line-height: 1;
   padding: $small-spacing $base-spacing;
   text-align: center;

@@ -1,10 +1,8 @@
 body {
   color: $base-font-color;
-  font-family: $base-font-family;
-  font-feature-settings: "kern", "liga", "pnum";
+  font-family: $font-family-body;
   font-size: $base-font-size;
-  -webkit-font-smoothing: antialiased;
-  font-weight: normal;
+  font-variant-ligatures: contextual common-ligatures;
   line-height: $base-line-height;
 }
 
@@ -14,26 +12,19 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: $heading-font-family;
+  font-family: $font-family-heading;
   font-size: $base-font-size;
-  font-weight: normal;
+  font-weight: $font-weight-bold;
   line-height: $heading-line-height;
   margin: 0 0 $small-spacing;
 }
 
-h1,
-h4 {
-  font-family: $medium-font-family;
-}
-
 h1 {
-  font-family: $bold-font-family;
   font-size: $large-font-size;
 }
 
 h2 {
   font-size: 20px;
-  font-weight: normal;
   margin-bottom: 0;
 }
 
@@ -44,10 +35,8 @@ h4 {
 
 b,
 strong {
-  font-family: $bold-font-family;
-  font-weight: normal;
+  font-weight: $font-weight-bold;
 }
-
 
 blockquote,
 p {

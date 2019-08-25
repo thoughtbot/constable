@@ -38,7 +38,7 @@
   @include padding($tiny-spacing null $tiny-spacing $base-spacing);
   background-color: $light-gray;
   font-size: $tiny-font-size;
-  font-weight: bold;
+  font-weight: $font-weight-bold;
   text-transform: uppercase;
   transition: background-color 0.1s ease-out;
   width: 100%;

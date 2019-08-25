@@ -1,8 +1,6 @@
 // Typography
-$base-font-family: "hk_groteskregular", "Helvetica";
-$bold-font-family: "hk_groteskbold";
-$medium-font-family: "hk_groteskmedium";
-$heading-font-family: $base-font-family;
+$font-family-body: "Inter", $font-stack-system;
+$font-family-heading: $font-family-body;
 
 // Font Sizes
 $larger-font-size: 36px;
@@ -13,10 +11,12 @@ $small-font-size: 14px;
 $tiny-font-size: 12px;
 
 // Font Weight
-$bold-weight: 500;
+$font-weight-normal: 400;
+$font-weight-medium: 600;
+$font-weight-bold: 750;
 
 // Line height
-$base-line-height: 1.65;
+$base-line-height: 1.6;
 $heading-line-height: 1.2;
 
 // Other Sizes

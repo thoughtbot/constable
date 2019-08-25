@@ -2,12 +2,12 @@ input,
 label,
 select {
   display: block;
-  font-family: $base-font-family;
+  font-family: $font-family-body;
   font-size: $base-font-size;
 }
 
 label {
-  font-weight: normal;
+  font-weight: $font-weight-medium;
 
   &.required::after {
     content: "*";
@@ -25,7 +25,7 @@ select[multiple=multiple] {
   border-radius: $base-border-radius;
   box-shadow: $form-box-shadow;
   box-sizing: border-box;
-  font-family: $base-font-family;
+  font-family: $font-family-body;
   font-size: $base-font-size;
   margin-bottom: $small-spacing;
   padding: $tiny-spacing;
