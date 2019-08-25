@@ -42,13 +42,19 @@
         <%= if @subscription do %>
           <%= link to: Routes.announcement_subscription_path(@conn, :delete, @announcement),
             method: :delete,
-            class: "unsubscribe-to unsubscribe-to-thread" do %>
+            class: "tbds-button button-secondary" do %>
+            <svg class="tbds-button__icon tbds-button__icon--start">
+              <use xlink:href="/images/icons.svg#check"></use>
+            </svg>
             <%= gettext("Subscribed to thread") %>
           <% end %>
         <% else %>
           <%= link to: Routes.announcement_subscription_path(@conn, :create, @announcement),
             method: :post,
-            class: "subscribe-to" do %>
+            class: "tbds-button button-secondary" do %>
+            <svg class="tbds-button__icon tbds-button__icon--start">
+              <use xlink:href="/images/icons.svg#plus"></use>
+            </svg>
             <%= gettext("Subscribe to thread") %>
           <% end %>
         <% end %>

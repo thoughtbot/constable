@@ -48,7 +48,10 @@
             alt="Picture of <%= @conn.assigns.current_user.name %>"
           />
         <% end %>
-        <%= link to: Routes.announcement_path(@conn, :new), class: "announce button button-small button-icon" do %>
+        <%= link to: Routes.announcement_path(@conn, :new), class: "tbds-button announce" do %>
+          <svg class="tbds-button__icon tbds-button__icon--start">
+            <use xlink:href="/images/icons.svg#edit"></use>
+          </svg>
           <span class="announce-text">Announce</span>
         <% end %>
       </header>

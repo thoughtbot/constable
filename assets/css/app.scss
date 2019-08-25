@@ -5,10 +5,8 @@
 @import "settings/grid-settings";
 @import "settings/variables";
 
-@import "tools/icon-as-pseudo";
 @import "tools/media";
 
-@import "elements/buttons";
 @import "elements/forms";
 @import "elements/layout";
 @import "elements/lists";
@@ -45,3 +43,5 @@
 @import "components/toggle";
 @import "components/uploadable-input";
 @import "components/user-activations";
+
+@import "shims";

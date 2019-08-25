@@ -1,15 +1,21 @@
 <%= if interested_in?(@current_user, @interest) do %>
   <%= link to: Routes.interest_user_interest_path(@conn, :delete, @interest),
         method: :delete,
-        class: "unsubscribe-to",
+        class: "tbds-button",
         data: [role: "unsubscribe-from-interest"] do %>
-    <span><%= gettext("Subscribed") %></span>
+    <svg class="tbds-button__icon tbds-button__icon--start">
+      <use xlink:href="/images/icons.svg#check"></use>
+    </svg>
+    <%= gettext("Subscribed") %>
   <% end %>
 <% else %>
   <%= link to: Routes.interest_user_interest_path(@conn, :create, @interest),
         method: :post,
-        class: "subscribe-to",
+        class: "tbds-button button-secondary",
         data: [role: "subscribe-to-interest"] do %>
-    <span><%= gettext("Subscribe") %></span>
+    <svg class="tbds-button__icon tbds-button__icon--start">
+      <use xlink:href="/images/icons.svg#plus"></use>
+    </svg>
+    <%= gettext("Subscribe") %>
   <% end %>
 <% end %>

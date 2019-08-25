@@ -36,7 +36,7 @@
   </div>
 
   <div class="button-container">
-    <button data-role="submit-announcement">
+    <button class="tbds-button" data-role="submit-announcement">
       <%= if @changeset.data.id do %>
         <%= gettext("Update Announcement") %>
       <% else %>

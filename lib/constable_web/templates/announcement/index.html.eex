@@ -39,15 +39,23 @@
 
     <div class="container pagination">
       <%= if !on_first_page?(@index_page) do %>
-        <%= link gettext(""),
-          to: Routes.announcement_path(@conn, :index, all: @show_all, page: (@index_page.page_number - 1)),
-          class: "page-previous button button-wire" %>
+        <%= link to: Routes.announcement_path(@conn, :index, all: @show_all, page: (@index_page.page_number - 1)),
+              class: "tbds-button button-secondary pagination-button" do %>
+          <svg class="tbds-button__icon tbds-button__icon--start">
+            <use xlink:href="/images/icons.svg#arrow-left"></use>
+          </svg>
+          Previous
+        <% end %>
       <% end %>
 
       <%= if !on_last_page?(@index_page) do %>
-        <%= link gettext(""),
-          to: Routes.announcement_path(@conn, :index, all: @show_all, page: (@index_page.page_number + 1)),
-          class: "page-next button button-wire" %>
+        <%= link to: Routes.announcement_path(@conn, :index, all: @show_all, page: (@index_page.page_number + 1)),
+              class: "tbds-button button-secondary pagination-button" do %>
+          Next
+          <svg class="tbds-button__icon tbds-button__icon--end">
+            <use xlink:href="/images/icons.svg#arrow-right"></use>
+          </svg>
+        <% end %>
       <% end %>
     </div>
   </div>

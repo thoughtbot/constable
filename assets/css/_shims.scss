@@ -1,0 +1,21 @@
+.tbds-button {
+  font-family: $font-family-body;
+  font-weight: $font-weight-medium;
+
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+.button-secondary {
+  background-color: $white;
+  border: $base-border;
+  color: $base-font-color;
+  transition: border-color $base-duration $base-timing;
+
+  &:hover {
+    background-color: $white;
+    border-color: shade($base-border-color, 25%);
+    color: $base-font-color;
+  }
+}

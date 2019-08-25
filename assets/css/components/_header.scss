@@ -51,7 +51,6 @@
 }
 
 input[type="search"].header-search-input {
-  @include size(100%, $button-small-height);
   font-size: $small-font-size;
   margin-bottom: 0;
   text-align: center;
@@ -85,9 +84,4 @@ input[type="search"].header-search-input {
 
 .announce {
   order: 3;
-}
-
-.announce::before {
-  @include icon-as-pseudo(16px, "/images/icon-create-white.svg");
-  margin: 0;
 }
