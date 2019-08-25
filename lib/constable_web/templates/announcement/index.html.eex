@@ -1,5 +1,5 @@
 <div class="announcements">
-  <nav class="segmented-control">
+  <nav class="segmented-control links-no-underline">
     <div class="segmented-control-wrapper">
       <%= link gettext("All announcements"),
         to: Routes.announcement_path(@conn, :index, all: true),
