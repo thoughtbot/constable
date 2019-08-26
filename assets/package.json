@@ -5,7 +5,7 @@
     "watch": "webpack --mode development --watch-stdin"
   },
   "dependencies": {
-    "bourbon": "^5.1.0",
+    "bourbon": "^6.0.0",
     "highlight.js": "^9.15.10",
     "jquery": "^3.4.1",
     "local-time": "^2.1.0",
