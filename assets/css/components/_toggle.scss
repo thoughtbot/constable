@@ -40,7 +40,7 @@
 }
 
 .onoffswitch-inner::before {
-  background-color: $red;
+  background-color: $tbds-brand-red;
   box-shadow: inset 0 1px 3px 0 rgba(121, 0, 0, 0.5);
   color: $white;
   content: "ON";
@@ -50,7 +50,7 @@
 .onoffswitch-inner::after {
   background-color: $light-gray;
   box-shadow: $form-box-shadow;
-  color: $red;
+  color: $tbds-brand-red;
   content: "OFF";
   padding-right: $tiny-spacing;
   text-align: right;

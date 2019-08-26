@@ -1,5 +1,5 @@
 // Typography
-$font-family-body: "Inter", $font-stack-system;
+$font-family-body: "Inter", $tbds-font-sans-serif;
 $font-family-heading: $font-family-body;
 
 // Font Sizes
@@ -32,7 +32,6 @@ $rounded-avatar-size: 34px;
 $rounded-avatar-size-small: 32px;
 
 // Colors
-$red: #e03131;
 $dark-blue: #2e303a;
 $light-gray: #e3e3e3;
 $dark-gray: #545559;
@@ -44,8 +43,8 @@ $lightest-gray: lighten($light-gray, 7%);
 $autocomplete-hover-color: darken($light-gray, 5%);
 
 // Font Colors
-$base-font-color: $dark-gray;
-$action-color: $red;
+$base-font-color: $tbds-color-text-default;
+$action-color: $tbds-brand-red;
 $secondary-action-color: $dark-blue;
 
 // Border

@@ -44,17 +44,10 @@ p {
 }
 
 a {
-  color: $action-color;
-  text-decoration: underline;
-  transition: color $base-duration $base-timing;
+  transition-duration: $base-duration;
+  transition-property: color;
+  transition-timing-function: $base-timing;
   word-wrap: break-word;
-
-  &:active,
-  &:focus,
-  &:hover {
-    text-decoration: underline dashed;
-    text-decoration-skip-ink: auto;
-  }
 }
 
 hr {
