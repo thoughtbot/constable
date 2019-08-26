@@ -38,6 +38,7 @@ $lightest-gray: lighten($light-gray, 7%);
 
 // Font Colors
 $base-font-color: $tbds-color-text-default;
+$secondary-font-color: tint($tbds-color-text-default, 25%);
 $action-color: $tbds-brand-red;
 
 // Border
