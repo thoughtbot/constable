@@ -19,3 +19,13 @@
     color: $base-font-color;
   }
 }
+
+@include media($medium-screen) {
+  .main-header {
+    .tbds-button.announce {
+      .tbds-button__icon--start {
+        margin-inline-end: 0;
+      }
+    }
+  }
+}
