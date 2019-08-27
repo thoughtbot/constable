@@ -26,7 +26,7 @@
     "@thoughtbot/stylelint-config": "^1.0.1",
     "autoprefixer": "^9.6.1",
     "babel-loader": "^8.0.6",
-    "copy-webpack-plugin": "^4.5.0",
+    "copy-webpack-plugin": "^5.0.4",
     "css-loader": "^1.0.0",
     "mini-css-extract-plugin": "^0.4.0",
     "optimize-css-assets-webpack-plugin": "^5.0.1",
