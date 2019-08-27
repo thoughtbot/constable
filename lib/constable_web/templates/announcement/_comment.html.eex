@@ -1,4 +1,4 @@
-<li class="tbds-media comment" id="comment-<%= @comment.id %>">
+<li class="tbds-media tbds-block-stack__item" id="comment-<%= @comment.id %>">
   <div class="tbds-media__figure comment-information">
     <img
       class="tbds-avatar tbds-avatar--circle"

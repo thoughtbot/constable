@@ -17,23 +17,11 @@
 }
 
 .interest-list-item {
-  align-items: baseline;
-  border-bottom: $base-border;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  padding: $small-spacing 0;
-
   h3 {
     margin: 0;
 
     &::before {
       content: "#";
-    }
-
-    a {
-      color: $dark-gray;
-      text-decoration: underline;
     }
   }
 }

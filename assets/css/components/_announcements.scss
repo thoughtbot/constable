@@ -2,17 +2,11 @@
   margin-top: $base-spacing;
 }
 
-.announcements {
-  list-style-type: none;
-}
-
 .announcement-list-item {
-  @include padding($base-spacing null);
-  border-bottom: $base-border;
-
   h1 {
     font-size: 1.75rem;
     margin-bottom: $tiniest-spacing;
+    margin-top: 0;
   }
 
   .announcement-metadata {

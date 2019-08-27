@@ -68,8 +68,8 @@
     <%= raw markdown_with_users(@announcement.body) %>
   </div>
 
-  <h4><%= gettext "Comments" %></h4>
-  <ul class="comments-list">
+  <h4 class="tbds-margin-block-end-6"><%= gettext "Comments" %></h4>
+  <ul class="tbds-block-stack tbds-block-stack--bordered tbds-block-stack--gap-6 comments-list">
     <%= for comment <- @announcement.comments do %>
       <%= render "_comment.html", comment: comment, conn: @conn, current_user: @current_user %>
     <% end %>

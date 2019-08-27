@@ -1,11 +1,17 @@
 <div class="interests container container-pad-top">
   <h1><%= gettext "Interests" %></h1>
 
-  <ul class="interests-list">
+  <ul class="tbds-block-stack tbds-block-stack--bordered tbds-block-stack--gap-5 interests-list">
     <%= for interest <- @interests do %>
-      <li class="interest-list-item">
-        <h3><%= link interest.name, to: Routes.interest_path(@conn, :show, interest) %></h3>
-        <%= render ConstableWeb.InterestView, "subscription.html", conn: @conn, interest: interest, current_user: @current_user %>
+      <li class="tbds-block-stack__item interest-list-item">
+        <div class="tbds-inline-stack">
+          <div class="tbds-inline-stack__item">
+            <h3><%= link interest.name, to: Routes.interest_path(@conn, :show, interest) %></h3>
+          </div>
+          <div class="tbds-inline-stack__item tbds-inline-stack__item--push-start">
+            <%= render ConstableWeb.InterestView, "subscription.html", conn: @conn, interest: interest, current_user: @current_user %>
+          </div>
+        </div>
       </li>
     <% end %>
   </ul>

@@ -9,13 +9,13 @@
     </header>
 
     <div class="modal-body">
-      <%= form_for @changeset, Routes.settings_path(@conn, :update), [class: "settings-form"], fn(f) -> %>
-        <div class='field'>
+      <%= form_for @changeset, Routes.settings_path(@conn, :update), [class: "tbds-block-stack tbds-block-stack--gap-5 settings-form"], fn(f) -> %>
+        <div class="tbds-block-stack__item">
           <label>Your name:</label>
           <%= text_input f, :name %>
           <%= error_tag f, :name %>
         </div>
-        <div class='field'>
+        <div class="tbds-block-stack__item">
           <label class="switch-container">
             <div class="onoffswitch">
               <%= checkbox f, :auto_subscribe, class: "onoffswitch-checkbox" %>
@@ -27,7 +27,7 @@
           Subscribe me to announcements I'm interested in.
           </label>
         </div>
-        <div class='field'>
+        <div class="tbds-block-stack__item">
           <label class="switch-container">
             <div class="onoffswitch">
               <%= checkbox f, :daily_digest, class: "onoffswitch-checkbox" %>
@@ -39,7 +39,7 @@
           Send me daily digest emails about what's new on Constable.
           </label>
         </div>
-        <div class="tbds-media field">
+        <div class="tbds-media tbds-block-stack__item">
           <div class="tbds-media__figure">
             <img
               class="tbds-avatar tbds-avatar--circle"

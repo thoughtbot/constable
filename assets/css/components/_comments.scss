@@ -21,24 +21,8 @@
   text-transform: uppercase;
 }
 
-.comments-list {
-  list-style-type: none;
-  margin-top: $small-spacing;
-  padding-top: $base-spacing;
-  position: relative;
-}
-
 .comment-body {
   position: relative;
-}
-
-.comment {
-  @include padding($base-spacing null);
-  border-top: $base-border;
-
-  &:first-child {
-    margin-top: 0;
-  }
 }
 
 .author-information {
@@ -58,7 +42,6 @@
 
 .comment-new,
 .comment-edit {
-  border-top: $base-border;
   margin-bottom: $base-spacing;
   padding-top: $base-spacing;
 
