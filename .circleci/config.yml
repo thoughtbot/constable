@@ -3,7 +3,7 @@ jobs:
   build:
     parallelism: 1
     docker:
-      - image: circleci/elixir:1.8-node-browsers
+      - image: circleci/elixir:1.9.1-node-browsers
         environment:
           MIX_ENV: test
           CLIENT_ID: fake
