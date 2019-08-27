@@ -10,9 +10,10 @@ defmodule Constable.Comment do
     belongs_to :user, User
     belongs_to :announcement, Announcement
 
-    has_many :reactions, {"comment_reactions", Reaction},
-      foreign_key: :reactable_id,
-      on_delete: :delete_all
+    many_to_many :reactions, Reaction,
+      join_through: "comment_reactions",
+      on_delete: :delete_all,
+      on_replace: :delete
 
     timestamps()
   end

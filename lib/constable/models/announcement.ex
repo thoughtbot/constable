@@ -20,9 +20,10 @@ defmodule Constable.Announcement do
     many_to_many :interests, Interest, on_delete: :delete_all, join_through: AnnouncementInterest
     has_many :interested_users, through: [:interests, :users]
 
-    has_many :reactions, {"announcement_reactions", Reaction},
-      foreign_key: :reactable_id,
-      on_delete: :delete_all
+    many_to_many :reactions, Reaction,
+      join_through: "announcement_reactions",
+      on_delete: :delete_all,
+      on_replace: :delete
   end
 
   def update_changeset(announcement, params) do

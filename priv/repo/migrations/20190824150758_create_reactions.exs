@@ -2,24 +2,27 @@ defmodule Constable.Repo.Migrations.CreateReactions do
   use Ecto.Migration
 
   def change do
-    create table(:announcement_reactions) do
+    create table(:reactions) do
       add :emoji, :string, null: false
-      add :user_id, references("users"), null: false
-      add :reactable_id, references("announcements"), null: false
+      add :user_id, references("users", on_delete: :delete_all, on_replace: :delete), null: false
 
       timestamps()
     end
 
-    create unique_index(:announcement_reactions, [:user_id, :reactable_id, :emoji])
+    create table(:announcement_reactions) do
+      add :announcement_id,
+          references(:announcements, on_delete: :delete_all, on_replace: :delete)
+
+      add :reaction_id, references(:reactions, on_delete: :delete_all, on_replace: :delete)
+    end
+
+    create unique_index(:announcement_reactions, [:announcement_id, :reaction_id])
 
     create table(:comment_reactions) do
-      add :emoji, :string, null: false
-      add :user_id, references("users"), null: false
-      add :reactable_id, references("comments"), null: false
-
-      timestamps()
+      add :comment_id, references(:comments, on_delete: :delete_all, on_replace: :delete)
+      add :reaction_id, references(:reactions, on_delete: :delete_all, on_replace: :delete)
     end
 
-    create unique_index(:comment_reactions, [:user_id, :reactable_id, :emoji])
+    create unique_index(:comment_reactions, [:comment_id, :reaction_id])
   end
 end

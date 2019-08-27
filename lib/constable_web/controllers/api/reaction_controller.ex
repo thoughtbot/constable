@@ -8,13 +8,9 @@ defmodule ConstableWeb.Api.ReactionController do
   def create(conn, %{"reactable" => reactable_params, "reaction" => reaction_params}) do
     current_user = current_user(conn)
 
-    reaction_params =
-      Map.put(reaction_params, "user_id", current_user.id)
-      |> Map.put("reactable_id", reactable_params["id"])
+    reaction_params = Map.put(reaction_params, "user_id", current_user.id)
 
-    reactable = reactable_from_params(reactable_params)
-
-    case ReactionCreator.create(reactable, reaction_params) do
+    case ReactionCreator.create(reactable_params, reaction_params) do
       {:ok, reaction} ->
         conn |> put_status(201) |> render("show.json", reaction: reaction)
 
