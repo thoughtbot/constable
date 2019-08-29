@@ -68,12 +68,7 @@
     <%= raw markdown_with_users(@announcement.body) %>
   </div>
 
-  <h4 class="tbds-margin-block-end-6"><%= gettext "Reactions" %></h4>
-  <div class="reaction-container">
-    <%= for reaction <- @announcement.reactions do %>
-      <span class="reaction"><%= reaction.emoji %></span>
-    <% end %>
-  </div>
+  <div class="reactions" data-announcement-id="<%= @announcement.id %>" data-announcement-id="" data-reactions="<%= Poison.encode!(@announcement.reactions) %>"></div>
   <h4 class="tbds-margin-block-end-6"><%= gettext "Comments" %></h4>
   <ul class="tbds-block-stack tbds-block-stack--bordered tbds-block-stack--gap-6 comments-list">
     <%= for comment <- @announcement.comments do %>
@@ -91,6 +86,7 @@
 
 <script>
   (function() {
+    window.constable.current_user_id = <%= @current_user.id %>;
     window.constable.commentForm.setupNewForm(<%= raw user_autocomplete_json(@users) %>);
     window.constable.syntaxHighlighting.highlightSyntax('.comments-list');
   })()

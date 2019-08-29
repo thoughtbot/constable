@@ -1,5 +1,4 @@
 defmodule Constable.Services.ReactionCreator do
-  alias Ecto.Multi
   alias Constable.Repo
   alias Constable.Announcement
   alias Constable.Comment

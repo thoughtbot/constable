@@ -1,0 +1,40 @@
+.reactions {
+  display: none;
+  margin-bottom: 10px;
+
+  &.initialized {
+    display: block;
+  }
+
+  &:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}
+
+.reaction-pill,
+.add-reaction-pill {
+  float: left;
+  border-radius: 10px;
+  padding: 2px;
+  font-size: 0.8rem;
+  line-height: 1rem;
+  display: inline-block;
+  margin: 3px;
+  border: 1px solid transparent;
+  background-color: #eeeeee;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  cursor: pointer;
+
+  &:hover {
+    border: 1px solid #999999;
+  }
+}
+
+.reaction-count {
+  color: #777777;
+}

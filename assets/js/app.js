@@ -11,6 +11,9 @@ import $ from 'jquery'
 window.jQuery = $
 window.$ = $
 
+// jQuery plugins
+import "./reactions";
+
 // Set up turbolinks
 import TurboLinks from 'turbolinks'
 TurboLinks.start()
