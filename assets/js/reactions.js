@@ -1,3 +1,5 @@
+import EmojiPicker from "rm-emoji-picker";
+
 (function($) {
   $.fn.reactions = function(overrides) {
     const options = $.extend({}, $.fn.reactions.defaults, overrides);
@@ -53,9 +55,19 @@
         console.log("removeReaction", emoji, announcementId, commentId);
       };
 
-      $addReactionPill.click(function(event) {
-        addReaction("TODO");
+      const picker = new EmojiPicker({
+        positioning: function(tooltip) {
+          tooltip.autoPlaceVertically(-130);
+        },
+        callback: function(emoji, category, node) {
+          addReaction(emoji.$emoji.text());
+        },
       });
+      picker.listenOn(
+        $addReactionPill[0],
+        $("#main")[0],
+        $("<input type='text' />")[0],
+      );
 
       $elem.on("click", ".reaction-pill", function(event) {
         const $target = $(event.target);
