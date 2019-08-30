@@ -50,7 +50,7 @@
   min-height: 150px;
 }
 
-#comment-preview {
+.comment-preview {
   min-height: 118px;
   border: $base-border;
   border-radius: $base-border-radius;
@@ -58,8 +58,8 @@
   margin-bottom: $small-spacing;
 }
 
-#comment-preview-text-button,
-#comment-preview-markdown-button {
+.comment-preview-text-button,
+.comment-preview-markdown-button {
   line-height: $base-line-height;
   padding: $tiny-spacing $small-spacing;
   margin-bottom: $small-spacing;

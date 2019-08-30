@@ -85,9 +85,9 @@
   </ul>
 
   <div class="comment-new">
-    <button class="tbds-button" id="comment-preview-text-button">Write</button>
-    <button class="tbds-button" id="comment-preview-markdown-button">Preview</button>
-    <div class="comment-body" id="comment-preview"></div>
+    <button class="tbds-button comment-preview-text-button">Write</button>
+    <button class="tbds-button comment-preview-markdown-button">Preview</button>
+    <div class="comment-body comment-preview"></div>
 
     <%= ConstableWeb.CommentView.render "_form.html",
       comment_changeset: @comment_changeset,

@@ -71,18 +71,18 @@ function clearSavedCommentChanges() {
 }
 
 function watchCommentToggles() {
-  const viewTextButton = $('#comment-preview-text-button');
-  const viewPreviewButton = $('#comment-preview-markdown-button');
+  const viewTextButton = $('.comment-preview-text-button');
+  const viewPreviewButton = $('.comment-preview-markdown-button');
 
   viewTextButton.on('click', toggleWrite);
   viewPreviewButton.on('click', togglePreview);
 }
 
 function toggleWrite() {
-  const viewTextButton = $('#comment-preview-text-button');
-  const viewPreviewButton = $('#comment-preview-markdown-button');
+  const viewTextButton = $('.comment-preview-text-button');
+  const viewPreviewButton = $('.comment-preview-markdown-button');
   const commentTextArea = $('.comment-textarea');
-  const commentPreview = $('#comment-preview');
+  const commentPreview = $('.comment-preview');
 
   viewTextButton.addClass('active-button-toggle');
   viewPreviewButton.removeClass('active-button-toggle');
@@ -98,7 +98,7 @@ function togglePreview() {
 
 function updateMarkdownPreview() {
   const value = $('.comment-textarea').val();
-  const preview = $('#comment-preview');
+  const preview = $('.comment-preview');
 
   if (value.length) {
     const markdown = markedWithSyntax(value);
@@ -109,10 +109,10 @@ function updateMarkdownPreview() {
 }
 
 function showMarkdownPreview() {
-  const viewTextButton = $('#comment-preview-text-button');
-  const viewPreviewButton = $('#comment-preview-markdown-button');
+  const viewTextButton = $('.comment-preview-text-button');
+  const viewPreviewButton = $('.comment-preview-markdown-button');
   const commentTextArea = $('.comment-textarea');
-  const commentPreview = $('#comment-preview');
+  const commentPreview = $('.comment-preview');
 
   viewTextButton.removeClass('active-button-toggle');
   viewPreviewButton.addClass('active-button-toggle');
@@ -122,7 +122,7 @@ function showMarkdownPreview() {
 }
 
 function resetPreview() {
-  const commentPreview = $('#comment-preview');
+  const commentPreview = $('.comment-preview');
   commentPreview.html('');
   toggleWrite();
 }
