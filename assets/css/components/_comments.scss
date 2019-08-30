@@ -51,18 +51,18 @@
 }
 
 .comment-preview {
-  min-height: 118px;
   border: $base-border;
   border-radius: $base-border-radius;
-  padding: $small-spacing;
   margin-bottom: $small-spacing;
+  min-height: 118px;
+  padding: $small-spacing;
 }
 
 .comment-preview-text-button,
 .comment-preview-markdown-button {
   line-height: $base-line-height;
-  padding: $tiny-spacing $small-spacing;
   margin-bottom: $small-spacing;
+  padding: $tiny-spacing $small-spacing;
 
   &:not(.active-button-toggle) {
     background-color: $white;
