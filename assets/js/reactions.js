@@ -40,8 +40,11 @@ import EmojiPicker from "rm-emoji-picker";
         $elem.append($reactionPill);
       });
 
+      const addReactionId = `add-reaction-${Math.random()
+        .toString(36)
+        .substr(2)}`;
       const $addReactionPill = $(`
-        <div class="add-reaction-pill">
+        <div id="${addReactionId}" class="add-reaction-pill">
           <span class="reaction-emoji">➕</span>
         </div>
       `);
@@ -68,6 +71,12 @@ import EmojiPicker from "rm-emoji-picker";
         $("#main")[0],
         $("<input type='text' />")[0],
       );
+
+      $(document).click(function(event) {
+        if (!$(event.target).closest(`#${addReactionId}`).length) {
+          picker.picker_open = false;
+        }
+      });
 
       $elem.on("click", ".reaction-pill", function(event) {
         const $target = $(event.target);
