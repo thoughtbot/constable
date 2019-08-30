@@ -8,16 +8,20 @@ defmodule ConstableWeb.Api.ReactionController do
   def create(conn, %{"reactable" => reactable_params, "reaction" => reaction_params}) do
     current_user = current_user(conn)
 
-    reaction_params = Map.put(reaction_params, "user_id", current_user.id)
+    if current_user do
+      reaction_params = Map.put(reaction_params, "user_id", current_user.id)
 
-    case ReactionCreator.create(reactable_params, reaction_params) do
-      {:ok, reaction} ->
-        conn |> put_status(201) |> render("show.json", reaction: reaction)
+      case ReactionCreator.create(reactable_params, reaction_params) do
+        {:ok, reaction} ->
+          conn |> put_status(201) |> render("show.json", reaction: reaction)
 
-      {:error, changeset} ->
-        conn
-        |> put_status(422)
-        |> render(ConstableWeb.ChangesetView, "error.json", changeset: changeset)
+        {:error, changeset} ->
+          conn
+          |> put_status(422)
+          |> render(ConstableWeb.ChangesetView, "error.json", changeset: changeset)
+      end
+    else
+      unauthorized(conn)
     end
   end
 
