@@ -49,3 +49,28 @@
   margin-bottom: $small-spacing;
   min-height: 150px;
 }
+
+#comment-preview {
+  min-height: 118px;
+  border: $base-border;
+  border-radius: $base-border-radius;
+  padding: $small-spacing;
+  margin-bottom: $small-spacing;
+}
+
+#comment-preview-text-button,
+#comment-preview-markdown-button {
+  line-height: $base-line-height;
+  padding: $tiny-spacing $small-spacing;
+  margin-bottom: $small-spacing;
+
+  &:not(.active-button-toggle) {
+    background-color: $white;
+    color: $base-font-color;
+    font-family: "hk_groteskregular", "Helvetica";
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
