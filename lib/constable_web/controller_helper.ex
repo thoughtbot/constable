@@ -3,10 +3,8 @@ defmodule ConstableWeb.ControllerHelper do
     Plug.Conn.send_resp(conn, 401, "")
   end
 
-  def current_user(_conn) do
-    # TODO: revert, testing
-    Constable.Repo.get!(Constable.User, 1)
-    # conn.assigns[:current_user]
+  def current_user(conn) do
+    conn.assigns[:current_user]
   end
 
   def page_title(conn, title) do
