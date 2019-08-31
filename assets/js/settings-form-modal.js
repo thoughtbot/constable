@@ -17,10 +17,10 @@ function watchFormSubmit() {
       data: $(form).serialize(),
       type: 'POST',
       url: form.action,
-      error: function(xhr) {
+      error(xhr) {
         $('.modal-container').replaceWith(xhr.responseText);
       },
-      success: function(data, _status, xhr) {
+      success(_data, _status, _xhr) {
         closeModal();
       },
     });
@@ -29,10 +29,10 @@ function watchFormSubmit() {
 
 function watchModalClose() {
   $(document).keyup(function(e) {
-      if (e.keyCode == 27) {
-        e.preventDefault();
-        closeModal();
-      }
+    if (e.keyCode == 27) {
+      e.preventDefault();
+      closeModal();
+    }
   });
   $('.modal-overlay, .modal-close').on('click', function(e) {
     e.preventDefault();

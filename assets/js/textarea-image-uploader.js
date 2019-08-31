@@ -7,10 +7,10 @@ export function setupImageUploader(selector) {
     textBehavior: 'append',
     clickable: false,
     s3urlTemplate: '![description of image]({{s3url}})',
-    success: function() {
+    success() {
       refreshMarkdownPreview(selector);
     },
-  }
+  };
 
   if (typeof(Shubox) !== 'undefined') {
     new Shubox(selector, shuboxOptions);

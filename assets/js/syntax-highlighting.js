@@ -5,21 +5,21 @@ import hljs from 'highlight.js';
 marked.setOptions({
   highlight: (code) => {
     return hljs.highlightAuto(code).value;
-  }
+  },
 });
 
-const observer = new MutationObserver( mutations => {
-  mutations.forEach((mutation) => {
+const observer = new MutationObserver(mutations => {
+  mutations.forEach((_mutation) => {
     highlightCodeBlocks();
   });
 });
 
-const initializeSyntaxHighlighting = container => {
+const initializeSyntaxHighlighting = _container => {
   highlightCodeBlocks();
-}
+};
 
 const highlightCodeBlocks = function() {
-  $('pre code').each(function(index, block) {
+  $('pre code').each(function(_index, block) {
     hljs.highlightBlock(block);
   });
 };
