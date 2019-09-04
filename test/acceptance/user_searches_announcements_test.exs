@@ -17,7 +17,7 @@ defmodule ConstableWeb.UserSearchesAnnouncementsTest do
 
   defp submit_search(session) do
     session
-    |> execute_script("$('.header-search-input').parent().trigger('submit')")
+    |> execute_script("$('.app-header__search-input').parent().trigger('submit')")
 
     session
   end

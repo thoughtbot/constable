@@ -1,4 +1,4 @@
-.main-header {
+.app-header {
   align-items: center;
   background-color: $lightest-gray;
   border-bottom: $base-border;
@@ -12,24 +12,19 @@
   }
 }
 
-.logo {
+.app-header__logo {
   color: $dark-blue;
   font-size: $medium-font-size;
   font-weight: $font-weight-medium;
   order: 2;
   text-align: center;
-  text-decoration: none;
 
   @include media($medium-screen-up) {
     margin-bottom: 0;
   }
-
-  &:hover {
-    text-decoration: none;
-  }
 }
 
-.settings-gravatar {
+.app-header__user-avatar {
   margin-right: $small-spacing;
   order: 1;
 
@@ -38,7 +33,7 @@
   }
 }
 
-.header-search-form {
+.app-header__search-form {
   flex: 1 0 100%;
   margin-top: $small-spacing;
   order: 4;
@@ -49,9 +44,22 @@
     margin-top: 0;
     order: 2;
   }
+
+  &::before {
+    @include position(absolute, 28% null null $small-spacing);
+    @include size(1.125rem);
+    background: url("/images/icon-search.svg") center / cover no-repeat;
+    content: "";
+    opacity: 0.35;
+    z-index: $mezzanine-z-index;
+
+    @include media($medium-screen-up) {
+      left: calc(50% - 8.5rem);
+    }
+  }
 }
 
-input[type="search"].header-search-input {
+.app-header__search-input {
   font-size: $small-font-size;
   margin-bottom: 0;
   text-align: center;
@@ -62,27 +70,14 @@ input[type="search"].header-search-input {
   }
 }
 
-.header-search-form::before {
-  @include position(absolute, 28% null null $small-spacing);
-  @include size(1.125rem);
-  background: url("/images/icon-search.svg") center / cover no-repeat;
-  content: "";
-  opacity: 0.35;
-  z-index: $mezzanine-z-index;
-
-  @include media($medium-screen-up) {
-    left: calc(50% - 8.5rem);
-  }
+.app-header__announce-button {
+  order: 3;
 }
 
-.announce-text {
+.app-header__announce-button-text {
   display: none;
 
   @include media($medium-screen-up) {
     display: block;
   }
-}
-
-.announce {
-  order: 3;
 }
