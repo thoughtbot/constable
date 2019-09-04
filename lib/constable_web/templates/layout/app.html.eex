@@ -21,14 +21,14 @@
     <script src="<%= Application.fetch_env!(:constable, :shubox_script_url) %>"></script>
   </head>
   <body>
-    <header class="main-header">
-      <%= link "#Constable", to: "/", class: "logo" %>
+    <header class="app-header links-no-underline">
+      <%= link "#Constable", to: "/", class: "app-header__logo" %>
 
-      <%= form_tag Routes.search_path(@conn, :show), class: "header-search-form", method: :get do %>
+      <%= form_tag Routes.search_path(@conn, :show), class: "app-header__search-form", method: :get do %>
         <input
           aria-label="Search Constable"
-          class="header-search-input"
-          id="header-search-input"
+          class="app-header__search-input"
+          id="app-header__search-input"
           name="query"
           placeholder="Search Constable..."
           type="search"
@@ -36,18 +36,18 @@
         />
       <% end %>
 
-      <%= link to: Routes.settings_path(@conn, :show), class: "settings-gravatar remote-append tbds-line-height-0", data: [role: "settings-link"] do %>
+      <%= link to: Routes.settings_path(@conn, :show), class: "app-header__user-avatar remote-append tbds-line-height-0", data: [role: "settings-link"] do %>
         <img
           src="<%= gravatar(@conn.assigns.current_user) %>"
           class="tbds-avatar tbds-avatar--circle"
           alt="Picture of <%= @conn.assigns.current_user.name %>"
         />
       <% end %>
-      <%= link to: Routes.announcement_path(@conn, :new), class: "tbds-button announce" do %>
+      <%= link to: Routes.announcement_path(@conn, :new), class: "tbds-button app-header__announce-button" do %>
         <svg class="tbds-button__icon tbds-button__icon--start">
           <use xlink:href="/images/icons.svg#edit"></use>
         </svg>
-        <span class="announce-text">Announce</span>
+        <span class="app-header__announce-button-text">Announce</span>
       <% end %>
     </header>
 

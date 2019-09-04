@@ -21,8 +21,8 @@
 }
 
 @include media($medium-screen) {
-  .main-header {
-    .tbds-button.announce {
+  .app-header {
+    .tbds-button.app-header__announce-button {
       .tbds-button__icon--start {
         margin-inline-end: 0;
       }
