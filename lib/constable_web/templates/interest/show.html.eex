@@ -1,7 +1,7 @@
 <div class="page-interest">
   <div class="interest container container-pad-top">
     <div>
-      <h1 class="interest-list-item-heading"><%= @interest.name %></h1>
+      <h1><%= @interest.name %></h1>
       <%= render ConstableWeb.InterestView, "subscription.html", conn: @conn, interest: @interest, current_user: @current_user %>
     </div>
 

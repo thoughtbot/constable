@@ -17,22 +17,6 @@
     color: $medium-gray;
   }
 
-  .interest {
-    color: $dark-blue;
-
-    &::after {
-      content: ", ";
-    }
-
-    &::before {
-      content: "#";
-    }
-
-    &:last-of-type::after {
-      content: "";
-    }
-  }
-
   &:last-child {
     border-bottom: none;
   }
@@ -52,21 +36,13 @@
 }
 
 .announcement-interest {
-  @include padding(null $tiny-spacing);
+  @include margin($tiniest-spacing $tiniest-spacing null);
+  @include padding(null $tiniest-spacing);
   background-color: $lightest-gray;
   color: $base-font-color;
   display: inline-flex;
   font-size: $small-font-size;
   line-height: normal;
-  margin-top: $tiniest-spacing;
-
-  &::before {
-    content: "#";
-  }
-
-  &:last-of-type::after {
-    content: "";
-  }
 }
 
 .commenters {

@@ -22,7 +22,7 @@
   </head>
   <body>
     <header class="app-header links-no-underline">
-      <%= link "#Constable", to: "/", class: "app-header__logo" %>
+      <%= link "Constable", to: "/", class: "app-header__logo" %>
 
       <%= form_tag Routes.search_path(@conn, :show), class: "app-header__search-form", method: :get do %>
         <input

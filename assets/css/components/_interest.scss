@@ -12,16 +12,8 @@
   @include position(absolute, null 0 0 null);
 }
 
-.interest-list-item-heading::before {
-  content: "#";
-}
-
 .interest-list-item {
   h3 {
     margin: 0;
-
-    &::before {
-      content: "#";
-    }
   }
 }
