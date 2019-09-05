@@ -1,3 +1,7 @@
+eslint:
+  enabled: true
+  config_file: assets/.eslintrc.json
+  version: 5.16.0
 scss:
   enabled: false
 stylelint:

@@ -40,7 +40,7 @@ export default class {
       $('[data-role=title-preview]').removeClass('preview');
       $('[data-role=title-preview]').html(value);
     }
-  };
+  }
 
   watchBody() {
     const body = $('#announcement_body');
@@ -62,13 +62,15 @@ export default class {
 
     if (value === '') {
       $('[data-role=markdown-preview]').addClass('preview');
-      $('[data-role=markdown-preview]').html('Your rendered markdown goes here');
+      $('[data-role=markdown-preview]').html(
+        'Your rendered markdown goes here'
+      );
     } else {
       $('[data-role=markdown-preview]').removeClass('preview');
       const markdown = markedWithSyntax(value);
       $('[data-role=markdown-preview]').html(markdown);
     }
-  };
+  }
 
   setupInterestsSelect() {
     const interests = $('#announcement_interests');
@@ -83,14 +85,14 @@ export default class {
       interests.selectize({
         delimiter: DELIMITER,
         persist: false,
-        create: function(name) {
+        create(name) {
           return { name };
         },
         valueField: 'name',
         labelField: 'name',
         searchField: 'name',
         options: window.INTERESTS_NAMES,
-        onChange: (value) => {
+        onChange: value => {
           if (!this._isEditing) {
             localStorage.setItem('interests', value);
           }
@@ -108,5 +110,5 @@ export default class {
         localStorage.removeItem('markdown');
       });
     }
-  };
+  }
 }

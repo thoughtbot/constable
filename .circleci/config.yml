@@ -74,6 +74,7 @@ jobs:
           command: dockerize -wait tcp://localhost:5432 -timeout 1m
 
       - run: mix test
+      - run: cd assets/ && npm run eslint
 
       - store_test_results:
           path: _build/test/lib/constable
