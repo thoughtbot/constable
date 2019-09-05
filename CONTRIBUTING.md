@@ -40,3 +40,11 @@ merge the contribution.
 
 [itcss]: https://www.creativebloq.com/web-design/manage-large-css-projects-itcss-101517528
 [stylelint-config]: /assets/.stylelintrc.json
+
+## Javascript
+
+ - ES6 Javascript (no transpilation)
+ - Lint Javascript using eslint
+   - The eslint configuration is in [`assets/.eslintrc.json`][eslint-config]
+
+[eslint-config]: /assets/.eslintrc.json
