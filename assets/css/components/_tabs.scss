@@ -1,0 +1,26 @@
+.tabs {
+  box-shadow: inset 0 -1px $light-gray;
+  display: flex;
+  font-size: $small-font-size;
+  overflow-x: auto;
+  width: 100%;
+
+  @include media($small-screen-up) {
+    @include padding(null ($base-spacing - $small-spacing));
+  }
+
+  a {
+    display: inline-block;
+    padding: $small-spacing;
+    white-space: nowrap;
+
+    &.selected {
+      box-shadow: inset 0 -2px $dark-gray;
+      font-weight: $font-weight-medium;
+    }
+  }
+}
+
+.tabs__link--push {
+  margin-left: auto;
+}

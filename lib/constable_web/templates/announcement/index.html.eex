@@ -1,35 +1,31 @@
 <div class="announcements">
-  <nav class="segmented-control links-no-underline">
-    <div class="segmented-control-wrapper">
-      <%= link gettext("All announcements"),
-        to: Routes.announcement_path(@conn, :index, all: true),
-        class: class_for("all", @conn)
-      %>
+  <nav class="tabs links-no-underline">
+    <%= link gettext("All announcements"),
+      to: Routes.announcement_path(@conn, :index, all: true),
+      class: class_for("all", @conn)
+    %>
 
-      <%= link gettext("Your interests"),
-        to: Routes.announcement_path(@conn, :index),
-        class: class_for("your interests", @conn)
-      %>
+    <%= link gettext("Your interests"),
+      to: Routes.announcement_path(@conn, :index),
+      class: class_for("your interests", @conn)
+    %>
 
-      <%= link gettext("Your announcements"),
-        to: Routes.announcement_path(@conn, :index, user_id: @current_user.id),
-        class: class_for("your announcements", @conn)
-      %>
+    <%= link gettext("Your announcements"),
+      to: Routes.announcement_path(@conn, :index, user_id: @current_user.id),
+      class: class_for("your announcements", @conn)
+    %>
 
-      <%= if !@show_all do %>
-        <%= link to: Routes.interest_path(@conn, :index),
-          data: [role: "view-all-interests"],
-          class: "view-all-interests" do %>
-          <span class="subscribed-to">
-            <%= dngettext("interest-count",
-              "Subscribed to 1 interest",
-              "Subscribed to %{count} interests",
-              interest_count_for(@current_user)) %>
-          </span>
-          <%= gettext "(edit)" %>
-        <% end %>
+    <%= if !@show_all do %>
+      <%= link to: Routes.interest_path(@conn, :index),
+        data: [role: "view-all-interests"],
+        class: "tabs__link--push" do %>
+        <%= dngettext("interest-count",
+          "Subscribed to 1 interest",
+          "Subscribed to %{count} interests",
+          interest_count_for(@current_user)) %>
+        <%= gettext " (edit)" %>
       <% end %>
-    </div>
+    <% end %>
   </nav>
 
   <%= render ConstableWeb.AnnouncementListView,
