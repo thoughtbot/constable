@@ -4,7 +4,7 @@
     "deploy": "webpack --mode production",
     "stylelint": "stylelint 'css/**/*.scss'",
     "watch": "webpack --mode development --watch-stdin",
-    "lint": "./node_modules/.bin/eslint ."
+    "eslint": "./node_modules/.bin/eslint ."
   },
   "dependencies": {
     "@thoughtbot/design-system": "0.3.0",
