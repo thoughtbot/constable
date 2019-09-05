@@ -2,9 +2,9 @@
   "repository": {},
   "scripts": {
     "deploy": "webpack --mode production",
-    "stylelint": "stylelint 'css/**/*.scss'",
+    "stylelint": "npx stylelint 'css/**/*.scss'",
     "watch": "webpack --mode development --watch-stdin",
-    "eslint": "./node_modules/.bin/eslint ."
+    "eslint": "npx eslint js/**/*.js"
   },
   "dependencies": {
     "@thoughtbot/design-system": "0.3.0",
