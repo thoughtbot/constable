@@ -45,6 +45,6 @@ merge the contribution.
 
  - ES6 Javascript (no transpilation)
  - Lint Javascript using eslint
-   - The eslint configuration is in [`assets/.eslintrc.json`][eslint-config]
+  - The ESLint configuration is in [`assets/.eslintrc.json`][eslint-config]
 
 [eslint-config]: /assets/.eslintrc.json
