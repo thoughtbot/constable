@@ -39,6 +39,6 @@
     "stylelint": "^10.1.0",
     "terser-webpack-plugin": "^1.4.1",
     "webpack": "^4.39.3",
-    "webpack-cli": "^3.3.7"
+    "webpack-cli": "^3.3.8"
   }
 }
