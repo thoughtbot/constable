@@ -23,7 +23,7 @@
     "turbolinks": "^5.2.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.5.5",
+    "@babel/core": "^7.6.0",
     "@babel/preset-env": "^7.6.0",
     "@thoughtbot/eslint-config": "^0.1.0",
     "@thoughtbot/stylelint-config": "^1.0.1",
