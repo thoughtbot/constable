@@ -15,6 +15,17 @@
       class: class_for("your announcements", @conn)
     %>
 
+    <%= link(
+      gettext("Your comments"),
+      to: Routes.announcement_path(
+        @conn,
+        :index,
+        user_id: @current_user.id,
+        comments: true
+      ),
+      class: class_for("your comments", @conn)
+    ) %>
+
     <%= if !@show_all do %>
       <%= link to: Routes.interest_path(@conn, :index),
         data: [role: "view-all-interests"],

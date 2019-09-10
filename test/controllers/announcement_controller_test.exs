@@ -31,6 +31,42 @@ defmodule ConstableWeb.AnnouncementControllerTest do
     refute response =~ "Do not show"
   end
 
+  test(
+    "#index shows Annoucements which have User's Comments when user_id and comments params are set",
+    %{conn: conn, user: user}
+  ) do
+    other_user = insert(:user)
+    announcement_with_user_comment =
+      insert(:announcement, title: "FooBar with My Comment", user: other_user)
+    announcement_without_user_comment =
+      insert(:announcement, title: "FizzBuzz without My Comments", user: user)
+    insert(
+      :comment,
+      body: "First! 👋",
+      announcement: announcement_with_user_comment,
+      user: user
+    )
+    insert(
+      :comment,
+      body: "word",
+      announcement: announcement_without_user_comment,
+      user: other_user
+    )
+
+    response =
+      conn
+      |> get(Routes.announcement_path(
+        conn,
+        :index,
+        user_id: user.id,
+        comments: "true"
+      ))
+      |> html_response(:ok)
+
+    assert response =~ "FooBar with My Comment"
+    refute response =~ "FizzBuzz without My Comments"
+  end
+
   test "#index only announcements of interest are shown by default", %{conn: conn, user: user} do
     my_interest = insert(:interest)
     insert(:user_interest, user: user, interest: my_interest)

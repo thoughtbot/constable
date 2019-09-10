@@ -105,4 +105,29 @@ defmodule Constable.AnnouncementTest do
       refute other_announcement.id in announcement_ids
     end
   end
+
+  describe ".with_comments_by_user/2" do
+    test "returns Announcements on which User has created a Comment" do
+      user = insert(:user)
+      other_user = insert(:user)
+      announcement_without_user_comment = insert(:announcement, user: user)
+      announcement_with_user_comment = insert(:announcement, user: other_user)
+
+      insert(
+        :comment,
+        body: "🐒",
+        announcement: announcement_with_user_comment,
+        user: user
+      )
+
+      announcement_ids =
+        user.id
+        |> Announcement.with_comments_by_user()
+        |> Repo.all()
+        |> Enum.map(& &1.id)
+
+      assert announcement_with_user_comment.id in announcement_ids
+      refute announcement_without_user_comment.id in announcement_ids
+    end
+  end
 end
