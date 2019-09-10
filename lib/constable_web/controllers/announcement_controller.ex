@@ -17,7 +17,7 @@ defmodule ConstableWeb.AnnouncementController do
     |> render_index(index_page)
   end
 
-  def index(conn, %{"user_id" => user_id, "comments" => "true"} = params) do
+  def index(conn, %{"comment_user_id" => user_id} = params) do
     index_page =
       announcements_with_user_comments(user_id)
       |> Repo.paginate(params)

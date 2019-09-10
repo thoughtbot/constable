@@ -32,7 +32,7 @@ defmodule ConstableWeb.AnnouncementControllerTest do
   end
 
   test(
-    "#index shows Annoucements which have User's Comments when user_id and comments params are set",
+    "#index shows Annoucements which have User's Comments when comment_user_id param is set",
     %{conn: conn, user: user}
   ) do
     other_user = insert(:user)
@@ -55,12 +55,7 @@ defmodule ConstableWeb.AnnouncementControllerTest do
 
     response =
       conn
-      |> get(Routes.announcement_path(
-        conn,
-        :index,
-        user_id: user.id,
-        comments: "true"
-      ))
+      |> get(Routes.announcement_path(conn, :index, comment_user_id: user.id))
       |> html_response(:ok)
 
     assert response =~ "FooBar with My Comment"
