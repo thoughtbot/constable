@@ -17,7 +17,7 @@
                 <ul>
                   <%= for interest <- @interests do %>
                     <li>
-                      <%= link "##{interest.name}", to: Routes.interest_url(ConstableWeb.Endpoint, :show, interest), style: "color: #{red()}" %>
+                      <%= link "#{interest.name}", to: Routes.interest_url(ConstableWeb.Endpoint, :show, interest), style: "color: #{red()}" %>
                     </li>
                   <% end %>
                 </ul>

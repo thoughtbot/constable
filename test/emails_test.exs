@@ -55,7 +55,7 @@ defmodule Constable.EmailsTest do
   defp interest_names(announcement) do
     announcement
     |> Map.get(:interests)
-    |> Enum.map(&("##{&1.name}"))
+    |> Enum.map(&("#{&1.name}"))
     |> Enum.join(", ")
   end
 
@@ -67,7 +67,7 @@ defmodule Constable.EmailsTest do
   end
 
   defp make_link(interest) do
-    "##{interest.name}"
+    "#{interest.name}"
     |> link(to: Routes.interest_url(ConstableWeb.Endpoint, :show, interest), style: "color: #aeaeae;")
     |> safe_to_string
   end

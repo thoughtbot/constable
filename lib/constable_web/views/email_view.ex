@@ -33,7 +33,7 @@ defmodule ConstableWeb.EmailView do
   def interest_names(announcement) do
     announcement
     |> Map.get(:interests)
-    |> Enum.map(&"##{&1.name}")
+    |> Enum.map(&"#{&1.name}")
     |> Enum.join(", ")
   end
 
@@ -71,7 +71,7 @@ defmodule ConstableWeb.EmailView do
   end
 
   defp make_link(interest) do
-    "##{interest.name}"
+    "#{interest.name}"
     |> link(
       to: Routes.interest_url(ConstableWeb.Endpoint, :show, interest),
       style: "color: #{light_gray()};"
