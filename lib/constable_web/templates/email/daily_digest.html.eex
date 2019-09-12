@@ -43,7 +43,7 @@
                   <div style="padding-left: 8px;">
                     <h4><%= link announcement.title, to: Routes.announcement_url(ConstableWeb.Endpoint, :show, announcement), style: "color: #{red()}" %></h4>
                     <p>
-                      <img src="<%= author_avatar_url(announcement.user) %>" class="avatar-rounded">
+                      <img src="<%= author_avatar_url(announcement.user) %>" alt="<%= announcement.user.name %>" class="avatar-rounded">
                       <strong><%= announcement.user.name %></strong>
                       <%= gettext("posted to") %> <%= raw interest_links(announcement) %>
                       <%= time_ago_in_words announcement.inserted_at %>:
@@ -65,7 +65,7 @@
                     <p style="font-weight: normal; font-style: italic;">(Posted by <%= announcement.user.name %> <%= time_ago_in_words announcement.inserted_at %>)</p>
                     <%= for comment <- new_comments(@comments, announcement) do %>
                       <p>
-                        <img src="<%= author_avatar_url(comment.user) %>" class="avatar-rounded">
+                        <img src="<%= author_avatar_url(comment.user) %>" alt="<%= comment.user.name %>" class="avatar-rounded">
                         <strong><%= comment.user.name %></strong> left a comment <%= time_ago_in_words comment.inserted_at %>:
                       </p>
                       <div style="padding-left: 1.85rem;" class="body">

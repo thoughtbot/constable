@@ -3,7 +3,7 @@
     <img
       class="tbds-avatar tbds-avatar--circle"
       src="<%= gravatar @comment.user %>"
-      alt="Picture of <%= @comment.user.name %>"
+      alt="<%= @comment.user.name %>"
     />
   </div>
 
