@@ -36,7 +36,7 @@
         <h4><%= link @announcement.user.name, to: Routes.announcement_path(@conn, :index, user_id: @announcement.user_id), class: "author" %></h4>
 
         <div class="announcement-metadata">
-          <%= gettext "announced" %>
+          <%= gettext "announced " %>
           <%= relative_timestamp(@announcement.inserted_at) %>
         </div>
       </div>
