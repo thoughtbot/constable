@@ -40,7 +40,7 @@
         <img
           src="<%= gravatar(@conn.assigns.current_user) %>"
           class="tbds-avatar tbds-avatar--circle"
-          alt="Picture of <%= @conn.assigns.current_user.name %>"
+          alt="<%= @conn.assigns.current_user.name %>"
         />
       <% end %>
       <%= link to: Routes.announcement_path(@conn, :new), class: "tbds-button app-header__announce-button" do %>

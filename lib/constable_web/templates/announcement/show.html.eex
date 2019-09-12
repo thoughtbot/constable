@@ -29,7 +29,7 @@
         <img
           src="<%= gravatar @announcement.user %>"
           class="tbds-avatar tbds-avatar--circle"
-          alt="Picture of <%= @announcement.user.name %>"
+          alt="<%= @announcement.user.name %>"
         />
       </div>
       <div class="tbds-media__body">
