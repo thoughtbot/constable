@@ -8,7 +8,7 @@
       <% end %>
 
       <div class="announcement-metadata">
-        <%= gettext "announced" %>
+        <%= gettext "announced " %>
         <%= relative_timestamp(announcement.inserted_at) %>
         to
         <span>
