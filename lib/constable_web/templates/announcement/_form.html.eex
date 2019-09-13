@@ -13,6 +13,7 @@
   </nav>
   <div class="col-markdown announcement-create active">
     <div class="announcement-form">
+      <%= label f, :title, "Announcement title:" %>
       <%= text_input f, :title, placeholder: gettext("What are you announcing?") %>
 
       <section class="recipients-preview">
@@ -20,6 +21,7 @@
       </section>
       <%= text_input :announcement, :interests, value: comma_separated_interest_names(@changeset.data.interests), placeholder: gettext("Interests") %>
 
+      <%= label f, :body, "Announcement body:" %>
       <%= textarea f,
         :body,
         placeholder: gettext("Write markdown here. You can @mention specific people to notify them"),
