@@ -1,3 +1,14 @@
+.comments-placeholder {
+  display: none;
+  color: #999;
+  font-size: 1.3rem;
+  text-align: center;
+}
+
+.comments-placeholder:only-child {
+  display: block;
+}
+
 .edit-comment {
   font-size: $tiny-font-size;
   margin-left: $tiniest-spacing;

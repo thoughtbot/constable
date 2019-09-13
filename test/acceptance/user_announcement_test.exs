@@ -18,6 +18,7 @@ defmodule ConstableWeb.UserAnnouncementTest do
     assert has_announcement_title?(session, "Hello World ❤️")
     assert has_announcement_body?(session, "Hello")
     assert has_announcement_interest?(session, "everyone")
+    assert has_comments_placeholder?(session)
   end
 
   test "user previews who will receive an announcement", %{session: session} do
@@ -105,6 +106,11 @@ defmodule ConstableWeb.UserAnnouncementTest do
     session
     |> find(css("[data-role=interests]"))
     |> has_text?(text)
+  end
+
+  defp has_comments_placeholder?(session) do
+    session
+    |> find(css(".comments-list"))
   end
 
   defp has_recipient_preview?(session, user_names) do

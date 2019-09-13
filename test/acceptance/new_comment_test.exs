@@ -2,7 +2,7 @@ defmodule ConstableWeb.NewCommentTest do
   use ConstableWeb.AcceptanceCase
 
   test "new comments are displayed in real time", %{session: session} do
-    {:ok, other_session} = Wallaby.start_session
+    {:ok, other_session} = Wallaby.start_session()
     [announcement, other_announcement] = insert_pair(:announcement)
     user = insert(:user)
 
@@ -15,6 +15,7 @@ defmodule ConstableWeb.NewCommentTest do
     |> visit(Routes.announcement_path(Endpoint, :show, other_announcement, as: user.id))
 
     assert has_comment_text?(session, "My Cool Comment")
+    refute has_comments_placeholder?(session)
     refute has_comment_text?(other_session, "My Cool Comment")
   end
 
@@ -22,5 +23,11 @@ defmodule ConstableWeb.NewCommentTest do
     session
     |> find(css(".comments-list"))
     |> has_text?(comment_text)
+  end
+
+  defp has_comments_placeholder?(session) do
+    session
+    |> all(css(".comments-placeholder"))
+    |> List.first()
   end
 end
