@@ -31,6 +31,10 @@ config :constable, :permitted_email_domain, System.get_env("PERMITTED_EMAIL_DOMA
 # The shubox JS source URL is unique to each app/env
 config :constable, :shubox_script_url, System.get_env("SHUBOX_SCRIPT_URL")
 
+# Hub
+config :constable, :hub_url, System.get_env("HUB_URL")
+config :constable, :hub_api_token, System.get_env("HUB_API_TOKEN")
+
 config :oauth2, serializers: %{"application/json" => Poison}
 
 # Import environment specific config. This must remain at the bottom

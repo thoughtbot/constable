@@ -15,6 +15,16 @@ defmodule ConstableWeb.UserControlsSettingsTest do
     assert showing_modal?(session)
   end
 
+  test "user views their hub profile link in the settings modal", %{session: session} do
+    user = insert(:user)
+
+    session
+    |> visit(Routes.announcement_path(Endpoint, :new, as: user.id))
+    |> open_settings_modal
+
+    assert session |> has_hub_profile_link?
+  end
+
   test "user closes the settings modal with icon", %{session: session} do
     user = insert(:user)
 
@@ -62,5 +72,10 @@ defmodule ConstableWeb.UserControlsSettingsTest do
 
   defp showing_modal?(session) do
     session |> has?(@modal_window)
+  end
+
+  defp has_hub_profile_link?(session) do
+    session
+    |> find(css(".hub-profile-link"))
   end
 end
