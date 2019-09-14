@@ -2,7 +2,13 @@
   <%= for user <- @users do %>
     <div class="user-activations__user">
       <div class="meta">
-        <img class="gravatar" src="<%= gravatar(user) %>" alt="<%= user.name %>" />
+        <img
+          alt="<%= user.name %>"
+          class="gravatar"
+          height="80"
+          src="<%= gravatar(user) %>"
+          width="80"
+        >
         <%= user.name %>
       </div>
       <%= link to: Routes.user_activation_path(@conn, :update, user), method: :put do %>

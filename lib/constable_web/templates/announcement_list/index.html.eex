@@ -23,10 +23,12 @@
       <div class="commenters">
         <%= for commenter <- commenters(announcement) do %>
           <img
-            class="commenters__avatar"
-            src="<%= gravatar(commenter) %>"
             alt="<%= commenter.name %>"
-          />
+            class="commenters__avatar"
+            height="80"
+            src="<%= gravatar(commenter) %>"
+            width="80"
+          >
         <% end %>
       </div>
     </li>

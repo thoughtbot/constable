@@ -1,10 +1,12 @@
 <li class="tbds-media tbds-block-stack__item" id="comment-<%= @comment.id %>">
   <div class="tbds-media__figure comment-information">
     <img
-      class="tbds-avatar tbds-avatar--circle"
-      src="<%= gravatar @comment.user %>"
       alt="<%= @comment.user.name %>"
-    />
+      class="tbds-avatar tbds-avatar--circle"
+      height="80"
+      src="<%= gravatar @comment.user %>"
+      width="80"
+    >
   </div>
 
   <div class="tbds-media__body">
