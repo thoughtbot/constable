@@ -7,10 +7,28 @@
     </div>
 
     <div class="current-channel">
-      <%= form_for @changeset, Routes.interest_slack_channel_path(@conn, :update, @interest), fn f -> %>
-        <%= label f, :slack_channel, "Slack channel name" %>
-        <%= text_input f, :slack_channel, placeholder: gettext("e.g. #everyone") %>
-        <%= submit gettext("Save Slack Channel"), id: "submit-channel-name", class: "tbds-button" %>
+      <%= form_for @changeset, Routes.interest_slack_channel_path(@conn, :update, @interest), [class: "tbds-form tbds-block-stack tbds-block-stack--gap-4"], fn f -> %>
+        <div class="tbds-block-stack__item">
+          <%= label(
+            f,
+            :slack_channel,
+            "Slack channel name",
+            class: "tbds-form__label"
+          ) %>
+          <%= text_input(
+            f,
+            :slack_channel,
+            class: "tbds-form__text-input",
+            placeholder: gettext("e.g. #everyone")
+          ) %>
+        </div>
+        <div class="tbds-block-stack__item">
+          <%= submit(
+            gettext("Save Slack Channel"),
+            id: "submit-channel-name",
+            class: "tbds-button"
+          ) %>
+        </div>
       <% end %>
 
       <%= if @interest.slack_channel do %>

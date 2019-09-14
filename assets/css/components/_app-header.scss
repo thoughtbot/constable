@@ -40,34 +40,23 @@
   position: relative;
 
   @include media($medium-screen-up) {
-    flex-basis: 18.75rem;
-    margin-top: 0;
+    @include margin(0 auto null);
+    flex: 0 0 18.75rem;
     order: 2;
   }
 
   &::before {
-    @include position(absolute, 28% null null $small-spacing);
+    @include position(absolute, 28% null null $tiny-spacing);
     @include size(1.125rem);
     background: url("/images/icon-search.svg") center / cover no-repeat;
     content: "";
-    opacity: 0.35;
+    opacity: 0.75;
     z-index: $mezzanine-z-index;
-
-    @include media($medium-screen-up) {
-      left: calc(50% - 8.5rem);
-    }
   }
 }
 
 .app-header__search-input {
-  font-size: $small-font-size;
-  margin-bottom: 0;
-  text-align: center;
-
-  @include media($medium-screen-up) {
-    @include size(18.75rem, auto);
-    margin: 0 auto;
-  }
+  padding-left: $base-spacing;
 }
 
 .app-header__announce-button {

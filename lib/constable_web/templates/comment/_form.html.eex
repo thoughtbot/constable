@@ -1,11 +1,20 @@
-<%= form_for @comment_changeset, @path, [class: "comment-form"], fn(f) -> %>
-  <%= label f, :body, "Comment on this announcement" %>
-  <%= textarea f,
-    :body,
-    class: "comment-textarea mousetrap uploadable-input",
-    placeholder: gettext("Markdown is supported. You can @mention specific people to notify them."),
-    required: true
-  %>
+<%= form_for @comment_changeset, @path, [class: "tbds-form tbds-block-stack tbds-block-stack--gap-4 comment-form"], fn(f) -> %>
+  <div class="tbds-block-stack__item">
+    <%= label(
+      f,
+      :body,
+      "Comment on this announcement",
+      class: "tbds-form__label"
+    ) %>
+    <%= textarea(
+      f,
+      :body,
+      class: "tbds-form__textarea comment-textarea mousetrap uploadable-input",
+      required: true
+    ) %>
+  </div>
 
-  <%= submit @submit_text, id: "submit-comment", class: "tbds-button" %>
+  <div class="tbds-block-stack__item">
+    <%= submit @submit_text, id: "submit-comment", class: "tbds-button" %>
+  </div>
 <% end %>

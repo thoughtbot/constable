@@ -1,6 +1,6 @@
 <%= form_for @changeset,
   @path,
-  [class: "flex-container", data: [role: "announcement-form", id: @changeset.data.id]],
+  [class: "tbds-form flex-container", data: [role: "announcement-form", id: @changeset.data.id]],
   fn(f) -> %>
   <nav class="header-tags">
     <div class="header-tag header-tag-markdown active">
@@ -12,21 +12,35 @@
     </div>
   </nav>
   <div class="col-markdown announcement-create active">
-    <div class="announcement-form">
-      <%= label f, :title, "Announcement title" %>
-      <%= text_input f, :title, placeholder: gettext("What are you announcing?") %>
+    <div class="tbds-block-stack tbds-block-stack--gap-4 announcement-form">
+      <div class="tbds-block-stack__item">
+        <%= label f, :title, "Announcement title", class: "tbds-form__label" %>
+        <%= text_input f, :title, class: "tbds-form__text-input" %>
+      </div>
 
-      <section class="recipients-preview">
-        Please select interests:
-      </section>
-      <%= text_input :announcement, :interests, value: comma_separated_interest_names(@changeset.data.interests), placeholder: gettext("Interests") %>
+      <div class="tbds-block-stack__item">
+        <%= label(
+          f,
+          :interests,
+          "Select interests",
+          class: "tbds-form__label recipients-preview"
+        ) %>
+        <%= text_input(
+          :announcement,
+          :interests,
+          value: comma_separated_interest_names(@changeset.data.interests)
+        ) %>
+      </div>
 
-      <%= label f, :body, "Announcement body" %>
-      <%= textarea f,
-        :body,
-        placeholder: gettext("Markdown is supported. You can @mention specific people to notify them."),
-        class: "uploadable-input"
-        %>
+      <div class="tbds-block-stack__item">
+        <%= label f, :body, "Announcement body", class: "tbds-form__label" %>
+        <%= textarea(
+          f,
+          :body,
+          class: "tbds-form__textarea uploadable-input",
+          placeholder: gettext("Markdown is supported. You can @mention specific people to notify them.")
+        )%>
+      </div>
     </div>
   </div>
 

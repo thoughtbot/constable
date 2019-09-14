@@ -8,7 +8,7 @@
   <%= if length(@interest_names) > 0 do %>
     No one is subscribed to these interests.
   <% else %>
-    Please select interests:
+    Select interests
   <% end %>
 <% end %>
 
