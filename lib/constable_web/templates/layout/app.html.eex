@@ -38,10 +38,12 @@
 
       <%= link to: Routes.settings_path(@conn, :show), class: "app-header__user-avatar remote-append tbds-line-height-0", data: [role: "settings-link"] do %>
         <img
-          src="<%= gravatar(@conn.assigns.current_user) %>"
-          class="tbds-avatar tbds-avatar--circle"
           alt="<%= @conn.assigns.current_user.name %>"
-        />
+          class="tbds-avatar tbds-avatar--circle"
+          height="80"
+          src="<%= gravatar(@conn.assigns.current_user) %>"
+          width="80"
+        >
       <% end %>
       <%= link to: Routes.announcement_path(@conn, :new), class: "tbds-button app-header__announce-button" do %>
         <svg class="tbds-button__icon tbds-button__icon--start">

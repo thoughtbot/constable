@@ -27,10 +27,12 @@
     <div class="tbds-media tbds-media--block-center">
       <div class="tbds-media__figure tbds-line-height-0">
         <img
-          src="<%= gravatar @announcement.user %>"
-          class="tbds-avatar tbds-avatar--circle"
           alt="<%= @announcement.user.name %>"
-        />
+          class="tbds-avatar tbds-avatar--circle"
+          height="80"
+          src="<%= gravatar @announcement.user %>"
+          width="80"
+        >
       </div>
       <div class="tbds-media__body">
         <h4><%= link @announcement.user.name, to: Routes.announcement_path(@conn, :index, user_id: @announcement.user_id), class: "author" %></h4>
