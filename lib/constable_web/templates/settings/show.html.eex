@@ -11,9 +11,6 @@
     <div class="modal-body">
       <%= form_for @changeset, Routes.settings_path(@conn, :update), [class: "tbds-block-stack tbds-block-stack--gap-5 settings-form"], fn(f) -> %>
         <div class="tbds-block-stack__item">
-          <%= link "View your Hub profile", to: hub_profile_url(@conn.assigns.current_user), class: 'hub-profile-link' %>
-        </div>
-        <div class="tbds-block-stack__item">
           <label>Your name:</label>
           <%= text_input f, :name %>
           <%= error_tag f, :name %>
