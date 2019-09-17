@@ -13,7 +13,7 @@
   </nav>
   <div class="col-markdown announcement-create active">
     <div class="announcement-form">
-      <%= label f, :title, "Announcement title:" %>
+      <%= label f, :title, "Announcement title" %>
       <%= text_input f, :title, placeholder: gettext("What are you announcing?") %>
 
       <section class="recipients-preview">
