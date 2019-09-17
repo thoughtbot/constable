@@ -1,5 +1,5 @@
 <%= form_for @comment_changeset, @path, [class: "comment-form"], fn(f) -> %>
-  <%= label f, :body, "Comment on this announcement:" %>
+  <%= label f, :body, "Comment on this announcement" %>
   <%= textarea f,
     :body,
     class: "comment-textarea mousetrap uploadable-input",
