@@ -8,7 +8,8 @@
 
     <div class="current-channel">
       <%= form_for @changeset, Routes.interest_slack_channel_path(@conn, :update, @interest), fn f -> %>
-        <%= text_input f, :slack_channel, placeholder: gettext("Name of the Slack channel, e.g. #everyone") %>
+        <%= label f, :slack_channel, "Slack channel name" %>
+        <%= text_input f, :slack_channel, placeholder: gettext("e.g. #everyone") %>
         <%= submit gettext("Save Slack Channel"), id: "submit-channel-name", class: "tbds-button" %>
       <% end %>
 

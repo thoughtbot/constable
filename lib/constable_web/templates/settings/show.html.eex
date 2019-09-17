@@ -11,7 +11,7 @@
     <div class="modal-body">
       <%= form_for @changeset, Routes.settings_path(@conn, :update), [class: "tbds-block-stack tbds-block-stack--gap-5 settings-form"], fn(f) -> %>
         <div class="tbds-block-stack__item">
-          <label>Your name:</label>
+          <%= label f, :name, "Your name" %>
           <%= text_input f, :name %>
           <%= error_tag f, :name %>
         </div>

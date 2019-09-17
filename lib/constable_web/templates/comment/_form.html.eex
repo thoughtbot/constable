@@ -1,8 +1,9 @@
 <%= form_for @comment_changeset, @path, [class: "comment-form"], fn(f) -> %>
+  <%= label f, :body, "Comment on this announcement" %>
   <%= textarea f,
     :body,
     class: "comment-textarea mousetrap uploadable-input",
-    placeholder: gettext("Your markdown formatted comment here"),
+    placeholder: gettext("Markdown is supported. You can @mention specific people to notify them."),
     required: true
   %>
 
