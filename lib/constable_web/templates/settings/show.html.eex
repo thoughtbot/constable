@@ -1,70 +1,67 @@
-<div class="modal-container" data-role="settings-modal">
-  <div class="modal-overlay"></div>
-  <div class="modal">
-    <header>
-      <h2>Profile and Settings</h2>
-      <a href="#" class="modal-close" data-role="closing-icon">
-        <img src="/images/icon-close.svg" alt="Close" />
-      </a>
-    </header>
+<div class="container container-pad-top">
+  <h1>
+    Profile and Settings
+  </h1>
 
-    <div class="modal-body">
-      <%= form_for @changeset, Routes.settings_path(@conn, :update), [class: "tbds-form tbds-block-stack tbds-block-stack--gap-4 settings-form"], fn(f) -> %>
-        <div class="tbds-block-stack__item">
-          <%= label f, :name, "Your name", class: "tbds-form__label" %>
-          <%= text_input f, :name, class: "tbds-form__text-input" %>
-          <%= error_tag f, :name %>
-        </div>
-        <div class="tbds-block-stack__item">
-          <label class="switch-container">
-            <div class="onoffswitch">
-              <%= checkbox f, :auto_subscribe, class: "onoffswitch-checkbox" %>
-              <label class="onoffswitch-label" for="user_auto_subscribe">
-                <span class="onoffswitch-inner"></span>
-                <span class="onoffswitch-switch"></span>
-              </label>
-            </div>
-          Subscribe me to announcements I'm interested in.
-          </label>
-        </div>
-        <div class="tbds-block-stack__item">
-          <label class="switch-container">
-            <div class="onoffswitch">
-              <%= checkbox f, :daily_digest, class: "onoffswitch-checkbox" %>
-              <label class="onoffswitch-label" for="user_daily_digest">
-                <span class="onoffswitch-inner"></span>
-                <span class="onoffswitch-switch"></span>
-              </label>
-            </div>
-          Send me daily digest emails about what's new on Constable.
-          </label>
-        </div>
-        <div class="tbds-media tbds-block-stack__item">
-          <div class="tbds-media__figure">
-            <img
-              class="tbds-avatar tbds-avatar--circle"
-              src="<%= gravatar @current_user %>"
-              alt="<%= @current_user.name %>"
-            />
-          </div>
-          <label class="tbds-media__body">
-            The <%= link "Gravatar", to: "https://en.gravatar.com/", title: "Manage your Gravatar (Globally Recognized Avatar)" %>
-            for <code><%= @current_user.email %></code> will show up with your posts on Constable.
-          </label>
-        </div>
-        <div class="tbds-block-stack__item">
-          <%= submit gettext("Save"), class: "tbds-button" %>
-        </div>
-      <% end %>
+  <%= form_for @changeset, Routes.settings_path(@conn, :update), [class: "tbds-form tbds-block-stack tbds-block-stack--gap-4 settings-form"], fn(f) -> %>
+    <div class="tbds-block-stack__item">
+      <%= label f, :name, "Your name", class: "tbds-form__label" %>
+      <%= text_input f, :name, class: "tbds-form__text-input" %>
+      <%= error_tag f, :name %>
     </div>
 
-    <footer>
-      <%= link "Log out of Constable", to: Routes.session_path(@conn, :delete), method: :delete, class: "tbds-button button-secondary" %>
-    </footer>
-  </div>
+    <div class="tbds-block-stack__item">
+      <label class="switch-container">
+        <div class="onoffswitch">
+          <%= checkbox f, :auto_subscribe, class: "onoffswitch-checkbox" %>
+          <label class="onoffswitch-label" for="user_auto_subscribe">
+            <span class="onoffswitch-inner"></span>
+            <span class="onoffswitch-switch"></span>
+          </label>
+        </div>
+        Subscribe me to announcements I'm interested in.
+      </label>
+    </div>
 
+    <div class="tbds-block-stack__item">
+      <label class="switch-container">
+        <div class="onoffswitch">
+          <%= checkbox f, :daily_digest, class: "onoffswitch-checkbox" %>
+          <label class="onoffswitch-label" for="user_daily_digest">
+            <span class="onoffswitch-inner"></span>
+            <span class="onoffswitch-switch"></span>
+          </label>
+        </div>
+        Send me daily digest emails about what's new on Constable.
+      </label>
+    </div>
 
-  <script>
-    window.constable.settingsFormModal.default();
-  </script>
+    <div class="tbds-media tbds-block-stack__item">
+      <div class="tbds-media__figure">
+        <img
+          class="tbds-avatar tbds-avatar--circle"
+          src="<%= gravatar @current_user %>"
+          alt="<%= @current_user.name %>"
+        />
+      </div>
+
+      <label class="tbds-media__body">
+        The <%= link "Gravatar", to: "https://en.gravatar.com/", title: "Manage your Gravatar (Globally Recognized Avatar)" %>
+        for <code><%= @current_user.email %></code> will show up with your posts on Constable.
+      </label>
+    </div>
+
+    <div class="tbds-block-stack__item">
+      <%= submit gettext("Save"), class: "tbds-button" %>
+    </div>
+  <% end %>
+
+  <hr>
+
+  <%= link(
+    "Log out of Constable",
+    to: Routes.session_path(@conn, :delete),
+    method: :delete,
+    class: "tbds-button button-secondary"
+  ) %>
 </div>

@@ -36,7 +36,11 @@
         />
       <% end %>
 
-      <%= link to: Routes.settings_path(@conn, :show), class: "app-header__user-avatar remote-append tbds-line-height-0", data: [role: "settings-link"] do %>
+      <%= link(
+        to: Routes.settings_path(@conn, :show),
+        "aria-label": "Profile and settings",
+        class: "app-header__user-avatar tbds-line-height-0"
+      ) do %>
         <img
           alt="<%= @conn.assigns.current_user.name %>"
           class="tbds-avatar tbds-avatar--circle"
