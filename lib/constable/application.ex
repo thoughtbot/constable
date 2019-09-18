@@ -1,5 +1,4 @@
 defmodule Constable.Application do
-
   # See https://hexdocs.pm/elixir/Application.html
   # for more information on OTP Applications
 
@@ -13,6 +12,12 @@ defmodule Constable.Application do
       Envy.reload_config()
     end
 
+    Neuron.Config.set(url: "#{Application.fetch_env!(:constable, :hub_url)}/graphql")
+
+    Neuron.Config.set(
+      headers: [authorization: "Bearer #{Application.fetch_env!(:constable, :hub_api_token)}"]
+    )
+
     setup_dependencies()
 
     # List all child processes to be supervised
@@ -20,7 +25,7 @@ defmodule Constable.Application do
       # Start the Ecto repository
       Constable.Repo,
       # Start the endpoint when the application starts
-      ConstableWeb.Endpoint,
+      ConstableWeb.Endpoint
       # Starts a worker by calling: ConstableWeb.Worker.start_link(arg)
       # {ConstableWeb.Worker, arg},
     ]
@@ -32,7 +37,7 @@ defmodule Constable.Application do
   end
 
   defp setup_dependencies do
-    Constable.Pact.start_link
+    Constable.Pact.start_link()
   end
 
   # Tell Phoenix to update the endpoint configuration
