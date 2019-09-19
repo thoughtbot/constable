@@ -11,29 +11,19 @@
     </div>
 
     <div class="tbds-block-stack__item">
-      <label class="switch-container">
-        <div class="onoffswitch">
-          <%= checkbox f, :auto_subscribe, class: "onoffswitch-checkbox" %>
-          <label class="onoffswitch-label" for="user_auto_subscribe">
-            <span class="onoffswitch-inner"></span>
-            <span class="onoffswitch-switch"></span>
-          </label>
-        </div>
+    <%= label f, :auto_subscribe, class: "checkbox-switch" do %>
         Subscribe me to announcements I'm interested in.
-      </label>
+        <%= checkbox f, :auto_subscribe %>
+        <span aria-hidden="true"></span>
+    <% end %>
     </div>
 
     <div class="tbds-block-stack__item">
-      <label class="switch-container">
-        <div class="onoffswitch">
-          <%= checkbox f, :daily_digest, class: "onoffswitch-checkbox" %>
-          <label class="onoffswitch-label" for="user_daily_digest">
-            <span class="onoffswitch-inner"></span>
-            <span class="onoffswitch-switch"></span>
-          </label>
-        </div>
+      <%= label f, :daily_digest, class: "checkbox-switch" do %>
         Send me daily digest emails about what's new on Constable.
-      </label>
+        <%= checkbox f, :daily_digest %>
+        <span aria-hidden="true"></span>
+      <% end %>
     </div>
 
     <div class="tbds-media tbds-block-stack__item">
