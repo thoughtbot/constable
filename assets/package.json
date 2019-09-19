@@ -7,7 +7,7 @@
     "eslint": "npx eslint js/**/*.js"
   },
   "dependencies": {
-    "@thoughtbot/design-system": "0.4.0",
+    "@thoughtbot/design-system": "0.5.0",
     "bourbon": "^6.0.0",
     "highlight.js": "^9.15.10",
     "jquery": "^3.4.1",
