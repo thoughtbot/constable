@@ -1,23 +1,38 @@
-<div class="user-activations container">
-  <%= for user <- @users do %>
-    <div class="user-activations__user">
-      <div class="meta">
-        <img
-          alt="<%= user.name %>"
-          class="gravatar"
-          height="80"
-          src="<%= gravatar(user) %>"
-          width="80"
-        >
-        <%= user.name %>
-      </div>
-      <%= link to: Routes.user_activation_path(@conn, :update, user), method: :put do %>
-        <%= if user.active do %>
-          Deactivate
-        <% else %>
-          Activate
-        <% end %>
-      <% end %>
-    </div>
-  <% end %>
+<div class="container container-pad-top">
+  <h1>
+    <%= gettext "Users" %>
+  </h1>
+
+  <ul class="tbds-block-stack tbds-block-stack--bordered tbds-block-stack--gap-5">
+    <%= for user <- @users do %>
+      <li class="tbds-block-stack__item tbds-inline-stack">
+        <div class="tbds-inline-stack__item tbds-line-height-0">
+          <img
+            alt="<%= user.name %>"
+            class="tbds-avatar tbds-avatar--small tbds-avatar--circle"
+            height="80"
+            src="<%= gravatar(user) %>"
+            width="80"
+          >
+        </div>
+
+        <div class="tbds-inline-stack__item">
+          <%= user.name %>
+        </div>
+
+        <div class="tbds-inline-stack__item tbds-inline-stack__item--push-start">
+          <%= link(
+            to: Routes.user_activation_path(@conn, :update, user),
+            method: :put
+          ) do %>
+            <%= if user.active do %>
+              Deactivate
+            <% else %>
+              Activate
+            <% end %>
+          <% end %>
+        </div>
+      </li>
+    <% end %>
+  </ul>
 </div>
