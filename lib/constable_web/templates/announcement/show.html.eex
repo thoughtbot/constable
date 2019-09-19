@@ -2,7 +2,11 @@
   <header class="announcement-interests">
     <div data-role="interests">
       <%= for interest <- @announcement.interests do %>
-        <%= link interest.name, to: Routes.interest_path(@conn, :show, interest), class: "announcement-interest" %>
+        <%= link(
+          interest.name,
+          to: Routes.interest_path(@conn, :show, interest),
+          class: "tbds-badge tbds-margin-inline-end-1"
+        ) %>
       <% end %>
     </div>
   </header>
