@@ -35,16 +35,6 @@
   }
 }
 
-.announcement-interest {
-  @include margin($tiniest-spacing $tiniest-spacing null);
-  @include padding(null $tiniest-spacing);
-  background-color: $lightest-gray;
-  color: $base-font-color;
-  display: inline-flex;
-  font-size: $small-font-size;
-  line-height: normal;
-}
-
 .commenters {
   margin-top: $small-spacing;
 }

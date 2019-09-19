@@ -13,9 +13,11 @@
         to
         <span>
         <%= for interest <- announcement.interests do %>
-          <%= link to: Routes.interest_path(@conn, :show, interest), class: "announcement-interest" do %>
-            <%= interest.name %>
-          <% end %>
+          <%= link(
+            interest.name,
+            to: Routes.interest_path(@conn, :show, interest),
+            class: "tbds-badge tbds-margin-inline-end-1"
+          ) %>
         <% end %>
         </span>
       </div>
