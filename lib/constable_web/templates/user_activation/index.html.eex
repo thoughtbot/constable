@@ -11,7 +11,7 @@
             alt="<%= user.name %>"
             class="tbds-avatar tbds-avatar--small tbds-avatar--circle"
             height="80"
-            src="<%= gravatar(user) %>"
+            src="<%= profile_image_url(user) %>"
             width="80"
           >
         </div>

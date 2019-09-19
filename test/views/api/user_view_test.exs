@@ -1,6 +1,7 @@
 defmodule ConstableWeb.Api.UserViewTest do
   use ConstableWeb.ViewCase, async: true
   alias ConstableWeb.Api.UserView
+  alias Constable.Services.HubProfile
 
   test "show.json returns correct fields" do
     user = insert(:user)
@@ -14,7 +15,7 @@ defmodule ConstableWeb.Api.UserViewTest do
       user: %{
         id: user.id,
         name: user.name,
-        gravatar_url: gravatar_url(user.email, secure: true),
+        profile_image_url: HubProfile.image_url(user),
         daily_digest: user.daily_digest,
         auto_subscribe: user.auto_subscribe,
         username: user.username,

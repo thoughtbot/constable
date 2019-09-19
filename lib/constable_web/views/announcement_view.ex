@@ -53,6 +53,6 @@ defmodule ConstableWeb.AnnouncementView do
   end
 
   defp format_user_json(user) do
-    %{name: user.name, username: user.username, gravatar_url: gravatar(user)}
+    %{name: user.name, username: user.username, profile_image_url: profile_image_url(user)}
   end
 end

@@ -2,7 +2,7 @@ defmodule ConstableWeb.SharedView do
   require Ecto.Query
 
   alias Constable.Services.MentionFinder
-  import Exgravatar
+  alias Constable.Services.HubProfile
 
   use Phoenix.HTML
 
@@ -14,8 +14,12 @@ defmodule ConstableWeb.SharedView do
     ""
   end
 
-  def gravatar(user) do
-    gravatar_url(user.email, secure: true)
+  def profile_url(user) do
+    HubProfile.profile_url(user)
+  end
+
+  def profile_image_url(user) do
+    HubProfile.image_url(user)
   end
 
   def relative_timestamp(datetime) do

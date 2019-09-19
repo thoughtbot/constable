@@ -34,7 +34,7 @@
           alt="<%= @announcement.user.name %>"
           class="tbds-avatar tbds-avatar--circle"
           height="80"
-          src="<%= gravatar @announcement.user %>"
+          src="<%= profile_image_url(@announcement.user) %>"
           width="80"
         >
       </div>

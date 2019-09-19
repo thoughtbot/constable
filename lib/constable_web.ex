@@ -45,7 +45,6 @@ defmodule ConstableWeb do
       import ConstableWeb.Gettext
       import ConstableWeb.SharedView
       import Constable.EnumHelper
-      import Exgravatar
 
       # Use all HTML functionality (forms, tags, etc)
       use Phoenix.HTML
@@ -76,14 +75,12 @@ defmodule ConstableWeb do
       use Ecto.Schema
       import Ecto.Changeset
       import Ecto.Query
-      import Exgravatar
       @timestamps_opts [type: :utc_datetime, usec: false]
     end
   end
 
   def serializer do
     quote do
-      import Exgravatar
     end
   end
 

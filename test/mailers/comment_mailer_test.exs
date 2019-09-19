@@ -1,7 +1,6 @@
 defmodule Constable.Mailers.CommentMailerTest do
   use Constable.TestWithEcto, async: true
   alias Constable.Emails
-  import Exgravatar
 
   test "new comment email" do
     author = insert(:user)
@@ -40,7 +39,7 @@ defmodule Constable.Mailers.CommentMailerTest do
     html_comment_body = Constable.Markdown.to_html(comment.body)
     assert email.html_body =~ html_comment_body
     assert email.html_body =~ author.name
-    assert email.html_body =~ gravatar_url(author.email)
+    assert email.html_body =~ profile_image_url(author.email)
 
     assert email.text_body =~ comment.body
   end
@@ -68,7 +67,7 @@ defmodule Constable.Mailers.CommentMailerTest do
     html_comment_body = Constable.Markdown.to_html(comment.body)
     assert email.html_body =~ html_comment_body
     assert email.html_body =~ author.name
-    assert email.html_body =~ gravatar_url(author.email)
+    assert email.html_body =~ profile_image_url(author.email)
 
     assert email.text_body =~ comment.body
   end

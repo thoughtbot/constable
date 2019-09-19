@@ -2,7 +2,6 @@ defmodule Constable.Mailers.AnnouncementTest do
   use Constable.TestWithEcto, async: false
   alias ConstableWeb.Router.Helpers, as: Routes
   alias Constable.Emails
-  import Exgravatar
 
   test "sends a correctly formatted email to a list of users" do
     author = insert(:user)
@@ -44,7 +43,7 @@ defmodule Constable.Mailers.AnnouncementTest do
     ]
     assert email.html_body =~ html_announcement_body
     assert email.html_body =~ author.name
-    assert email.html_body =~ gravatar_url(author.email)
+    assert email.html_body =~ profile_image_url(author.email)
     assert email.html_body =~ interest_1.name
     assert email.html_body =~ interest_2.name
     assert email.text_body =~ announcement.body
