@@ -17,6 +17,16 @@ defmodule ConstableWeb.AnnouncementController do
     |> render_index(index_page)
   end
 
+  def index(conn, %{"comment_user_id" => user_id} = params) do
+    index_page =
+      announcements_with_user_comments(user_id)
+      |> Repo.paginate(params)
+
+    conn
+    |> assign(:show_all, false)
+    |> render_index(index_page)
+  end
+
   def index(conn, %{"user_id" => user_id} = params) do
     index_page = user_announcements(user_id) |> Repo.paginate(params)
 
@@ -175,6 +185,12 @@ defmodule ConstableWeb.AnnouncementController do
   defp announcements_of_interest(conn) do
     conn.assigns.current_user
     |> Ecto.assoc(:interesting_announcements)
+    |> Announcement.with_announcement_list_assocs()
+    |> Announcement.last_discussed_first()
+  end
+
+  defp announcements_with_user_comments(user_id) do
+    Announcement.with_comments_by_user(user_id)
     |> Announcement.with_announcement_list_assocs()
     |> Announcement.last_discussed_first()
   end

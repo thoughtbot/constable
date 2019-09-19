@@ -53,6 +53,13 @@ defmodule Constable.Announcement do
     |> where([a], a.user_id == ^user_id)
   end
 
+  def with_comments_by_user(query \\ __MODULE__, user_id) do
+    query
+    |> join(:inner, [a], c in assoc(a, :comments))
+    |> join(:inner, [_a, c], u in assoc(c, :user))
+    |> where([_a, c, _u], c.user_id == ^user_id)
+  end
+
   def search(query \\ __MODULE__, search_term, exclude_interests: excludes) do
     search_term = search_term |> prepare_for_tsquery
 
