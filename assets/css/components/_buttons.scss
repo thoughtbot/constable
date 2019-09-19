@@ -1,0 +1,11 @@
+.flex-button-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+
+  & > * {
+    flex-grow: 1;
+    margin: 0.4rem 1rem;
+  }
+}

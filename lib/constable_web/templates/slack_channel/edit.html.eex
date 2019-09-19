@@ -22,24 +22,23 @@
             placeholder: gettext("e.g. #everyone")
           ) %>
         </div>
-        <div class="tbds-block-stack__item">
+        <div class="tbds-block-stack__item flex-button-container">
           <%= submit(
             gettext("Save Slack Channel"),
             id: "submit-channel-name",
             class: "tbds-button"
           ) %>
+          <%= if @interest.slack_channel do %>
+            <%= link(
+              to: Routes.interest_slack_channel_path(@conn, :delete, @interest),
+              method: :delete,
+              data: [confirm: gettext("Are you sure?"), role: "remove-channel"],
+              class: "tbds-button button-secondary remove-slack-channel"
+            ) do %>
+              <%= gettext("Remove Channel") %>
+            <% end %>
+          <% end %>
         </div>
-      <% end %>
-
-      <%= if @interest.slack_channel do %>
-        <%= link(
-          to: Routes.interest_slack_channel_path(@conn, :delete, @interest),
-          method: :delete,
-          data: [confirm: gettext("Are you sure?"), role: "remove-channel"],
-          class: "tbds-button button-secondary remove-slack-channel"
-        ) do %>
-          <%= gettext("Remove Channel") %>
-        <% end %>
       <% end %>
     </div>
   </div>
