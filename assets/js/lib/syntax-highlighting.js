@@ -14,21 +14,21 @@ const observer = new MutationObserver(mutations => {
   });
 });
 
-const initializeSyntaxHighlighting = _container => {
+const initializeSyntaxHighlighting = (_container) => {
   highlightCodeBlocks();
 };
 
-const highlightCodeBlocks = function() {
-  $('pre code').each(function(_index, block) {
+const highlightCodeBlocks = () => {
+  $('pre code').each((_index, block) => {
     hljs.highlightBlock(block);
   });
 };
 
-export function markedWithSyntax(value) {
+export const markedWithSyntax = (value) => {
   return marked(value);
-}
+};
 
-export function highlightSyntax(container) {
+export const highlightSyntax = (container) => {
   observer.observe(document.querySelector(container), { childList: true });
   initializeSyntaxHighlighting(container);
-}
+};
