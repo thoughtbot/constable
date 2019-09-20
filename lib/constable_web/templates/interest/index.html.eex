@@ -1,6 +1,11 @@
 <div class="interests container container-pad-top">
   <h1><%= gettext "Interests" %></h1>
-
+  <p>
+    <%= dngettext("interest-count",
+        "You are subscribed to %{count} interest.",
+        "You are subscribed to %{count} interests.",
+        interest_count_for(@current_user)) %>
+  </p>
   <ul class="tbds-block-stack tbds-block-stack--bordered tbds-block-stack--gap-5 interests-list">
     <%= for interest <- @interests do %>
       <li class="tbds-block-stack__item interest-list-item">

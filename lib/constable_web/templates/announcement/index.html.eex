@@ -30,10 +30,9 @@
         data: [role: "view-all-interests"],
         class: "tabs__link--push" do %>
         <%= dngettext("interest-count",
-          "Subscribed to 1 interest",
-          "Subscribed to %{count} interests",
+          "View interests (%{count} subscription)",
+          "View interests (%{count} subscriptions)",
           interest_count_for(@current_user)) %>
-        <%= gettext " (edit)" %>
       <% end %>
     <% end %>
   </nav>

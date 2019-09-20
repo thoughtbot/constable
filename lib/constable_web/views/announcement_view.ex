@@ -24,9 +24,9 @@ defmodule ConstableWeb.AnnouncementView do
   end
 
   def class_for(
-    "your comments",
-    conn = %{params: %{"comment_user_id" => id}}
-  ) do
+        "your comments",
+        conn = %{params: %{"comment_user_id" => id}}
+      ) do
     if current_user_same_as_announcements_user?(conn, id) do
       "selected"
     end
