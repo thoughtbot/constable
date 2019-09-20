@@ -1,6 +1,3 @@
-// Based on https://scottaohara.github.io/a11y_styled_form_controls/src/checkbox--switch/
-
-/* containing label */
 .checkbox-switch {
   display: block;
   overflow: hidden;
@@ -8,7 +5,6 @@
   position: relative;
 }
 
-/* using the before/after pseudo elements of the span to create the "switch" */
 .checkbox-switch span::before,
 .checkbox-switch span::after {
   border: 1px solid #747474;
@@ -18,7 +14,6 @@
   transform: translateY(-50%);
 }
 
-/* styling specific to the knob of the switch */
 .checkbox-switch span::after {
   background: #fff;
   border-radius: 100%;
@@ -28,7 +23,6 @@
   width: 1.5em;
 }
 
-/* styling specific to the knob "container" */
 .checkbox-switch span::before {
   background: rgba(121, 0, 0, 0.3);
   border-radius: 1.75em;
@@ -38,12 +32,6 @@
   width: 2.75em;
 }
 
-/* hide the actual checkbox from view, but not from keyboards or ATs.
-   Instead of standard visually hidden styling, instead set opacity to
-   almost 0 (not zero for ChomeVox legacy bug), pointer-events none, and
-   then set to full height/width of container element so that VO focus
-   ring outlines the component, instead of a tiny box within the component
-*/
 .checkbox-switch input {
   height: 100%;
   left: 0;
@@ -62,18 +50,14 @@
   outline-offset: 2px;
 }
 
-/* change the position of the knob to indicate it has been checked */
 .checkbox-switch input:checked + span::after {
   right: 0.25em;
 }
 
-/* update the color of the "container" to further visually indicate state */
 .checkbox-switch input:checked + span::before {
   background: $tbds-brand-red;
 }
 
-/* 'color in' the switch knob in high contrast mode by giving it
-   a large border */
 @media screen and (-ms-high-contrast: active) {
   .checkbox-switch span::after {
     background-color: windowText;
