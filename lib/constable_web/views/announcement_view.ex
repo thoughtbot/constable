@@ -24,9 +24,9 @@ defmodule ConstableWeb.AnnouncementView do
   end
 
   def class_for(
-    "your comments",
-    conn = %{params: %{"comment_user_id" => id}}
-  ) do
+        "your comments",
+        conn = %{params: %{"comment_user_id" => id}}
+      ) do
     if current_user_same_as_announcements_user?(conn, id) do
       "selected"
     end
@@ -39,7 +39,7 @@ defmodule ConstableWeb.AnnouncementView do
   def class_for(_, _), do: nil
 
   defp current_user_same_as_announcements_user?(conn, announcements_user_id) do
-    "#{conn.assigns[:current_user].id}" == announcements_user_id
+    "#{current_user(conn).id}" == announcements_user_id
   end
 
   def interest_count_for(user) do

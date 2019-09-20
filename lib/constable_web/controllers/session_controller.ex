@@ -2,7 +2,7 @@ defmodule ConstableWeb.SessionController do
   use ConstableWeb, :controller
 
   def new(conn, _params) do
-    if conn.assigns[:current_user] do
+    if current_user(conn) do
       conn |> redirect(to: Routes.home_path(conn, :index))
     else
       conn
