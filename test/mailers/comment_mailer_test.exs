@@ -1,7 +1,7 @@
 defmodule Constable.Mailers.CommentMailerTest do
   use Constable.TestWithEcto, async: true
   alias Constable.Emails
-  import Exgravatar
+  alias Constable.Services.HubProfileProvider
 
   test "new comment email" do
     author = insert(:user)
@@ -16,31 +16,36 @@ defmodule Constable.Mailers.CommentMailerTest do
     subject = "Re: #{announcement.title}"
     from_name = "#{author.name} (Constable)"
     from_email = "announcements@#{Constable.Env.get("OUTBOUND_EMAIL_DOMAIN")}"
+
     headers = %{
-      "In-Reply-To" => "<announcement-#{announcement.id}@#{Constable.Env.get("OUTBOUND_EMAIL_DOMAIN")}>",
-      "Reply-To" => "<announcement-#{announcement.id}@#{Constable.Env.get("INBOUND_EMAIL_DOMAIN")}>",
+      "In-Reply-To" =>
+        "<announcement-#{announcement.id}@#{Constable.Env.get("OUTBOUND_EMAIL_DOMAIN")}>",
+      "Reply-To" =>
+        "<announcement-#{announcement.id}@#{Constable.Env.get("INBOUND_EMAIL_DOMAIN")}>"
     }
+
     assert email.to == users
     assert email.subject == subject
     assert email.from == {from_name, from_email}
     assert email.headers == headers
     assert email.private.message_params.merge_language == "handlebars"
+
     assert email.private.message_params.merge_vars == [
-      %{
-        rcpt: user.email,
-        vars: [
-          %{
-            name: "subscription_id",
-            content: subscription.token
-          }
-        ]
-      }
-    ]
+             %{
+               rcpt: user.email,
+               vars: [
+                 %{
+                   name: "subscription_id",
+                   content: subscription.token
+                 }
+               ]
+             }
+           ]
 
     html_comment_body = Constable.Markdown.to_html(comment.body)
     assert email.html_body =~ html_comment_body
     assert email.html_body =~ author.name
-    assert email.html_body =~ gravatar_url(author.email)
+    assert email.html_body =~ FakeProfileProvider.image_url(author)
 
     assert email.text_body =~ comment.body
   end
@@ -56,10 +61,14 @@ defmodule Constable.Mailers.CommentMailerTest do
 
     from_name = "#{author.name} (Constable)"
     from_email = "announcements@#{Constable.Env.get("OUTBOUND_EMAIL_DOMAIN")}"
+
     headers = %{
-      "In-Reply-To" => "<announcement-#{announcement.id}@#{Constable.Env.get("OUTBOUND_EMAIL_DOMAIN")}>",
-      "Reply-To" => "<announcement-#{announcement.id}@#{Constable.Env.get("INBOUND_EMAIL_DOMAIN")}>"
+      "In-Reply-To" =>
+        "<announcement-#{announcement.id}@#{Constable.Env.get("OUTBOUND_EMAIL_DOMAIN")}>",
+      "Reply-To" =>
+        "<announcement-#{announcement.id}@#{Constable.Env.get("INBOUND_EMAIL_DOMAIN")}>"
     }
+
     assert email.to == users
     assert email.subject =~ announcement.title
     assert email.from == {from_name, from_email}
@@ -68,7 +77,7 @@ defmodule Constable.Mailers.CommentMailerTest do
     html_comment_body = Constable.Markdown.to_html(comment.body)
     assert email.html_body =~ html_comment_body
     assert email.html_body =~ author.name
-    assert email.html_body =~ gravatar_url(author.email)
+    assert email.html_body =~ FakeProfileProvider.image_url(author)
 
     assert email.text_body =~ comment.body
   end

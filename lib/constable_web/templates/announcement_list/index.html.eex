@@ -26,9 +26,9 @@
         <%= for commenter <- commenters(announcement) do %>
           <img
             alt="<%= commenter.name %>"
-            class="commenters__avatar"
+            class="commenters__avatar tbds-avatar tbds-avatar--circle"
             height="80"
-            src="<%= gravatar(commenter) %>"
+            src="<%= profile_image_url(commenter) %>"
             width="80"
           >
         <% end %>

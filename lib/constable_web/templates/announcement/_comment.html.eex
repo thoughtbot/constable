@@ -4,7 +4,7 @@
       alt="<%= @comment.user.name %>"
       class="tbds-avatar tbds-avatar--circle"
       height="80"
-      src="<%= gravatar @comment.user %>"
+      src="<%= profile_image_url(@comment.user) %>"
       width="80"
     >
   </div>

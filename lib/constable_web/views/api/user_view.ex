@@ -17,7 +17,7 @@ defmodule ConstableWeb.Api.UserView do
       name: user.name,
       auto_subscribe: user.auto_subscribe,
       daily_digest: user.daily_digest,
-      gravatar_url: gravatar_url(user.email, secure: true),
+      profile_image_url: profile_provider().image_url(user),
       username: user.username,
       user_interests: pluck(user.user_interests, :id),
       subscriptions: pluck(user.subscriptions, :id)

@@ -46,7 +46,7 @@
           alt="<%= @conn.assigns.current_user.name %>"
           class="tbds-avatar tbds-avatar--circle"
           height="80"
-          src="<%= gravatar(@conn.assigns.current_user) %>"
+          src="<%= profile_image_url(@conn.assigns.current_user) %>"
           width="80"
         >
       <% end %>

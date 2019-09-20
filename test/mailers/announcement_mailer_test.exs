@@ -2,7 +2,7 @@ defmodule Constable.Mailers.AnnouncementTest do
   use Constable.TestWithEcto, async: false
   alias ConstableWeb.Router.Helpers, as: Routes
   alias Constable.Emails
-  import Exgravatar
+  alias Constable.Services.HubProfileProvider
 
   test "sends a correctly formatted email to a list of users" do
     author = insert(:user)
@@ -10,7 +10,9 @@ defmodule Constable.Mailers.AnnouncementTest do
     users = [author, user]
 
     [interest_1, interest_2] = insert_pair(:interest)
-    announcement = insert(:announcement, user: author)
+
+    announcement =
+      insert(:announcement, user: author)
       |> tag_with_interest(interest_1)
       |> tag_with_interest(interest_2)
       |> Repo.preload(:interests)
@@ -21,30 +23,36 @@ defmodule Constable.Mailers.AnnouncementTest do
 
     from_name = "#{author.name} (Constable)"
     from_email = "announcements@#{Constable.Env.get("OUTBOUND_EMAIL_DOMAIN")}"
+
     headers = %{
-      "Message-ID" => "<announcement-#{announcement.id}@#{Constable.Env.get("OUTBOUND_EMAIL_DOMAIN")}>",
-      "Reply-To" => "<announcement-#{announcement.id}@#{Constable.Env.get("INBOUND_EMAIL_DOMAIN")}>",
+      "Message-ID" =>
+        "<announcement-#{announcement.id}@#{Constable.Env.get("OUTBOUND_EMAIL_DOMAIN")}>",
+      "Reply-To" =>
+        "<announcement-#{announcement.id}@#{Constable.Env.get("INBOUND_EMAIL_DOMAIN")}>"
     }
+
     html_announcement_body = Constable.Markdown.to_html(announcement.body)
     assert email.to == users
     assert email.subject == announcement.title
     assert email.from == {from_name, from_email}
     assert email.headers == headers
     assert email.private.message_params.merge_language == "handlebars"
+
     assert email.private.message_params.merge_vars == [
-      %{
-        rcpt: user.email,
-        vars: [
-          %{
-            name: "subscription_id",
-            content: subscription.token
-          }
-        ]
-      }
-    ]
+             %{
+               rcpt: user.email,
+               vars: [
+                 %{
+                   name: "subscription_id",
+                   content: subscription.token
+                 }
+               ]
+             }
+           ]
+
     assert email.html_body =~ html_announcement_body
     assert email.html_body =~ author.name
-    assert email.html_body =~ gravatar_url(author.email)
+    assert email.html_body =~ FakeProfileProvider.image_url(author)
     assert email.html_body =~ interest_1.name
     assert email.html_body =~ interest_2.name
     assert email.text_body =~ announcement.body
@@ -61,10 +69,11 @@ defmodule Constable.Mailers.AnnouncementTest do
     email = Constable.Emails.new_announcement_mention(announcement, users)
 
     assert email.to == users
+
     assert email.from == {
-      "#{announcement.user.name} (Constable)",
-      "announcements@#{Constable.Env.get("OUTBOUND_EMAIL_DOMAIN")}"
-    }
+             "#{announcement.user.name} (Constable)",
+             "announcements@#{Constable.Env.get("OUTBOUND_EMAIL_DOMAIN")}"
+           }
   end
 
   defp email_contains_interest_link(email, interest) do

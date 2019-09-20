@@ -19,8 +19,8 @@ defmodule ConstableWeb.EmailView do
     Routes.settings_url(ConstableWeb.Endpoint, :show)
   end
 
-  def author_avatar_url(user) do
-    gravatar_url(user.email)
+  def author_profile_image_url(user) do
+    profile_image_url(user.email)
   end
 
   def interest_links(announcement) do
