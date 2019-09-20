@@ -1,24 +1,24 @@
 .checkbox-switch {
-  display: block;
+  display: inline-block;
   overflow: hidden;
-  padding: 0.5em;
+  padding: 0.5em 0.5em 0.5em 70px;
   position: relative;
 }
 
 .checkbox-switch span::before,
 .checkbox-switch span::after {
   border: 1px solid #747474;
-  content: "";
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
 }
 
 .checkbox-switch span::after {
-  background: #fff;
+  background: #EEE;
   border-radius: 100%;
+  content: "";
   height: 1.5em;
-  right: 1.5em;
+  left: 0.25em;
   transition: right 0.1825s ease-in-out;
   width: 1.5em;
 }
@@ -26,10 +26,25 @@
 .checkbox-switch span::before {
   background: rgba(121, 0, 0, 0.3);
   border-radius: 1.75em;
+  color: #FFF;
+  font-variant: small-caps;
+  font-weight: bold;
   height: 1.5em;
-  right: 0.25em;
+  left: 0.25em;
+  line-height: 1.3em;
   transition: background 0.2s ease-in-out;
-  width: 2.75em;
+  width: 3.75em;
+}
+
+.checkbox-switch input:checked + span::before {
+  content: "on";
+  padding-left: 10px;
+}
+
+.checkbox-switch input:not(:checked) + span::before {
+  color: #000;
+  content: "off";
+  padding-left: 26px;
 }
 
 .checkbox-switch input {
@@ -51,7 +66,7 @@
 }
 
 .checkbox-switch input:checked + span::after {
-  right: 0.25em;
+  left: 2.5em;
 }
 
 .checkbox-switch input:checked + span::before {
