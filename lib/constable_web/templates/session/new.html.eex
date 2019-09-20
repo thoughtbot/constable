@@ -1,4 +1,4 @@
-<div class="container container-x-small">
+<div class="container container-x-small container-full-height tbds-app-frame__body--center-items">
   <div class="box tbds-text-align-center">
     <svg aria-label="thoughtbot logo" class="tbds-margin-block-end-3" width="48" height="48">
       <use xlink:href="/images/icons.svg#thoughtbot-logomark"></use>
