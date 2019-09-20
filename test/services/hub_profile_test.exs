@@ -1,8 +1,8 @@
-defmodule Constable.Services.HubProfileTest do
+defmodule Constable.Services.HubProfileProviderTest do
   use Constable.TestWithEcto, async: true
 
   import Mock
-  alias Constable.Services.HubProfile
+  alias Constable.Services.HubProfileProvider
 
   describe "#profile_url" do
     test "returns the hub profile url for a user" do
@@ -25,7 +25,7 @@ defmodule Constable.Services.HubProfileTest do
 
       profile_url =
         Mock.with_mock Neuron, query: query_mock do
-          HubProfile.profile_url(user)
+          HubProfileProvider.profile_url(user)
         end
 
       assert profile_url == "#{Application.fetch_env!(:constable, :hub_url)}/people/#{mock_slug}"
@@ -53,7 +53,7 @@ defmodule Constable.Services.HubProfileTest do
 
       image_url =
         Mock.with_mock Neuron, query: query_mock do
-          HubProfile.image_url(user)
+          HubProfileProvider.image_url(user)
         end
 
       assert image_url == mock_image_url

@@ -2,7 +2,7 @@ defmodule Constable.Mailers.AnnouncementTest do
   use Constable.TestWithEcto, async: false
   alias ConstableWeb.Router.Helpers, as: Routes
   alias Constable.Emails
-  alias Constable.Services.HubProfile
+  alias Constable.Services.HubProfileProvider
 
   test "sends a correctly formatted email to a list of users" do
     author = insert(:user)
@@ -52,7 +52,7 @@ defmodule Constable.Mailers.AnnouncementTest do
 
     assert email.html_body =~ html_announcement_body
     assert email.html_body =~ author.name
-    assert email.html_body =~ HubProfile.image_url(author)
+    assert email.html_body =~ FakeProfileProvider.image_url(author)
     assert email.html_body =~ interest_1.name
     assert email.html_body =~ interest_2.name
     assert email.text_body =~ announcement.body

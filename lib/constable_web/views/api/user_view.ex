@@ -1,6 +1,5 @@
 defmodule ConstableWeb.Api.UserView do
   use ConstableWeb, :view
-  alias Constable.Services.HubProfile
 
   def render("index.json", %{users: users}) do
     users = users |> Repo.preload([:user_interests, :subscriptions])
@@ -18,7 +17,7 @@ defmodule ConstableWeb.Api.UserView do
       name: user.name,
       auto_subscribe: user.auto_subscribe,
       daily_digest: user.daily_digest,
-      profile_image_url: HubProfile.image_url(user),
+      profile_image_url: profile_provider().image_url(user),
       username: user.username,
       user_interests: pluck(user.user_interests, :id),
       subscriptions: pluck(user.subscriptions, :id)

@@ -1,7 +1,7 @@
 defmodule Constable.Mailers.CommentMailerTest do
   use Constable.TestWithEcto, async: true
   alias Constable.Emails
-  alias Constable.Services.HubProfile
+  alias Constable.Services.HubProfileProvider
 
   test "new comment email" do
     author = insert(:user)
@@ -45,7 +45,7 @@ defmodule Constable.Mailers.CommentMailerTest do
     html_comment_body = Constable.Markdown.to_html(comment.body)
     assert email.html_body =~ html_comment_body
     assert email.html_body =~ author.name
-    assert email.html_body =~ HubProfile.image_url(author)
+    assert email.html_body =~ FakeProfileProvider.image_url(author)
 
     assert email.text_body =~ comment.body
   end
@@ -77,7 +77,7 @@ defmodule Constable.Mailers.CommentMailerTest do
     html_comment_body = Constable.Markdown.to_html(comment.body)
     assert email.html_body =~ html_comment_body
     assert email.html_body =~ author.name
-    assert email.html_body =~ HubProfile.image_url(author)
+    assert email.html_body =~ FakeProfileProvider.image_url(author)
 
     assert email.text_body =~ comment.body
   end

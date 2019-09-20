@@ -81,6 +81,9 @@ defmodule ConstableWeb do
 
   def serializer do
     quote do
+      def profile_provider do
+        Constable.Pact.get(:profile_provider)
+      end
     end
   end
 
