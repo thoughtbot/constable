@@ -21,7 +21,7 @@
     <script src="<%= Application.fetch_env!(:constable, :shubox_script_url) %>"></script>
   </head>
   <body>
-  <a class="tbds-skip-link" href="#main">Skip to main content</a>
+    <a class="tbds-skip-link" href="#main">Skip to main content</a>
     <header class="app-header links-no-underline">
       <%= link "Constable", to: "/", class: "app-header__logo" %>
 
