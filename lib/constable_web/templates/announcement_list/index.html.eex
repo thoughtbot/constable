@@ -7,7 +7,7 @@
         </h1>
       <% end %>
 
-      <div class="announcement-metadata">
+      <div class="announcement-list-item-metadata">
         <%= gettext "announced " %>
         <%= relative_timestamp(announcement.inserted_at) %>
         to
