@@ -3,7 +3,7 @@
     <table border="0" cellpadding="0" cellspacing="0" class="flex-size" style="color: #454f52; font-family: Helvetica, Tahoma, sans-serif; font-size: 16px; line-height: 1.5;">
       <tr>
         <td width="50" vertical-align="middle">
-          <img alt="<%= @author.name %>" class="avatar" src="<%= author_profile_image_url(@author) %>" style="border-radius: 50%;" width="40">
+          <img alt="<%= @author.name %>" class="avatar" src="<%= profile_image_url(@author) %>" style="border-radius: 50%;" width="40">
         </td>
         <td>
           <%= @author.name %><br>

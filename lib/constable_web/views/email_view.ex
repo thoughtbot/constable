@@ -19,10 +19,6 @@ defmodule ConstableWeb.EmailView do
     Routes.settings_url(ConstableWeb.Endpoint, :show)
   end
 
-  def author_profile_image_url(user) do
-    profile_image_url(user.email)
-  end
-
   def interest_links(announcement) do
     announcement
     |> Map.get(:interests)
