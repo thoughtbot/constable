@@ -39,7 +39,7 @@ defmodule ConstableWeb.AnnouncementView do
   def class_for(_, _), do: nil
 
   defp current_user_same_as_announcements_user?(conn, announcements_user_id) do
-    "#{conn.assigns[:current_user].id}" == announcements_user_id
+    "#{current_user(conn).id}" == announcements_user_id
   end
 
   def interest_count_for(user) do

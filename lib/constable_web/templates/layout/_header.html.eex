@@ -1,0 +1,36 @@
+<a class="tbds-skip-link" href="#main">Skip to main content</a>
+<header class="app-header links-no-underline">
+  <%= link "Constable", to: "/", class: "app-header__logo" %>
+
+  <%= form_tag Routes.search_path(@conn, :show), class: "tbds-form app-header__search-form", method: :get do %>
+    <input
+      aria-label="Search Constable"
+      class="tbds-form__text-input app-header__search-input"
+      id="app-header__search-input"
+      name="query"
+      placeholder="Search…"
+      type="search"
+      value="<%= @conn.params["query"] %>"
+    />
+  <% end %>
+
+  <%= link(
+    to: Routes.settings_path(@conn, :show),
+    "aria-label": "Profile and settings",
+    class: "app-header__user-avatar tbds-line-height-0"
+  ) do %>
+    <img
+      alt="<%= @conn.assigns.current_user.name %>"
+      class="tbds-avatar tbds-avatar--circle"
+      height="80"
+      src="<%= profile_image_url(@conn.assigns.current_user) %>"
+      width="80"
+    >
+  <% end %>
+  <%= link to: Routes.announcement_path(@conn, :new), class: "tbds-button app-header__announce-button" do %>
+    <svg class="tbds-button__icon tbds-button__icon--start">
+      <use xlink:href="/images/icons.svg#edit"></use>
+    </svg>
+    <span class="app-header__announce-button-text">Announce</span>
+  <% end %>
+</header>

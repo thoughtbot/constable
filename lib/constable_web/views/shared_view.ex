@@ -3,12 +3,16 @@ defmodule ConstableWeb.SharedView do
   alias Constable.Services.MentionFinder
   use Phoenix.HTML
 
+  def current_user(conn) do
+    conn.assigns[:current_user]
+  end
+
   def title(%{page_title: title}) do
-    "- #{title}"
+    "Constable - #{title}"
   end
 
   def title(_my_assigns) do
-    ""
+    "Constable"
   end
 
   def profile_provider do
