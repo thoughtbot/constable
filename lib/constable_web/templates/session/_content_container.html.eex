@@ -1,0 +1,3 @@
+<main id="main" class="tbds-app-frame__body tbds-app-frame__body--center-items">
+  <%= @contents %>
+</main>

@@ -26,9 +26,10 @@
     <%= if current_user(@conn) do %>
       <%= render "_header.html", conn: @conn %>
     <% end %>
-    <main id="main" class="tbds-app-frame__body">
+
+    <%= content_container(@conn, assigns) do %>
       <%= render "_flashes.html", conn: @conn %>
       <%= render @view_module, @view_template, assigns %>
-    </main>
+    <% end %>
   </body>
 </html>
