@@ -25,10 +25,10 @@
           "Select interests",
           class: "tbds-form__label recipients-preview"
         ) %>
-        <%= text_input(
+        <%= multiple_select(
           :announcement,
           :interests,
-          value: comma_separated_interest_names(@changeset.data.interests)
+          []
         ) %>
       </div>
 
@@ -64,7 +64,8 @@
 
 <script>
   (function() {
-    window.INTERESTS_NAMES = <%= raw json_interests(@interests) %>;
+    window.INTEREST_NAMES = <%= raw json_interest_names(@interests) %>;
+    window.SELECTED_INTEREST_NAMES = <%= raw json_interest_names(@changeset.data.interests) %>;
     var AnnouncementForm = window.constable.announcementForm.default;
     new AnnouncementForm();
     window.constable.announcementFormMobile.setupForm();

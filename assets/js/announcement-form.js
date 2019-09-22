@@ -1,8 +1,19 @@
 import { markedWithSyntax } from './syntax-highlighting';
 import { updateRecipientsPreview } from './recipients-preview';
-import 'selectize';
+import './vendor/select-woo';
 
-const DELIMITER = ',';
+$.fn.select2.amd.require(['select2/selection/search'], (Search) => {
+  // Remove tag text when deleting a tag
+  // https://github.com/select2/select2/issues/3354#issuecomment-277419278
+  Search.prototype.searchRemoveChoice = function(decorated, item) {
+    this.trigger('unselect', {
+        data: item
+    });
+
+    this.$search.val('');
+    this.handleSearch();
+  };
+}, null, true);
 
 export default class {
   constructor() {
@@ -76,29 +87,31 @@ export default class {
     const interests = $('#announcement_interests');
 
     if (interests.length !== 0) {
-      if (interests.val() === '') {
-        const localStorageValue = localStorage.getItem('interests');
-        interests.val(localStorageValue);
-        updateRecipientsPreview(localStorageValue);
+      interests.select2({
+        tags: true,
+        tokenSeparators: [',', ' '],
+        data: window.INTEREST_NAMES.map((interest) => {
+          return { "id": interest, "text": interest, "selected": window.SELECTED_INTEREST_NAMES.includes(interest) };
+        })
+      }).on('change.select2', (_event) => {
+        const value = interests.select2('data').map((item) => item.id);
+
+        if (!this._isEditing) {
+          localStorage.setItem('interests', JSON.stringify(value) || []);
+        }
+        updateRecipientsPreview(value);
+      });
+
+      if (window.SELECTED_INTEREST_NAMES.length) {
+        updateRecipientsPreview(window.SELECTED_INTEREST_NAMES);
       }
 
-      interests.selectize({
-        delimiter: DELIMITER,
-        persist: false,
-        create(name) {
-          return { name };
-        },
-        valueField: 'name',
-        labelField: 'name',
-        searchField: 'name',
-        options: window.INTERESTS_NAMES,
-        onChange: value => {
-          if (!this._isEditing) {
-            localStorage.setItem('interests', value);
-          }
-          updateRecipientsPreview(value);
-        },
-      });
+      if (interests.val().length === 0) {
+        const localStorageValue = JSON.parse(localStorage.getItem('interests')) || [];
+        interests.val(localStorageValue);
+        interests.trigger('change');
+      }
+
     }
   }
 

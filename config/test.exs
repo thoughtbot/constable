@@ -12,7 +12,7 @@ config :constable, Constable.Repo,
   adapter: Ecto.Adapters.Postgres,
   database: "constable_api_test",
   hostname: "localhost",
-  username: System.get_env("POSTGRES_USER") || "postgres",
+  # username: System.get_env("POSTGRES_USER") || "postgres",
   pool: Ecto.Adapters.SQL.Sandbox
 
 config :constable, :sql_sandbox, true

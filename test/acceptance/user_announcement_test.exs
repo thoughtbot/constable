@@ -31,7 +31,7 @@ defmodule ConstableWeb.UserAnnouncementTest do
     |> visit(Routes.announcement_path(Endpoint, :new, as: current_user.id))
     |> fill_in_interests("elixir")
     |> assert_has(@interested_subscribers)
-    |> click(link("2 people are subscribed"))
+    |> click(css(".interested-user-count"))
 
     assert has_recipient_preview?(session, "Blake, Paul")
   end
@@ -77,10 +77,10 @@ defmodule ConstableWeb.UserAnnouncementTest do
 
   defp fill_in_interests(session, interests) do
     session
-    |> fill_in(css(".selectize-input input"), with: interests)
+    |> fill_in(css(".select2-search__field"), with: interests)
 
     session
-    |> click(css(".selectize-dropdown-content .create"))
+    |> click(css(".select2-results__option"))
 
     session
   end

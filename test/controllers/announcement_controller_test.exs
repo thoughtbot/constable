@@ -117,7 +117,7 @@ defmodule ConstableWeb.AnnouncementControllerTest do
     post conn, Routes.announcement_path(conn, :create),
       announcement: %{
         title: "Hello world",
-        interests: "everyone, boston",
+        interests: ["everyone", "boston"],
         body: "# Hello"
       }
 

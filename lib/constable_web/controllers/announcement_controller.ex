@@ -165,9 +165,8 @@ defmodule ConstableWeb.AnnouncementController do
   end
 
   defp extract_interest_names(announcement_params) do
-    interest_names =
-      Map.get(announcement_params, "interests")
-      |> String.split(",")
+    interest_names = Map.get(announcement_params, "interests")
+    |> Enum.sort()
 
     announcement_params =
       announcement_params
