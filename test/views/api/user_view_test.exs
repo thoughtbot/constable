@@ -1,7 +1,6 @@
 defmodule ConstableWeb.Api.UserViewTest do
   use ConstableWeb.ViewCase, async: true
   alias ConstableWeb.Api.UserView
-  alias Constable.Services.HubProfileProvider
 
   test "show.json returns correct fields" do
     user =

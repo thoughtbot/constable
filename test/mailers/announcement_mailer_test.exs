@@ -2,7 +2,6 @@ defmodule Constable.Mailers.AnnouncementTest do
   use Constable.TestWithEcto, async: false
   alias ConstableWeb.Router.Helpers, as: Routes
   alias Constable.Emails
-  alias Constable.Services.HubProfileProvider
 
   test "sends a correctly formatted email to a list of users" do
     author = insert(:user)
