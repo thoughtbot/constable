@@ -13,32 +13,33 @@
 .recipients-preview {
   position: relative;
 
-  .interested-user-count {
-    text-decoration: underline;
-
-    &:hover, &:focus {
-      color: $tbds-brand-red;
-
-      + .interested-user-names {
-        visibility: visible;
-        opacity: 1;
-      }
-    }
-  }
-
   .interested-user-names {
     @include position(absolute, 24px null null null);
     background-color: $white;
     border: $base-border;
     border-radius: $base-border-radius;
     box-shadow: 0 0 16px rgba($light-gray, 0.6);
-    visibility: hidden;
-    opacity: 0;
     display: block;
     font-size: $small-font-size;
+    opacity: 0;
     padding: $small-spacing;
-    width: 600px;
     transition: opacity 150ms, visibility 150ms;
+    visibility: hidden;
+    width: 600px;
     z-index: $ceiling-z-index;
+  }
+
+  .interested-user-count {
+    text-decoration: underline;
+
+    &:hover,
+    &:focus {
+      color: $tbds-brand-red;
+
+      + .interested-user-names {
+        opacity: 1;
+        visibility: visible;
+      }
+    }
   }
 }

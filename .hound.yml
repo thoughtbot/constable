@@ -1,9 +1,11 @@
 eslint:
   enabled: true
   config_file: assets/.eslintrc.json
+  ignore_file: assets/.eslintignore
   version: 5.16.0
 scss:
   enabled: false
 stylelint:
   config_file: assets/.stylelintrc.json
+  ignore_file: assets/.stylelintignore
   enabled: true

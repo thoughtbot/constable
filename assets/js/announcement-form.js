@@ -2,12 +2,12 @@ import { markedWithSyntax } from './syntax-highlighting';
 import { updateRecipientsPreview } from './recipients-preview';
 import './vendor/select-woo';
 
-$.fn.select2.amd.require(['select2/selection/search'], (Search) => {
+$.fn.select2.amd.require([ 'select2/selection/search' ], (Search) => {
   // Remove tag text when deleting a tag
   // https://github.com/select2/select2/issues/3354#issuecomment-277419278
   Search.prototype.searchRemoveChoice = function(decorated, item) {
     this.trigger('unselect', {
-        data: item
+      data: item,
     });
 
     this.$search.val('');
@@ -89,10 +89,10 @@ export default class {
     if (interests.length !== 0) {
       interests.select2({
         tags: true,
-        tokenSeparators: [',', ' '],
+        tokenSeparators: [ ',', ' ' ],
         data: window.INTEREST_NAMES.map((interest) => {
-          return { "id": interest, "text": interest, "selected": window.SELECTED_INTEREST_NAMES.includes(interest) };
-        })
+          return { 'id': interest, 'text': interest, 'selected': window.SELECTED_INTEREST_NAMES.includes(interest) };
+        }),
       }).on('change.select2', (_event) => {
         const value = interests.select2('data').map((item) => item.id);
 
