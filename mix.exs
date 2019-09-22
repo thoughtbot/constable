@@ -57,6 +57,7 @@ defmodule Constable.MixProject do
       {:httpoison, "~> 1.3", override: true},
       {:jason, "~> 1.0"},
       {:memoize, "~> 1.2"},
+      {:mix_test_watch, "~> 0.8", only: :dev, runtime: false},
       {:mock, "~> 0.3.0", only: :test},
       {:neuron, "~> 3.0.1"},
       {:oauth2, "~> 2.0"},

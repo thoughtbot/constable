@@ -46,3 +46,12 @@ config :constable, Constable.Repo,
 config :constable, Constable.Mailer, adapter: Bamboo.LocalAdapter
 
 config :honeybadger, :environment_name, :dev
+
+config :mix_test_watch,
+  clear: true
+  exclude: [
+    "bin/*",
+    "deps/*",
+    "priv/*",
+    "script/*",
+  ]
