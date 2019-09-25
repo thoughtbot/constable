@@ -33,7 +33,7 @@
   flex-wrap: wrap;
   font-size: $small-font-size;
 
-  > * {
+  .announcement-metadata-item {
     flex: 1 0 auto;
   }
 

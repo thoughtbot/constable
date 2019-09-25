@@ -28,7 +28,7 @@
   </h1>
 
   <div class="announcement-metadata-container">
-    <div class="tbds-media tbds-media--block-center">
+    <div class="announcement-metadata-item tbds-media tbds-media--block-center">
       <div class="tbds-media__figure tbds-line-height-0">
         <img
           alt="<%= @announcement.user.name %>"
@@ -47,7 +47,7 @@
         </div>
       </div>
     </div>
-    <div class="subscription">
+    <div class="announcement-metadata-item subscription">
       <%= if @subscription do %>
         <%= link to: Routes.announcement_subscription_path(@conn, :delete, @announcement),
           method: :delete,
