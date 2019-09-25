@@ -64,7 +64,7 @@
           <svg class="tbds-button__icon tbds-button__icon--start">
             <use xlink:href="/images/icons.svg#plus"></use>
           </svg>
-          <%= gettext("Subscribe to thread") %>
+          <%= gettext("Subscribe to announcement") %>
         <% end %>
       <% end %>
     </div>
