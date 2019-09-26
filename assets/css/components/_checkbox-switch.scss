@@ -7,14 +7,14 @@
 
 .checkbox-switch span::before,
 .checkbox-switch span::after {
-  border: 1px solid #747474;
+  border: 1px solid $medium-gray;
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
 }
 
 .checkbox-switch span::after {
-  background: #eee;
+  background: $light-gray;
   border-radius: 100%;
   content: "";
   height: 1.5em;
@@ -24,9 +24,9 @@
 }
 
 .checkbox-switch span::before {
-  background: rgba(121, 0, 0, 0.3);
+  background: rgba(darken($tbds-brand-red, 30%), 0.3);
   border-radius: 1.75em;
-  color: #fff;
+  color: $white;
   font-variant: small-caps;
   font-weight: bold;
   height: 1.5em;
@@ -37,7 +37,7 @@
 }
 
 .checkbox-switch input:not(:checked) + span::before {
-  color: #000;
+  color: $black;
   content: "off";
   padding-left: 26px;
 }
@@ -56,7 +56,7 @@
 }
 
 .checkbox-switch input:focus + span::before {
-  outline: 2px solid #0b758c;
+  outline: 2px solid $outline-color;
   outline-offset: 2px;
 }
 
