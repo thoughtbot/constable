@@ -1,7 +1,18 @@
+$_checkbox-switch-knob-size: 1.5em;
+$_checkbox-switch-width: 3.75em;
+$_checkbox-switch-height: 1.5em;
+$_checkbox-switch-padding: 0.7em;
+$_checkbox-switch-knob-position-on: 2.5em;
+$_checkbox-switch-knob-position-off: 0.25em;
+
 .checkbox-switch {
   display: inline-block;
   overflow: hidden;
-  padding: 0.5em 0.5em 0.5em 70px;
+  padding:
+    $_checkbox-switch-padding
+    $_checkbox-switch-padding
+    $_checkbox-switch-padding
+    $_checkbox-switch_padding + $_checkbox-switch-width;
   position: relative;
 }
 
@@ -17,10 +28,10 @@
   background: $light-gray;
   border-radius: 100%;
   content: "";
-  height: 1.5em;
-  left: 0.25em;
+  height: $_checkbox-switch-knob-size;
+  left: $_checkbox-switch-knob-position-off;
   transition: right 0.1825s ease-in-out;
-  width: 1.5em;
+  width: $_checkbox-switch-knob-size;
 }
 
 .checkbox-switch span::before {
@@ -29,17 +40,23 @@
   color: $white;
   font-variant: small-caps;
   font-weight: bold;
-  height: 1.5em;
-  left: 0.25em;
+  height: $_checkbox-switch-height;
+  left: $_checkbox-switch-knob-position-off;
   line-height: normal;
+  padding: 0 $tiny-spacing;
   transition: background 0.2s ease-in-out;
-  width: 3.75em;
+  width: $_checkbox-switch-width;
 }
 
 .checkbox-switch input:not(:checked) + span::before {
   color: $black;
   content: "off";
-  padding-left: 26px;
+  text-align: right;
+}
+
+.checkbox-switch input:checked + span::before {
+  background: $tbds-brand-red;
+  content: "on";
 }
 
 .checkbox-switch input {
@@ -61,14 +78,9 @@
 }
 
 .checkbox-switch input:checked + span::after {
-  left: 2.5em;
+  left: $_checkbox-switch-knob-position-on;
 }
 
-.checkbox-switch input:checked + span::before {
-  background: $tbds-brand-red;
-  content: "on";
-  padding-left: 10px;
-}
 
 
 @media screen and (-ms-high-contrast: active) {
