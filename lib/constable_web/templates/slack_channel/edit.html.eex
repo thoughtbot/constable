@@ -33,7 +33,7 @@
               to: Routes.interest_slack_channel_path(@conn, :delete, @interest),
               method: :delete,
               data: [confirm: gettext("Are you sure?"), role: "remove-channel"],
-              class: "tbds-button button-secondary remove-slack-channel"
+              class: "tbds-button button-secondary"
             ) do %>
               <%= gettext("Remove Channel") %>
             <% end %>
