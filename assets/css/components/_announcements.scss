@@ -22,9 +22,20 @@
   }
 }
 
-.announcement-metadata {
+.announcement-list-item-metadata {
   color: $secondary-font-color;
   font-size: $small-font-size;
+}
+
+.announcement-metadata-container {
+  color: $secondary-font-color;
+  display: flex;
+  flex-wrap: wrap;
+  font-size: $small-font-size;
+
+  .announcement-metadata-item {
+    flex: 1 0 auto;
+  }
 
   .author {
     color: $base-font-color;
@@ -32,6 +43,7 @@
 
   .subscription {
     @include margin($small-spacing 0);
+    margin-left: 1rem;
   }
 }
 

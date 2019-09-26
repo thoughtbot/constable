@@ -27,8 +27,8 @@
     <% end %>
   </h1>
 
-  <div class="announcement-metadata">
-    <div class="tbds-media tbds-media--block-center">
+  <div class="announcement-metadata-container">
+    <div class="announcement-metadata-item tbds-media tbds-media--block-center">
       <div class="tbds-media__figure tbds-line-height-0">
         <img
           alt="<%= @announcement.user.name %>"
@@ -46,27 +46,27 @@
           <%= relative_timestamp(@announcement.inserted_at) %>
         </div>
       </div>
-      <div class="subscription">
-        <%= if @subscription do %>
-          <%= link to: Routes.announcement_subscription_path(@conn, :delete, @announcement),
-            method: :delete,
-            class: "tbds-button button-secondary" do %>
-            <svg class="tbds-button__icon tbds-button__icon--start">
-              <use xlink:href="/images/icons.svg#check"></use>
-            </svg>
-            <%= gettext("Subscribed to thread") %>
-          <% end %>
-        <% else %>
-          <%= link to: Routes.announcement_subscription_path(@conn, :create, @announcement),
-            method: :post,
-            class: "tbds-button button-secondary" do %>
-            <svg class="tbds-button__icon tbds-button__icon--start">
-              <use xlink:href="/images/icons.svg#plus"></use>
-            </svg>
-            <%= gettext("Subscribe to thread") %>
-          <% end %>
+    </div>
+    <div class="announcement-metadata-item subscription">
+      <%= if @subscription do %>
+        <%= link to: Routes.announcement_subscription_path(@conn, :delete, @announcement),
+          method: :delete,
+          class: "tbds-button button-secondary" do %>
+          <svg class="tbds-button__icon tbds-button__icon--start">
+            <use xlink:href="/images/icons.svg#check"></use>
+          </svg>
+          <%= gettext("Subscribed to thread") %>
         <% end %>
-      </div>
+      <% else %>
+        <%= link to: Routes.announcement_subscription_path(@conn, :create, @announcement),
+          method: :post,
+          class: "tbds-button button-secondary" do %>
+          <svg class="tbds-button__icon tbds-button__icon--start">
+            <use xlink:href="/images/icons.svg#plus"></use>
+          </svg>
+          <%= gettext("Subscribe to announcement") %>
+        <% end %>
+      <% end %>
     </div>
   </div>
 
