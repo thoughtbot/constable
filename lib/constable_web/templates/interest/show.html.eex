@@ -1,7 +1,10 @@
 <div class="page-interest">
   <div class="interest container container-pad-top">
+    <h1 class="u-font-size-large">
+      <span class="tbds-badge"><%= @interest.name %></span>
+    </h1>
+
     <div>
-      <h1><%= @interest.name %></h1>
       <%= render ConstableWeb.InterestView, "subscription.html", conn: @conn, interest: @interest, current_user: @current_user %>
     </div>
 

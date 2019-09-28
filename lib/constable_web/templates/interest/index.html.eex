@@ -11,7 +11,14 @@
       <li class="tbds-block-stack__item interest-list-item">
         <div class="tbds-inline-stack">
           <div class="tbds-inline-stack__item">
-            <h3><%= link interest.name, to: Routes.interest_path(@conn, :show, interest) %></h3>
+            <p class="tbds-badge tbds-margin-block-end-0">
+              <strong>
+                <%= link(
+                  interest.name,
+                  to: Routes.interest_path(@conn, :show, interest)
+                ) %>
+              </strong>
+            </p>
           </div>
           <div class="tbds-inline-stack__item tbds-inline-stack__item--push-start">
             <%= render ConstableWeb.InterestView, "subscription.html", conn: @conn, interest: interest, current_user: @current_user %>
