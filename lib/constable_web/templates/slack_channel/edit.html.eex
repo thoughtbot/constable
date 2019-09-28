@@ -1,6 +1,8 @@
 <div class="page-slack-channel">
   <div class="interest container container-pad-top">
-    <h1><%= @interest.name %></h1>
+    <h1 class="u-font-size-large">
+      <span class="tbds-badge"><%= @interest.name %></span>
+    </h1>
 
     <div>
       <%= gettext("Here you can enter the slack channel to be notified when an announcement is created for this interest.") %>
