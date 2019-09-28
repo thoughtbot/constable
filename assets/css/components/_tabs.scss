@@ -5,7 +5,7 @@
   overflow-x: auto;
   width: 100%;
 
-  @include media($small-screen-up) {
+  @media (min-width: $breakpoint-1) {
     @include padding(null ($base-spacing - $small-spacing));
   }
 

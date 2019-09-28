@@ -20,12 +20,10 @@
   }
 }
 
-@include media($medium-screen) {
-  .app-header {
-    .tbds-button.app-header__announce-button {
-      .tbds-button__icon--start {
-        margin-inline-end: 0;
-      }
+.app-header__announce-button {
+  .tbds-button__icon--start {
+    @media (max-width: $breakpoint-2) {
+      margin-inline-end: 0;
     }
   }
 }

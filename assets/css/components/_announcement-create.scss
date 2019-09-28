@@ -1,20 +1,21 @@
 .flex-container {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
 
-  @include media($small-screen) {
-    justify-content: flex-start;
+  @media (min-width: $breakpoint-1) {
+    justify-content: center;
   }
 }
 
 .announcement-create,
 .announcement-preview {
+  display: none;
   flex: 1;
   min-height: calc(100vh - 91px);
   padding: $large-spacing $base-spacing;
 
-  @include media($small-screen) {
-    display: none;
+  @media (min-width: $breakpoint-1) {
+    display: block;
   }
 
   &.active {
@@ -47,7 +48,7 @@
     color: inherit;
     display: block;
 
-    @include media($medium-screen-up) {
+    @media (min-width: $breakpoint-2) {
       cursor: default;
     }
   }
@@ -56,7 +57,7 @@
     background-color: $dark-blue;
     color: #fff;
 
-    @include media($medium-screen-up) {
+    @media (min-width: $breakpoint-2) {
       background-color: $light-gray;
       color: $base-font-color;
     }

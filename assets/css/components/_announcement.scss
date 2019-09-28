@@ -1,14 +1,14 @@
 .announcement {
   margin-top: $base-spacing * 1.25;
 
-  @include media($medium-screen-up) {
+  @media (min-width: $breakpoint-2) {
     margin-top: $large-spacing;
   }
 
   h1 {
     @include margin($small-spacing null);
 
-    @include media($medium-screen-up) {
+    @media (min-width: $breakpoint-2) {
       @include margin($base-spacing null ($base-spacing * 0.85));
       font-size: $larger-font-size;
     }
@@ -123,7 +123,7 @@
 .announcement-body {
   @include padding($base-spacing null);
 
-  @include media($medium-screen-up) {
+  @media (min-width: $breakpoint-2) {
     @include padding($large-spacing null);
     font-size: $medium-font-size;
   }
