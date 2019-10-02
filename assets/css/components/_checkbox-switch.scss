@@ -1,0 +1,90 @@
+$_checkbox-switch-knob-size: 1.5em;
+$_checkbox-switch-width: 3.75em;
+$_checkbox-switch-height: 1.5em;
+$_checkbox-switch-padding: 0.7em;
+$_checkbox-switch-knob-position-on: 2.5em;
+$_checkbox-switch-knob-position-off: 0.25em;
+
+.checkbox-switch {
+  display: inline-block;
+  overflow: hidden;
+  padding:
+    $_checkbox-switch-padding
+    $_checkbox-switch-padding
+    $_checkbox-switch-padding
+    $_checkbox-switch_padding + $_checkbox-switch-width;
+  position: relative;
+}
+
+.checkbox-switch span::before,
+.checkbox-switch span::after {
+  border: 1px solid $medium-gray;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.checkbox-switch span::after {
+  background: $light-gray;
+  border-radius: 100%;
+  content: "";
+  height: $_checkbox-switch-knob-size;
+  left: $_checkbox-switch-knob-position-off;
+  transition: right 0.1825s ease-in-out;
+  width: $_checkbox-switch-knob-size;
+}
+
+.checkbox-switch span::before {
+  background: rgba(darken($tbds-brand-red, 30%), 0.3);
+  border-radius: 1.75em;
+  color: $white;
+  font-variant: small-caps;
+  font-weight: bold;
+  height: $_checkbox-switch-height;
+  left: $_checkbox-switch-knob-position-off;
+  line-height: normal;
+  padding: 0 $tiny-spacing;
+  transition: background 0.2s ease-in-out;
+  width: $_checkbox-switch-width;
+}
+
+.checkbox-switch input:not(:checked) + span::before {
+  color: $black;
+  content: "off";
+  text-align: right;
+}
+
+.checkbox-switch input:checked + span::before {
+  background: $tbds-brand-red;
+  content: "on";
+}
+
+.checkbox-switch input {
+  height: 100%;
+  left: 0;
+  opacity: 0.0001;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+
+.checkbox-switch input:not([role="button"]) {
+  pointer-events: none;
+}
+
+.checkbox-switch input:focus + span::before {
+  outline: 2px solid $outline-color;
+  outline-offset: 2px;
+}
+
+.checkbox-switch input:checked + span::after {
+  left: $_checkbox-switch-knob-position-on;
+}
+
+
+
+@media screen and (-ms-high-contrast: active) {
+  .checkbox-switch span::after {
+    background-color: windowText;
+  }
+}

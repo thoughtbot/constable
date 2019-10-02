@@ -6,6 +6,9 @@ import 'phoenix_html';
 // Basic AJAX Helper
 import './remote-append';
 
+// Load components
+import './checkbox-switch';
+
 // Bring in jQuery for other modules that rely on it
 import $ from 'jquery';
 window.jQuery = $;
