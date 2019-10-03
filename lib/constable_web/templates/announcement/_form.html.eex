@@ -30,6 +30,7 @@
           :interests,
           value: comma_separated_interest_names(@changeset.data.interests)
         ) %>
+        <%= error_tag f, :interests %>
       </div>
 
       <div class="tbds-block-stack__item">

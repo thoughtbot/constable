@@ -44,6 +44,9 @@ $lightest-gray: lighten($light-gray, 7%);
 // Outline
 $outline-color: #0b758c;
 
+// Error
+$error-color: #e03946;
+
 // Font Colors
 $base-font-color: $tbds-color-text-default;
 $secondary-font-color: tint($tbds-color-text-default, 25%);

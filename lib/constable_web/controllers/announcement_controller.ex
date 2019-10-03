@@ -167,7 +167,7 @@ defmodule ConstableWeb.AnnouncementController do
   defp extract_interest_names(announcement_params) do
     interest_names =
       Map.get(announcement_params, "interests")
-      |> String.split(",")
+      |> String.split(",", trim: true)
 
     announcement_params =
       announcement_params

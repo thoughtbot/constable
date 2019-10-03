@@ -22,8 +22,14 @@ defmodule Constable.Services.AnnouncementCreatorTest do
     new_interest_name = "foo"
     interest_name_with_hash = "#everyone"
     duplicate_interest = "#foo"
-    interest_names =
-      [existing_interest.name, new_interest_name, interest_name_with_hash, duplicate_interest]
+
+    interest_names = [
+      existing_interest.name,
+      new_interest_name,
+      interest_name_with_hash,
+      duplicate_interest
+    ]
+
     announcement_params = build(:announcement_params, user_id: author.id)
 
     AnnouncementCreator.create(announcement_params, interest_names)
@@ -35,11 +41,22 @@ defmodule Constable.Services.AnnouncementCreatorTest do
     refute announcement_has_interest_named?(announcement, duplicate_interest)
   end
 
+  test "does not allow creation of an announcement with no interests" do
+    author = insert(:user)
+    interest_names = []
+    announcement_params = build(:announcement_params, user_id: author.id)
+
+    AnnouncementCreator.create(announcement_params, interest_names)
+
+    announcement = Repo.one(Announcement) |> Repo.preload([:interests])
+    refute announcement
+  end
+
   test "subscribes the author to the newly created announcement" do
     author = insert(:user)
     announcement_params = build(:announcement_params, user_id: author.id)
 
-    AnnouncementCreator.create(announcement_params, [])
+    AnnouncementCreator.create(announcement_params, ["everyone"])
 
     announcement = Repo.one(Announcement)
     subscription = Repo.one(Subscription)
@@ -75,13 +92,14 @@ defmodule Constable.Services.AnnouncementCreatorTest do
     announcement = Repo.one(Announcement)
 
     refute Repo.get_by(Subscription,
-      user_id: user.id,
-      announcement_id: announcement.id
-    )
+             user_id: user.id,
+             announcement_id: announcement.id
+           )
+
     assert Repo.get_by(Subscription,
-      user_id: auto_subscribe_user.id,
-      announcement_id: announcement.id
-    )
+             user_id: auto_subscribe_user.id,
+             announcement_id: announcement.id
+           )
   end
 
   test "sends announcement email to subscribed users except author" do
@@ -98,7 +116,7 @@ defmodule Constable.Services.AnnouncementCreatorTest do
     AnnouncementCreator.create(announcement_params, ["foo"])
 
     announcement = Repo.one(Announcement) |> Repo.preload(:user)
-    assert_delivered_email Emails.new_announcement(announcement, [subscribed_user])
+    assert_delivered_email(Emails.new_announcement(announcement, [subscribed_user]))
   end
 
   test "does not send announcement email to deactivated users" do
@@ -116,7 +134,7 @@ defmodule Constable.Services.AnnouncementCreatorTest do
     AnnouncementCreator.create(announcement_params, ["foo"])
 
     announcement = Repo.one(Announcement) |> Repo.preload(:user)
-    assert_delivered_email Emails.new_announcement(announcement, [subscribed_user])
+    assert_delivered_email(Emails.new_announcement(announcement, [subscribed_user]))
   end
 
   test "sends announcement email to mentioned users" do
@@ -133,7 +151,7 @@ defmodule Constable.Services.AnnouncementCreatorTest do
     AnnouncementCreator.create(announcement_params, ["foo"])
 
     announcement = Repo.one(Announcement) |> Repo.preload(:user)
-    assert_delivered_email Emails.new_announcement_mention(announcement, [mentioned_user])
+    assert_delivered_email(Emails.new_announcement_mention(announcement, [mentioned_user]))
   end
 
   defp announcement_has_interest_named?(announcement, interest_name) do

@@ -13,17 +13,29 @@ defmodule Constable.Services.AnnouncementCreator do
 
   def create(params, interest_names) do
     changeset = Announcement.create_changeset(%Announcement{}, params)
-    case Repo.insert(changeset) do
-      {:ok, announcement} ->
-        announcement
-        |> add_interests(interest_names)
-        |> Repo.preload(:user)
-        |> subscribe_author
-        |> email_and_subscribe_users
-        |> SlackHook.new_announcement
 
-        {:ok, announcement}
-      error -> error
+    case interest_names do
+      [] ->
+        {:error,
+         changeset
+         |> Ecto.Changeset.add_error(:interests, "you must select at least one interest")
+         |> Map.put(:action, :update)}
+
+      _ ->
+        case Repo.insert(changeset) do
+          {:ok, announcement} ->
+            announcement
+            |> add_interests(interest_names)
+            |> Repo.preload(:user)
+            |> subscribe_author
+            |> email_and_subscribe_users
+            |> SlackHook.new_announcement()
+
+            {:ok, announcement}
+
+          error ->
+            error
+        end
     end
   end
 
@@ -49,19 +61,19 @@ defmodule Constable.Services.AnnouncementCreator do
   defp email_users(announcement, users) do
     users = filter_author(announcement.user_id, users)
 
-    Emails.new_announcement(announcement, users) |> Mailer.deliver_later
+    Emails.new_announcement(announcement, users) |> Mailer.deliver_later()
     announcement
   end
 
   def email_mentioned_users(announcement, users) do
     users = filter_author(announcement.user_id, users)
 
-    Emails.new_announcement_mention(announcement, users) |> Mailer.deliver_later
+    Emails.new_announcement_mention(announcement, users) |> Mailer.deliver_later()
     announcement
   end
 
-  defp filter_author(author_id, users)  do
-    Enum.reject(users, fn(user) ->
+  defp filter_author(author_id, users) do
+    Enum.reject(users, fn user ->
       user.id == author_id
     end)
   end
@@ -69,7 +81,7 @@ defmodule Constable.Services.AnnouncementCreator do
   defp subscribe_users(announcement, interested_users) do
     interested_users
     |> Enum.filter(&Map.get(&1, :auto_subscribe))
-    |> Enum.each(fn(user) ->
+    |> Enum.each(fn user ->
       subscribe_user(announcement, user.id)
     end)
 
@@ -79,7 +91,7 @@ defmodule Constable.Services.AnnouncementCreator do
   defp find_interested_users(announcement) do
     Ecto.assoc(announcement, :interested_users)
     |> where([u1], u1.active == true)
-    |> Repo.all
+    |> Repo.all()
   end
 
   def find_mentioned_users(announcement) do
@@ -96,6 +108,6 @@ defmodule Constable.Services.AnnouncementCreator do
   end
 
   defp insert_subscription(params) do
-    Subscription.changeset(params) |> Repo.insert!
+    Subscription.changeset(params) |> Repo.insert!()
   end
 end
