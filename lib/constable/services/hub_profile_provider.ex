@@ -1,9 +1,10 @@
 defmodule Constable.Services.HubProfileProvider do
+  alias ConstableWeb.Endpoint
   alias Constable.Services.ProfileProvider
   @behaviour ProfileProvider
   use Memoize
 
-  @default_image_url "/images/ralph.png"
+  @default_image_path "/images/ralph.png"
 
   @impl ProfileProvider
   defmemo profile_url(user) do
@@ -17,7 +18,7 @@ defmodule Constable.Services.HubProfileProvider do
         image_url
 
       _ ->
-        @default_image_url
+        "#{Endpoint.url()}#{@default_image_path}"
     end
   end
 

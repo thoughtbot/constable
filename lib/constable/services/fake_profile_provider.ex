@@ -1,4 +1,5 @@
 defmodule FakeProfileProvider do
+  alias ConstableWeb.Endpoint
   alias Constable.Services.ProfileProvider
   @behaviour ProfileProvider
 
@@ -9,6 +10,6 @@ defmodule FakeProfileProvider do
 
   @impl ProfileProvider
   def image_url(_user) do
-    "/images/ralph.png"
+    "#{Endpoint.url()}/images/ralph.png"
   end
 end
