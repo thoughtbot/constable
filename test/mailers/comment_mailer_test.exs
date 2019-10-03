@@ -1,7 +1,6 @@
 defmodule Constable.Mailers.CommentMailerTest do
   use Constable.TestWithEcto, async: true
   alias Constable.Emails
-  alias Constable.Services.HubProfileProvider
 
   test "new comment email" do
     author = insert(:user)

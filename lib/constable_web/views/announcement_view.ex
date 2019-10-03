@@ -1,19 +1,18 @@
 defmodule ConstableWeb.AnnouncementView do
   use ConstableWeb, :view
 
-  def json_interests(interests) do
+  def json_interest_names(interests) do
     interests
-    |> Enum.map(&%{name: &1.name})
+    |> interest_names
     |> Poison.encode!()
   end
 
-  def comma_separated_interest_names(interests) when is_list(interests) do
+  def interest_names(interests) when is_list(interests) do
     interests
     |> Enum.map(& &1.name)
-    |> Enum.join(",")
   end
 
-  def comma_separated_interest_names(_), do: ""
+  def interest_names(_), do: []
 
   def class_for("all", %{params: %{"all" => "true"}}), do: "selected"
 
