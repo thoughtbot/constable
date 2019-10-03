@@ -5,7 +5,10 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  padding: $small-spacing;
+  padding: $small-spacing
+    calc(#{$base-spacing} + env(safe-area-inset-right))
+    $small-spacing
+    calc(#{$base-spacing} + env(safe-area-inset-left));
 
   @media (min-width: $breakpoint-1) {
     padding: $small-spacing $base-spacing;

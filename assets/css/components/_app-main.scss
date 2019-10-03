@@ -1,0 +1,6 @@
+.app-main {
+  padding: 0
+    calc(#{$tiniest-spacing} + env(safe-area-inset-right))
+    calc(#{$tiniest-spacing} + env(safe-area-inset-bottom))
+    calc(#{$tiniest-spacing} + env(safe-area-inset-left));
+}
