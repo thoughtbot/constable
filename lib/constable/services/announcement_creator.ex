@@ -14,6 +14,22 @@ defmodule Constable.Services.AnnouncementCreator do
   def create(params, interest_names) do
     changeset = Announcement.create_changeset(%Announcement{}, params)
 
+    with {:ok, changeset} <- validate_interests(changeset, interest_names),
+         {:ok, announcement} <- Repo.insert(changeset) do
+      announcement
+      |> add_interests(interest_names)
+      |> Repo.preload(:user)
+      |> subscribe_author
+      |> email_and_subscribe_users
+      |> SlackHook.new_announcement()
+
+      {:ok, announcement}
+    else
+      error -> error
+    end
+  end
+
+  defp validate_interests(changeset, interest_names) do
     case interest_names do
       [] ->
         {:error,
@@ -22,20 +38,7 @@ defmodule Constable.Services.AnnouncementCreator do
          |> Map.put(:action, :update)}
 
       _ ->
-        case Repo.insert(changeset) do
-          {:ok, announcement} ->
-            announcement
-            |> add_interests(interest_names)
-            |> Repo.preload(:user)
-            |> subscribe_author
-            |> email_and_subscribe_users
-            |> SlackHook.new_announcement()
-
-            {:ok, announcement}
-
-          error ->
-            error
-        end
+        {:ok, changeset}
     end
   end
 
