@@ -31,12 +31,24 @@
   <%= render ConstableWeb.AnnouncementListView, "index.html", conn: @conn, announcements: @announcements %>
 
   <div class="container pagination">
-    <%= if !on_first_page?(@interest_page) do %>
-      <%= link gettext(""), to: Routes.interest_path(@conn, :show, @interest, page: (@interest_page.page_number - 1)), class: "page-previous button" %>
-    <% end %>
+      <%= if !on_first_page?(@interest_page) do %>
+        <%= link to: Routes.interest_path(@conn, :show, @interest, page: (@interest_page.page_number - 1)),
+              class: "tbds-button button-secondary pagination-button" do %>
+          <svg class="tbds-button__icon tbds-button__icon--start">
+            <use xlink:href="/images/icons.svg#arrow-left"></use>
+          </svg>
+          Previous
+        <% end %>
+      <% end %>
 
-    <%= if !on_last_page?(@interest_page) do %>
-      <%= link gettext(""), to: Routes.interest_path(@conn, :show, @interest, page: (@interest_page.page_number + 1)), class: "page-next button" %>
-    <% end %>
-  </div>
+      <%= if !on_last_page?(@interest_page) do %>
+        <%= link to: Routes.interest_path(@conn, :show, @interest, page: (@interest_page.page_number + 1)),
+              class: "tbds-button button-secondary pagination-button" do %>
+          Next
+          <svg class="tbds-button__icon tbds-button__icon--end">
+            <use xlink:href="/images/icons.svg#arrow-right"></use>
+          </svg>
+        <% end %>
+      <% end %>
+    </div>
 </div>
