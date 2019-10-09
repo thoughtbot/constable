@@ -24,7 +24,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.6.3",
-    "@babel/preset-env": "^7.6.2",
+    "@babel/preset-env": "^7.6.3",
     "@thoughtbot/eslint-config": "^0.1.0",
     "@thoughtbot/stylelint-config": "^1.1.0",
     "autoprefixer": "^9.6.4",
