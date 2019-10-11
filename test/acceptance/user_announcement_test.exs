@@ -21,6 +21,18 @@ defmodule ConstableWeb.UserAnnouncementTest do
     assert has_comments_placeholder?(session)
   end
 
+  test "user tries to create an announcement without adding any interests", %{session: session} do
+    user = insert(:user)
+
+    session
+    |> visit(Routes.announcement_path(Endpoint, :new, as: user.id))
+    |> fill_in(@announcement_title, with: "Hello World ❤️")
+    |> fill_in(@announcement_body, with: "# Hello!")
+    |> click_submit_button
+
+    assert has_form_error_message?(session, "you must select at least one interest")
+  end
+
   test "user previews who will receive an announcement", %{session: session} do
     elixir_interest = insert(:interest, name: "elixir")
     _uninterested_user = insert(:user)
@@ -117,5 +129,11 @@ defmodule ConstableWeb.UserAnnouncementTest do
     session
     |> find(css(".interested-user-names"))
     |> has_text?(user_names)
+  end
+
+  defp has_form_error_message?(session, message) do
+    session
+    |> find(css(".help-block"))
+    |> has_text?(message)
   end
 end

@@ -92,6 +92,9 @@ export default class {
         labelField: 'name',
         searchField: 'name',
         options: window.INTERESTS_NAMES,
+        onInitialize() {
+          this.$control_input.attr('aria-describedby', this.$input.attr('aria-describedby'));
+        },
         onChange: value => {
           if (!this._isEditing) {
             localStorage.setItem('interests', value);
