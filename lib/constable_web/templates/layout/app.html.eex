@@ -27,8 +27,8 @@
       <%= render "_header.html", conn: @conn %>
     <% end %>
 
+    <%= render "_flashes.html", conn: @conn %>
     <%= content_container(@conn, assigns) do %>
-      <%= render "_flashes.html", conn: @conn %>
       <%= render @view_module, @view_template, assigns %>
     <% end %>
   </body>
