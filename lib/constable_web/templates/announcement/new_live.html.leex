@@ -72,7 +72,8 @@
   $(document).on('phx:update', event => {
     window.INTERESTS_NAMES = <%= raw json_interests(@interests) %>;
     window.constable.announcementFormMobile.setupForm();
-    window.constable.textareaImageUploader.setupImageUploader('#announcement_body');
+    // TODO: fix re-initialization of Dropzone?
+    //window.constable.textareaImageUploader.setupImageUploader('#announcement_body');
     window.constable.userAutocomplete.autocompleteUsers(
       '#announcement_body',
       <%= raw user_autocomplete_json(@users) %>
