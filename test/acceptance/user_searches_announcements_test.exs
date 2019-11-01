@@ -24,7 +24,7 @@ defmodule ConstableWeb.UserSearchesAnnouncementsTest do
 
   defp has_announcement_text?(session, announcment_title) do
     session
-    |> find(css("h1[data-role=title]"))
+    |> find(css("[data-role=title]"))
     |> has_text?(announcment_title)
   end
 end

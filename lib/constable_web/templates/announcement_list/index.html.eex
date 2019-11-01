@@ -1,10 +1,9 @@
 <ul class="tbds-block-stack tbds-block-stack--gap-6 container container-pad-top">
   <%= for announcement <- @announcements do %>
     <li class="tbds-block-stack__item announcement-list-item">
-      <%= link to: Routes.announcement_path(@conn, :show, announcement) do %>
-        <h1 data-role="title" class="announcement-list-item-heading">
-          <%= announcement.title %>
-        </h1>
+      <%= link to: Routes.announcement_path(@conn, :show, announcement),
+      class: "announcement-list-item-heading", data_role: "title" do %>
+        <%= announcement.title %>
       <% end %>
 
       <div class="announcement-list-item-metadata">

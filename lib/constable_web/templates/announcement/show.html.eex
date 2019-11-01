@@ -39,7 +39,7 @@
         >
       </div>
       <div class="tbds-media__body">
-        <h4><%= link @announcement.user.name, to: Routes.announcement_path(@conn, :index, user_id: @announcement.user_id), class: "author" %></h4>
+        <%= link @announcement.user.name, to: Routes.announcement_path(@conn, :index, user_id: @announcement.user_id), class: "author" %>
 
         <div class="announcement-metadata">
           <%= gettext "announced " %>
@@ -74,7 +74,7 @@
     <%= raw markdown_with_users(@announcement.body) %>
   </div>
 
-  <h4 class="tbds-margin-block-end-6"><%= gettext "Comments" %></h4>
+  <h2 class="tbds-margin-block-end-6"><%= gettext "Comments" %></h2>
   <ul class="tbds-block-stack tbds-block-stack--bordered tbds-block-stack--gap-6 comments-list">
     <li class="comments-placeholder">
       No one has commented on this announcement yet.<br />You could be the first!

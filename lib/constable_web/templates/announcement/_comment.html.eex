@@ -11,7 +11,7 @@
 
   <div class="tbds-media__body">
     <div class="author-information">
-      <h4 class="author"><%= @comment.user.name %></h4>
+      <p class="author"><%= @comment.user.name %></p>
       <a href="#comment-<%= @comment.id %>" class="comment-time">
         <%= relative_timestamp(@comment.inserted_at) %>
       </a>

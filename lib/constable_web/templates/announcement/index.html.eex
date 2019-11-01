@@ -37,6 +37,8 @@
     <% end %>
   </nav>
 
+  <h1 class="page-header container">Announcements</h1>
+
   <%= render ConstableWeb.AnnouncementListView,
     "index.html",
     conn: @conn,

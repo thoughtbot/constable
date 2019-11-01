@@ -3,12 +3,6 @@
 }
 
 .announcement-list-item {
-  h1 {
-    font-size: 1.75rem;
-    margin-bottom: $tiniest-spacing;
-    margin-top: 0;
-  }
-
   .announcement-metadata {
     margin-bottom: 0;
   }
@@ -20,6 +14,14 @@
   &:last-child {
     border-bottom: none;
   }
+}
+
+.announcement-list-item-heading {
+  font-size: 1.75rem;
+  font-weight: $font-weight-bold;
+  line-height: $heading-line-height;
+  margin-bottom: $tiniest-spacing;
+  margin-top: 0;
 }
 
 .announcement-list-item-metadata {
@@ -39,6 +41,7 @@
 
   .author {
     color: $base-font-color;
+    font-weight: $font-weight-bold;
   }
 
   .subscription {

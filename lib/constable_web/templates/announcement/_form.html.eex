@@ -4,11 +4,11 @@
   fn(f) -> %>
   <nav class="header-tags">
     <div class="header-tag header-tag-markdown active">
-      <%= gettext("Markdown") %>
+      <h2><%= gettext("Markdown") %></h2>
     </div>
 
     <div class="header-tag header-tag-preview">
-      <%= gettext("Preview") %>
+      <h2><%= gettext("Preview") %></h2>
     </div>
   </nav>
   <div class="col-markdown announcement-create active">
