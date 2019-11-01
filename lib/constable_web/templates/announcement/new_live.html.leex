@@ -37,7 +37,6 @@
         </div>
       </section>
       <%= text_input :announcement, :interests,
-        phx_update: "ignore",
         phx_hook: "AnnouncementInterests",
         value: comma_separated_interest_names(@changeset.data.interests),
         placeholder: gettext("Interests")

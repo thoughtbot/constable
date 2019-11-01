@@ -24,8 +24,9 @@ LocalTime.start();
 
 // Set up live view
 import LiveSocket from 'phoenix_live_view';
+import {Socket} from 'phoenix';
 import Hooks from './hooks/index';
-const liveSocket = new LiveSocket('/live', { hooks: Hooks });
+const liveSocket = new LiveSocket('/live', Socket, { hooks: Hooks });
 liveSocket.connect();
 
 // Make the modules available to html pages
