@@ -28,4 +28,12 @@ defmodule Constable.Services.MentionFinderTest do
     user = Repo.one(User)
     assert MentionFinder.find_users(body) == [user]
   end
+
+  test "extracts users with periods in username" do
+    insert(:user, username: "machoman.savage")
+    body = "The @machoman.savage’s peanut butter sandwich at @hulkamania"
+
+    user = Repo.one(User)
+    assert MentionFinder.find_users(body) == [user]
+  end
 end
