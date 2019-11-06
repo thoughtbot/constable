@@ -1,5 +1,5 @@
 defmodule Constable.Services.MentionFinder do
-  @mention_regex ~r/@(\w+)/u
+  @mention_regex ~r/@([\w\.]+)/u
 
   alias Constable.Repo
   alias Constable.User
