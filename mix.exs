@@ -58,7 +58,7 @@ defmodule Constable.MixProject do
       {:jason, "~> 1.0"},
       {:memoize, "~> 1.2"},
       {:mock, "~> 0.3.0", only: :test},
-      {:neuron, "~> 4.0.0"},
+      {:neuron, "~> 4.1.0"},
       {:oauth2, "~> 2.0"},
       {:pact, "~> 0.2.0"},
       {:phoenix, "~> 1.4.0"},
