@@ -72,7 +72,7 @@ defmodule Constable.MixProject do
       {:quick_alias, "~> 0.1.0"},
       {:scrivener_ecto, "~> 2.2.0"},
       {:secure_random, "~> 0.1"},
-      {:slugger, "~> 0.2.0"},
+      {:slugger, "~> 0.3.0"},
       {:wallaby, "~> 0.20", only: :test}
     ]
   end
