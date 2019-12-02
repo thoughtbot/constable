@@ -29,7 +29,7 @@
   "mime": {:hex, :mime, "1.3.1", "30ce04ab3175b6ad0bdce0035cba77bba68b813d523d1aac73d9781b4d193cf8", [], [], "hexpm"},
   "mimerl": {:hex, :mimerl, "1.2.0", "67e2d3f571088d5cfd3e550c383094b47159f3eee8ffa08e64106cdf5e981be3", [:rebar3], [], "hexpm"},
   "mochiweb": {:hex, :mochiweb, "2.18.0", "eb55f1db3e6e960fac4e6db4e2db9ec3602cc9f30b86cd1481d56545c3145d2e", [:rebar3], [], "hexpm"},
-  "mock": {:hex, :mock, "0.3.3", "42a433794b1291a9cf1525c6d26b38e039e0d3a360732b5e467bfc77ef26c914", [:mix], [{:meck, "~> 0.8.13", [hex: :meck, repo: "hexpm", optional: false]}], "hexpm"},
+  "mock": {:hex, :mock, "0.3.4", "c5862eb3b8c64237f45f586cf00c9d892ba07bb48305a43319d428ce3c2897dd", [:mix], [{:meck, "~> 0.8.13", [hex: :meck, repo: "hexpm", optional: false]}], "hexpm"},
   "neuron": {:hex, :neuron, "4.1.0", "e0d1a7f9c86b84f4c7c407300dafbc90d4594aeec83985dfd9a662548006b00d", [:mix], [{:httpoison, "~> 1.0", [hex: :httpoison, repo: "hexpm", optional: false]}, {:jason, "~> 1.1", [hex: :jason, repo: "hexpm", optional: true]}], "hexpm"},
   "oauth2": {:hex, :oauth2, "2.0.0", "338382079fe16c514420fa218b0903f8ad2d4bfc0ad0c9f988867dfa246731b0", [:mix], [{:hackney, "~> 1.13", [hex: :hackney, repo: "hexpm", optional: false]}], "hexpm"},
   "pact": {:hex, :pact, "0.2.1", "ae7b8a0f832a45c03a9360990fc8b63c36f854b6f088ef9df512b32a9ba72a37", [:mix], [], "hexpm"},
