@@ -53,7 +53,7 @@ defmodule Constable.MixProject do
       {:gettext, "~> 0.11"},
       {:good_times, "~> 1.1"},
       {:honeybadger, "~> 0.6"},
-      {:html_sanitize_ex, "~> 1.3.0"},
+      {:html_sanitize_ex, "~> 1.4.0"},
       {:httpoison, "~> 1.3", override: true},
       {:jason, "~> 1.0"},
       {:memoize, "~> 1.2"},
