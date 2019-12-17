@@ -9,7 +9,7 @@
     >
   </div>
 
-  <div class="tbds-media__body">
+  <div class="tbds-media__body comment-container">
     <div class="author-information">
       <p class="author"><%= @comment.user.name %></p>
       <a href="#comment-<%= @comment.id %>" class="comment-time">
