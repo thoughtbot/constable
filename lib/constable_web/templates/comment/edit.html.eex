@@ -2,7 +2,6 @@
   <div class="comment-edit">
     <button class="tbds-button comment-preview-text-button">Write</button>
     <button class="tbds-button comment-preview-markdown-button">Preview</button>
-    <div class="comment-body comment-preview"></div>
 
     <%= render "_form.html",
       comment_changeset: @changeset,

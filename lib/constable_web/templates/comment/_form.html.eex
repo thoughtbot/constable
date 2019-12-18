@@ -12,6 +12,7 @@
       class: "tbds-form__textarea comment-textarea mousetrap uploadable-input",
       required: true
     ) %>
+    <div class="comment-body comment-preview"></div>
   </div>
 
   <div class="tbds-block-stack__item">
