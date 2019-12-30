@@ -129,5 +129,19 @@ defmodule Constable.AnnouncementTest do
       assert announcement_with_user_comment.id in announcement_ids
       refute announcement_without_user_comment.id in announcement_ids
     end
+
+    test "includes each announcement once, even with multiple comments by user" do
+      user = insert(:user)
+      announcement = insert(:announcement)
+
+      insert_pair(:comment, announcement: announcement, user: user)
+
+      found_announcement =
+        user.id
+        |> Announcement.with_comments_by_user()
+        |> Repo.one()
+
+      assert found_announcement.id == announcement.id
+    end
   end
 end

@@ -58,6 +58,7 @@ defmodule Constable.Announcement do
     |> join(:inner, [a], c in assoc(a, :comments))
     |> join(:inner, [_a, c], u in assoc(c, :user))
     |> where([_a, c, _u], c.user_id == ^user_id)
+    |> distinct(true)
   end
 
   def search(query \\ __MODULE__, search_term, exclude_interests: excludes) do
