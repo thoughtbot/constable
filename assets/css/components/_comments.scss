@@ -56,6 +56,10 @@
   margin-bottom: $small-spacing;
   min-height: 118px;
   padding: $small-spacing;
+
+  pre {
+    overflow-x: auto;
+  }
 }
 
 .comment-preview-text-button,
