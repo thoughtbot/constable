@@ -12,6 +12,7 @@
   display: none;
   flex: 1;
   min-height: calc(100vh - 91px);
+  min-width: calc(100vw / 2);
   padding: $large-spacing $base-spacing;
 
   @media (min-width: $breakpoint-1) {
@@ -25,6 +26,10 @@
 
 .announcement-preview {
   border-left: 1px solid darken($lightest-gray, 4%);
+
+  pre {
+    overflow-x: auto;
+  }
 }
 
 .header-tags {

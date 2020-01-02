@@ -14,6 +14,10 @@
   margin-left: $tiniest-spacing;
 }
 
+.comment-container {
+  overflow-x: auto;
+}
+
 .comment-body {
   position: relative;
 }
