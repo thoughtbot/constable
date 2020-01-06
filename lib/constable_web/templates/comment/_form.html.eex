@@ -1,5 +1,7 @@
 <%= form_for @comment_changeset, @path, [class: "tbds-form tbds-block-stack tbds-block-stack--gap-4 comment-form"], fn(f) -> %>
   <div class="tbds-block-stack__item">
+    <button type="button" class="tbds-button comment-preview-text-button">Write</button>
+    <button type="button" class="tbds-button comment-preview-markdown-button">Preview</button>
     <%= label(
       f,
       :body,

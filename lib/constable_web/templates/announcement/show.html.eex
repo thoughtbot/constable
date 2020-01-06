@@ -85,9 +85,6 @@
   </ul>
 
   <div class="comment-new">
-    <button class="tbds-button comment-preview-text-button">Write</button>
-    <button class="tbds-button comment-preview-markdown-button">Preview</button>
-
     <%= ConstableWeb.CommentView.render "_form.html",
       comment_changeset: @comment_changeset,
       path: Routes.announcement_comment_path(@conn, :create, @announcement),
