@@ -1,23 +1,24 @@
 <%= form_for @comment_changeset, @path, [class: "tbds-form tbds-block-stack tbds-block-stack--gap-4 comment-form"], fn(f) -> %>
-  <div class="tbds-block-stack__item">
-    <button type="button" class="tbds-button comment-preview-text-button">Write</button>
-    <button type="button" class="tbds-button comment-preview-markdown-button">Preview</button>
-    <%= label(
-      f,
-      :body,
-      "Comment on this announcement",
-      class: "tbds-form__label"
-    ) %>
-    <%= textarea(
-      f,
-      :body,
-      class: "tbds-form__textarea comment-textarea mousetrap uploadable-input",
-      required: true
-    ) %>
-    <div class="comment-body comment-preview"></div>
-  </div>
-
-  <div class="tbds-block-stack__item">
-    <%= submit @submit_text, id: "submit-comment", class: "tbds-button" %>
+  <div>
+    <div class="comment-tab-list">
+      <button type="button" class="comment-tab-button comment-preview-text-button">Write</button>
+      <button type="button" class="comment-tab-button comment-preview-markdown-button">Preview</button>
+    </div>
+    <div class="comment-tab">
+      <%= label(
+        f,
+        :body,
+        "Comment on this announcement",
+        class: "tbds-form__label"
+      ) %>
+      <%= textarea(
+        f,
+        :body,
+        class: "tbds-form__textarea comment-textarea mousetrap uploadable-input",
+        required: true
+      ) %>
+      <div class="comment-body comment-preview"></div>
+      <%= submit @submit_text, id: "submit-comment", class: "tbds-button" %>
+    </div>
   </div>
 <% end %>

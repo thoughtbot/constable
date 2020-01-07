@@ -39,13 +39,43 @@
   margin-bottom: $tiny-spacing / 2;
 }
 
-.comment-new,
-.comment-edit {
-  margin-bottom: $base-spacing;
-  padding-top: $base-spacing;
+.comment-edit,
+.comment-new {
+  background-color: $lightest-gray;
+  border: $base-border;
+  border-radius: $base-border-radius;
+  margin-top: $large-spacing;
+  padding: $tiny-spacing;
+}
+
+.comment-tab {
+  background-color: $white;
+  border: 1px solid $light-gray;
+  border-radius: $base-border-radius;
+  padding: $small-spacing;
+}
+
+.comment-tab-button {
+  background-color: $lightest-gray;
+  border: 1px solid rgba(0, 0, 0, 0);
+  border-bottom-color: $light-gray;
+  border-radius: $base-border-radius $base-border-radius 0 0;
+  padding: $small-spacing;
+}
+
+.comment-tab-button--active {
+  background-color: $white;
+  border: 1px solid $light-gray;
+  border-bottom-color: $white;
+}
+
+.comment-tab-list {
+  margin-bottom: -1px;
+  margin-left: $small-spacing;
 }
 
 .comment-textarea {
+  border-color: $light-gray;
   margin-bottom: $small-spacing;
   min-height: 150px;
 }
@@ -64,16 +94,4 @@
 
 .comment-preview-text-button,
 .comment-preview-markdown-button {
-  line-height: $base-line-height;
-  margin-bottom: $small-spacing;
-  padding: $tiny-spacing $small-spacing;
-
-  &:not(.active-button-toggle) {
-    background-color: $white;
-    color: $base-font-color;
-
-    &:hover {
-      text-decoration: underline;
-    }
-  }
 }

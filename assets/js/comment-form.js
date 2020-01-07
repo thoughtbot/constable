@@ -84,8 +84,8 @@ function toggleWrite() {
   const commentTextArea = $('.comment-textarea');
   const commentPreview = $('.comment-preview');
 
-  viewTextButton.addClass('active-button-toggle');
-  viewPreviewButton.removeClass('active-button-toggle');
+  viewTextButton.addClass('comment-tab-button--active');
+  viewPreviewButton.removeClass('comment-tab-button--active');
 
   commentTextArea.css('display', 'block');
   commentPreview.attr('hidden', true);
@@ -114,8 +114,8 @@ function showMarkdownPreview() {
   const commentTextArea = $('.comment-textarea');
   const commentPreview = $('.comment-preview');
 
-  viewTextButton.removeClass('active-button-toggle');
-  viewPreviewButton.addClass('active-button-toggle');
+  viewTextButton.removeClass('comment-tab-button--active');
+  viewPreviewButton.addClass('comment-tab-button--active');
 
   commentTextArea.css('display', 'none');
   commentPreview.removeAttr('hidden');
