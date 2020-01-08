@@ -86,6 +86,7 @@ function toggleWrite() {
 
   viewTextButton.addClass('comment-tab-button--active');
   viewPreviewButton.removeClass('comment-tab-button--active');
+  commentPreview.removeClass('border-bottom');
 
   commentTextArea.css('display', 'block');
   commentPreview.attr('hidden', true);
@@ -116,6 +117,7 @@ function showMarkdownPreview() {
 
   viewTextButton.removeClass('comment-tab-button--active');
   viewPreviewButton.addClass('comment-tab-button--active');
+  commentPreview.addClass('border-bottom');
 
   commentTextArea.css('display', 'none');
   commentPreview.removeAttr('hidden');
