@@ -82,11 +82,8 @@
 }
 
 .comment-preview {
-  border: $base-border;
-  border-radius: $base-border-radius;
   margin-bottom: $small-spacing;
   min-height: 118px;
-  padding: $small-spacing;
 
   pre {
     overflow-x: auto;
