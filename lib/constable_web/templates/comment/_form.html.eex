@@ -9,7 +9,7 @@
         f,
         :body,
         "Comment on this announcement",
-        class: "tbds-form__label"
+        class: "tbds-form__label comment-label"
       ) %>
       <%= textarea(
         f,
