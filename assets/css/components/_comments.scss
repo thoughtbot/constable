@@ -85,6 +85,10 @@
   margin-bottom: $small-spacing;
   min-height: 118px;
 
+  *:first-child {
+    margin-top: 0px;
+  }
+
   pre {
     overflow-x: auto;
   }
