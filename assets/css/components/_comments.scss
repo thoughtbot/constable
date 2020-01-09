@@ -50,8 +50,8 @@
 
 .comment-tab {
   background-color: $white;
-  border: 1px solid $light-gray;
   border-radius: 0 0 $base-border-radius $base-border-radius;
+  border-top: 1px solid $light-gray;
   padding: $small-spacing;
 }
 
