@@ -39,13 +39,63 @@
   margin-bottom: $tiny-spacing / 2;
 }
 
-.comment-new,
-.comment-edit {
-  margin-bottom: $base-spacing;
-  padding-top: $base-spacing;
+.comment-edit,
+.comment-new {
+  background-color: $lightest-gray;
+  border: $base-border;
+  border-radius: $base-border-radius;
+  margin: $base-spacing 0;
+  padding-top: $tiny-spacing;
+}
+
+.comment-tab {
+  background-color: $white;
+  border-radius: 0 0 $base-border-radius $base-border-radius;
+  border-top: 1px solid $light-gray;
+  padding: $small-spacing;
+}
+
+.comment-tab-button {
+  background-color: $lightest-gray;
+  border: 1px solid rgba(0, 0, 0, 0);
+  border-bottom-color: $light-gray;
+  border-radius: $base-border-radius $base-border-radius 0 0;
+  cursor: pointer;
+  font-size: $small-font-size;
+  padding: $small-spacing;
+}
+
+.comment-tab-button--active {
+  background-color: $white;
+  border: 1px solid $light-gray;
+  border-bottom-color: $white;
+}
+
+.comment-tab-list {
+  margin-bottom: -1px;
+  margin-left: $small-spacing;
 }
 
 .comment-textarea {
+  border-color: $light-gray;
   margin-bottom: $small-spacing;
   min-height: 150px;
+}
+
+.comment-preview {
+  margin-bottom: $small-spacing;
+  min-height: 118px;
+
+  *:first-child {
+    margin-top: 0;
+  }
+
+  pre {
+    overflow-x: auto;
+  }
+}
+
+.border-bottom {
+  border-bottom: 1px solid $light-gray;
+  padding-bottom: $base-spacing;
 }
