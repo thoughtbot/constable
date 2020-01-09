@@ -51,7 +51,7 @@
 .comment-tab {
   background-color: $white;
   border: 1px solid $light-gray;
-  border-radius: $base-border-radius;
+  border-radius: 0 0 $base-border-radius $base-border-radius;
   padding: $small-spacing;
 }
 
