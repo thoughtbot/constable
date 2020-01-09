@@ -83,13 +83,11 @@ function toggleWrite() {
   const viewPreviewButton = $('.comment-preview-markdown-button');
   const commentTextArea = $('.comment-textarea');
   const commentPreview = $('.comment-preview');
-  const commentLabel = $('.comment-label');
 
   viewTextButton.addClass('comment-tab-button--active');
   viewPreviewButton.removeClass('comment-tab-button--active');
   commentPreview.removeClass('border-bottom');
 
-  commentLabel.css('display', 'block');
   commentTextArea.css('display', 'block');
   commentPreview.attr('hidden', true);
 }
@@ -116,13 +114,11 @@ function showMarkdownPreview() {
   const viewPreviewButton = $('.comment-preview-markdown-button');
   const commentTextArea = $('.comment-textarea');
   const commentPreview = $('.comment-preview');
-  const commentLabel = $('.comment-label');
 
   viewTextButton.removeClass('comment-tab-button--active');
   viewPreviewButton.addClass('comment-tab-button--active');
   commentPreview.addClass('border-bottom');
 
-  commentLabel.css('display', 'none');
   commentTextArea.css('display', 'none');
   commentPreview.removeAttr('hidden');
 }

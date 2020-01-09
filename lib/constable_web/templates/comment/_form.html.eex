@@ -5,17 +5,12 @@
       <button type="button" class="comment-tab-button comment-preview-markdown-button">Preview</button>
     </div>
     <div class="comment-tab">
-      <%= label(
-        f,
-        :body,
-        "Comment on this announcement",
-        class: "tbds-form__label comment-label"
-      ) %>
       <%= textarea(
         f,
         :body,
         class: "tbds-form__textarea comment-textarea mousetrap uploadable-input",
-        required: true
+        required: true,
+        placeholder: "Comment on this announcement"
       ) %>
       <div class="comment-body comment-preview"></div>
       <%= submit @submit_text, id: "submit-comment", class: "tbds-button" %>
