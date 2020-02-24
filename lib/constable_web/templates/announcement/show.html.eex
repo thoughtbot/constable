@@ -47,16 +47,9 @@
         </div>
       </div>
     </div>
-    <div class="announcement-metadata-item subscription">
+    <div class="announcement-metadata-item subscription" data-role="subscription-button">
       <%= if @subscription do %>
-        <%= link to: Routes.announcement_subscription_path(@conn, :delete, @announcement),
-          method: :delete,
-          class: "tbds-button button-secondary" do %>
-          <svg class="tbds-button__icon tbds-button__icon--start">
-            <use xlink:href="/images/icons.svg#check"></use>
-          </svg>
-          <%= gettext("Subscribed to thread") %>
-        <% end %>
+        <%= render "_unsubscribe_button.html", announcement_id: @announcement.id %>
       <% else %>
         <%= link to: Routes.announcement_subscription_path(@conn, :create, @announcement),
           method: :post,
