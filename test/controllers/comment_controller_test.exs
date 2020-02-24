@@ -11,9 +11,10 @@ defmodule ConstableWeb.CommentControllerTest do
   test "#create creates the comment", %{conn: conn, user: user} do
     announcement = insert(:announcement)
 
-    post conn, Routes.announcement_comment_path(conn, :create, announcement.id), comment: %{
-      body: "Foo"
-    }
+    post conn, Routes.announcement_comment_path(conn, :create, announcement.id),
+      comment: %{
+        body: "Foo"
+      }
 
     comment = Repo.one(Comment) |> Repo.preload([:user, announcement: :user])
     assert comment.body == "Foo"
@@ -24,9 +25,11 @@ defmodule ConstableWeb.CommentControllerTest do
   test "#create redirects back to announcement", %{conn: conn} do
     announcement = insert(:announcement)
 
-    conn = post conn, Routes.announcement_comment_path(conn, :create, announcement), comment: %{
-      body: "Foo"
-    }
+    conn =
+      post conn, Routes.announcement_comment_path(conn, :create, announcement),
+        comment: %{
+          body: "Foo"
+        }
 
     assert redirected_to(conn) =~ Routes.announcement_path(conn, :show, announcement.id)
   end
@@ -34,8 +37,7 @@ defmodule ConstableWeb.CommentControllerTest do
   test "#create redirects back to the announcement with flash on failure", %{conn: conn} do
     announcement = insert(:announcement)
 
-    conn = post conn, Routes.announcement_comment_path(conn, :create, announcement), comment: %{
-    }
+    conn = post conn, Routes.announcement_comment_path(conn, :create, announcement), comment: %{}
 
     assert Phoenix.ConnTest.get_flash(conn, :error) =~ "invalid"
   end
@@ -43,9 +45,11 @@ defmodule ConstableWeb.CommentControllerTest do
   test "#update updates the comments if the current user is the author", %{conn: conn, user: user} do
     comment = insert(:comment, body: "not updated", user: user)
 
-    conn = put conn, Routes.announcement_comment_path(conn, :update, comment.announcement, comment), comment: %{
-      body: "updated body"
-    }
+    conn =
+      put conn, Routes.announcement_comment_path(conn, :update, comment.announcement, comment),
+        comment: %{
+          body: "updated body"
+        }
 
     assert Repo.get_by!(Comment, body: "updated body")
     assert redirected_to(conn) == comment_on_announcement_page(conn, comment)
@@ -60,9 +64,10 @@ defmodule ConstableWeb.CommentControllerTest do
     comment = insert(:comment, body: "not updated", user: another_user)
 
     assert_error_sent :not_found, fn ->
-      put conn, Routes.announcement_comment_path(conn, :update, comment.announcement, comment), comment: %{
-        body: "updated body"
-      }
+      put conn, Routes.announcement_comment_path(conn, :update, comment.announcement, comment),
+        comment: %{
+          body: "updated body"
+        }
     end
   end
 end

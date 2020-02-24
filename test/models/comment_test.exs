@@ -5,7 +5,7 @@ defmodule Constable.CommentTest do
 
   test "when a comment is inserted, it updates the announcement last_discussed_at" do
     announcement = create_announcement_last_discussed(a_week_ago())
-    now = DateTime.utc_now |> DateTime.truncate(:second)
+    now = DateTime.utc_now() |> DateTime.truncate(:second)
 
     comment = insert_comment_on_announcement(announcement, now)
     updated_last_discussed_at = DateTime.truncate(comment.announcement.last_discussed_at, :second)
@@ -25,7 +25,7 @@ defmodule Constable.CommentTest do
     }
 
     Comment.create_changeset(%Comment{}, comment_params, last_discussed_at)
-    |> Repo.insert!
+    |> Repo.insert!()
     |> Repo.preload(:announcement)
   end
 end

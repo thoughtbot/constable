@@ -5,7 +5,7 @@ defmodule Constable.Repo.Migrations.AddNullConstrainToUsername do
   def up do
     {:ok, %{rows: users}} = Ecto.Adapters.SQL.query(Repo, "SELECT id,email FROM users", [])
 
-    Enum.each(users, fn([id, email]) ->
+    Enum.each(users, fn [id, email] ->
       [name, _] = String.split(email, "@")
 
       query = "UPDATE users SET username = $1 WHERE id = $2"

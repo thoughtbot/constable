@@ -10,6 +10,7 @@ defmodule Constable.Plugs.RequireApiLogin do
     case find_user(conn) do
       nil ->
         unauthorized(conn)
+
       user ->
         conn |> assign(:current_user, user)
     end
@@ -21,12 +22,13 @@ defmodule Constable.Plugs.RequireApiLogin do
   end
 
   def fetch_token(conn) do
-    get_req_header(conn, "authorization") |> List.first
+    get_req_header(conn, "authorization") |> List.first()
   end
 
   def find_user_from_token(nil), do: nil
+
   def find_user_from_token(token) do
-    Repo.get_by(User.active, token: token)
+    Repo.get_by(User.active(), token: token)
   end
 
   def unauthorized(conn) do

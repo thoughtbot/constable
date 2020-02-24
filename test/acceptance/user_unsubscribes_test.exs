@@ -15,6 +15,7 @@ defmodule ConstableWeb.UserUnsubscribesTest do
 
   test "shows unsubscribed message when logged out", %{session: session} do
     subscription = insert(:subscription)
+
     session
     |> visit(Routes.unsubscribe_path(Endpoint, :show, subscription.token))
 

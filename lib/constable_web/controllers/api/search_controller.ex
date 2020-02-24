@@ -11,8 +11,9 @@ defmodule ConstableWeb.Api.SearchController do
     announcements =
       search_terms
       |> Announcement.search(exclude_interests: excludes)
-      |> Announcement.last_discussed_first
-      |> Repo.all
+      |> Announcement.last_discussed_first()
+      |> Repo.all()
+
     render(conn, "index.json", announcements: announcements)
   end
 end

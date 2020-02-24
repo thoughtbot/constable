@@ -1,6 +1,6 @@
 defmodule Constable.Time do
   def now do
-    DateTime.utc_now
+    DateTime.utc_now()
   end
 
   def yesterday do
@@ -12,6 +12,6 @@ defmodule Constable.Time do
   end
 
   def cast!(time) do
-    time |> NaiveDateTime.from_erl! |> DateTime.from_naive!("Etc/UTC")
+    time |> NaiveDateTime.from_erl!() |> DateTime.from_naive!("Etc/UTC")
   end
 end

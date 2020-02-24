@@ -6,7 +6,7 @@ defmodule ContableWeb.RecipientsPreviewControllerTest do
   end
 
   describe ".show/2" do
-    test "returns the interested users' names", %{conn: conn}  do
+    test "returns the interested users' names", %{conn: conn} do
       interest = insert(:interest)
       insert(:announcement) |> tag_with_interest(interest)
       interested_user = insert(:user) |> with_interest(interest)

@@ -15,7 +15,7 @@ defmodule ConstableWeb.Api.CommentView do
       body: comment.body,
       announcement_id: comment.announcement_id,
       user_id: comment.user_id,
-      inserted_at: comment.inserted_at,
+      inserted_at: comment.inserted_at
     }
   end
 end

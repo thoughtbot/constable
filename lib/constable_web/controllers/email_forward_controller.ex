@@ -3,7 +3,7 @@ defmodule ConstableWeb.EmailForwardController do
 
   def create(conn, %{"mandrill_events" => messages}) do
     messages
-    |> Poison.decode!
+    |> Poison.decode!()
     |> forward_emails_to_admins
 
     text(conn, nil)
@@ -12,8 +12,8 @@ defmodule ConstableWeb.EmailForwardController do
   defp forward_emails_to_admins(forwarded_emails) do
     for %{"msg" => message} <- forwarded_emails do
       message
-      |> Constable.Emails.forwarded_email
-      |> Constable.Mailer.deliver_now
+      |> Constable.Emails.forwarded_email()
+      |> Constable.Mailer.deliver_now()
     end
   end
 end

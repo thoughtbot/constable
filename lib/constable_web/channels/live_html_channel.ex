@@ -12,7 +12,8 @@ defmodule ConstableWeb.LiveHtmlChannel do
       announcement_id: comment.announcement_id,
       comment_html: render_comment_html(comment, socket.assigns[:current_user])
     }
-    push socket, "new-comment", payload
+
+    push(socket, "new-comment", payload)
 
     {:noreply, socket}
   end

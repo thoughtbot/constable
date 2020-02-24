@@ -20,10 +20,11 @@ defmodule Constable.UserTest do
   end
 
   test "create_changeset sets token and username" do
-    changeset = User.create_changeset(%User{}, %{
-      email: @valid_email,
-      name: "Foo Bar"
-    })
+    changeset =
+      User.create_changeset(%User{}, %{
+        email: @valid_email,
+        name: "Foo Bar"
+      })
 
     assert changeset.valid?
     assert changeset.changes.username == "foo"
@@ -31,10 +32,11 @@ defmodule Constable.UserTest do
   end
 
   test "create_changeset validates email is for permitted domain" do
-    changeset = User.create_changeset(%User{}, %{
-      email: "user@not_permitted.com",
-      name: "Foo Bar"
-    })
+    changeset =
+      User.create_changeset(%User{}, %{
+        email: "user@not_permitted.com",
+        name: "Foo Bar"
+      })
 
     refute changeset.valid?
     assert changeset.errors[:email] == {"must be a member of #{@permitted_email_domain}", []}

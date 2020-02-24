@@ -9,7 +9,7 @@ defmodule ConstableWeb.UsubscribeControllerTest do
     subscription = insert(:subscription, announcement: announcement)
     conn = build_conn()
 
-    conn = get conn, Routes.unsubscribe_path(conn, :show, subscription.token)
+    conn = get(conn, Routes.unsubscribe_path(conn, :show, subscription.token))
 
     assert Repo.one(Subscription) == nil
     assert redirected_to(conn) == Routes.announcement_path(conn, :show, announcement)
@@ -19,7 +19,7 @@ defmodule ConstableWeb.UsubscribeControllerTest do
     non_existent_token = "foo"
     conn = build_conn()
 
-    conn = get conn, Routes.unsubscribe_path(conn, :show, non_existent_token)
+    conn = get(conn, Routes.unsubscribe_path(conn, :show, non_existent_token))
 
     assert redirected_to(conn) == Routes.announcement_path(conn, :index)
   end

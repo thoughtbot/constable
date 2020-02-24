@@ -28,11 +28,12 @@ defmodule Constable.Services.CommentCreatorTest do
     {:ok, socket} = connect(ConstableWeb.UserSocket, %{"token" => user.token})
     subscribe_and_join!(socket, "update")
 
-    {:ok, comment} = CommentCreator.create(%{
-      user_id: insert(:user).id,
-      body: "Foo",
-      announcement_id: announcement.id
-    })
+    {:ok, comment} =
+      CommentCreator.create(%{
+        user_id: insert(:user).id,
+        body: "Foo",
+        announcement_id: announcement.id
+      })
 
     content = CommentView.render("show.json", %{comment: comment})
     assert_broadcast "comment:add", ^content
@@ -42,13 +43,14 @@ defmodule Constable.Services.CommentCreatorTest do
     user = insert(:user)
     announcement = insert(:announcement) |> with_subscriber(user)
 
-    {:ok, comment} = CommentCreator.create(%{
-      user_id: insert(:user).id,
-      body: "Foo",
-      announcement_id: announcement.id
-    })
+    {:ok, comment} =
+      CommentCreator.create(%{
+        user_id: insert(:user).id,
+        body: "Foo",
+        announcement_id: announcement.id
+      })
 
-    assert_delivered_email Emails.new_comment(comment, [user])
+    assert_delivered_email(Emails.new_comment(comment, [user]))
   end
 
   test "create emails mentioned users" do
@@ -56,13 +58,14 @@ defmodule Constable.Services.CommentCreatorTest do
     user = insert(:user, username: mentioned_username)
     announcement = insert(:announcement, user: user)
 
-    {:ok, comment} = CommentCreator.create(%{
-      user_id: insert(:user).id,
-      body: "Hey @#{mentioned_username}, @fakeuser was looking for you.",
-      announcement_id: announcement.id
-    })
+    {:ok, comment} =
+      CommentCreator.create(%{
+        user_id: insert(:user).id,
+        body: "Hey @#{mentioned_username}, @fakeuser was looking for you.",
+        announcement_id: announcement.id
+      })
 
-    assert_delivered_email Emails.new_comment_mention(comment, [user])
+    assert_delivered_email(Emails.new_comment_mention(comment, [user]))
   end
 
   test "create only sends mention email if subscribed and mentioned" do
@@ -70,24 +73,26 @@ defmodule Constable.Services.CommentCreatorTest do
     user = insert(:user, username: mentioned_username)
     announcement = insert(:announcement) |> with_subscriber(user)
 
-    {:ok, comment} = CommentCreator.create(%{
-      user_id: user.id,
-      body: "Hey @#{mentioned_username}",
-      announcement_id: announcement.id
-    })
+    {:ok, comment} =
+      CommentCreator.create(%{
+        user_id: user.id,
+        body: "Hey @#{mentioned_username}",
+        announcement_id: announcement.id
+      })
 
-    assert_delivered_email Emails.new_comment_mention(comment, [user])
+    assert_delivered_email(Emails.new_comment_mention(comment, [user]))
   end
 
   test "create does not email author of comment" do
     author = insert(:user)
     announcement = insert(:announcement) |> with_subscriber(author)
 
-    {:ok, _comment} = CommentCreator.create(%{
-      user_id: author.id,
-      body: "Foo!",
-      announcement_id: announcement.id
-    })
+    {:ok, _comment} =
+      CommentCreator.create(%{
+        user_id: author.id,
+        body: "Foo!",
+        announcement_id: announcement.id
+      })
 
     assert_no_emails_delivered()
   end

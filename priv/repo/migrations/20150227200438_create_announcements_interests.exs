@@ -10,9 +10,9 @@ defmodule Constable.Repo.Migrations.CreateAnnouncementsInterests do
     end
 
     create index(
-      :announcements_interests,
-      [:announcement_id, :interest_id],
-      unique: true
-    )
+             :announcements_interests,
+             [:announcement_id, :interest_id],
+             unique: true
+           )
   end
 end

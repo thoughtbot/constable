@@ -2,6 +2,7 @@ use Mix.Config
 
 # Figure out which host to use based on Heroku deploy
 heroku_app_name = System.get_env("HEROKU_APP_NAME")
+
 if heroku_app_name && heroku_app_name =~ ~r/\Aconstable-api-staging-pr/ do
   System.put_env("HOST", "#{heroku_app_name}.herokuapp.com")
 end

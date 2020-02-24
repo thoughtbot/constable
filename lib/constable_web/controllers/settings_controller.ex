@@ -5,7 +5,7 @@ defmodule ConstableWeb.SettingsController do
 
   def show(conn, _params) do
     changeset = User.settings_changeset(conn.assigns.current_user)
-    render conn, "show.html", changeset: changeset
+    render(conn, "show.html", changeset: changeset)
   end
 
   def update(conn, %{"user" => user_params}) do
@@ -16,6 +16,7 @@ defmodule ConstableWeb.SettingsController do
         conn
         |> put_flash(:success, "YES!")
         |> render("show.html", changeset: changeset)
+
       {:error, changeset} ->
         conn
         |> put_status(:unprocessable_entity)

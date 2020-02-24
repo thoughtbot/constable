@@ -6,7 +6,7 @@ defmodule ConstableWeb.EmailReplyController do
 
   def create(conn, %{"mandrill_events" => messages}) do
     messages
-    |> Poison.decode!
+    |> Poison.decode!()
     |> create_comments
 
     text(conn, nil)
@@ -14,12 +14,11 @@ defmodule ConstableWeb.EmailReplyController do
 
   defp create_comments(messages) do
     for message <- messages do
-      message |> comment_params |> CommentCreator.create
+      message |> comment_params |> CommentCreator.create()
     end
   end
 
-  defp comment_params(
-    %{"msg" => %{"text" => email_body, "email" => to, "from_email" => from}}) do
+  defp comment_params(%{"msg" => %{"text" => email_body, "email" => to, "from_email" => from}}) do
     %{
       user_id: user_from_email(from).id,
       announcement_id: announcement_id_from_email(to),
@@ -28,10 +27,10 @@ defmodule ConstableWeb.EmailReplyController do
   end
 
   defp user_from_email(email_address) do
-    User.with_email(email_address) |> Repo.one
+    User.with_email(email_address) |> Repo.one()
   end
 
   defp announcement_id_from_email("announcement-" <> key_and_domain) do
-    key_and_domain |> String.split("@") |> List.first
+    key_and_domain |> String.split("@") |> List.first()
   end
 end

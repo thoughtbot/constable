@@ -32,16 +32,16 @@ defmodule ConstableWeb.InterestController do
   end
 
   defp preload_interests(user) do
-    Repo.preload user, :interests
+    Repo.preload(user, :interests)
   end
 
   defp all_interests do
-    Repo.all Interest.ordered_by_name
+    Repo.all(Interest.ordered_by_name())
   end
 
   defp sorted_announcements(interest) do
     Ecto.assoc(interest, :announcements)
-    |> Announcement.last_discussed_first
-    |> Announcement.with_announcement_list_assocs
+    |> Announcement.last_discussed_first()
+    |> Announcement.with_announcement_list_assocs()
   end
 end

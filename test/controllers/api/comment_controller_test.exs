@@ -13,10 +13,12 @@ defmodule ConstableWeb.Api.CommentControllerTest do
     announcement = insert(:announcement)
     subscribed_user = insert(:user) |> with_subscription(announcement)
 
-    conn = post conn, Routes.api_comment_path(conn, :create), comment: %{
-      body: "Foo",
-      announcement_id: announcement.id
-    }
+    conn =
+      post conn, Routes.api_comment_path(conn, :create),
+        comment: %{
+          body: "Foo",
+          announcement_id: announcement.id
+        }
 
     assert json_response(conn, 201)
     comment = Repo.one(Comment) |> Repo.preload([:user, announcement: :user])
@@ -24,6 +26,6 @@ defmodule ConstableWeb.Api.CommentControllerTest do
     assert comment.user_id == user.id
     assert comment.announcement_id == announcement.id
 
-    assert_delivered_email Emails.new_comment(comment, [subscribed_user])
+    assert_delivered_email(Emails.new_comment(comment, [subscribed_user]))
   end
 end

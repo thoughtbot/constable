@@ -6,10 +6,11 @@ defmodule ConstableWeb.SubscriptionController do
   plug Constable.Plugs.Deslugifier, slugified_key: "announcement_id"
 
   def create(conn, %{"announcement_id" => announcement_id}) do
-    changeset = Subscription.changeset(%{
-      announcement_id: announcement_id,
-      user_id: conn.assigns.current_user.id,
-    })
+    changeset =
+      Subscription.changeset(%{
+        announcement_id: announcement_id,
+        user_id: conn.assigns.current_user.id
+      })
 
     Repo.insert!(changeset)
 
@@ -17,10 +18,11 @@ defmodule ConstableWeb.SubscriptionController do
   end
 
   def delete(conn, %{"announcement_id" => announcement_id}) do
-    subscription = Repo.get_by(Subscription,
-      announcement_id: announcement_id,
-      user_id: conn.assigns.current_user.id
-    )
+    subscription =
+      Repo.get_by(Subscription,
+        announcement_id: announcement_id,
+        user_id: conn.assigns.current_user.id
+      )
 
     Repo.delete!(subscription)
     redirect(conn, to: Routes.announcement_path(conn, :show, announcement_id))

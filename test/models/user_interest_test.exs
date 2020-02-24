@@ -8,7 +8,7 @@ defmodule Constable.UserInterestTest do
     second_user = insert(:user)
     interest = insert(:interest)
 
-    assert Repo.insert! %UserInterest{user_id: first_user.id, interest_id: interest.id}
-    assert Repo.insert! %UserInterest{user_id: second_user.id, interest_id: interest.id}
+    assert Repo.insert!(%UserInterest{user_id: first_user.id, interest_id: interest.id})
+    assert Repo.insert!(%UserInterest{user_id: second_user.id, interest_id: interest.id})
   end
 end

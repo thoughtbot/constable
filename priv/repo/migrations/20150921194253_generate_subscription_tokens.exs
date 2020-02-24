@@ -7,16 +7,16 @@ defmodule Constable.Repo.Migrations.GenerateSubscriptionTokens do
     use Ecto.Schema
 
     schema "subscriptions" do
-      field :token
+      field(:token)
     end
   end
 
   def up do
     subscriptions = Repo.all(Subscription)
 
-    Enum.each(subscriptions, fn(subscription) ->
+    Enum.each(subscriptions, fn subscription ->
       %{subscription | token: SecureRandom.urlsafe_base64(32)}
-      |> Repo.update
+      |> Repo.update()
     end)
 
     alter table(:subscriptions) do

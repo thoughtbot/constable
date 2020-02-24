@@ -5,9 +5,10 @@ defmodule ConstableWeb.EmailPreviewController do
   alias Constable.Emails
 
   def show(conn, %{"email_name" => email_name}) do
-    {:error, body} = Repo.transaction fn ->
-      email_body(email_name) |> Repo.rollback
-    end
+    {:error, body} =
+      Repo.transaction(fn ->
+        email_body(email_name) |> Repo.rollback()
+      end)
 
     html(conn, body)
   end
@@ -47,7 +48,7 @@ defmodule ConstableWeb.EmailPreviewController do
         insert(:comment, user: user_2, announcement: announcement_with_comments),
         insert(:comment, user: user_1, announcement: other_announcement_with_comments),
         insert(:comment, user: user_2, announcement: other_announcement_with_comments),
-        insert(:comment, user: user_2, announcement: other_announcement_with_comments),
+        insert(:comment, user: user_2, announcement: other_announcement_with_comments)
       ],
       []
     )
@@ -56,9 +57,9 @@ defmodule ConstableWeb.EmailPreviewController do
   defp email_for(email_name) do
     %{
       html_body: """
-      <h1>There is no email preview for #{inspect email_name}</h1>
+      <h1>There is no email preview for #{inspect(email_name)}</h1>
       <p>
-        Add one to #{inspect __MODULE__}
+        Add one to #{inspect(__MODULE__)}
       </p>
       """
     }

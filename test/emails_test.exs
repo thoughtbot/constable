@@ -14,19 +14,23 @@ defmodule Constable.EmailsTest do
 
     assert email.subject == "Daily Digest"
     assert email.to == users
+
     assert email.from == {
-      "Constable (thoughtbot)",
-      "constable@#{Constable.Env.get("OUTBOUND_EMAIL_DOMAIN")}"
-    }
+             "Constable (thoughtbot)",
+             "constable@#{Constable.Env.get("OUTBOUND_EMAIL_DOMAIN")}"
+           }
+
     for interest <- interests do
       assert both_parts_contain(email, interest.name)
     end
+
     for announcement <- announcements do
       assert email |> both_parts_contain(announcement.title)
       assert email |> both_parts_contain(announcement.body)
       assert email.html_body =~ posted_by_html(announcement.user.name, announcement)
       assert email.text_body =~ posted_by_text(announcement.user.name, announcement)
     end
+
     for comment <- comments do
       assert email |> both_parts_contain(comment.user.name)
       assert email |> both_parts_contain(comment.body)
@@ -55,7 +59,7 @@ defmodule Constable.EmailsTest do
   defp interest_names(announcement) do
     announcement
     |> Map.get(:interests)
-    |> Enum.map(&("#{&1.name}"))
+    |> Enum.map(&"#{&1.name}")
     |> Enum.join(", ")
   end
 
@@ -68,7 +72,10 @@ defmodule Constable.EmailsTest do
 
   defp make_link(interest) do
     "#{interest.name}"
-    |> link(to: Routes.interest_url(ConstableWeb.Endpoint, :show, interest), style: "color: #aeaeae;")
+    |> link(
+      to: Routes.interest_url(ConstableWeb.Endpoint, :show, interest),
+      style: "color: #aeaeae;"
+    )
     |> safe_to_string
   end
 end
