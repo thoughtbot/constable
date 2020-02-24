@@ -12,7 +12,7 @@ defmodule ConstableWeb.Api.UserInterestController do
 
   def show(conn, %{"id" => id}) do
     user_interest = Repo.get!(UserInterest, id)
-    render conn, "show.json", user_interest: user_interest
+    render(conn, "show.json", user_interest: user_interest)
   end
 
   def create(conn, %{"user_interest" => params}) do
@@ -24,6 +24,7 @@ defmodule ConstableWeb.Api.UserInterestController do
     case Repo.insert(changeset) do
       {:ok, user_interest} ->
         conn |> put_status(201) |> render("show.json", user_interest: user_interest)
+
       {:error, changeset} ->
         conn
         |> put_status(422)
@@ -44,6 +45,6 @@ defmodule ConstableWeb.Api.UserInterestController do
   end
 
   defp user_interests_for(user) do
-    Repo.all Ecto.assoc(user, :user_interests)
+    Repo.all(Ecto.assoc(user, :user_interests))
   end
 end

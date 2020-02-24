@@ -18,28 +18,31 @@ defmodule Constable.Services.CommentCreator do
         mentioned_users = email_mentioned_users(comment)
         email_subscribers(comment, mentioned_users)
         {:ok, comment}
-      {:error, changeset} -> {:error, changeset}
+
+      {:error, changeset} ->
+        {:error, changeset}
     end
   end
 
   defp email_subscribers(comment, mentioned_users) do
-    users = find_subscribed_users(comment.announcement_id) -- mentioned_users
-    |> Enum.reject(fn (user) -> user.id == comment.user_id end)
+    users =
+      (find_subscribed_users(comment.announcement_id) -- mentioned_users)
+      |> Enum.reject(fn user -> user.id == comment.user_id end)
 
-    Emails.new_comment(comment, users) |> Mailer.deliver_later
+    Emails.new_comment(comment, users) |> Mailer.deliver_later()
     comment
   end
 
   defp email_mentioned_users(comment) do
     users = MentionFinder.find_users(comment.body)
 
-    Emails.new_comment_mention(comment, users) |> Mailer.deliver_later
+    Emails.new_comment_mention(comment, users) |> Mailer.deliver_later()
     users
   end
 
   defp find_subscribed_users(announcement_id) do
     Repo.all(Subscription.for_announcement(announcement_id))
-    |> Enum.map(fn (subscription) -> subscription.user end)
+    |> Enum.map(fn subscription -> subscription.user end)
   end
 
   defp broadcast(comment) do
@@ -55,7 +58,7 @@ defmodule Constable.Services.CommentCreator do
       "live-html",
       "new-comment",
       %{
-        comment: comment,
+        comment: comment
       }
     )
   end

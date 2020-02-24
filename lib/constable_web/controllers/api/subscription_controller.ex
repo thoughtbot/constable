@@ -9,7 +9,7 @@ defmodule ConstableWeb.Api.SubscriptionController do
     current_user = current_user(conn)
     subscriptions = subscriptions_for(current_user)
 
-    render conn, "index.json", subscriptions: subscriptions
+    render(conn, "index.json", subscriptions: subscriptions)
   end
 
   def create(conn, %{"subscription" => params}) do
@@ -21,6 +21,7 @@ defmodule ConstableWeb.Api.SubscriptionController do
     case Repo.insert(changeset) do
       {:ok, subscription} ->
         conn |> put_status(201) |> render("show.json", subscription: subscription)
+
       {:error, changeset} ->
         conn
         |> put_status(422)
@@ -41,6 +42,6 @@ defmodule ConstableWeb.Api.SubscriptionController do
   end
 
   defp subscriptions_for(user) do
-    Repo.all Ecto.assoc(user, :subscriptions)
+    Repo.all(Ecto.assoc(user, :subscriptions))
   end
 end

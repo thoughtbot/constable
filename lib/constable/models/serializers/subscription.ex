@@ -4,6 +4,7 @@ defimpl Poison.Encoder, for: Constable.Subscription do
       id: subscription.id,
       user_id: subscription.user_id,
       announcement_id: subscription.announcement_id
-    } |> Poison.encode!
+    }
+    |> Poison.encode!()
   end
 end

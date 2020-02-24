@@ -33,7 +33,7 @@ defmodule Constable.User do
   def reactivate(email) when is_binary(email) do
     Repo.get_by!(__MODULE__, email: email)
     |> Ecto.Changeset.change(%{active: true})
-    |> Repo.update!
+    |> Repo.update!()
   end
 
   def settings_changeset(user, params \\ %{}) do
@@ -53,7 +53,7 @@ defmodule Constable.User do
   end
 
   def interested_in?(user, interest) do
-    interest.id in Enum.map(user.interests, &(&1.id))
+    interest.id in Enum.map(user.interests, & &1.id)
   end
 
   def ordered_by_name(query \\ __MODULE__) do
@@ -70,7 +70,7 @@ defmodule Constable.User do
 
   defp require_permitted_email_domain(changeset) do
     changeset
-    |> validate_change(:email, fn(:email, value) ->
+    |> validate_change(:email, fn :email, value ->
       case String.split(value, "@") do
         [_, @permitted_email_domain] -> []
         _ -> [email: "must be a member of #{@permitted_email_domain}"]
@@ -80,14 +80,14 @@ defmodule Constable.User do
 
   defp generate_token(changeset) do
     token = SecureRandom.urlsafe_base64(32)
-    put_change changeset, :token, token
+    put_change(changeset, :token, token)
   end
 
   defp generate_username(changeset) do
     if changeset.valid? do
       email = get_change(changeset, :email)
       [username, _] = String.split(email, "@")
-      put_change changeset, :username, username
+      put_change(changeset, :username, username)
     else
       changeset
     end
@@ -95,6 +95,7 @@ defmodule Constable.User do
 
   defp ensure_name_is_set(changeset) do
     username = changeset |> get_change(:username)
+
     if get_change(changeset, :name) |> is_blank? do
       changeset |> put_change(:name, username)
     else
@@ -103,6 +104,7 @@ defmodule Constable.User do
   end
 
   defp is_blank?(nil), do: true
+
   defp is_blank?(string) when is_binary(string) do
     case String.trim(string) do
       "" -> true

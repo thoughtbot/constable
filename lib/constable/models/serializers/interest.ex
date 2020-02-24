@@ -3,6 +3,7 @@ defimpl Poison.Encoder, for: Constable.Interest do
     %{
       id: interest.id,
       name: interest.name
-    } |> Poison.encode!
+    }
+    |> Poison.encode!()
   end
 end

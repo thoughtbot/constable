@@ -2,11 +2,17 @@ defmodule ConstableWeb.Api.SubscriptionView do
   use ConstableWeb, :view
 
   def render("index.json", %{subscriptions: subscriptions}) do
-    %{subscriptions: render_many(subscriptions, ConstableWeb.Api.SubscriptionView, "subscription.json")}
+    %{
+      subscriptions:
+        render_many(subscriptions, ConstableWeb.Api.SubscriptionView, "subscription.json")
+    }
   end
 
   def render("show.json", %{subscription: subscription}) do
-    %{subscription: render_one(subscription, ConstableWeb.Api.SubscriptionView, "subscription.json")}
+    %{
+      subscription:
+        render_one(subscription, ConstableWeb.Api.SubscriptionView, "subscription.json")
+    }
   end
 
   def render("subscription.json", %{subscription: subscription}) do

@@ -36,6 +36,7 @@ defmodule Constable.Emails do
 
   def new_announcement(announcement, recipients) do
     announcement = announcement |> Repo.preload([:user, :interests])
+
     base_email()
     |> to(recipients)
     |> subject(announcement.title)
@@ -53,6 +54,7 @@ defmodule Constable.Emails do
 
   def new_comment(comment, recipients, mentioner \\ nil) do
     announcement = comment.announcement
+
     base_email()
     |> to(recipients)
     |> subject("Re: #{announcement.title}")
@@ -75,6 +77,7 @@ defmodule Constable.Emails do
 
   def new_announcement_mention(announcement, recipients) do
     announcement = announcement |> Repo.preload([:user, :interests])
+
     base_email()
     |> to(recipients)
     |> subject("You were mentioned in: #{announcement.title}")
@@ -114,17 +117,19 @@ defmodule Constable.Emails do
   end
 
   defp unsubscribe_vars(recipients, announcement) do
-    Enum.map(recipients, fn(recipient) ->
-      subscription = Repo.get_by(Subscription,
-        announcement_id: announcement.id,
-        user_id: recipient.id
-      )
+    Enum.map(recipients, fn recipient ->
+      subscription =
+        Repo.get_by(Subscription,
+          announcement_id: announcement.id,
+          user_id: recipient.id
+        )
 
       case subscription do
         nil -> nil
         subscription -> subscription_merge_var(recipient, subscription)
       end
-    end) |> Enum.reject(&is_nil/1)
+    end)
+    |> Enum.reject(&is_nil/1)
   end
 
   defp subscription_merge_var(recipient, subscription) do

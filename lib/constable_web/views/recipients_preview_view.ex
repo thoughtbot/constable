@@ -2,7 +2,7 @@ defmodule ConstableWeb.RecipientsPreviewView do
   use ConstableWeb, :view
 
   def render("show.json", assigns) do
-    %{ recipients_preview_html: render_recipients_preview_html(assigns) }
+    %{recipients_preview_html: render_recipients_preview_html(assigns)}
   end
 
   defp render_recipients_preview_html(assigns) do

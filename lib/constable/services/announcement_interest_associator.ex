@@ -13,7 +13,7 @@ defmodule Constable.Services.AnnouncementInterestAssociator do
   defp get_or_create_interests(names) do
     List.wrap(names)
     |> Enum.reject(&blank_interest?/1)
-    |> Enum.map(fn(name) ->
+    |> Enum.map(fn name ->
       interest = Interest.changeset(%{name: name})
 
       case Repo.get_by(Interest, interest.changes) do
@@ -21,16 +21,16 @@ defmodule Constable.Services.AnnouncementInterestAssociator do
         interest -> interest
       end
     end)
-    |> Enum.uniq
+    |> Enum.uniq()
   end
 
   defp associate_interests_with_announcement(interests, announcement) do
-    Enum.each(interests, fn(interest) ->
+    Enum.each(interests, fn interest ->
       %AnnouncementInterest{
         interest_id: interest.id,
         announcement_id: announcement.id
       }
-      |> Repo.insert!
+      |> Repo.insert!()
     end)
 
     announcement
@@ -41,7 +41,7 @@ defmodule Constable.Services.AnnouncementInterestAssociator do
   defp blank_interest?(_), do: false
 
   defp create_and_broadcast(changeset) do
-    interest = changeset |> Repo.insert!
+    interest = changeset |> Repo.insert!()
 
     ConstableWeb.Endpoint.broadcast!(
       "update",

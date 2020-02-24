@@ -6,7 +6,7 @@ defmodule Constable.EmailReplyParser do
   end
 
   defp remove_quoted_email(body) do
-    Enum.reduce(reply_header_formats(), body, fn(regex, email_body) ->
+    Enum.reduce(reply_header_formats(), body, fn regex, email_body ->
       match = Regex.split(regex, email_body)
       List.first(match)
     end)
@@ -14,7 +14,7 @@ defmodule Constable.EmailReplyParser do
 
   defp reply_header_formats do
     [
-      ~r/\n\>?[[:space:]]*On.*<?\n?.*>?.*\n?wrote:\n?/,
+      ~r/\n\>?[[:space:]]*On.*<?\n?.*>?.*\n?wrote:\n?/
     ]
   end
 

@@ -15,15 +15,15 @@ defmodule ConstableWeb.SearchController do
   end
 
   def new(conn, _params) do
-    render conn, "new.html", announcements: []
+    render(conn, "new.html", announcements: [])
   end
 
   defp matching_announcements(params = %{"query" => search_terms}) do
     excluded_interests = params["exclude_interests"] || []
 
     Announcement.search(search_terms, exclude_interests: excluded_interests)
-    |> Announcement.last_discussed_first
-    |> Announcement.with_announcement_list_assocs
+    |> Announcement.last_discussed_first()
+    |> Announcement.with_announcement_list_assocs()
   end
 
   defp matching_announcements(_params = %{}) do

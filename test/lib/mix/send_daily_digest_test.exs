@@ -9,11 +9,13 @@ defmodule Mix.Tasks.Constable.SendDailyDigestTest do
 
     Mix.Tasks.Constable.SendDailyDigest.run(nil)
 
-    assert_delivered_email Constable.Emails.daily_digest(
-      [],
-      [announcement],
-      [],
-      [daily_digest_user]
+    assert_delivered_email(
+      Constable.Emails.daily_digest(
+        [],
+        [announcement],
+        [],
+        [daily_digest_user]
+      )
     )
   end
 end

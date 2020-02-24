@@ -36,16 +36,20 @@ defmodule ConstableWeb.AnnouncementControllerTest do
     %{conn: conn, user: user}
   ) do
     other_user = insert(:user)
+
     announcement_with_user_comment =
       insert(:announcement, title: "FooBar with My Comment", user: other_user)
+
     announcement_without_user_comment =
       insert(:announcement, title: "FizzBuzz without My Comments", user: user)
+
     insert(
       :comment,
       body: "First! 👋",
       announcement: announcement_with_user_comment,
       user: user
     )
+
     insert(
       :comment,
       body: "word",

@@ -19,7 +19,7 @@ defmodule ConstableWeb.AuthControllerTest do
     def get!(_token, _path) do
       %OAuth2.Response{
         body: %{
-          "email" => AuthControllerTest.valid_email_address,
+          "email" => AuthControllerTest.valid_email_address(),
           "name" => "Gumbo McGee"
         }
       }
@@ -39,7 +39,7 @@ defmodule ConstableWeb.AuthControllerTest do
 
   defmodule FakeTokenInfoGoogleStrategy do
     def get_tokeninfo!(_redirect_uri, _id_token) do
-      %{"email" => AuthControllerTest.valid_email_address, "name" => "John Doe"}
+      %{"email" => AuthControllerTest.valid_email_address(), "name" => "John Doe"}
     end
   end
 
@@ -70,15 +70,16 @@ defmodule ConstableWeb.AuthControllerTest do
   end
 
   test "index redirects to google with the correct redirect URI" do
-    Constable.Pact.replace(:oauth_redirect_strategy, IgnoreEnvRedirectStrategy) do
+    Constable.Pact.replace :oauth_redirect_strategy, IgnoreEnvRedirectStrategy do
       conn = get(build_conn(), "/auth", redirect_uri: "foo.com")
 
-      auth_uri = google_auth_uri(
-        client_id: Constable.Env.get("CLIENT_ID"),
-        redirect_uri: Routes.auth_url(conn, :javascript_callback),
-        response_type: "code",
-        scope: GoogleStrategy.oauth_scopes
-      )
+      auth_uri =
+        google_auth_uri(
+          client_id: Constable.Env.get("CLIENT_ID"),
+          redirect_uri: Routes.auth_url(conn, :javascript_callback),
+          response_type: "code",
+          scope: GoogleStrategy.oauth_scopes()
+        )
     end
 
     assert redirected_to(conn) =~ auth_uri
@@ -86,16 +87,17 @@ defmodule ConstableWeb.AuthControllerTest do
   end
 
   test "index redirects to google with the correct override redirect URI" do
-    Constable.Pact.replace(:oauth_redirect_strategy, EnvOverrideRedirectStrategy) do
+    Constable.Pact.replace :oauth_redirect_strategy, EnvOverrideRedirectStrategy do
       conn = get(build_conn(), "/auth", redirect_uri: "foo.com")
 
-      auth_uri = google_auth_uri(
-        client_id: Constable.Env.get("CLIENT_ID"),
-        redirect_uri: "https://constable-oauth-redirector.herokuapp.com/auth",
-        response_type: "code",
-        scope: GoogleStrategy.oauth_scopes,
-        state: Routes.auth_url(conn, :javascript_callback)
-      )
+      auth_uri =
+        google_auth_uri(
+          client_id: Constable.Env.get("CLIENT_ID"),
+          redirect_uri: "https://constable-oauth-redirector.herokuapp.com/auth",
+          response_type: "code",
+          scope: GoogleStrategy.oauth_scopes(),
+          state: Routes.auth_url(conn, :javascript_callback)
+        )
     end
 
     assert redirected_to(conn) =~ auth_uri
@@ -105,8 +107,8 @@ defmodule ConstableWeb.AuthControllerTest do
   test "callback redirects to success URI with newly created user token" do
     everyone_interest = create_everyone_interest()
 
-    Constable.Pact.replace(:token_retriever, FakeTokenRetriever) do
-      Constable.Pact.replace(:request_with_access_token, FakeRequestWithAccessToken) do
+    Constable.Pact.replace :token_retriever, FakeTokenRetriever do
+      Constable.Pact.replace :request_with_access_token, FakeRequestWithAccessToken do
         conn =
           request_authorization("foo.com")
           |> get("/auth/javascript_callback", code: "foo")
@@ -120,8 +122,8 @@ defmodule ConstableWeb.AuthControllerTest do
   end
 
   test "callback redirects to success URI with existing user token" do
-    Constable.Pact.replace(:token_retriever, FakeTokenRetriever) do
-      Constable.Pact.replace(:request_with_access_token, FakeRequestWithAccessToken) do
+    Constable.Pact.replace :token_retriever, FakeTokenRetriever do
+      Constable.Pact.replace :request_with_access_token, FakeRequestWithAccessToken do
         insert(:user, email: valid_email_address())
 
         conn =
@@ -138,21 +140,21 @@ defmodule ConstableWeb.AuthControllerTest do
   test "callback redirects to the root path when there is an error" do
     conn = get(build_conn(), "/auth/javascript_callback", error: "Foo")
 
-    assert redirected_to(conn) =~  "/"
+    assert redirected_to(conn) =~ "/"
   end
 
   test "callback redirects to the root path when the email is non-thoughtbot" do
     create_everyone_interest()
 
-    Constable.Pact.replace(:token_retriever, FakeTokenRetriever) do
-      Constable.Pact.replace(:request_with_access_token, NonThoughtbotRequestWithAccessToken) do
+    Constable.Pact.replace :token_retriever, FakeTokenRetriever do
+      Constable.Pact.replace :request_with_access_token, NonThoughtbotRequestWithAccessToken do
         conn =
           request_authorization("foo.com")
           |> get("/auth/javascript_callback", code: "foo")
       end
     end
 
-    assert redirected_to(conn) =~  "/"
+    assert redirected_to(conn) =~ "/"
     refute Repo.one(User)
   end
 
@@ -160,7 +162,7 @@ defmodule ConstableWeb.AuthControllerTest do
     create_everyone_interest()
     auth_params = %{"idToken" => "token"}
 
-    Constable.Pact.replace(:google_strategy, FakeTokenInfoGoogleStrategy) do
+    Constable.Pact.replace :google_strategy, FakeTokenInfoGoogleStrategy do
       conn = build_conn()
       conn = post conn, Routes.auth_path(conn, :mobile_callback), auth_params
 
@@ -175,7 +177,7 @@ defmodule ConstableWeb.AuthControllerTest do
     create_everyone_interest()
     auth_params = %{"idToken" => "token"}
 
-    Constable.Pact.replace(:google_strategy, NonThoughtbotTokenInfoGoogleStrategy) do
+    Constable.Pact.replace :google_strategy, NonThoughtbotTokenInfoGoogleStrategy do
       conn = build_conn()
 
       conn = post conn, Routes.auth_path(conn, :mobile_callback), auth_params
@@ -188,8 +190,8 @@ defmodule ConstableWeb.AuthControllerTest do
   test "browser_callback sets user_id on session when successful" do
     create_everyone_interest()
 
-    Constable.Pact.replace(:token_retriever, FakeTokenRetriever) do
-      Constable.Pact.replace(:request_with_access_token, FakeRequestWithAccessToken) do
+    Constable.Pact.replace :token_retriever, FakeTokenRetriever do
+      Constable.Pact.replace :request_with_access_token, FakeRequestWithAccessToken do
         conn =
           request_authorization("foo.com")
           |> get("/auth/browser_callback", code: "foo")
@@ -223,6 +225,7 @@ defmodule ConstableWeb.AuthControllerTest do
 
   defp user_has_interest(interest) do
     user = Repo.one(User)
+
     Repo.get_by!(UserInterest,
       user_id: user.id,
       interest_id: interest.id

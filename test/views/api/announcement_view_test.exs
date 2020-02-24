@@ -14,17 +14,17 @@ defmodule ConstableWeb.Api.AnnouncementViewTest do
     rendered_announcement = render_one(announcement, AnnouncementView, "show.json")
 
     assert rendered_announcement == %{
-      announcement: %{
-        id: announcement.id,
-        title: announcement.title,
-        body: announcement.body,
-        inserted_at: announcement.inserted_at,
-        updated_at: announcement.updated_at,
-        user_id: announcement.user_id,
-        comments: render_many([comment], CommentView, "comment.json"),
-        interest_ids: [interest.id],
-        url: announcement_url,
-      }
-    }
+             announcement: %{
+               id: announcement.id,
+               title: announcement.title,
+               body: announcement.body,
+               inserted_at: announcement.inserted_at,
+               updated_at: announcement.updated_at,
+               user_id: announcement.user_id,
+               comments: render_many([comment], CommentView, "comment.json"),
+               interest_ids: [interest.id],
+               url: announcement_url
+             }
+           }
   end
 end

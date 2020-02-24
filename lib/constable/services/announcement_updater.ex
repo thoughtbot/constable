@@ -14,14 +14,18 @@ defmodule Constable.Services.AnnouncementUpdater do
         announcement
         |> clear_interests
         |> update_interests(interest_names)
+
         {:ok, announcement}
-      error -> error
+
+      error ->
+        error
     end
   end
 
   defp clear_interests(announcement) do
-    Repo.delete_all(from ai in AnnouncementInterest,
-      where: ai.announcement_id == ^announcement.id
+    Repo.delete_all(
+      from ai in AnnouncementInterest,
+        where: ai.announcement_id == ^announcement.id
     )
 
     announcement

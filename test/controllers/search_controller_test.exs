@@ -5,13 +5,17 @@ defmodule ConstableWeb.SearchControllerTest do
     {:ok, browser_authenticate()}
   end
 
-  test "#show returns announcements matching search", %{conn: conn}do
+  test "#show returns announcements matching search", %{conn: conn} do
     foo = insert(:interest, name: "foo")
     insert(:announcement, title: "Awesome Post") |> tag_with_interest(foo)
-    insert(:announcement, title: "Not so much post", body: "awesome post!") |> tag_with_interest(foo)
-    insert(:announcement, title: "Don't show up!", body: "lame post!") |> tag_with_interest(insert(:interest))
 
-    conn = get conn, Routes.search_path(conn, :show, query: "awesome")
+    insert(:announcement, title: "Not so much post", body: "awesome post!")
+    |> tag_with_interest(foo)
+
+    insert(:announcement, title: "Don't show up!", body: "lame post!")
+    |> tag_with_interest(insert(:interest))
+
+    conn = get(conn, Routes.search_path(conn, :show, query: "awesome"))
 
     assert html_response(conn, :ok) =~ "Awesome Post"
     assert html_response(conn, :ok) =~ "Not so much post"
@@ -22,10 +26,15 @@ defmodule ConstableWeb.SearchControllerTest do
     foo = insert(:interest, name: "foo")
     bar = insert(:interest, name: "bar")
     insert(:announcement, title: "Awesome Post") |> tag_with_interest(foo)
-    insert(:announcement, title: "Not so much post", body: "awesome post!") |> tag_with_interest(foo)
-    insert(:announcement, title: "Good post!", body: "another awesome post!") |> tag_with_interest(bar)
 
-    conn = get conn, Routes.search_path(conn, :show, query: "awesome", exclude_interests: ["foo"])
+    insert(:announcement, title: "Not so much post", body: "awesome post!")
+    |> tag_with_interest(foo)
+
+    insert(:announcement, title: "Good post!", body: "another awesome post!")
+    |> tag_with_interest(bar)
+
+    conn =
+      get(conn, Routes.search_path(conn, :show, query: "awesome", exclude_interests: ["foo"]))
 
     refute html_response(conn, :ok) =~ "Awesome Post"
     refute html_response(conn, :ok) =~ "Not so much post"
@@ -33,7 +42,7 @@ defmodule ConstableWeb.SearchControllerTest do
   end
 
   test "#show runs empty search with no query param", %{conn: conn} do
-    conn = get conn, Routes.search_path(conn, :show)
+    conn = get(conn, Routes.search_path(conn, :show))
 
     assert html_response(conn, :ok) =~ "Search results for"
   end

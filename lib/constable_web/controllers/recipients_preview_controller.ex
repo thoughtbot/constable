@@ -15,13 +15,15 @@ defmodule ConstableWeb.RecipientsPreviewController do
   end
 
   defp interested_user_names(interest_names) do
-    query = from u in User,
-              distinct: true,
-              join: i in assoc(u, :interests),
-              order_by: u.name,
-              select: u.name,
-              where: u.active == true,
-              where: i.name in ^interest_names
+    query =
+      from u in User,
+        distinct: true,
+        join: i in assoc(u, :interests),
+        order_by: u.name,
+        select: u.name,
+        where: u.active == true,
+        where: i.name in ^interest_names
+
     Repo.all(query)
   end
 end

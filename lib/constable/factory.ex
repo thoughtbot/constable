@@ -60,8 +60,7 @@ defmodule Constable.Factory do
   end
 
   def tag_with_interest(announcement, interest) do
-    insert(:announcement_interest, announcement: announcement, interest:
-    interest).announcement
+    insert(:announcement_interest, announcement: announcement, interest: interest).announcement
   end
 
   def with_subscriber(announcement, user) do

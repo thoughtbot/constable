@@ -26,6 +26,6 @@ defmodule Constable.Subscription do
 
   defp generate_token(changeset) do
     token = SecureRandom.urlsafe_base64(32)
-    put_change changeset, :token, token
+    put_change(changeset, :token, token)
   end
 end

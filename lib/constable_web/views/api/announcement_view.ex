@@ -5,8 +5,9 @@ defmodule ConstableWeb.Api.AnnouncementView do
 
   def render("index.json", %{announcements: announcements}) do
     announcements = announcements |> Repo.preload([:comments, :interests])
+
     %{
-      announcements: render_many(announcements, __MODULE__, "announcement.json"),
+      announcements: render_many(announcements, __MODULE__, "announcement.json")
     }
   end
 
@@ -25,7 +26,8 @@ defmodule ConstableWeb.Api.AnnouncementView do
       user_id: announcement.user_id,
       comments: render_many(announcement.comments, CommentView, "comment.json"),
       interest_ids: pluck(announcement.interests, :id),
-      url: ConstableWeb.Router.Helpers.announcement_url(ConstableWeb.Endpoint, :show, announcement)
+      url:
+        ConstableWeb.Router.Helpers.announcement_url(ConstableWeb.Endpoint, :show, announcement)
     }
   end
 end

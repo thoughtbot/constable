@@ -10,9 +10,9 @@ defmodule Constable.Repo.Migrations.CreateUsersInterests do
     end
 
     create index(
-      :users_interests,
-      [:interest_id, :user_id],
-      unique: true
-    )
+             :users_interests,
+             [:interest_id, :user_id],
+             unique: true
+           )
   end
 end
