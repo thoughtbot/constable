@@ -1,5 +1,5 @@
 defmodule Constable.AnnouncementTest do
-  use Constable.ModelCase, async: true
+  use Constable.DataCase, async: true
   alias Constable.Announcement
   alias Ecto.Changeset
 

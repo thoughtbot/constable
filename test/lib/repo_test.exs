@@ -1,5 +1,5 @@
 defmodule Constable.RepoTest do
-  use Constable.ModelCase, async: true
+  use Constable.DataCase, async: true
   alias Constable.Announcement
 
   test "Repo.count/1 return the count of all models" do

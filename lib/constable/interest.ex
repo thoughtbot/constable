@@ -5,7 +5,7 @@ defmodule Constable.Interest do
     end
   end
 
-  use ConstableWeb, :model
+  use ConstableWeb, :schema
   alias Constable.{Announcement, User}
   alias Constable.{AnnouncementInterest, UserInterest}
 

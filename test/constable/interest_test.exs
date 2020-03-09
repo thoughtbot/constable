@@ -1,5 +1,5 @@
 defmodule Constable.InterestTest do
-  use Constable.ModelCase, async: true
+  use Constable.DataCase, async: true
   alias Constable.Interest
 
   test "strips extra hashes from the interest name" do

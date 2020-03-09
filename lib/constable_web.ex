@@ -70,7 +70,7 @@ defmodule ConstableWeb do
     end
   end
 
-  def model do
+  def schema do
     quote do
       use Ecto.Schema
       import Ecto.Changeset
