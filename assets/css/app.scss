@@ -1,10 +1,11 @@
 @import "~bourbon/core/bourbon";
 
+@import "~normalize.css/normalize";
+
 @import "~@thoughtbot/design-system/src/index";
 
 @import "settings/variables";
 
-@import "~normalize.css/normalize";
 @import "generic/fonts";
 
 @import "elements/layout";
