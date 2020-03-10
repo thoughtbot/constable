@@ -50,6 +50,19 @@ Run:
   $ bin/setup
   ```
 
+
+### Add Local Environment Variables
+Run `cp .sample.env .env` to create a new .env file
+In `.env`, there are three values from the sample file that say get-from-staging,
+CLIENT_ID, CLIENT_SECRET, and HUB_API_TOKEN. Replace these with the values from
+staging. Find them by running `heroku config -r staging`.
+
+
+### Copy the staging database to your development database
+Run `heroku pg:pull STAGING_DB_ENV_VAR constable_api_development -r staging`,
+where STAGING_DB_ENV_VAR is found from heroku staging. This will copy the data
+over so you have example data to work with.
+
 ### Starting the Phoenix Server
 
 Once all the dependencies have been installed, you can start the Phoenix
