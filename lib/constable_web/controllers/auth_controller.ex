@@ -10,7 +10,8 @@ defmodule ConstableWeb.AuthController do
     UserInterest
   }
 
-  @permitted_email_domain Application.fetch_env!(:constable, :permitted_email_domain)
+  def permitted_email_domain, do: Application.fetch_env!(:constable, :permitted_email_domain)
+
   @one_year_in_seconds 365 * 24 * 60 * 60
 
   def index(conn, %{"browser" => "true"}) do
@@ -36,7 +37,7 @@ defmodule ConstableWeb.AuthController do
     case find_or_insert_user(email, name) do
       nil ->
         conn
-        |> put_flash(:error, "You must sign up with a #{@permitted_email_domain} email address")
+        |> put_flash(:error, "You must sign up with a #{permitted_email_domain()} email address")
         |> redirect(external: "/")
 
       user ->
@@ -87,7 +88,7 @@ defmodule ConstableWeb.AuthController do
       nil ->
         conn
         |> put_status(403)
-        |> json(%{error: "must sign up with a #{@permitted_email_domain} email"})
+        |> json(%{error: "must sign up with a #{permitted_email_domain()} email"})
 
       user ->
         conn
@@ -122,7 +123,7 @@ defmodule ConstableWeb.AuthController do
 
       {:error, _changeset} ->
         Logger.info(
-          "Email address `#{email}` not from permitted `#{@permitted_email_domain}` domain"
+          "Email address `#{email}` not from permitted `#{permitted_email_domain()}` domain"
         )
 
         nil

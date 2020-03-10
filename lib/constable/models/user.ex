@@ -4,13 +4,13 @@ defmodule Constable.User do
   alias Constable.UserInterest
   alias Constable.Subscription
 
-  @permitted_email_domain Application.fetch_env!(:constable, :permitted_email_domain)
-
   defimpl Bamboo.Formatter do
     def format_email_address(user, _opts) do
       {user.name, user.email}
     end
   end
+
+  def permitted_email_domain, do: Application.fetch_env!(:constable, :permitted_email_domain)
 
   schema "users" do
     field :email
@@ -71,9 +71,10 @@ defmodule Constable.User do
   defp require_permitted_email_domain(changeset) do
     changeset
     |> validate_change(:email, fn :email, value ->
-      case String.split(value, "@") do
-        [_, @permitted_email_domain] -> []
-        _ -> [email: "must be a member of #{@permitted_email_domain}"]
+      if String.split(value, "@") == permitted_email_domain() do
+        []
+      else
+        [email: "must be a member of #{permitted_email_domain()}"]
       end
     end)
   end

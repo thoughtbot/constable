@@ -3,8 +3,8 @@ defmodule Constable.UserTest do
 
   alias Constable.User
 
-  @permitted_email_domain Application.fetch_env!(:constable, :permitted_email_domain)
-  @valid_email "foo@#{@permitted_email_domain}"
+  def permitted_email_domain, do: Application.fetch_env!(:constable, :permitted_email_domain)
+  def valid_email, do: "foo@#{permitted_email_domain()}"
 
   test "settings_changeset validates length of name" do
     changeset = User.settings_changeset(%User{}, %{name: "ab"})
@@ -22,7 +22,7 @@ defmodule Constable.UserTest do
   test "create_changeset sets token and username" do
     changeset =
       User.create_changeset(%User{}, %{
-        email: @valid_email,
+        email: valid_email(),
         name: "Foo Bar"
       })
 
@@ -43,7 +43,7 @@ defmodule Constable.UserTest do
   end
 
   test "create_changeset sets name from username only if the name is blank" do
-    changeset = User.create_changeset(%User{}, %{email: @valid_email, name: "Real Name"})
+    changeset = User.create_changeset(%User{}, %{email: valid_email(), name: "Real Name"})
     assert changeset.changes[:name] == "Real Name"
 
     username = "foobar"

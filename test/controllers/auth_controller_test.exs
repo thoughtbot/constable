@@ -5,9 +5,8 @@ defmodule ConstableWeb.AuthControllerTest do
   require Constable.Pact
 
   @google_authorize_url "https://accounts.google.com/o/oauth2/auth"
-  @permitted_email_domain Application.fetch_env!(:constable, :permitted_email_domain)
-
-  def valid_email_address, do: "fake@#{@permitted_email_domain}"
+  def permitted_email_domain, do: Application.fetch_env!(:constable, :permitted_email_domain)
+  def valid_email_address, do: "fake@#{permitted_email_domain()}"
 
   defmodule FakeTokenRetriever do
     def get_token!(_conn, _code, _token_params) do
