@@ -60,7 +60,8 @@ CLIENT_SECRET, and HUB_API_TOKEN. Replace these values with the ones from
 staging. Find them by running `heroku config -r staging`.
 
 You'll also want to grab the STAGING_DB_ENV_VAR from staging. Run:
-`heroku pg:pull STAGING_DB_ENV_VAR constable_api_development -r staging`
+`heroku pg:pull STAGING_DB_ENV_VAR constable_api_development -r staging`,
+where the value of STAGING_DB_ENV_VAR is what you got from the heroku config.
 This will copy the data over so you have example data to work with, including
 your already existing user account.
 
