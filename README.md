@@ -50,11 +50,12 @@ Run:
   $ bin/setup
   ```
 
+### Set up local data and env vars for Google OAuth
+You'll want to have certain environment variables and user data set up so you
+can log into the app locally with your thoughtbot email.
 
-### Add Local Environment Variables
-Run `cp .sample.env .env` to create a new .env file
-In `.env`, there are three values from the sample file that say get-from-staging,
-CLIENT_ID, CLIENT_SECRET, and HUB_API_TOKEN. Replace these with the values from
+In `.env`, there are three values that say "get-from-staging" - CLIENT_ID,
+CLIENT_SECRET, and HUB_API_TOKEN. Replace these values with the ones from
 staging. Find them by running `heroku config -r staging`.
 
 
