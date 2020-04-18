@@ -160,7 +160,7 @@ defmodule ConstableWeb.AuthControllerTest do
 
   test "mobile_callback returns user json when successful" do
     create_everyone_interest()
-    auth_params = %{"idToken" => "token"}
+    auth_params = %{"id_token" => "token"}
 
     Constable.Pact.replace :google_strategy, FakeTokenInfoGoogleStrategy do
       conn = build_conn()
@@ -175,7 +175,7 @@ defmodule ConstableWeb.AuthControllerTest do
 
   test "mobile_callback returns error json when user has non-thoughtbot email" do
     create_everyone_interest()
-    auth_params = %{"idToken" => "token"}
+    auth_params = %{"id_token" => "token"}
 
     Constable.Pact.replace :google_strategy, NonThoughtbotTokenInfoGoogleStrategy do
       conn = build_conn()

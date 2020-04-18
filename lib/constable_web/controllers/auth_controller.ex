@@ -80,7 +80,7 @@ defmodule ConstableWeb.AuthController do
   mobile apps will pass in the token it received from Google.
   The token will then be used to access the email address on behalf of the user.
   """
-  def mobile_callback(conn, %{"idToken" => id_token}) do
+  def mobile_callback(conn, %{"id_token" => id_token}) do
     %{"email" => email, "name" => name} = get_tokeninfo!(id_token)
 
     case find_or_insert_user(email, name) do

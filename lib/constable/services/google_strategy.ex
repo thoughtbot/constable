@@ -50,11 +50,7 @@ defmodule GoogleStrategy do
   """
   def get_tokeninfo!(redirect_uri, id_token) do
     {client, url} = tokeninfo_url(client(redirect_uri), id_token)
-
-    case OAuth2.Client.post!(client, url, client.params, client.headers) do
-      {:ok, response} -> response.body
-      {:error, error} -> raise error
-    end
+    OAuth2.Client.post!(client, url, client.params, client.headers).body
   end
 
   def tokeninfo_url(client, id_token) do
