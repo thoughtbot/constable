@@ -10,7 +10,7 @@
     "@thoughtbot/design-system": "0.7.0",
     "bourbon": "^6.0.0",
     "highlight.js": "^9.16.2",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "local-time": "^2.1.0",
     "marked": "^0.7.0",
     "mousetrap": "^1.6.3",
