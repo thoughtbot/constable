@@ -8,8 +8,44 @@ defmodule ConstableWeb.Api.AnnouncementController do
 
   plug(Constable.Plugs.Deslugifier, slugified_key: "id")
 
-  def index(conn, _params) do
-    announcements = Repo.all(Announcement)
+  def index(conn, params = %{"after" => after_id}) do
+    limit = Map.get(params, "page_size", 50)
+    cursor = Repo.get(Announcement, after_id)
+
+    announcements =
+      Announcement
+      |> where([a], a.inserted_at < ^cursor.inserted_at)
+      |> order_by(desc: :inserted_at)
+      |> limit(^limit)
+      |> Repo.all()
+
+    render(conn, "index.json", announcements: announcements)
+  end
+
+  def index(conn, params = %{"before" => before_id}) do
+    limit = Map.get(params, "page_size", 50)
+    cursor = Repo.get(Announcement, before_id)
+
+    announcements =
+      Announcement
+      |> where([a], ^cursor.inserted_at < a.inserted_at)
+      |> order_by(:inserted_at)
+      |> limit(^limit)
+      |> Repo.all()
+      |> Enum.reverse()
+
+    render(conn, "index.json", announcements: announcements)
+  end
+
+  def index(conn, params) do
+    limit = Map.get(params, "page_size", 50)
+
+    announcements =
+      Announcement
+      |> order_by(desc: :inserted_at)
+      |> limit(^limit)
+      |> Repo.all()
+
     render(conn, "index.json", announcements: announcements)
   end
 
