@@ -16,6 +16,33 @@ defmodule ConstableWeb.Api.AnnouncementControllerTest do
     assert json_response(conn, 200) == render_json("index.json", announcements: announcements)
   end
 
+  test "#index lists announcements after the provided id", %{conn: conn, user: user} do
+    announcement1 = insert(:announcement, inserted_at: ~N[2020-05-16 00:00:00], user: user)
+    announcement2 = insert(:announcement, inserted_at: ~N[2020-05-17 00:00:00], user: user)
+
+    conn = get(conn, Routes.api_announcement_path(conn, :index), %{"after" => announcement2.id})
+
+    assert json_response(conn, 200) == render_json("index.json", announcements: [announcement1])
+  end
+
+  test "#index lists announcements before the provided id", %{conn: conn, user: user} do
+    announcement1 = insert(:announcement, inserted_at: ~N[2020-05-14 00:00:00], user: user)
+    announcement2 = insert(:announcement, inserted_at: ~N[2020-05-15 00:00:00], user: user)
+    announcement3 = insert(:announcement, inserted_at: ~N[2020-05-16 00:00:00], user: user)
+    _announcement4 = insert(:announcement, inserted_at: ~N[2020-05-17 00:00:00], user: user)
+
+    conn =
+      get(conn, Routes.api_announcement_path(conn, :index), %{
+        "before" => announcement1.id,
+        "page_size" => 2
+      })
+
+    assert json_response(conn, 200) ==
+             render_json("index.json",
+               announcements: [announcement3, announcement2]
+             )
+  end
+
   test "#show renders single announcement", %{conn: conn, user: user} do
     announcement = insert(:announcement, user: user)
 
