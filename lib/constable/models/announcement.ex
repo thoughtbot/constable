@@ -38,6 +38,10 @@ defmodule Constable.Announcement do
     query |> order_by(desc: :last_discussed_at)
   end
 
+  def oldest_discussed_first(query \\ __MODULE__) do
+    query |> order_by(asc: :last_discussed_at)
+  end
+
   def with_announcement_list_assocs(query \\ __MODULE__) do
     from q in query,
       preload: [

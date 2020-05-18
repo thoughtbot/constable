@@ -14,8 +14,8 @@ defmodule ConstableWeb.Api.AnnouncementController do
 
     announcements =
       Announcement
-      |> where([a], a.inserted_at < ^cursor.inserted_at)
-      |> order_by(desc: :inserted_at)
+      |> where([a], a.last_discussed_at < ^cursor.last_discussed_at)
+      |> Announcement.last_discussed_first()
       |> limit(^limit)
       |> Repo.all()
 
@@ -28,8 +28,8 @@ defmodule ConstableWeb.Api.AnnouncementController do
 
     announcements =
       Announcement
-      |> where([a], ^cursor.inserted_at < a.inserted_at)
-      |> order_by(:inserted_at)
+      |> where([a], ^cursor.last_discussed_at < a.last_discussed_at)
+      |> Announcement.oldest_discussed_first()
       |> limit(^limit)
       |> Repo.all()
       |> Enum.reverse()
@@ -42,7 +42,7 @@ defmodule ConstableWeb.Api.AnnouncementController do
 
     announcements =
       Announcement
-      |> order_by(desc: :inserted_at)
+      |> Announcement.last_discussed_first()
       |> limit(^limit)
       |> Repo.all()
 
