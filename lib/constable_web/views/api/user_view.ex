@@ -23,4 +23,13 @@ defmodule ConstableWeb.Api.UserView do
       subscriptions: pluck(user.subscriptions, :id)
     }
   end
+
+  def render("author.json", %{user: user}) do
+    %{
+      id: user.id,
+      name: user.name,
+      profile_image_url: profile_provider().image_url(user),
+      username: user.username
+    }
+  end
 end
