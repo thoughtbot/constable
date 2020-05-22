@@ -13,9 +13,10 @@ defmodule ConstableWeb.Api.AnnouncementController do
     cursor = Repo.get(Announcement, after_id)
 
     announcements =
-      Announcement
-      |> where([a], a.inserted_at < ^cursor.inserted_at)
-      |> order_by(desc: :inserted_at)
+      interesting_announcements(conn.assigns.current_user)
+      |> where([a], a.last_discussed_at < ^cursor.last_discussed_at)
+      |> Announcement.with_announcement_list_assocs()
+      |> Announcement.last_discussed_first()
       |> limit(^limit)
       |> Repo.all()
 
@@ -27,9 +28,10 @@ defmodule ConstableWeb.Api.AnnouncementController do
     cursor = Repo.get(Announcement, before_id)
 
     announcements =
-      Announcement
-      |> where([a], ^cursor.inserted_at < a.inserted_at)
-      |> order_by(:inserted_at)
+      interesting_announcements(conn.assigns.current_user)
+      |> where([a], ^cursor.last_discussed_at < a.last_discussed_at)
+      |> Announcement.with_announcement_list_assocs()
+      |> Announcement.oldest_discussed_first()
       |> limit(^limit)
       |> Repo.all()
       |> Enum.reverse()
@@ -41,12 +43,17 @@ defmodule ConstableWeb.Api.AnnouncementController do
     limit = Map.get(params, "page_size", 50)
 
     announcements =
-      Announcement
-      |> order_by(desc: :inserted_at)
+      interesting_announcements(conn.assigns.current_user)
+      |> Announcement.with_announcement_list_assocs()
+      |> Announcement.last_discussed_first()
       |> limit(^limit)
       |> Repo.all()
 
     render(conn, "index.json", announcements: announcements)
+  end
+
+  defp interesting_announcements(user) do
+    user |> Ecto.assoc(:interesting_announcements)
   end
 
   def create(

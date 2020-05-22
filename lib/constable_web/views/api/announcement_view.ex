@@ -2,6 +2,8 @@ defmodule ConstableWeb.Api.AnnouncementView do
   use ConstableWeb, :view
 
   alias ConstableWeb.Api.CommentView
+  alias ConstableWeb.Api.InterestView
+  alias ConstableWeb.Api.UserView
 
   def render("index.json", %{announcements: announcements}) do
     announcements = announcements |> Repo.preload([:comments, :interests])
@@ -22,10 +24,11 @@ defmodule ConstableWeb.Api.AnnouncementView do
       title: announcement.title,
       body: announcement.body,
       inserted_at: announcement.inserted_at,
+      last_discussed_at: announcement.last_discussed_at,
       updated_at: announcement.updated_at,
-      user_id: announcement.user_id,
+      user: render_one(announcement.user, UserView, "author.json"),
       comments: render_many(announcement.comments, CommentView, "comment.json"),
-      interest_ids: pluck(announcement.interests, :id),
+      interests: render_many(announcement.interests, InterestView, "interest.json"),
       url:
         ConstableWeb.Router.Helpers.announcement_url(ConstableWeb.Endpoint, :show, announcement)
     }
