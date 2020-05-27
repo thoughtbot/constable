@@ -1,4 +1,4 @@
-defmodule Constable.ModelCase do
+defmodule Constable.DataCase do
   @moduledoc """
   This module defines the test case to be used by
   model tests.

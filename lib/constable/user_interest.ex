@@ -1,5 +1,5 @@
 defmodule Constable.UserInterest do
-  use ConstableWeb, :model
+  use ConstableWeb, :schema
   alias Constable.User
   alias Constable.Interest
 
