@@ -44,7 +44,7 @@ defmodule Constable.Mailers.CommentMailerTest do
     html_comment_body = Constable.Markdown.to_html(comment.body)
     assert email.html_body =~ html_comment_body
     assert email.html_body =~ author.name
-    assert email.html_body =~ FakeProfileProvider.image_url(author)
+    assert email.html_body =~ author.profile_image_url
 
     assert email.text_body =~ comment.body
   end
@@ -76,7 +76,7 @@ defmodule Constable.Mailers.CommentMailerTest do
     html_comment_body = Constable.Markdown.to_html(comment.body)
     assert email.html_body =~ html_comment_body
     assert email.html_body =~ author.name
-    assert email.html_body =~ FakeProfileProvider.image_url(author)
+    assert email.html_body =~ author.profile_image_url
 
     assert email.text_body =~ comment.body
   end

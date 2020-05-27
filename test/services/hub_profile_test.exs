@@ -4,7 +4,7 @@ defmodule Constable.Services.HubProfileProviderTest do
   import Mock
   alias Constable.Services.HubProfileProvider
 
-  describe "#profile_url" do
+  describe "#fetch_profile_url" do
     test "returns the hub profile url for a user" do
       email = "test@example.com"
       user = insert(:user, email: email)
@@ -25,14 +25,14 @@ defmodule Constable.Services.HubProfileProviderTest do
 
       profile_url =
         Mock.with_mock Neuron, query: query_mock do
-          HubProfileProvider.profile_url(user)
+          HubProfileProvider.fetch_profile_url(user)
         end
 
       assert profile_url == "#{Application.fetch_env!(:constable, :hub_url)}/people/#{mock_slug}"
     end
   end
 
-  describe "#image_url" do
+  describe "#fetch_image_url" do
     test "returns the hub profile image url for a user" do
       email = "test@example.com"
       user = insert(:user, email: email)
@@ -53,7 +53,7 @@ defmodule Constable.Services.HubProfileProviderTest do
 
       image_url =
         Mock.with_mock Neuron, query: query_mock do
-          HubProfileProvider.image_url(user)
+          HubProfileProvider.fetch_image_url(user)
         end
 
       assert image_url == mock_image_url

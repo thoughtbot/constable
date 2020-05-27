@@ -9,7 +9,7 @@ defimpl Poison.Encoder, for: Constable.User do
       id: user.id,
       email: user.email,
       name: user.name,
-      profile_image_url: profile_provider().image_url(user),
+      profile_image_url: user.profile_image_url,
       user_interests: user.user_interests,
       subscriptions: user.subscriptions
     }

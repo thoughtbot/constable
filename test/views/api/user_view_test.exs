@@ -15,7 +15,7 @@ defmodule ConstableWeb.Api.UserViewTest do
              user: %{
                id: user.id,
                name: user.name,
-               profile_image_url: FakeProfileProvider.image_url(user),
+               profile_image_url: user.profile_image_url,
                daily_digest: user.daily_digest,
                auto_subscribe: user.auto_subscribe,
                username: user.username,

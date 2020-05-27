@@ -20,6 +20,8 @@ defmodule Constable.User do
     field :auto_subscribe, :boolean, default: true
     field :daily_digest, :boolean, default: true
     field :active, :boolean, default: true
+    field :profile_url
+    field :profile_image_url
 
     has_many :comments, Constable.Comment
     has_many :user_interests, UserInterest, on_delete: :delete_all
@@ -40,6 +42,11 @@ defmodule Constable.User do
     user
     |> cast(params, ~w(auto_subscribe daily_digest name)a)
     |> validate_length(:name, min: 3)
+  end
+
+  def profile_changeset(user, params) do
+    user
+    |> cast(params, ~w(profile_url profile_image_url)a)
   end
 
   def create_changeset(user \\ %__MODULE__{}, params) do

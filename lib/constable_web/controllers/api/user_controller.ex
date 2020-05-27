@@ -1,13 +1,14 @@
 defmodule ConstableWeb.Api.UserController do
   use ConstableWeb, :controller
 
-  alias Constable.User
+  alias Constable.{User, Profiles}
 
   def create(conn, %{"user" => user_params}) do
     changeset = User.create_changeset(%User{}, user_params)
 
     case Repo.insert(changeset) do
       {:ok, user} ->
+        update_profile_info(user)
         render(conn, "show.json", user: user)
 
       {:error, changeset} ->
@@ -16,6 +17,10 @@ defmodule ConstableWeb.Api.UserController do
         |> put_view(ConstableWeb.ChangesetView)
         |> render("error.json", changeset: changeset)
     end
+  end
+
+  defp update_profile_info(user) do
+    Constable.TaskSupervisor.one_off_task(fn -> Profiles.update_profile_info(user) end)
   end
 
   def index(conn, _params) do
