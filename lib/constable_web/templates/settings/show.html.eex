@@ -35,9 +35,11 @@
         />
       </div>
 
-      <label class="tbds-media__body">
-        The profile image used on Constable can be changed by visiting your <%= link "Hub profile", to: @current_user.profile_url %>.
-      </label>
+      <%= if @current_user.profile_url do %>
+        <label class="tbds-media__body">
+          The profile image used on Constable can be changed by visiting your <%= link "Hub profile", to: @current_user.profile_url %>.
+        </label>
+      <% end %>
     </div>
 
     <div class="tbds-block-stack__item">
