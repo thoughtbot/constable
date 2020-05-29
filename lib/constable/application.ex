@@ -20,18 +20,12 @@ defmodule Constable.Application do
 
     setup_dependencies()
 
-    # List all child processes to be supervised
     children = [
-      # Start the Ecto repository
       Constable.Repo,
-      # Start the endpoint when the application starts
-      ConstableWeb.Endpoint
-      # Starts a worker by calling: ConstableWeb.Worker.start_link(arg)
-      # {ConstableWeb.Worker, arg},
+      ConstableWeb.Endpoint,
+      {Task.Supervisor, name: Constable.TaskSupervisor}
     ]
 
-    # See https://hexdocs.pm/elixir/Supervisor.html
-    # for other strategies and supported options
     opts = [strategy: :one_for_one, name: Constable.Supervisor]
     Supervisor.start_link(children, opts)
   end

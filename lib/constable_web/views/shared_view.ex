@@ -3,6 +3,8 @@ defmodule ConstableWeb.SharedView do
   alias Constable.Services.MentionFinder
   use Phoenix.HTML
 
+  @default_image_path "/images/ralph.png"
+
   def current_user(conn) do
     conn.assigns[:current_user]
   end
@@ -15,16 +17,11 @@ defmodule ConstableWeb.SharedView do
     "Constable"
   end
 
-  def profile_provider do
-    Constable.Pact.get(:profile_provider)
-  end
-
-  def profile_url(user) do
-    profile_provider().profile_url(user)
-  end
-
   def profile_image_url(user) do
-    profile_provider().image_url(user)
+    case user.profile_image_url do
+      url when is_binary(url) -> url
+      _ -> "#{ConstableWeb.Endpoint.url()}#{@default_image_path}"
+    end
   end
 
   def relative_timestamp(datetime) do

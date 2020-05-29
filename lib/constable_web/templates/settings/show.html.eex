@@ -36,7 +36,7 @@
       </div>
 
       <label class="tbds-media__body">
-        The profile image used on Constable can be changed by visiting your <%= link "Hub profile", to: profile_url(@current_user) %>.
+        The profile image used on Constable can be changed by visiting your <%= link "Hub profile", to: @current_user.profile_url %>.
       </label>
     </div>
 

@@ -56,7 +56,6 @@ defmodule Constable.MixProject do
       {:html_sanitize_ex, "~> 1.4.0"},
       {:httpoison, "~> 1.3", override: true},
       {:jason, "~> 1.1"},
-      {:memoize, "~> 1.2"},
       {:mock, "~> 0.3.0", only: :test},
       {:neuron, "~> 4.1.0"},
       {:oauth2, "~> 2.0"},

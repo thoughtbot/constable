@@ -1,7 +1,7 @@
 defmodule ConstableWeb.UserActivationController do
   use ConstableWeb, :controller
 
-  alias Constable.{Repo, User}
+  alias Constable.{Repo, User, Profiles}
 
   def index(conn, _params) do
     users = Repo.all(User |> order_by(desc: :active))
@@ -12,9 +12,15 @@ defmodule ConstableWeb.UserActivationController do
     user = Repo.get!(User, id)
     new_activation_status = !user.active
 
-    Ecto.Changeset.change(user, %{active: new_activation_status})
+    user
+    |> Ecto.Changeset.change(%{active: new_activation_status})
     |> Repo.update!()
+    |> update_profile_info()
 
     redirect(conn, to: Routes.user_activation_path(conn, :index))
+  end
+
+  defp update_profile_info(user) do
+    Constable.TaskSupervisor.one_off_task(fn -> Profiles.update_profile_info(user) end)
   end
 end

@@ -35,7 +35,9 @@ defmodule Constable.Factory do
       email: sequence(:email, &"test#{&1}@thoughtbot.com"),
       daily_digest: true,
       auto_subscribe: false,
-      token: sequence(:token, &"omgtokens#{&1}")
+      token: sequence(:token, &"omgtokens#{&1}"),
+      profile_image_url: "someurlimage.com",
+      profile_url: "example.com/people/gumbo"
     }
   end
 
