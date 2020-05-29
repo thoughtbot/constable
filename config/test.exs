@@ -29,7 +29,7 @@ config :constable, :permitted_email_domain, "thoughtbot.com"
 config :wallaby,
   max_wait_time: 250,
   js_logger: false,
-  driver: Wallaby.Experimental.Chrome
+  driver: Wallaby.Chrome
 
 # Set a higher stacktrace during test.
 config :phoenix, :stacktrace_depth, 35
