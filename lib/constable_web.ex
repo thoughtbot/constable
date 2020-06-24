@@ -58,7 +58,6 @@ defmodule ConstableWeb do
     quote do
       use Phoenix.Router
       use Honeybadger.Plug
-      import Plug.Conn
       import Phoenix.Controller
     end
   end
