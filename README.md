@@ -50,6 +50,21 @@ Run:
   $ bin/setup
   ```
 
+### Set up local data and env vars for Google OAuth
+
+You'll want to have certain environment variables and user data set up so you
+can log into the app locally with your thoughtbot email.
+
+In `.env`, there are three values that say "get-from-staging" - CLIENT_ID,
+CLIENT_SECRET, and HUB_API_TOKEN. Replace these values with the ones from
+staging. Find them by running `heroku config -r staging`.
+
+You'll also want to grab the STAGING_DB_ENV_VAR from staging. Run:
+`heroku pg:pull STAGING_DB_ENV_VAR constable_api_development -r staging`,
+where the value of STAGING_DB_ENV_VAR is what you got from the heroku config.
+This will copy the data over so you have example data to work with, including
+your already existing user account.
+
 ### Starting the Phoenix Server
 
 Once all the dependencies have been installed, you can start the Phoenix
