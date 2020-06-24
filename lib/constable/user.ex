@@ -78,16 +78,10 @@ defmodule Constable.User do
   defp require_permitted_email_domain(changeset) do
     changeset
     |> validate_change(:email, fn :email, value ->
-      case String.split(value, "@") do
-        [_, domain] ->
-          if domain == permitted_email_domain() do
-            []
-          else
-            [email: "must be a member of #{permitted_email_domain()}"]
-          end
-
-        _ ->
-          [email: "invalid email address"]
+      if String.ends_with?(value, "@#{permitted_email_domain()}") do
+        []
+      else
+        [email: "must be a member of #{permitted_email_domain()}"]
       end
     end)
   end
