@@ -39,7 +39,7 @@ defmodule Constable.UserTest do
       })
 
     refute changeset.valid?
-    assert changeset.errors[:email] == {"must be a member of #{@permitted_email_domain}", []}
+    assert changeset.errors[:email] == {"must be a member of #{permitted_email_domain()}", []}
   end
 
   test "create_changeset sets name from username only if the name is blank" do
@@ -47,7 +47,7 @@ defmodule Constable.UserTest do
     assert changeset.changes[:name] == "Real Name"
 
     username = "foobar"
-    changeset = User.create_changeset(%User{}, %{email: "#{username}@#{@permitted_email_domain}"})
+    changeset = User.create_changeset(%User{}, %{email: "#{username}@#{permitted_email_domain()}"})
     assert changeset.changes[:name] == username
   end
 
