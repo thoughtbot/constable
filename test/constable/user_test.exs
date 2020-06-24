@@ -47,7 +47,10 @@ defmodule Constable.UserTest do
     assert changeset.changes[:name] == "Real Name"
 
     username = "foobar"
-    changeset = User.create_changeset(%User{}, %{email: "#{username}@#{permitted_email_domain()}"})
+
+    changeset =
+      User.create_changeset(%User{}, %{email: "#{username}@#{permitted_email_domain()}"})
+
     assert changeset.changes[:name] == username
   end
 
