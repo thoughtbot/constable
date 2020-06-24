@@ -25,6 +25,7 @@ defmodule ConstableWeb do
       import Ecto.Schema
       import ConstableWeb.Gettext
       import ConstableWeb.ControllerHelper
+      import Phoenix.LiveView.Controller
 
       alias Constable.Repo
       alias ConstableWeb.Router.Helpers, as: Routes
@@ -45,6 +46,7 @@ defmodule ConstableWeb do
       import ConstableWeb.Gettext
       import ConstableWeb.SharedView
       import Constable.EnumHelper
+      import Phoenix.LiveView.Helpers
 
       # Use all HTML functionality (forms, tags, etc)
       use Phoenix.HTML
@@ -60,6 +62,7 @@ defmodule ConstableWeb do
       use Honeybadger.Plug
       import Plug.Conn
       import Phoenix.Controller
+      import Phoenix.LiveView.Router
     end
   end
 

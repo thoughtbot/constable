@@ -18,6 +18,7 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180x180.png" />
     <%= if current_user(@conn) do %>
       <script>window.userToken = "<%= @current_user.token %>";</script>
+      <%= csrf_meta_tag() %>
       <script src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
       <script src="<%= Application.fetch_env!(:constable, :shubox_script_url) %>"></script>
     <% end %>
