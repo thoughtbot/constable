@@ -1,18 +1,19 @@
+import Shubox from 'shubox';
+
 const refreshMarkdownPreview = function(inputSelector) {
   $(inputSelector).trigger('input');
 };
 
 export function setupImageUploader(selector) {
   const shuboxOptions = {
+    key: window.shuboxKey,
     textBehavior: 'append',
     clickable: false,
-    s3urlTemplate: '![description of image]({{s3url}})',
+    successTemplate: '![{{name}}]({{s3url}})',
     success() {
       refreshMarkdownPreview(selector);
     },
   };
 
-  if (typeof(Shubox) !== 'undefined') {
-    new Shubox(selector, shuboxOptions);
-  }
+  new Shubox(selector, shuboxOptions);
 }

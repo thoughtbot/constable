@@ -17,7 +17,7 @@ config :constable, Constable.Repo,
 
 config :constable, :sql_sandbox, true
 
-config :constable, :shubox_script_url, "#"
+config :constable, :shubox_key, "111"
 
 config :constable, Constable.Mailer, adapter: Bamboo.TestAdapter
 

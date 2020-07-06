@@ -28,8 +28,8 @@ config :phoenix, :json_library, Jason
 # To sign in, users must have an email in this domain
 config :constable, :permitted_email_domain, System.get_env("PERMITTED_EMAIL_DOMAIN")
 
-# The shubox JS source URL is unique to each app/env
-config :constable, :shubox_script_url, System.get_env("SHUBOX_SCRIPT_URL")
+# The shubox key is unique to each app/env
+config :constable, :shubox_key, System.get_env("SHUBOX_KEY")
 
 # Hub
 config :constable, :hub_url, System.get_env("HUB_URL")

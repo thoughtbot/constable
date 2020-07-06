@@ -18,8 +18,8 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180x180.png" />
     <%= if current_user(@conn) do %>
       <script>window.userToken = "<%= @current_user.token %>";</script>
+      <script>window.shuboxKey = "<%= Application.fetch_env!(:constable, :shubox_key) %>";</script>
       <script src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
-      <script async src="<%= Application.fetch_env!(:constable, :shubox_script_url) %>"></script>
     <% end %>
   </head>
   <body class="tbds-app-frame">
