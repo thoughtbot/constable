@@ -22,6 +22,18 @@ jobs:
     steps:
       - checkout
 
+      - run:
+          name: Chromedriver version
+          command: chromedriver -v
+
+      - run:
+          name: Elixir & Erlang versions
+          command: elixir -v
+
+      - run:
+          name: npm & node versions
+          command: npm -v && node -v
+
       - run: mix local.hex --force
       - run: mix local.rebar --force
 
