@@ -14,10 +14,15 @@ start the console in staging or production.
 
 Users are deactivated if they leave thoughtbot. Sometimes someone with the same
 first name joins thoughtbot later and inherits the deactivated email so we need
-to reactivate the email.
+to reactivate the email. There are two ways to reactivate a user: 
 
-* Run `bin/console production`
-* Run `Constable.User.reactivate("person@thoughtbot.com")`
+1. From the browser: 
+  * Visit `/user_activations`
+  * Click on Activate the user
+
+2. From the console:
+  * Run `bin/console production`
+  * Run `Constable.User.reactivate("person@thoughtbot.com")`
 
 ## Developing the Application
 
