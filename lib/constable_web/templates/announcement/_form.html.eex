@@ -42,6 +42,7 @@
           class: "tbds-form__textarea uploadable-input",
           placeholder: gettext("Markdown is supported. You can @mention specific people to notify them.")
         )%>
+        <span class="tbds-form__help-text"><small>Attach images by dragging and dropping them.</small></span>
       </div>
     </div>
   </div>
