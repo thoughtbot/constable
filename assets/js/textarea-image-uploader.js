@@ -9,6 +9,7 @@ export function setupImageUploader(selector) {
     key: window.shuboxKey,
     textBehavior: 'append',
     clickable: false,
+    uploadingTemplate: '![Uploading {{name}}...]()',
     successTemplate: '![{{name}}]({{s3url}})',
     success() {
       refreshMarkdownPreview(selector);

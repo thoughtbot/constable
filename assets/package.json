@@ -19,7 +19,7 @@
     "phoenix_html": "file:../deps/phoenix_html",
     "sass": "^1.23.6",
     "selectize": "^0.12.6",
-    "shubox": "^0.4.2",
+    "shubox": "^0.5.0",
     "textcomplete": "^0.18.0",
     "turbolinks": "^5.2.0"
   },
