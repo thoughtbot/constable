@@ -17,8 +17,10 @@ defmodule ConstableWeb.Api.AnnouncementControllerTest do
   end
 
   test "#index lists announcements after the provided id", %{conn: conn, user: user} do
-    announcement1 = insert(:announcement, inserted_at: ~N[2020-05-16 00:00:00], user: user)
-    announcement2 = insert(:announcement, inserted_at: ~N[2020-05-17 00:00:00], user: user)
+    interest = insert(:interest, name: "everyone")
+    insert(:user_interest, interest: interest, user: user)
+    announcement1 = insert(:announcement, last_discussed_at: ~N[2020-05-16 00:00:00], interests: [interest], user: user)
+    announcement2 = insert(:announcement, last_discussed_at: ~N[2020-05-17 00:00:00], interests: [interest], user: user)
 
     conn = get(conn, Routes.api_announcement_path(conn, :index), %{"after" => announcement2.id})
 

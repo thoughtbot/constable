@@ -11,7 +11,7 @@ defmodule ConstableWeb.ConnCaseHelper do
     %{conn: conn, user: user}
   end
 
-  def api_authenticate(user \\ insert(:user)) do
+  def api_authenticate(user \\ insert(:user) |> with_interest()) do
     conn =
       build_conn()
       |> put_req_header("accept", "application/json")
