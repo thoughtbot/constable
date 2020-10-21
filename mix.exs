@@ -62,7 +62,7 @@ defmodule Constable.MixProject do
       {:pact, "~> 0.2.0"},
       {:phoenix, "~> 1.4.0"},
       {:phoenix_pubsub, "~> 1.1"},
-      {:phoenix_ecto, "~> 4.1.0"},
+      {:phoenix_ecto, "~> 4.2.1"},
       {:phoenix_html, "~> 2.11"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
       {:plug_cowboy, "~> 2.0"},
