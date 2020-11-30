@@ -46,7 +46,7 @@ defmodule Constable.MixProject do
       {:bamboo, "~> 1.6"},
       {:cors_plug, "~> 2.0"},
       {:dialyxir, "~> 1.0", only: [:dev], runtime: false},
-      {:earmark, "~> 1.2.0"},
+      {:earmark, "~> 1.4.12"},
       {:ecto_sql, "~> 3.4.0"},
       {:envy, "~> 1.1.1"},
       {:ex_machina, "~> 2.0"},
