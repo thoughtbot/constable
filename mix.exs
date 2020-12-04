@@ -47,7 +47,7 @@ defmodule Constable.MixProject do
       {:cors_plug, "~> 2.0"},
       {:dialyxir, "~> 1.0", only: [:dev], runtime: false},
       {:earmark, "~> 1.2.0"},
-      {:ecto_sql, "~> 3.4.0"},
+      {:ecto_sql, "~> 3.5.3"},
       {:envy, "~> 1.1.1"},
       {:ex_machina, "~> 2.0"},
       {:gettext, "~> 0.11"},
