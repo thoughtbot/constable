@@ -9,10 +9,10 @@ export default class {
     this._form = $('[data-role=announcement-form]');
     this._isEditing = !!this._form.data('id');
 
-    this.watchTitle();
-    this.watchBody();
+    // this.watchTitle();
+    // this.watchBody();
     this.setupInterestsSelect();
-    this.clearLocalStorageOnSubmit();
+    // this.clearLocalStorageOnSubmit();
   }
 
   watchTitle() {

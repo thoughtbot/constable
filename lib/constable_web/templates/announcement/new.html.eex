@@ -1,9 +1,0 @@
-<h1 class="page-header">Create an Announcement</h1>
-
-<%= render "_form.html",
-  path: Routes.announcement_path(@conn, :create),
-  conn: @conn,
-  changeset: @changeset,
-  interests: @interests,
-  users: @users
-%>
