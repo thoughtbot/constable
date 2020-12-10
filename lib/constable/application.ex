@@ -22,6 +22,7 @@ defmodule Constable.Application do
 
     children = [
       Constable.Repo,
+      {Phoenix.PubSub, name: Constable.PubSub},
       ConstableWeb.Endpoint,
       {Task.Supervisor, name: Constable.TaskSupervisor}
     ]

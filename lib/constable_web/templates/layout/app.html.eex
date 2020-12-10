@@ -29,7 +29,7 @@
 
     <%= render "_flashes.html", conn: @conn %>
     <%= content_container(@conn, assigns) do %>
-      <%= render @view_module, @view_template, assigns %>
+      <%= @inner_content %>
     <% end %>
   </body>
 </html>
