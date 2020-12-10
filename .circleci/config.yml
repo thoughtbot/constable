@@ -39,46 +39,46 @@ jobs:
 
       - restore_cache:
           keys:
-            - v3-mix-cache-{{ .Branch }}-{{ checksum "mix.lock" }}
-            - v3-mix-cache-{{ .Branch }}
-            - v3-mix-cache
+            - v5-mix-cache-{{ .Branch }}-{{ checksum "mix.lock" }}
+            - v5-mix-cache-{{ .Branch }}
+            - v5-mix-cache
       - restore_cache:
           keys:
-            - v3-build-cache-{{ .Branch }}
-            - v3-build-cache
+            - v5-build-cache-{{ .Branch }}
+            - v5-build-cache
       - run: mix do deps.get, compile --warnings-as-errors
       - save_cache:
-          key: v3-mix-cache-{{ .Branch }}-{{ checksum "mix.lock" }}
+          key: v5-mix-cache-{{ .Branch }}-{{ checksum "mix.lock" }}
           paths: "deps"
       - save_cache:
-          key: v3-mix-cache-{{ .Branch }}
+          key: v5-mix-cache-{{ .Branch }}
           paths: "deps"
       - save_cache:
-          key: v3-mix-cache
+          key: v5-mix-cache
           paths: "deps"
       - save_cache:
-          key: v3-build-cache-{{ .Branch }}
+          key: v5-build-cache-{{ .Branch }}
           paths: "_build"
       - save_cache:
-          key: v3-build-cache
+          key: v5-build-cache
           paths: "_build"
 
       - restore_cache:
           keys:
-            - v4-npm-cache-{{ .Branch }}-{{ checksum "assets/package-lock.json" }}
-            - v4-npm-cache-{{ .Branch }}
-            - v4-npm-cache
+            - v5-npm-cache-{{ .Branch }}-{{ checksum "assets/package-lock.json" }}
+            - v5-npm-cache-{{ .Branch }}
+            - v5-npm-cache
       - run:
           working_directory: assets
           command: npm install && node_modules/.bin/webpack --mode production
       - save_cache:
-          key: v4-npm-cache-{{ .Branch }}-{{ checksum "assets/package-lock.json" }}
+          key: v5-npm-cache-{{ .Branch }}-{{ checksum "assets/package-lock.json" }}
           paths: "assets/node_modules"
       - save_cache:
-          key: v4-npm-cache-{{ .Branch }}
+          key: v5-npm-cache-{{ .Branch }}
           paths: "assets/node_modules"
       - save_cache:
-          key: v4-npm-cache
+          key: v5-npm-cache
           paths: "assets/node_modules"
 
       - run: mix format --check-formatted
