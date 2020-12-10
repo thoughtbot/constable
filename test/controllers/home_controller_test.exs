@@ -16,7 +16,7 @@ defmodule ConstableWeb.HomeControllerTest do
       build_conn(:get, "/")
       |> assign(:current_user, build(:user))
       |> with_session(original_request_path: Routes.search_path(build_conn(), :new))
-      |> ConstableWeb.Router.call(ConstableWeb.Router.init([]))
+      |> get("/")
 
     assert redirected_to(conn) == Routes.search_path(conn, :new)
     refute get_session(conn, :original_request_path)

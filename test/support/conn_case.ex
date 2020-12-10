@@ -18,7 +18,8 @@ defmodule ConstableWeb.ConnCase do
   using do
     quote do
       # Import conveniences for testing with connections
-      use Phoenix.ConnTest
+      import Plug.Conn
+      import Phoenix.ConnTest
       alias ConstableWeb.Router.Helpers, as: Routes
 
       use ConstableWeb, :view
