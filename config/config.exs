@@ -15,7 +15,8 @@ config :constable, ConstableWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "tJ+MdrPlKWMpmz7JyJgSu/11xvwnNZo7Sz8IAacy9MM6di3GqackE9iNjhkHI9p8",
   render_errors: [view: ConstableWeb.ErrorView, accepts: ~w(html json)],
-  pubsub_server: Constable.PubSub
+  pubsub_server: Constable.PubSub,
+  live_view: [signing_salt: "9CpMX+WbuB/UCRZ3VqJ6Pt0AUKvOhj/T"]
 
 # Configures Elixir's Logger
 config :logger, :console,
