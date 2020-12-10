@@ -6,7 +6,7 @@ defmodule ConstableWeb.SessionController do
       conn |> redirect(to: Routes.home_path(conn, :index))
     else
       conn
-      |> put_layout("app.html")
+      |> put_layout("login.html")
       |> render("new.html")
     end
   end

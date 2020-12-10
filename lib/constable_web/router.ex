@@ -4,9 +4,10 @@ defmodule ConstableWeb.Router do
   pipeline :browser do
     plug :accepts, ~w(html)
     plug :fetch_session
-    plug :fetch_flash
+    plug :fetch_live_flash
     plug :protect_from_forgery
     plug :put_secure_browser_headers
+    plug :put_root_layout, {ConstableWeb.LayoutView, :root}
 
     if Mix.env() == :test do
       plug Constable.Plugs.SetUserIdFromParams
@@ -58,7 +59,6 @@ defmodule ConstableWeb.Router do
     end
 
     resources "/search", SearchController, singleton: true, only: [:show, :new]
-    resources "/recipients_preview", RecipientsPreviewController, singleton: true, only: [:show]
     resources "/user_activations", UserActivationController, only: [:index, :update]
   end
 
@@ -69,6 +69,7 @@ defmodule ConstableWeb.Router do
   scope "/", ConstableWeb do
     pipe_through :api
 
+    resources "/recipients_preview", RecipientsPreviewController, singleton: true, only: [:show]
     resources "/email_forwards", EmailForwardController, only: [:create]
     resources "/email_replies", EmailReplyController, only: [:create]
   end

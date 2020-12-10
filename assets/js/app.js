@@ -22,6 +22,17 @@ TurboLinks.start();
 import LocalTime from 'local-time';
 LocalTime.start();
 
+import NProgress from 'nprogress';
+window.addEventListener('phx:page-loading-start', info => NProgress.start());
+window.addEventListener('phx:page-loading-stop', info => NProgress.done());
+
+import {Socket} from 'phoenix';
+import LiveSocket from 'phoenix_live_view';
+let csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute('content');
+let liveSocket = new LiveSocket('/live', Socket, {params: {_csrf_token: csrfToken}});
+liveSocket.connect();
+window.liveSocket = liveSocket;
+
 // Make the modules available to html pages
 global.constable = global.constable || {};
 global.constable.commentForm = require('./comment-form');
