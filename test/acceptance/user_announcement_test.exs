@@ -11,13 +11,14 @@ defmodule ConstableWeb.UserAnnouncementTest do
     session
     |> visit(Routes.announcement_path(Endpoint, :new, as: user.id))
     |> fill_in(@announcement_title, with: "Hello World ❤️")
-    |> fill_in_interests("everyone")
+    |> fill_in_interests("everyone, hello")
     |> fill_in(@announcement_body, with: "# Hello!")
     |> click_submit_button
 
     assert has_announcement_title?(session, "Hello World ❤️")
     assert has_announcement_body?(session, "Hello")
     assert has_announcement_interest?(session, "everyone")
+    assert has_announcement_interest?(session, "hello")
     assert has_comments_placeholder?(session)
   end
 

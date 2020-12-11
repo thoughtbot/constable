@@ -117,24 +117,6 @@ defmodule ConstableWeb.AnnouncementControllerTest do
     refute html_response(conn, :ok) =~ "(edit)"
   end
 
-  test "#create splits interests by ,", %{conn: conn} do
-    post conn, Routes.announcement_path(conn, :create),
-      announcement: %{
-        title: "Hello world",
-        interests: "everyone, boston",
-        body: "# Hello"
-      }
-
-    interest_names =
-      Repo.one!(Announcement)
-      |> Ecto.assoc(:interests)
-      |> Ecto.Query.select([a], a.name)
-      |> Ecto.Query.order_by([a], a.name)
-      |> Repo.all()
-
-    assert interest_names == ["boston", "everyone"]
-  end
-
   test "#delete does not work for users who are not the owner of the announcement", %{conn: conn} do
     owner = insert(:user)
     announcement = insert(:announcement, user: owner)
