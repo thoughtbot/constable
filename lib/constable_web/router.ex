@@ -40,7 +40,7 @@ defmodule ConstableWeb.Router do
     live "/announcements/new", AnnouncementLive, :new
 
     resources "/announcements", AnnouncementController,
-      only: [:index, :show, :create, :edit, :delete, :update] do
+      only: [:index, :show, :edit, :delete, :update] do
       resources "/comments", CommentController, only: [:create, :edit, :update]
 
       resources "/subscriptions", SubscriptionController,

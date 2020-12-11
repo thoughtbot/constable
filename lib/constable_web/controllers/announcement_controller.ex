@@ -5,7 +5,6 @@ defmodule ConstableWeb.AnnouncementController do
   alias Constable.Services.AnnouncementUpdater
 
   alias Constable.{Announcement, Comment, Interest, Subscription}
-  alias Constable.Services.AnnouncementCreator
 
   plug(Constable.Plugs.Deslugifier, slugified_key: "id")
 
@@ -75,35 +74,6 @@ defmodule ConstableWeb.AnnouncementController do
       users: Repo.all(User.active()),
       page_title: announcement.title
     )
-  end
-
-  def new(conn, _params) do
-    conn
-    |> page_title("New Announcement")
-    |> render_form("new.html", %Announcement{})
-  end
-
-  def create(conn, %{"announcement" => announcement_params}) do
-    {interest_names, announcement_params} = extract_interest_names(announcement_params)
-
-    announcement_params =
-      announcement_params
-      |> Map.put("user_id", conn.assigns.current_user.id)
-
-    case AnnouncementCreator.create(announcement_params, interest_names) do
-      {:ok, announcement} ->
-        redirect(conn, to: Routes.announcement_path(conn, :show, announcement))
-
-      {:error, changeset} ->
-        interests = Repo.all(Interest)
-
-        render(conn, "new.html", %{
-          changeset: changeset,
-          interests: interests,
-          users: Repo.all(User),
-          page_title: "New Announcement"
-        })
-    end
   end
 
   def edit(conn, %{"id" => id}) do

@@ -1,8 +1,8 @@
 <h1 class="page-header">Create an Announcement</h1>
 
 <%= form_for @changeset,
-  Routes.announcement_path(@socket, :create),
-  [phx_change: "preview", class: "tbds-form flex-container", data: [role: "announcement-form", id: @changeset.data.id]],
+  "#",
+  [phx_change: "preview", phx_submit: "create", class: "tbds-form flex-container", data: [role: "announcement-form", id: @changeset.data.id]],
   fn f -> %>
   <nav class="header-tags">
     <div class="header-tag header-tag-markdown active">
@@ -20,19 +20,21 @@
         <%= text_input f, :title, class: "tbds-form__text-input" %>
       </div>
 
-      <div phx-update="ignore" class="tbds-block-stack__item">
-        <%= label(
-          f,
-          :interests,
-          "Select interests",
-          class: "tbds-form__label recipients-preview"
-        ) %>
-        <%= text_input(
-          :announcement,
-          :interests,
-          value: comma_separated_interest_names(@changeset.data.interests),
-          "aria-describedby": "interests_error"
-        ) %>
+      <div class="tbds-block-stack__item">
+        <div phx-update="ignore">
+          <%= label(
+            f,
+            :interests,
+            "Select interests",
+            class: "tbds-form__label recipients-preview"
+          ) %>
+          <%= text_input(
+            :announcement,
+            :interests,
+            value: comma_separated_interest_names(@changeset.data.interests),
+            "aria-describedby": "interests_error"
+          ) %>
+        </div>
         <%= error_tag f, :interests %>
       </div>
 
