@@ -10,8 +10,13 @@ defmodule Constable.Plugs.FetchCurrentUser do
       :not_signed_in ->
         conn
 
+      nil ->
+        conn
+
       user ->
-        conn |> assign(:current_user, user)
+        conn
+        |> assign(:current_user, user)
+        |> put_session(:current_user_id, user.id)
     end
   end
 
