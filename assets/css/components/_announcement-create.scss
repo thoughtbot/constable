@@ -7,17 +7,11 @@
   }
 }
 
-.announcement-create,
-.announcement-preview {
+.announcement-create {
   display: none;
   flex: 1;
   min-height: calc(100vh - 91px);
-  min-width: calc(100vw / 2);
-  padding: $large-spacing $base-spacing;
-
-  @media (min-width: $breakpoint-1) {
-    display: block;
-  }
+  padding: $large-spacing 0;
 
   &.active {
     display: block;
@@ -26,9 +20,17 @@
 
 .announcement-preview {
   border-left: 1px solid darken($lightest-gray, 4%);
+  display: none;
+  flex: 1;
+  min-height: calc(100vh - 91px);
+  padding: $large-spacing $base-spacing;
 
   pre {
     overflow-x: auto;
+  }
+
+  &.active {
+    display: block;
   }
 }
 
@@ -55,20 +57,11 @@
   a {
     color: inherit;
     display: block;
-
-    @media (min-width: $breakpoint-2) {
-      cursor: default;
-    }
   }
 
   &.active {
     background-color: $dark-blue;
     color: #fff;
-
-    @media (min-width: $breakpoint-2) {
-      background-color: $light-gray;
-      color: $base-font-color;
-    }
   }
 }
 

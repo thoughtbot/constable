@@ -1,10 +1,10 @@
-<h1 class="page-header">Create an Announcement</h1>
+<h1 class="page-header container">Create an Announcement</h1>
 
 <%= form_for @changeset,
   "#",
-  [phx_change: "preview", phx_submit: "create", class: "tbds-form flex-container", data: [role: "announcement-form", id: @changeset.data.id]],
+  [phx_change: "preview", phx_submit: "create", class: "tbds-form flex-container container", data: [role: "announcement-form", id: @changeset.data.id]],
   fn f -> %>
-  <nav class="header-tags">
+  <nav class="header-tags container">
     <div class="header-tag header-tag-markdown active">
       <h2><%= gettext("Markdown") %></h2>
     </div>
