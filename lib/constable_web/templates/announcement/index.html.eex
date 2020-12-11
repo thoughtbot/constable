@@ -27,7 +27,7 @@
 
     <%= if !@show_all do %>
       <%= link to: Routes.interest_path(@conn, :index),
-        data: [role: "view-all-interests"],
+        data: [role: "view-all-interests", turbolinks: false],
         class: "tabs__link--push" do %>
         <%= dngettext("interest-count",
           "View interests (%{count} subscription)",

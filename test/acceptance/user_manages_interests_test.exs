@@ -8,14 +8,17 @@ defmodule ConstableWeb.UserManagesInterestsTest do
   test "user manages interests", %{session: session} do
     insert(:interest)
 
-    session |> view_interests
-    assert not_subscribed_to_interest?(session)
+    session
+    |> view_interests()
+    |> not_subscribed_to_interest?()
 
-    session |> subscribe_to_interest
-    assert subscribed_to_interest?(session)
+    session
+    |> subscribe_to_interest()
+    |> subscribed_to_interest?()
 
-    session |> unsubscribe_from_interest
-    assert not_subscribed_to_interest?(session)
+    session
+    |> unsubscribe_from_interest()
+    |> not_subscribed_to_interest?()
   end
 
   test "user subscribes to an interest from interest page", %{session: session} do
@@ -38,11 +41,11 @@ defmodule ConstableWeb.UserManagesInterestsTest do
   end
 
   defp subscribed_to_interest?(session) do
-    session |> has?(@unsubscribe_link_css)
+    session |> assert_has(@unsubscribe_link_css)
   end
 
   defp not_subscribed_to_interest?(session) do
-    session |> has?(@subscribe_link_css)
+    session |> assert_has(@subscribe_link_css)
   end
 
   defp subscribe_to_interest(session) do

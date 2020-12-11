@@ -48,7 +48,9 @@ defmodule ConstableWeb.Router do
 
     resources "/settings", SettingsController, singleton: true, only: [:show, :update]
 
-    resources "/interests", InterestController, only: [:index, :show], param: "id_or_name" do
+    live "/interests", InterestLive, :index
+
+    resources "/interests", InterestController, only: [:show], param: "id_or_name" do
       resources "/slack_channel", SlackChannelController,
         singleton: true,
         only: [:edit, :update, :delete]
