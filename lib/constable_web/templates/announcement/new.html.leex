@@ -2,18 +2,19 @@
 
 <%= form_for @changeset,
   "#",
-  [phx_change: "preview", phx_submit: "create", class: "tbds-form flex-container container", data: [role: "announcement-form", id: @changeset.data.id]],
+  [phx_change: "update-changeset", phx_submit: "create", class: "tbds-form flex-container container", data: [role: "announcement-form", id: @changeset.data.id]],
   fn f -> %>
   <nav class="header-tags container">
-    <div class="header-tag header-tag-markdown active">
+    <div phx-click="compose" class="header-tag header-tag-markdown <%= if @active_tab == :compose, do: "active" %>">
       <h2><%= gettext("Markdown") %></h2>
     </div>
 
-    <div class="header-tag header-tag-preview">
+    <div phx-click="preview" class="header-tag header-tag-preview <%= if @active_tab == :preview, do: "active" %>">
       <h2><%= gettext("Preview") %></h2>
     </div>
   </nav>
-  <div class="col-markdown announcement-create active">
+
+  <div class="col-markdown announcement-create <%= if @active_tab == :compose, do: "active" %>">
     <div class="tbds-block-stack tbds-block-stack--gap-4 announcement-form">
       <div class="tbds-block-stack__item">
         <%= label f, :title, "Announcement title", class: "tbds-form__label" %>
@@ -51,7 +52,7 @@
     </div>
   </div>
 
-  <div class="announcement-preview">
+  <div class="announcement-preview <%= if @active_tab == :preview, do: "active" %>">
     <h1 data-role="title-preview"><%= @preview_title %></h1>
     <div class="markdown announcement-body" data-role="markdown-preview">
       <%= raw @preview %>
@@ -70,7 +71,6 @@
     window.INTERESTS_NAMES = <%= raw json_interests(@interests) %>;
     var AnnouncementForm = window.constable.announcementForm.default;
     new AnnouncementForm();
-    window.constable.announcementFormMobile.setupForm();
     window.constable.textareaImageUploader.setupImageUploader('#announcement_body');
     window.constable.userAutocomplete.autocompleteUsers(
       '#announcement_body',

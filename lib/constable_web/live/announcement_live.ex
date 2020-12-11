@@ -17,6 +17,7 @@ defmodule ConstableWeb.AnnouncementLive do
 
     {:ok,
      assign(socket,
+       active_tab: :compose,
        preview_title: preview_title,
        preview: preview,
        changeset: changeset,
@@ -26,7 +27,23 @@ defmodule ConstableWeb.AnnouncementLive do
      )}
   end
 
-  def handle_event("preview", %{"announcement" => params}, socket) do
+  def handle_event("compose", _, socket) do
+    {:noreply, assign(socket, :active_tab, :compose)}
+  end
+
+  def handle_event("preview", _, socket) do
+    changes = socket.assigns.changeset.changes
+
+    socket =
+      socket
+      |> set_body_preview(changes)
+      |> set_title_preview(changes)
+      |> assign(:active_tab, :preview)
+
+    {:noreply, socket}
+  end
+
+  def handle_event("update-changeset", %{"announcement" => params}, socket) do
     changeset = Announcement.create_changeset(%Announcement{}, params)
 
     socket =
@@ -52,6 +69,23 @@ defmodule ConstableWeb.AnnouncementLive do
 
       {:error, changeset} ->
         {:noreply, assign(socket, changeset: changeset)}
+    end
+  end
+
+  defp set_title_preview(socket, changes) do
+    if changes["title"] do
+      assign(socket, :preview_title, changes["title"])
+    else
+      socket
+    end
+  end
+
+  defp set_body_preview(socket, changes) do
+    if changes["body"] do
+      parsed_markdown = ConstableWeb.SharedView.markdown_with_users(changes["body"])
+      assign(socket, :preview, parsed_markdown)
+    else
+      socket
     end
   end
 
