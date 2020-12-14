@@ -27,7 +27,7 @@
       width="80"
     >
   <% end %>
-  <%= link to: Routes.announcement_path(@conn, :new), class: "tbds-button app-header__announce-button" do %>
+  <%= link to: Routes.announcement_path(@conn, :new), class: "tbds-button app-header__announce-button", data: [turbolinks: false] do %>
     <svg class="tbds-button__icon tbds-button__icon--start">
       <use xlink:href="/images/icons.svg#edit"></use>
     </svg>
