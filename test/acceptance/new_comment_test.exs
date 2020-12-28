@@ -14,20 +14,19 @@ defmodule ConstableWeb.NewCommentTest do
     other_session
     |> visit(Routes.announcement_path(Endpoint, :show, other_announcement, as: user.id))
 
-    assert has_comment_text?(session, "My Cool Comment")
-    refute has_comments_placeholder?(session)
-    refute has_comment_text?(other_session, "My Cool Comment")
+    session
+    |> assert_has(comment_text("My Cool Comment"))
+    |> refute_has(comments_placeholder())
+
+    other_session
+    |> refute_has(comment_text("My Cool Comment"))
   end
 
-  defp has_comment_text?(session, comment_text) do
-    session
-    |> find(css(".comments-list"))
-    |> has_text?(comment_text)
+  defp comment_text(comment_text) do
+    css(".comments-list", text: comment_text)
   end
 
-  defp has_comments_placeholder?(session) do
-    session
-    |> all(css(".comments-placeholder"))
-    |> List.first()
+  defp comments_placeholder do
+    css(".comments-placeholder", count: 1)
   end
 end

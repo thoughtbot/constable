@@ -11,7 +11,7 @@ defmodule ConstableWeb.AcceptanceCase do
       alias ConstableWeb.Router.Helpers, as: Routes
       import Constable.Factory
       import ConstableWeb.WallabyHelper
-      import Wallaby.Query, only: [link: 1, button: 1, css: 1, text_field: 1]
+      import Wallaby.Query, only: [link: 1, button: 1, css: 1, css: 2, text_field: 1]
 
       Application.put_env(:wallaby, :base_url, ConstableWeb.Endpoint.url())
     end
