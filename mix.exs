@@ -83,16 +83,15 @@ defmodule Constable.MixProject do
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
       test: [
-        "assets.compile --quiet",
         "ecto.create --quiet",
         "ecto.migrate",
         "test"
       ],
-      "assets.compile": &compile_assets/1
+      "assets.watch": &watch_assets/1
     ]
   end
 
-  defp compile_assets(_) do
-    Mix.shell().cmd("cd assets && node_modules/.bin/webpack --mode production && cd ..")
+  defp watch_assets(_) do
+    Mix.shell().cmd("cd assets && node_modules/.bin/webpack --watch && cd ..")
   end
 end
