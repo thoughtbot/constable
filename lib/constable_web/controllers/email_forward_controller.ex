@@ -13,7 +13,7 @@ defmodule ConstableWeb.EmailForwardController do
     for %{"msg" => message} <- forwarded_emails do
       message
       |> Constable.Emails.forwarded_email()
-      |> Constable.Mailer.deliver_now()
+      |> Constable.Mailer.deliver_now!()
     end
   end
 end

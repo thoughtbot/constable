@@ -11,7 +11,7 @@ defmodule Constable.DailyDigest do
   def send_email(users, time) do
     if new_items_since?(time) do
       Logger.info("Sending daily digest")
-      daily_digest_email(time, users) |> Mailer.deliver_now()
+      daily_digest_email(time, users) |> Mailer.deliver_now!()
     else
       Logger.info("No new items since: #{inspect(time)}")
     end

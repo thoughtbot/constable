@@ -37,13 +37,13 @@ defmodule Constable.Services.CommentCreator do
       (find_subscribed_users(comment.announcement_id) -- mentioned_users)
       |> Enum.reject(fn user -> user.id == comment.user_id end)
 
-    Emails.new_comment(comment, users) |> Mailer.deliver_later()
+    Emails.new_comment(comment, users) |> Mailer.deliver_later!()
   end
 
   defp email_mentioned_users(comment) do
     users = MentionFinder.find_users(comment.body)
 
-    Emails.new_comment_mention(comment, users) |> Mailer.deliver_later()
+    Emails.new_comment_mention(comment, users) |> Mailer.deliver_later!()
     users
   end
 
