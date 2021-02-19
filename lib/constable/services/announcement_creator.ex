@@ -64,14 +64,14 @@ defmodule Constable.Services.AnnouncementCreator do
   defp email_users(announcement, users) do
     users = filter_author(announcement.user_id, users)
 
-    Emails.new_announcement(announcement, users) |> Mailer.deliver_later()
+    Emails.new_announcement(announcement, users) |> Mailer.deliver_later!()
     announcement
   end
 
   def email_mentioned_users(announcement, users) do
     users = filter_author(announcement.user_id, users)
 
-    Emails.new_announcement_mention(announcement, users) |> Mailer.deliver_later()
+    Emails.new_announcement_mention(announcement, users) |> Mailer.deliver_later!()
     announcement
   end
 
