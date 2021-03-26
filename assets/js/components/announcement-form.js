@@ -86,7 +86,7 @@ export default class AnnouncementForm {
         labelField: 'name',
         searchField: 'name',
         options: window.INTERESTS_NAMES,
-        onInitialize: () => {
+        onInitialize() {
           this.$control_input.attr('aria-describedby', this.$input.attr('aria-describedby'));
         },
         onChange: (value) => {
