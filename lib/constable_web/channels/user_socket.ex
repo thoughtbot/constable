@@ -5,9 +5,6 @@ defmodule ConstableWeb.UserSocket do
   alias Constable.Repo
   alias Constable.User
 
-  channel("update", ConstableWeb.UpdateChannel)
-  channel("live-html", ConstableWeb.LiveHtmlChannel)
-
   def connect(%{"token" => token}, socket, _connect_info) do
     if user = user_with_token(token) do
       socket = assign(socket, :current_user, user)
