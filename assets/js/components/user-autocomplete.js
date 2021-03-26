@@ -2,8 +2,7 @@ import { Textcomplete, Textarea } from 'textcomplete';
 
 const AT_REGEX = /(^|\s)@(\w*)$/;
 
-export function autocompleteUsers(selector, users) {
-
+export const autocompleteUsers = (selector, users) => {
   const usernameStrategy = {
     id: 'username',
     match: AT_REGEX,
@@ -37,4 +36,4 @@ export function autocompleteUsers(selector, users) {
   const editor = new Textarea(document.querySelector(selector));
   const textcomplete = new Textcomplete(editor);
   textcomplete.register([ usernameStrategy ]);
-}
+};

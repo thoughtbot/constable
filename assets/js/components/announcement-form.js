@@ -1,10 +1,10 @@
-import { markedWithSyntax } from './syntax-highlighting';
+import { markedWithSyntax } from '../lib/syntax-highlighting';
 import { updateRecipientsPreview } from './recipients-preview';
 import 'selectize';
 
 const DELIMITER = ',';
 
-export default class {
+export default class AnnouncementForm {
   constructor() {
     this._form = $('[data-role=announcement-form]');
     this._isEditing = !!this._form.data('id');
@@ -26,9 +26,7 @@ export default class {
     title.trigger('input');
   }
 
-  _updateTitle(e) {
-    const value = e.target.value;
-
+  _updateTitle({ target: { value }}) {
     if (!this._isEditing) {
       localStorage.setItem('title', value);
     }
@@ -53,18 +51,14 @@ export default class {
     body.trigger('input');
   }
 
-  _updateMarkdown(e) {
-    const value = e.target.value;
-
+  _updateMarkdown({ target: { value }}) {
     if (!this._isEditing) {
       localStorage.setItem('markdown', value);
     }
 
     if (value === '') {
       $('[data-role=markdown-preview]').addClass('preview');
-      $('[data-role=markdown-preview]').html(
-        'Your rendered markdown goes here'
-      );
+      $('[data-role=markdown-preview]').html('Your rendered markdown goes here');
     } else {
       $('[data-role=markdown-preview]').removeClass('preview');
       const markdown = markedWithSyntax(value);
@@ -95,7 +89,7 @@ export default class {
         onInitialize() {
           this.$control_input.attr('aria-describedby', this.$input.attr('aria-describedby'));
         },
-        onChange: value => {
+        onChange: (value) => {
           if (!this._isEditing) {
             localStorage.setItem('interests', value);
           }
@@ -107,7 +101,7 @@ export default class {
 
   clearLocalStorageOnSubmit() {
     if (!this._isEditing) {
-      $('[data-role=announcement-form]').on('submit', function() {
+      $('[data-role=announcement-form]').on('submit', () => {
         localStorage.removeItem('title');
         localStorage.removeItem('interests');
         localStorage.removeItem('markdown');

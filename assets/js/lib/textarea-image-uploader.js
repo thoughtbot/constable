@@ -1,10 +1,10 @@
 import Shubox from 'shubox';
 
-const refreshMarkdownPreview = function(inputSelector) {
+const refreshMarkdownPreview = (inputSelector) => {
   $(inputSelector).trigger('input');
 };
 
-export function setupImageUploader(selector) {
+export const setupImageUploader = (selector) => {
   const shuboxOptions = {
     key: window.shuboxKey,
     textBehavior: 'append',
@@ -16,5 +16,7 @@ export function setupImageUploader(selector) {
     },
   };
 
-  new Shubox(selector, shuboxOptions);
-}
+  if (typeof(Shubox) !== 'undefined') {
+    new Shubox(selector, shuboxOptions);
+  }
+};
