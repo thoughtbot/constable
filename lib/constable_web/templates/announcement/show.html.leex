@@ -4,7 +4,7 @@
       <%= for interest <- @announcement.interests do %>
         <%= link(
           interest.name,
-          to: Routes.interest_path(@conn, :show, interest),
+          to: Routes.interest_path(@socket, :show, interest),
           class: "tbds-badge tbds-margin-inline-end-1"
         ) %>
       <% end %>
@@ -14,12 +14,12 @@
     <%= @announcement.title %>
     <%= if @announcement.user_id == @current_user.id do %>
       <small class="inline-action">
-        <%= link "edit", to: Routes.announcement_path(@conn, :edit, @announcement), data: [role: "edit"] %>
+        <%= link "edit", to: Routes.announcement_path(@socket, :edit, @announcement), data: [role: "edit"] %>
       </small>
       <small class="inline-action">
         <%= link(
             "delete",
-            to: Routes.announcement_path(@conn, :delete, @announcement),
+            to: Routes.announcement_path(@socket, :delete, @announcement),
             method: :delete,
             data: [confirm: gettext("Really delete this announcement?"), role: "delete"]
         ) %>
@@ -39,7 +39,7 @@
         >
       </div>
       <div class="tbds-media__body">
-        <%= link @announcement.user.name, to: Routes.announcement_path(@conn, :index, user_id: @announcement.user_id), class: "author" %>
+        <%= link @announcement.user.name, to: Routes.announcement_path(@socket, :index, user_id: @announcement.user_id), class: "author" %>
 
         <div class="announcement-metadata">
           <%= gettext "announced " %>
@@ -51,7 +51,7 @@
       <%= if @subscription do %>
         <%= render "_unsubscribe_button.html", announcement_id: @announcement.id %>
       <% else %>
-        <%= link to: Routes.announcement_subscription_path(@conn, :create, @announcement),
+        <%= link to: Routes.announcement_subscription_path(@socket, :create, @announcement),
           method: :post,
           class: "tbds-button button-secondary" do %>
           <svg class="tbds-button__icon tbds-button__icon--start">
@@ -68,26 +68,42 @@
   </div>
 
   <h2 class="tbds-margin-block-end-6"><%= gettext "Comments" %></h2>
-  <ul class="tbds-block-stack tbds-block-stack--bordered tbds-block-stack--gap-6 comments-list">
+  <ul id="comments-list" class="tbds-block-stack tbds-block-stack--bordered tbds-block-stack--gap-6 comments-list" phx-hook="SyntaxHighlight">
     <li class="comments-placeholder">
       No one has commented on this announcement yet.<br />You could be the first!
     </li>
-    <%= for comment <- @announcement.comments do %>
+    <%= for comment <- @comments do %>
       <%= render "_comment.html", comment: comment, current_user: @current_user %>
     <% end %>
   </ul>
 
   <div class="comment-new">
-    <%= ConstableWeb.CommentView.render "_form.html",
-      comment_changeset: @comment_changeset,
-      path: Routes.announcement_comment_path(@conn, :create, @announcement),
-      submit_text: gettext("Post Comment") %>
+    <%= f = form_for @comment_changeset, "#", phx_submit: "create-comment", id: "new-comment", class: "tbds-form tbds-block-stack tbds-block-stack--gap-4 comment-form", phx_hook: "CommentPreview" %>
+      <div>
+        <div class="comment-tab-list">
+          <button type="button" class="comment-tab-button comment-preview-text-button">Write</button>
+          <button type="button" class="comment-tab-button comment-preview-markdown-button">Preview</button>
+        </div>
+        <div class="comment-tab comment-tab-button--active">
+          <%= textarea(
+            f,
+            :body,
+            class: "tbds-form__textarea comment-textarea mousetrap uploadable-input",
+            id: "comment_body",
+            required: true,
+            placeholder: "Comment on this announcement",
+            phx_hook: "ImageUploader"
+          ) %>
+          <div class="comment-body comment-preview"></div>
+          <%= submit gettext("Post Comment"), id: "submit-comment", class: "tbds-button" %>
+        </div>
+      </div>
+    </form>
   </div>
 </div>
 
 <script>
   (function() {
-    window.constable.commentForm.setupNewForm(<%= raw user_autocomplete_json(@users) %>);
-    window.constable.syntaxHighlighting.highlightSyntax('.comments-list');
+    window.constable.userAutocomplete.autocompleteUsers('.comment-textarea', <%= raw user_autocomplete_json(@users) %>);
   })()
 </script>

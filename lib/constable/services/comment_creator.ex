@@ -1,5 +1,4 @@
 defmodule Constable.Services.CommentCreator do
-  alias ConstableWeb.Api.CommentView
   alias Constable.Comment
   alias Constable.Repo
   alias Constable.Services.MentionFinder
@@ -13,7 +12,6 @@ defmodule Constable.Services.CommentCreator do
     case Repo.insert(changeset) do
       {:ok, comment} ->
         comment = comment |> Repo.preload([:user, announcement: :user])
-        broadcast_html(comment)
         broadcast(comment)
         mentioned_users = email_mentioned_users(comment)
         email_subscribers(comment, mentioned_users)
@@ -53,20 +51,6 @@ defmodule Constable.Services.CommentCreator do
   end
 
   defp broadcast(comment) do
-    ConstableWeb.Endpoint.broadcast!(
-      "update",
-      "comment:add",
-      CommentView.render("show.json", %{comment: comment})
-    )
-  end
-
-  defp broadcast_html(comment) do
-    ConstableWeb.Endpoint.broadcast!(
-      "live-html",
-      "new-comment",
-      %{
-        comment: comment
-      }
-    )
+    Constable.PubSub.broadcast_new_comment(comment)
   end
 end
