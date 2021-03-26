@@ -1,8 +1,8 @@
 import Mousetrap from 'mousetrap';
 import socket from '../socket';
 import { setupImageUploader } from '../lib/textarea-image-uploader';
+import { markedWithSyntax } from '../lib/syntax-highlighting';
 import { autocompleteUsers } from './user-autocomplete';
-import { markedWithSyntax } from './syntax-highlighting';
 
 const channel = socket.channel('live-html', {});
 
