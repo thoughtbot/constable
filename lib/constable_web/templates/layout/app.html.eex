@@ -1,3 +1,5 @@
 <main id="main" class="app-main tbds-app-frame__body">
+  <%= render "_flashes.html", conn: @conn %>
+
   <%= @inner_content %>
 </main>
