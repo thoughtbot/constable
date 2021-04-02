@@ -1,3 +1,17 @@
 <main id="main" class="app-main tbds-app-frame__body">
+  <header role="banner">
+    <%= if live_flash(@flash, :info) do %>
+      <div class="flash flash-info">
+        <%= live_flash(@flash, :info) %>
+      </div>
+    <% end %>
+
+    <%= if live_flash(@flash, :error) do %>
+      <div class="flash flash-error">
+        <%= live_flash(@flash, :error) %>
+      </div>
+    <% end %>
+  </header>
+
   <%= @inner_content %>
 </main>
