@@ -73,7 +73,7 @@
       No one has commented on this announcement yet.<br />You could be the first!
     </li>
     <%= for comment <- @announcement.comments do %>
-      <%= render "_comment.html", comment: comment, conn: @conn, current_user: @current_user %>
+      <%= render "_comment.html", comment: comment, current_user: @current_user %>
     <% end %>
   </ul>
 
