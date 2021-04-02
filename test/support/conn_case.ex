@@ -22,7 +22,6 @@ defmodule ConstableWeb.ConnCase do
       import Phoenix.ConnTest
       alias ConstableWeb.Router.Helpers, as: Routes
 
-      use ConstableWeb, :view
       import ConstableWeb.ConnCaseHelper
 
       # Alias the data repository and import query/model functions

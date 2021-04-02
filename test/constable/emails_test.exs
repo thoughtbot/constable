@@ -1,6 +1,9 @@
 defmodule Constable.EmailsTest do
   use ConstableWeb.ConnCase, async: true
+
   import Constable.Factory
+  import Phoenix.HTML, only: [safe_to_string: 1]
+  import Phoenix.HTML.Link
 
   test "daily_digest" do
     users = insert_pair(:user)
