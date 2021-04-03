@@ -9,8 +9,8 @@ defmodule ConstableWeb.AnnouncementShowLive do
   end
 
   def mount(_, %{"id" => id, "current_user_id" => user_id}, socket) do
+    if connected?(socket), do: PubSub.subscribe_to_announcement(id)
     announcement = Repo.get!(Announcement.with_announcement_list_assocs(), id)
-    if connected?(socket), do: PubSub.subscribe_to_announcement(announcement)
     comment = Comment.create_changeset(%{})
     current_user = Repo.get(User.active(), user_id)
 

@@ -1,6 +1,6 @@
 defmodule Constable.PubSub do
-  def subscribe_to_announcement(announcement) do
-    Phoenix.PubSub.subscribe(__MODULE__, announcement_topic(announcement.id))
+  def subscribe_to_announcement(announcement_id) do
+    Phoenix.PubSub.subscribe(__MODULE__, announcement_topic(announcement_id))
   end
 
   def broadcast_new_comment(comment) do

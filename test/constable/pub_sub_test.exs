@@ -9,7 +9,7 @@ defmodule Constable.PubSubTest do
     test "broadcasts a comment on the announcement topic" do
       announcement = insert(:announcement)
       comment = insert(:comment, announcement: announcement)
-      PubSub.subscribe_to_announcement(announcement)
+      PubSub.subscribe_to_announcement(announcement.id)
 
       :ok = PubSub.broadcast_new_comment(comment)
 
