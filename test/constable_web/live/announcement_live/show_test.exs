@@ -1,16 +1,16 @@
-defmodule ConstableWeb.AnnouncementShowLiveTest do
-  use ConstableWeb.ConnCase, async: false
+defmodule ConstableWeb.AnnouncementLive.ShowTest do
+  use ConstableWeb.ConnCase, async: true
 
   import Phoenix.LiveViewTest
 
-  alias ConstableWeb.AnnouncementShowLive
+  setup do
+    {:ok, browser_authenticate()}
+  end
 
   test "renders the announcement", %{conn: conn} do
     announcement = insert(:announcement)
-    user = insert(:user)
-    session = %{"id" => announcement.id, "current_user_id" => user.id}
 
-    {:ok, view, html} = live_isolated(conn, AnnouncementShowLive, session: session)
+    {:ok, view, html} = live(conn, Routes.live_announcement_path(conn, :show, announcement))
 
     assert html =~ announcement.body
     assert render(view) =~ announcement.body
@@ -18,10 +18,8 @@ defmodule ConstableWeb.AnnouncementShowLiveTest do
 
   test "user can create a new comment", %{conn: conn} do
     announcement = insert(:announcement)
-    user = insert(:user)
-    session = %{"id" => announcement.id, "current_user_id" => user.id}
 
-    {:ok, view, _html} = live_isolated(conn, AnnouncementShowLive, session: session)
+    {:ok, view, _html} = live(conn, Routes.live_announcement_path(conn, :show, announcement))
 
     view
     |> form("#new-comment", comment: %{body: "This is great!"})
@@ -32,10 +30,8 @@ defmodule ConstableWeb.AnnouncementShowLiveTest do
 
   test "renders error if comment cannot be created", %{conn: conn} do
     announcement = insert(:announcement)
-    user = insert(:user)
-    session = %{"id" => announcement.id, "current_user_id" => user.id}
 
-    {:ok, view, _html} = live_isolated(conn, AnnouncementShowLive, session: session)
+    {:ok, view, _html} = live(conn, Routes.live_announcement_path(conn, :show, announcement))
 
     rendered =
       view
@@ -47,10 +43,8 @@ defmodule ConstableWeb.AnnouncementShowLiveTest do
 
   test "commenting automatically subscribes user to announcement", %{conn: conn} do
     announcement = insert(:announcement)
-    user = insert(:user)
-    session = %{"id" => announcement.id, "current_user_id" => user.id}
 
-    {:ok, view, _html} = live_isolated(conn, AnnouncementShowLive, session: session)
+    {:ok, view, _html} = live(conn, Routes.live_announcement_path(conn, :show, announcement))
 
     view
     |> form("#new-comment", comment: %{body: "This is great!"})
@@ -61,10 +55,8 @@ defmodule ConstableWeb.AnnouncementShowLiveTest do
 
   test "user can see new comments in real-time", %{conn: conn} do
     announcement = insert(:announcement)
-    user = insert(:user)
-    session = %{"id" => announcement.id, "current_user_id" => user.id}
 
-    {:ok, view, _html} = live_isolated(conn, AnnouncementShowLive, session: session)
+    {:ok, view, _html} = live(conn, Routes.live_announcement_path(conn, :show, announcement))
 
     comment = insert(:comment, announcement: announcement)
     Constable.PubSub.broadcast_new_comment(comment)

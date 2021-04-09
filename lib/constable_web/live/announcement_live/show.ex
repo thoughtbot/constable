@@ -1,4 +1,4 @@
-defmodule ConstableWeb.AnnouncementShowLive do
+defmodule ConstableWeb.AnnouncementLive.Show do
   use ConstableWeb, :live_view
 
   alias Constable.{Announcement, Comment, PubSub, Repo, Subscription, User}
@@ -8,11 +8,16 @@ defmodule ConstableWeb.AnnouncementShowLive do
     Phoenix.View.render(ConstableWeb.AnnouncementView, "show.html", assigns)
   end
 
-  def mount(_, %{"id" => id, "current_user_id" => user_id}, socket) do
+  def mount(%{"id" => id}, session, socket) when is_binary(id) do
+    {:ok, id} = Constable.Plugs.Deslugifier.deslugify(id)
+    mount(%{"id" => id}, session, socket)
+  end
+
+  def mount(%{"id" => id}, session, socket) do
     if connected?(socket), do: PubSub.subscribe_to_announcement(id)
     announcement = Repo.get!(Announcement.with_announcement_list_assocs(), id)
     comment = Comment.create_changeset(%{})
-    current_user = Repo.get(User.active(), user_id)
+    current_user = Repo.get(User.active(), session["current_user_id"])
 
     socket =
       assign(socket,

@@ -15,7 +15,7 @@ defmodule Constable.Plugs.Deslugifier do
     end
   end
 
-  defp deslugify(slugified_id) do
+  def deslugify(slugified_id) do
     case Integer.parse(slugified_id) do
       {int, _} when int > 0 -> {:ok, int}
       _ -> :error
