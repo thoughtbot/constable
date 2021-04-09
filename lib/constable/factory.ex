@@ -36,8 +36,8 @@ defmodule Constable.Factory do
       daily_digest: true,
       auto_subscribe: false,
       token: sequence(:token, &"omgtokens#{&1}"),
-      profile_image_url: "someurlimage.com",
-      profile_url: "example.com/people/gumbo"
+      profile_image_url: "http://localhost:4000/someurlimage.com",
+      profile_url: "http://localhost:4000/people/gumbo"
     }
   end
 
