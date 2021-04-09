@@ -9,7 +9,7 @@ defmodule ConstableWeb.AnnouncementLive.Show do
   end
 
   def mount(%{"id" => id}, session, socket) when is_binary(id) do
-    {:ok, id} = Constable.Plugs.Deslugifier.deslugify(id)
+    id = Constable.Slug.deslugify!(id)
     mount(%{"id" => id}, session, socket)
   end
 
