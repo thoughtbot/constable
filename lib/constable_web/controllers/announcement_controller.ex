@@ -6,7 +6,6 @@ defmodule ConstableWeb.AnnouncementController do
 
   alias Constable.{Announcement, Interest}
   alias Constable.Services.AnnouncementCreator
-  alias ConstableWeb.AnnouncementShowLive
 
   plug(Constable.Plugs.Deslugifier, slugified_key: "id")
 
@@ -56,14 +55,6 @@ defmodule ConstableWeb.AnnouncementController do
     |> assign(:index_page, index_page)
     |> page_title("Announcements")
     |> render("index.html")
-  end
-
-  def show(conn, %{"id" => id}) do
-    current_user = conn.assigns.current_user
-
-    live_render(conn, AnnouncementShowLive,
-      session: %{"id" => id, "current_user_id" => current_user.id}
-    )
   end
 
   def new(conn, _params) do

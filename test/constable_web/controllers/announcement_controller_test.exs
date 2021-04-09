@@ -78,45 +78,6 @@ defmodule ConstableWeb.AnnouncementControllerTest do
     refute html_response(conn, :ok) =~ "Does not show up"
   end
 
-  test "#show renders markdown as html", %{conn: conn} do
-    announcement = insert(:announcement, body: "# Hello")
-
-    conn = get(conn, Routes.announcement_path(conn, :show, announcement))
-
-    assert html_response(conn, :ok) =~ "<h1>Hello</h1>"
-  end
-
-  test "#show renders comments as html", %{conn: conn} do
-    announcement = insert(:announcement)
-    insert(:comment, body: "# Comment", announcement: announcement)
-
-    conn = get(conn, Routes.announcement_path(conn, :show, announcement))
-
-    assert html_response(conn, :ok) =~ "<h1>Comment</h1>"
-  end
-
-  test "comments on show page have an edit link if current user is the author", %{
-    conn: conn,
-    user: user
-  } do
-    comment = insert(:comment, user: user)
-
-    conn = get(conn, Routes.announcement_path(conn, :show, comment.announcement))
-
-    assert html_response(conn, :ok) =~ "(edit)"
-  end
-
-  test "comments on show page do not have an edit link if another user is the author", %{
-    conn: conn
-  } do
-    another_user = insert(:user)
-    comment = insert(:comment, user: another_user)
-
-    conn = get(conn, Routes.announcement_path(conn, :show, comment.announcement))
-
-    refute html_response(conn, :ok) =~ "(edit)"
-  end
-
   test "#create splits interests by ,", %{conn: conn} do
     post conn, Routes.announcement_path(conn, :create),
       announcement: %{

@@ -16,6 +16,15 @@ defmodule ConstableWeb.AnnouncementLive.ShowTest do
     assert render(view) =~ announcement.body
   end
 
+  test "renders markdown as html", %{conn: conn} do
+    announcement = insert(:announcement, body: "# Hello")
+
+    {:ok, view, html} = live(conn, Routes.announcement_path(conn, :show, announcement))
+
+    assert html =~ "<h1>Hello</h1>"
+    assert render(view) =~ "<h1>Hello</h1>"
+  end
+
   test "user can create a new comment", %{conn: conn} do
     announcement = insert(:announcement)
 
@@ -51,6 +60,32 @@ defmodule ConstableWeb.AnnouncementLive.ShowTest do
     |> render_submit()
 
     assert has_element?(view, "[data-role='subscription-button']", "Subscribed to thread")
+  end
+
+  test "renders comments as html", %{conn: conn} do
+    announcement = insert(:announcement)
+    insert(:comment, body: "# Comment", announcement: announcement)
+
+    {:ok, _view, html} = live(conn, Routes.announcement_path(conn, :show, announcement))
+
+    assert html =~ "<h1>Comment</h1>"
+  end
+
+  test "comments have an edit link if current user is author", %{conn: conn, user: user} do
+    comment = insert(:comment, user: user)
+
+    {:ok, _view, html} = live(conn, Routes.announcement_path(conn, :show, comment.announcement))
+
+    assert html =~ "(edit)"
+  end
+
+  test "comments do not have an edit link if another user is the author", %{conn: conn} do
+    another_user = insert(:user)
+    comment = insert(:comment, user: another_user)
+
+    {:ok, _view, html} = live(conn, Routes.announcement_path(conn, :show, comment.announcement))
+
+    refute html =~ "(edit)"
   end
 
   test "user can see new comments in real-time", %{conn: conn} do
