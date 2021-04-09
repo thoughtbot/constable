@@ -25,7 +25,7 @@ defmodule Constable.Services.CommentCreatorTest do
 
   test "broadcasts the new comment" do
     announcement = insert(:announcement)
-    PubSub.subscribe_to_announcement(announcement)
+    PubSub.subscribe_to_announcement(announcement.id)
 
     CommentCreator.create(%{
       user_id: announcement.user.id,
