@@ -4,7 +4,7 @@ defmodule ConstableWeb.AnnouncementController do
   alias Constable.User
   alias Constable.Services.AnnouncementUpdater
 
-  alias Constable.{Announcement, Comment, Interest, Subscription}
+  alias Constable.{Announcement, Interest}
   alias Constable.Services.AnnouncementCreator
 
   plug(Constable.Plugs.Deslugifier, slugified_key: "id")
@@ -55,26 +55,6 @@ defmodule ConstableWeb.AnnouncementController do
     |> assign(:index_page, index_page)
     |> page_title("Announcements")
     |> render("index.html")
-  end
-
-  def show(conn, %{"id" => id}) do
-    announcement = Repo.get!(Announcement.with_announcement_list_assocs(), id)
-    comment = Comment.create_changeset(%{})
-
-    subscription =
-      Repo.get_by(Subscription,
-        announcement_id: announcement.id,
-        user_id: conn.assigns.current_user.id
-      )
-
-    conn
-    |> render("show.html",
-      announcement: announcement,
-      comment_changeset: comment,
-      subscription: subscription,
-      users: Repo.all(User.active()),
-      page_title: announcement.title
-    )
   end
 
   def new(conn, _params) do

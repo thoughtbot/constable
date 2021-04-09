@@ -2,7 +2,8 @@
   <%= for announcement <- @announcements do %>
     <li class="tbds-block-stack__item announcement-list-item">
       <%= link to: Routes.announcement_path(@conn, :show, announcement),
-      class: "announcement-list-item-heading", data_role: "title" do %>
+        class: "announcement-list-item-heading",
+        data: [role: "title", turbolinks: false] do %>
         <%= announcement.title %>
       <% end %>
 

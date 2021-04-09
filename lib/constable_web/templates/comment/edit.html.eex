@@ -9,8 +9,7 @@
 
 <script>
   (function() {
-    window.constable.commentForm.setupEditForm(
-      <%= raw ConstableWeb.AnnouncementView.user_autocomplete_json(@users) %>
-    );
+    window.constable.commentForm.setupEditForm();
+    window.constable.userAutocomplete.autocompleteUsers('.comment-textarea', <%= raw ConstableWeb.AnnouncementView.user_autocomplete_json(@users) %>);
   })()
 </script>

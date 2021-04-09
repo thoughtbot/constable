@@ -6,7 +6,9 @@ defmodule ConstableWeb.ConnCaseHelper do
   def browser_authenticate(user \\ insert(:user)) do
     conn =
       build_conn()
+      |> init_test_session(%{})
       |> assign(:current_user, user)
+      |> put_session(:current_user_id, user.id)
 
     %{conn: conn, user: user}
   end
