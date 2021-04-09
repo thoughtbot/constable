@@ -38,13 +38,15 @@ defmodule ConstableWeb.Router do
     get "/", HomeController, :index
 
     resources "/announcements", AnnouncementController,
-      only: [:index, :show, :new, :create, :edit, :delete, :update] do
+      only: [:index, :new, :create, :edit, :delete, :update] do
       resources "/comments", CommentController, only: [:create, :edit, :update]
 
       resources "/subscriptions", SubscriptionController,
         singleton: true,
         only: [:create, :delete]
     end
+
+    live "/announcements/:id", AnnouncementLive.Show, :show, as: :announcement
 
     resources "/settings", SettingsController, singleton: true, only: [:show, :update]
 

@@ -10,7 +10,7 @@ defmodule ConstableWeb.AnnouncementLive.ShowTest do
   test "renders the announcement", %{conn: conn} do
     announcement = insert(:announcement)
 
-    {:ok, view, html} = live(conn, Routes.live_announcement_path(conn, :show, announcement))
+    {:ok, view, html} = live(conn, Routes.announcement_path(conn, :show, announcement))
 
     assert html =~ announcement.body
     assert render(view) =~ announcement.body
@@ -19,7 +19,7 @@ defmodule ConstableWeb.AnnouncementLive.ShowTest do
   test "user can create a new comment", %{conn: conn} do
     announcement = insert(:announcement)
 
-    {:ok, view, _html} = live(conn, Routes.live_announcement_path(conn, :show, announcement))
+    {:ok, view, _html} = live(conn, Routes.announcement_path(conn, :show, announcement))
 
     view
     |> form("#new-comment", comment: %{body: "This is great!"})
@@ -31,7 +31,7 @@ defmodule ConstableWeb.AnnouncementLive.ShowTest do
   test "renders error if comment cannot be created", %{conn: conn} do
     announcement = insert(:announcement)
 
-    {:ok, view, _html} = live(conn, Routes.live_announcement_path(conn, :show, announcement))
+    {:ok, view, _html} = live(conn, Routes.announcement_path(conn, :show, announcement))
 
     rendered =
       view
@@ -44,7 +44,7 @@ defmodule ConstableWeb.AnnouncementLive.ShowTest do
   test "commenting automatically subscribes user to announcement", %{conn: conn} do
     announcement = insert(:announcement)
 
-    {:ok, view, _html} = live(conn, Routes.live_announcement_path(conn, :show, announcement))
+    {:ok, view, _html} = live(conn, Routes.announcement_path(conn, :show, announcement))
 
     view
     |> form("#new-comment", comment: %{body: "This is great!"})
@@ -56,7 +56,7 @@ defmodule ConstableWeb.AnnouncementLive.ShowTest do
   test "user can see new comments in real-time", %{conn: conn} do
     announcement = insert(:announcement)
 
-    {:ok, view, _html} = live(conn, Routes.live_announcement_path(conn, :show, announcement))
+    {:ok, view, _html} = live(conn, Routes.announcement_path(conn, :show, announcement))
 
     comment = insert(:comment, announcement: announcement)
     Constable.PubSub.broadcast_new_comment(comment)
