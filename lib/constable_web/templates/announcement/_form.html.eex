@@ -11,46 +11,48 @@
       <h2><%= gettext("Preview") %></h2>
     </div>
   </nav>
-  <div class="col-markdown announcement-create active">
-    <div class="tbds-block-stack tbds-block-stack--gap-4 announcement-form">
-      <div class="tbds-block-stack__item">
-        <%= label f, :title, "Announcement title", class: "tbds-form__label" %>
-        <%= text_input f, :title, class: "tbds-form__text-input" %>
-      </div>
+  <div>
+    <div class="col-markdown announcement-create active">
+      <div class="tbds-block-stack tbds-block-stack--gap-4 announcement-form">
+        <div class="tbds-block-stack__item">
+          <%= label f, :title, "Announcement title", class: "tbds-form__label" %>
+          <%= text_input f, :title, class: "tbds-form__text-input" %>
+        </div>
 
-      <div class="tbds-block-stack__item">
-        <%= label(
-          f,
-          :interests,
-          "Select interests",
-          class: "tbds-form__label recipients-preview"
-        ) %>
-        <%= text_input(
-          :announcement,
-          :interests,
-          value: comma_separated_interest_names(@changeset.data.interests),
-          "aria-describedby": "interests_error"
-        ) %>
-        <%= error_tag f, :interests %>
-      </div>
+        <div class="tbds-block-stack__item">
+          <%= label(
+            f,
+            :interests,
+            "Select interests",
+            class: "tbds-form__label recipients-preview"
+          ) %>
+          <%= text_input(
+            :announcement,
+            :interests,
+            value: comma_separated_interest_names(@changeset.data.interests),
+            "aria-describedby": "interests_error"
+          ) %>
+          <%= error_tag f, :interests %>
+        </div>
 
-      <div class="tbds-block-stack__item">
-        <%= label f, :body, "Announcement body", class: "tbds-form__label" %>
-        <%= textarea(
-          f,
-          :body,
-          class: "tbds-form__textarea uploadable-input",
-          placeholder: gettext("Markdown is supported. You can @mention specific people to notify them.")
-        )%>
-        <span class="tbds-form__help-text"><small>Attach images by dragging and dropping them.</small></span>
+        <div class="tbds-block-stack__item">
+          <%= label f, :body, "Announcement body", class: "tbds-form__label" %>
+          <%= textarea(
+            f,
+            :body,
+            class: "tbds-form__textarea uploadable-input",
+            placeholder: gettext("Markdown is supported. You can @mention specific people to notify them.")
+          )%>
+          <span class="tbds-form__help-text"><small>Attach images by dragging and dropping them.</small></span>
+        </div>
       </div>
     </div>
-  </div>
 
-  <div class="announcement-preview">
-    <h1 data-role="title-preview">Preview</h1>
-    <div class="markdown announcement-body" data-role="markdown-preview">
-      Preview
+    <div class="announcement-preview">
+      <h1 data-role="title-preview">Preview</h1>
+      <div class="markdown announcement-body" data-role="markdown-preview">
+        Preview
+      </div>
     </div>
   </div>
 
@@ -70,7 +72,6 @@
     window.INTERESTS_NAMES = <%= raw json_interests(@interests) %>;
     var AnnouncementForm = window.constable.announcementForm.default;
     new AnnouncementForm();
-    window.constable.announcementFormMobile.setupForm();
     window.constable.textareaImageUploader.setupImageUploader('#announcement_body');
     window.constable.userAutocomplete.autocompleteUsers(
       '#announcement_body',

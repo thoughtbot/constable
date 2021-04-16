@@ -29,7 +29,6 @@ window.addEventListener('phx:page-loading-stop', info => NProgress.done());
 import * as commentForm from './components/comment-form';
 import * as syntaxHighlighting from './lib/syntax-highlighting';
 import * as announcementForm from './components/announcement-form';
-import * as announcementFormMobile from './components/announcement-form-mobile';
 import * as textareaImageUploader from './lib/textarea-image-uploader';
 import * as userAutocomplete from './components/user-autocomplete';
 import * as imageUploader from './lib/textarea-image-uploader';
@@ -65,7 +64,6 @@ global.constable = global.constable || {
   commentForm,
   syntaxHighlighting,
   announcementForm,
-  announcementFormMobile,
   textareaImageUploader,
   userAutocomplete,
 };

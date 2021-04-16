@@ -1,5 +1,6 @@
 .flex-container {
   display: flex;
+  flex-direction: column;
   justify-content: flex-start;
 
   @media (min-width: $breakpoint-1) {
@@ -12,12 +13,7 @@
   display: none;
   flex: 1;
   min-height: calc(100vh - 91px);
-  min-width: calc(100vw / 2);
   padding: $large-spacing $base-spacing;
-
-  @media (min-width: $breakpoint-1) {
-    display: block;
-  }
 
   &.active {
     display: block;
@@ -35,7 +31,6 @@
 .header-tags {
   display: flex;
   justify-content: center;
-  position: absolute;
   width: 100%;
   z-index: $mezzanine-z-index;
 }
@@ -64,11 +59,6 @@
   &.active {
     background-color: $dark-blue;
     color: #fff;
-
-    @media (min-width: $breakpoint-2) {
-      background-color: $light-gray;
-      color: $base-font-color;
-    }
   }
 }
 

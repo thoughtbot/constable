@@ -1,7 +1,11 @@
-<%= render "_form.html",
-  path: Routes.announcement_path(@conn, :update, @changeset.data.id),
-  conn: @conn,
-  changeset: @changeset,
-  interests: @interests,
-  users: @users
-%>
+<div class="container">
+  <h1 class="page-header">Edit Announcement</h1>
+
+  <%= render "_form.html",
+    path: Routes.announcement_path(@conn, :update, @changeset.data.id),
+    conn: @conn,
+    changeset: @changeset,
+    interests: @interests,
+    users: @users
+  %>
+</div>
