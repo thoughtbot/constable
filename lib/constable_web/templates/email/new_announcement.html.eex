@@ -4,11 +4,11 @@
       <td colspan="2" height="35"></td>
     </tr>
     <tr style="font-size: 14px; color: <%= light_gray() %>;">
-      <td align="left" colspan="2">
+      <td align="left" style="width: 50%;">
         Announced to <%= raw interest_links(@announcement) %>
         <%= time_ago_in_words @announcement.inserted_at %>:
       </td>
-      <td align="right">
+      <td align="right" style="width: 50%;" valign="top">
         <%= link to: announcement_url_for_footer(@announcement, nil),
           style: "color: #{light_gray()}; font-size: 14px;" do %>
           <%= gettext("View on Constable") %>
