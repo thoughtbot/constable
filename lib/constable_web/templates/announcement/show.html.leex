@@ -92,7 +92,8 @@
             id: "comment_body",
             required: true,
             placeholder: "Comment on this announcement",
-            phx_hook: "ImageUploader"
+            phx_hook: "ImageUploader",
+            phx_keydown: "keydown"
           ) %>
           <div class="comment-body comment-preview"></div>
           <%= submit gettext("Post Comment"), id: "submit-comment", class: "tbds-button" %>
