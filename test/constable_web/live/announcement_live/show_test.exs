@@ -37,6 +37,38 @@ defmodule ConstableWeb.AnnouncementLive.ShowTest do
     assert has_element?(view, ".comment-body", "This is great!")
   end
 
+  test "user can create a comment by pressing meta + enter", %{conn: conn} do
+    announcement = insert(:announcement)
+    path = Routes.announcement_path(conn, :show, announcement)
+    {:ok, view, _html} = live(conn, path)
+
+    view
+    |> element("#comment_body")
+    |> render_keydown(%{
+      "key" => "Enter",
+      "metaKey" => true,
+      "value" => "Hey a comment"
+    })
+
+    assert has_element?(view, ".comment-body", "Hey a comment")
+  end
+
+  test "user can create a comment by pressing ctrl + enter", %{conn: conn} do
+    announcement = insert(:announcement)
+    path = Routes.announcement_path(conn, :show, announcement)
+    {:ok, view, _html} = live(conn, path)
+
+    view
+    |> element("#comment_body")
+    |> render_keydown(%{
+      "key" => "Enter",
+      "ctrlKey" => true,
+      "value" => "Hey a comment"
+    })
+
+    assert has_element?(view, ".comment-body", "Hey a comment")
+  end
+
   test "renders error if comment cannot be created", %{conn: conn} do
     announcement = insert(:announcement)
 

@@ -34,12 +34,31 @@ defmodule ConstableWeb.AnnouncementLive.Show do
   end
 
   def handle_event("create-comment", %{"comment" => params}, socket) do
+    params |> Map.get("body") |> create_comment(socket)
+  end
+
+  def handle_event("keydown", event, socket) do
+    if event["key"] == "Enter" && (event["metaKey"] || event["ctrlKey"]) do
+      event |> Map.get("value") |> create_comment(socket)
+    else
+      {:noreply, socket}
+    end
+  end
+
+  def handle_info({:new_comment, comment}, socket) do
+    socket
+    |> update(:comments, fn comments -> comments ++ [comment] end)
+    |> noreply()
+  end
+
+  defp create_comment(body, socket) do
     %{announcement: announcement, current_user: current_user} = socket.assigns
 
-    comment_params =
-      params
-      |> Map.put("user_id", current_user.id)
-      |> Map.put("announcement_id", announcement.id)
+    comment_params = %{
+      "body" => body,
+      "user_id" => current_user.id,
+      "announcement_id" => announcement.id
+    }
 
     case CommentCreator.create(comment_params) do
       {:ok, _comment} ->
@@ -54,12 +73,6 @@ defmodule ConstableWeb.AnnouncementLive.Show do
         |> assign(:comment_changeset, changeset)
         |> noreply()
     end
-  end
-
-  def handle_info({:new_comment, comment}, socket) do
-    socket
-    |> update(:comments, fn comments -> comments ++ [comment] end)
-    |> noreply()
   end
 
   defp get_subscription(announcement, user) do
