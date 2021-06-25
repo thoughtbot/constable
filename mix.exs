@@ -59,7 +59,7 @@ defmodule Constable.MixProject do
       {:httpoison, "~> 1.3", override: true},
       {:jason, "~> 1.1"},
       {:mock, "~> 0.3.0", only: :test},
-      {:neuron, "~> 4.1.0"},
+      {:neuron, "~> 5.0.0"},
       {:oauth2, "~> 2.0"},
       {:pact, "~> 0.2.0"},
       {:phoenix, "~> 1.5.0"},
