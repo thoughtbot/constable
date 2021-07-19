@@ -43,7 +43,7 @@ defmodule Constable.MixProject do
   # Type `mix help deps` for examples and options
   defp deps do
     [
-      {:bamboo, "~> 2.0.0"},
+      {:bamboo, "~> 2.2.0"},
       {:bamboo_phoenix, "~> 1.0.0"},
       {:cors_plug, "~> 2.0"},
       {:dialyxir, "~> 1.0", only: [:dev], runtime: false},
