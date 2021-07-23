@@ -10,9 +10,7 @@ defmodule Constable.Services.SlackHook do
       if interest.slack_channel do
         payload = %{
           text:
-            "#{announcement.user.name} posted <#{
-              announcement_url(ConstableWeb.Endpoint, :show, announcement)
-            }|#{announcement.title}>",
+            "#{announcement.user.name} posted <#{announcement_url(ConstableWeb.Endpoint, :show, announcement)}|#{announcement.title}>",
           channel: interest.slack_channel
         }
 
