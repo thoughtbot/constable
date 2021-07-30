@@ -38,9 +38,7 @@ defmodule ConstableWeb.EmailReplyTest do
     """
 
     whole_email_with_quoted_text = """
-    #{user_text}\n> On Oct 16, 2015, at 5:05 PM, Paul Smith (Constable) <constable-40@#{
-      Constable.Env.get("OUTBOUND_EMAIL_DOMAIN")
-    }> wrote:\n> \n> \t\n> my text\t\n\n\n
+    #{user_text}\n> On Oct 16, 2015, at 5:05 PM, Paul Smith (Constable) <constable-40@#{Constable.Env.get("OUTBOUND_EMAIL_DOMAIN")}> wrote:\n> \n> \t\n> my text\t\n\n\n
     """
 
     comment_author = insert(:user)
